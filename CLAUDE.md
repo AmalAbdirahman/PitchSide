@@ -9,9 +9,10 @@ All data is synthetic. Clubs and players are fictional. No real names, logos, cr
 ## Stack (do not change without asking)
 - Python 3.12 standard library plus `pytest` and `jsonschema`. No other dependencies without asking.
 - Front end: plain HTML, CSS and JavaScript in `docs/`. No npm, no framework, no build step, no CDN links, no network calls.
-- No servers, no database, no cloud services, no API keys, no LLM calls anywhere.
+- No servers, no database, no cloud services, no API keys, no LLM calls anywhere. One exception: `scripts/foundry_smoke.py`, a manual connectivity check (see below).
 - Hosting: GitHub Pages serving the `docs/` folder. Optional: a GitHub Actions workflow that runs `pytest -q`.
 - Do not mention or claim any Microsoft or Azure technology in code or docs, except the optional build-time Translator add-on in SPEC section 18, and only when I explicitly ask for it. Even then: it runs only inside the build script on my machine, keys stay in a local `.env`, and nothing in `docs/` ever calls the network.
+- Foundry smoke test: `scripts/foundry_smoke.py` checks that my Foundry project and model deployment answer. I run it by hand on my machine; it reads its endpoint and model from `.env`. Nothing in `app/`, `core/`, `sim/`, `docs/` or `tests/` imports or calls it, it is not part of the build, eval or CI, and its packages (`azure-ai-projects`, `azure-identity`, `python-dotenv`) are not project dependencies.
 
 ## Layout
 ```
@@ -20,7 +21,7 @@ core/     xg.py shares.py winprob.py wilson.py moments.py
 app/      drafter.py verifier.py router.py renditions.py templates_es.py build_bundle.py
 docs/     index.html app.js styles.css prototype.html data/
 tests/    seeded_claims.json test_*.py
-scripts/  eval.py
+scripts/  eval.py foundry_smoke.py
 config.yaml  README.md  data_card.md
 ```
 
@@ -29,6 +30,7 @@ config.yaml  README.md  data_card.md
 - Build bundle: `python -m app.build_bundle`
 - Test: `pytest -q`
 - Eval: `python scripts/eval.py`
+- Foundry smoke test (manual, needs `.env`): `python scripts/foundry_smoke.py`
 - Serve locally: `python -m http.server 8000 --directory docs`
 
 ## Rules
