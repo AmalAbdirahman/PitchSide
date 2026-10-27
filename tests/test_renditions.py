@@ -1,6 +1,7 @@
 """Renditions and the number-preservation check (SPEC section 11)."""
 from __future__ import annotations
 
+import re
 from typing import Any
 
 import pytest
@@ -47,9 +48,10 @@ def test_spanish_decimal_comma(facts: list[dict[str, Any]]) -> None:
 def test_tampered_audio_fails(facts: list[dict[str, Any]]) -> None:
     f = _fact(facts, "goals")
     audio = next(r["text"] for r in f["renditions"] if r["kind"] == "audio_script")
-    assert "one nil" in audio and "sixty-third" in audio
+    assert "sixty-third" in audio and re.search(r"\bone\b", audio)  # minute 63, score 1-0 (wording varies)
+    assert numbers_preserved(audio, "audio_script", "en", f)
     assert not numbers_preserved(audio.replace("sixty-third", "sixty-fourth"), "audio_script", "en", f)
-    assert not numbers_preserved(audio.replace("one nil", "two nil"), "audio_script", "en", f)
+    assert not numbers_preserved(re.sub(r"\bone\b", "two", audio, count=1), "audio_script", "en", f)
 
 
 @pytest.mark.parametrize("n", list(range(0, 126)))

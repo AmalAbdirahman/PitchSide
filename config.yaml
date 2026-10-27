@@ -90,3 +90,10 @@ data_card:
   xg_per_shot: [0.07, 0.16]
   pass_completion: [0.70, 0.90]
   hero_events: [550, 650]
+
+# Build-time Scout agent on Microsoft Foundry (SPEC section 19). Only used with --foundry.
+agents:
+  scout_name: pitchside-scout
+  max_calls: 40
+  max_retries: 1
+  timeout_s: 20

@@ -116,6 +116,28 @@
     "renditions": {
       "type": "array",
       "items": { "$ref": "#/$defs/rendition" }
+    },
+    "audit": {
+      "type": "object",
+      "description": "Who drafted and checked this fact, in order (SPEC section 19).",
+      "required": ["steps"],
+      "properties": {
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["agent", "attempt", "outcome"],
+            "properties": {
+              "agent": { "enum": ["Scout", "Drafter", "Verifier"] },
+              "path": { "enum": ["foundry_agent", "foundry_responses", "rules"] },
+              "model": { "type": "string" },
+              "ms": { "type": "integer", "minimum": 0 },
+              "attempt": { "type": "integer", "minimum": 1 },
+              "outcome": { "type": "string" }
+            }
+          }
+        }
+      }
     }
   },
   "$defs": {

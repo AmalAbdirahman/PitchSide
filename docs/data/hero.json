@@ -9058,8 +9058,8 @@
     "baseline": 33.33
    },
    "text": {
-    "draft_en": "Since the 1st minute, 71% of Northbridge attacks have gone down the right.",
-    "canonical_en": "Since the 1st minute, 71% of Northbridge attacks have gone down the right.",
+    "draft_en": "71% of Northbridge attacks have gone down the right since the 1st minute.",
+    "canonical_en": "71% of Northbridge attacks have gone down the right since the 1st minute.",
     "numbers": [
      {
       "key": "value",
@@ -9133,6 +9133,24 @@
     "ci_high": 0.9178,
     "hedge": "clear"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 12534
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -9143,7 +9161,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Since the 1st minute, 71% of Northbridge attacks have gone down the right.",
+     "text": "71% of Northbridge attacks have gone down the right since the 1st minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 603.0,
@@ -9161,7 +9179,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Since the 1st minute, 71% of Northbridge attacks have gone down the right.",
+     "text": "71% of Northbridge attacks have gone down the right since the 1st minute.",
      "numbers_preserved": true
     },
     {
@@ -9173,7 +9191,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Since the first minute, seventy-one per cent of Northbridge attacks have gone down the right.",
+     "text": "seventy-one per cent of Northbridge attacks have gone down the right since the first minute.",
      "numbers_preserved": true
     }
    ]
@@ -9198,8 +9216,8 @@
     "value": 3
    },
    "text": {
-    "draft_en": "Northbridge have lost the ball 3 times in their own third since the 1st minute.",
-    "canonical_en": "Northbridge have lost the ball 3 times in their own third since the 1st minute.",
+    "draft_en": "Northbridge have had 3 turnovers in their own third since the 1st minute.",
+    "canonical_en": "Northbridge have had 3 turnovers in their own third since the 1st minute.",
     "numbers": [
      {
       "key": "value",
@@ -9268,6 +9286,24 @@
     "ci_method": "none",
     "hedge": "none"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 13412
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -9278,7 +9314,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Northbridge have lost the ball 3 times in their own third since the 1st minute.",
+     "text": "Northbridge have had 3 turnovers in their own third since the 1st minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 603.0,
@@ -9296,7 +9332,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Northbridge have lost the ball 3 times in their own third since the 1st minute.",
+     "text": "Northbridge have had 3 turnovers in their own third since the 1st minute.",
      "numbers_preserved": true
     },
     {
@@ -9308,7 +9344,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Northbridge have lost the ball three times in their own third since the first minute.",
+     "text": "Northbridge have had three turnovers in their own third since the first minute.",
      "numbers_preserved": true
     }
    ]
@@ -9411,6 +9447,22 @@
     "ci_method": "none",
     "hedge": "none"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Drafter",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "rules"
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "corrected",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T2",
     "reasons": [
@@ -9475,8 +9527,8 @@
     "baseline": 33.33
    },
    "text": {
-    "draft_en": "The numbers suggest Harlow are favouring the centre: 50% of their attacks since the 6th minute.",
-    "canonical_en": "The numbers suggest Harlow are favouring the centre: 50% of their attacks since the 6th minute.",
+    "draft_en": "The numbers suggest 50% of Harlow attacks have gone down the centre since the 6th minute.",
+    "canonical_en": "The numbers suggest 50% of Harlow attacks have gone down the centre since the 6th minute.",
     "numbers": [
      {
       "key": "value",
@@ -9554,6 +9606,24 @@
     "ci_high": 0.7097,
     "hedge": "suggests"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 9287
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -9564,7 +9634,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "The numbers suggest Harlow are favouring the centre: 50% of their attacks since the 6th minute.",
+     "text": "The numbers suggest 50% of Harlow attacks have gone down the centre since the 6th minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 1203.0,
@@ -9582,7 +9652,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "The numbers suggest Harlow are favouring the centre: 50% of their attacks since the 6th minute.",
+     "text": "The numbers suggest 50% of Harlow attacks have gone down the centre since the 6th minute.",
      "numbers_preserved": true
     },
     {
@@ -9594,7 +9664,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "The numbers suggest Harlow are favouring the centre: fifty per cent of their attacks since the sixth minute.",
+     "text": "The numbers suggest fifty per cent of Harlow attacks have gone down the centre since the sixth minute.",
      "numbers_preserved": true
     }
    ]
@@ -9620,8 +9690,8 @@
     "baseline": 33.33
    },
    "text": {
-    "draft_en": "Since the 11th minute, 69% of Northbridge attacks have gone down the centre.",
-    "canonical_en": "Since the 11th minute, 69% of Northbridge attacks have gone down the centre.",
+    "draft_en": "69% of Northbridge attacks have gone down the centre since the 11th minute.",
+    "canonical_en": "69% of Northbridge attacks have gone down the centre since the 11th minute.",
     "numbers": [
      {
       "key": "value",
@@ -9701,6 +9771,24 @@
     "ci_high": 0.8584,
     "hedge": "clear"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 9203
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -9711,7 +9799,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Since the 11th minute, 69% of Northbridge attacks have gone down the centre.",
+     "text": "69% of Northbridge attacks have gone down the centre since the 11th minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 1503.0,
@@ -9729,7 +9817,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Since the 11th minute, 69% of Northbridge attacks have gone down the centre.",
+     "text": "69% of Northbridge attacks have gone down the centre since the 11th minute.",
      "numbers_preserved": true
     },
     {
@@ -9741,7 +9829,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Since the eleventh minute, sixty-nine per cent of Northbridge attacks have gone down the centre.",
+     "text": "sixty-nine per cent of Northbridge attacks have gone down the centre since the eleventh minute.",
      "numbers_preserved": true
     }
    ]
@@ -9767,8 +9855,8 @@
     "baseline": 33.33
    },
    "text": {
-    "draft_en": "The numbers suggest Harlow are favouring the left: 56% of their attacks since the 11th minute.",
-    "canonical_en": "The numbers suggest Harlow are favouring the left: 56% of their attacks since the 11th minute.",
+    "draft_en": "The numbers suggest 56% of Harlow attacks have gone down the left since the 11th.",
+    "canonical_en": "The numbers suggest 56% of Harlow attacks have gone down the left since the 11th.",
     "numbers": [
      {
       "key": "value",
@@ -9842,6 +9930,24 @@
     "ci_high": 0.8112,
     "hedge": "suggests"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 7773
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -9852,7 +9958,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "The numbers suggest Harlow are favouring the left: 56% of their attacks since the 11th minute.",
+     "text": "The numbers suggest 56% of Harlow attacks have gone down the left since the 11th.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 1503.0,
@@ -9870,7 +9976,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "The numbers suggest Harlow are favouring the left: 56% of their attacks since the 11th minute.",
+     "text": "The numbers suggest 56% of Harlow attacks have gone down the left since the 11th.",
      "numbers_preserved": true
     },
     {
@@ -9882,7 +9988,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "The numbers suggest Harlow are favouring the left: fifty-six per cent of their attacks since the eleventh minute.",
+     "text": "The numbers suggest fifty-six per cent of Harlow attacks have gone down the left since the eleventh.",
      "numbers_preserved": true
     }
    ]
@@ -9907,16 +10013,18 @@
     "value": 3
    },
    "text": {
-    "draft_en": "Northbridge have lost the ball 3 times in their own third since the 26th minute.",
-    "canonical_en": "Northbridge have lost the ball 3 times in their own third since the 26th minute.",
+    "draft_en": "Northbridge have had 3 turnovers in their own third since the 26th minute.",
+    "canonical_en": "Northbridge have had 3 turnovers in their own third since the 26th minute.",
     "numbers": [
      {
       "key": "value",
-      "value": 3
+      "value": 3,
+      "unit": ""
      },
      {
       "key": "since_minute",
-      "value": 26
+      "value": 26,
+      "unit": ""
      }
     ]
    },
@@ -9977,6 +10085,24 @@
     "ci_method": "none",
     "hedge": "none"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 6658
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -9987,7 +10113,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Northbridge have lost the ball 3 times in their own third since the 26th minute.",
+     "text": "Northbridge have had 3 turnovers in their own third since the 26th minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 2103.0,
@@ -10005,7 +10131,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Northbridge have lost the ball 3 times in their own third since the 26th minute.",
+     "text": "Northbridge have had 3 turnovers in their own third since the 26th minute.",
      "numbers_preserved": true
     },
     {
@@ -10017,7 +10143,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Northbridge have lost the ball three times in their own third since the twenty-sixth minute.",
+     "text": "Northbridge have had three turnovers in their own third since the twenty-sixth minute.",
      "numbers_preserved": true
     }
    ]
@@ -10134,6 +10260,24 @@
     "ci_high": 0.853,
     "hedge": "clear"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 9962
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -10199,12 +10343,13 @@
     "value": 1
    },
    "text": {
-    "draft_en": "Yellow card for I. Marchetti-Holt of Harlow in the 45th minute.",
-    "canonical_en": "Yellow card for I. Marchetti-Holt of Harlow in the 45th minute.",
+    "draft_en": "45th minute: I. Marchetti-Holt (Harlow) received a yellow card.",
+    "canonical_en": "45th minute: I. Marchetti-Holt (Harlow) received a yellow card.",
     "numbers": [
      {
       "key": "minute",
-      "value": 45
+      "value": 45,
+      "unit": "minute"
      }
     ]
    },
@@ -10265,6 +10410,24 @@
     "ci_method": "none",
     "hedge": "none"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 10205
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T0",
     "reasons": [
@@ -10275,7 +10438,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Yellow card for I. Marchetti-Holt of Harlow in the 45th minute.",
+     "text": "45th minute: I. Marchetti-Holt (Harlow) received a yellow card.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 2692.0,
@@ -10293,7 +10456,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Yellow card for I. Marchetti-Holt of Harlow in the 45th minute.",
+     "text": "45th minute: I. Marchetti-Holt (Harlow) received a yellow card.",
      "numbers_preserved": true
     },
     {
@@ -10305,7 +10468,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Yellow card for I. Marchetti-Holt of Harlow in the forty-fifth minute.",
+     "text": "forty-fifth minute: I. Marchetti-Holt (Harlow) received a yellow card.",
      "numbers_preserved": true
     }
    ]
@@ -10446,6 +10609,24 @@
     "ci_low": 0.5594,
     "ci_high": 0.7662,
     "hedge": "clear"
+   },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 12312
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
    },
    "risk": {
     "tier": "T1",
@@ -10647,6 +10828,24 @@
     "ci_high": 0.842,
     "hedge": "clear"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 8160
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -10717,7 +10916,8 @@
     "numbers": [
      {
       "key": "value",
-      "value": 3
+      "value": 3,
+      "unit": "shots"
      }
     ]
    },
@@ -10780,6 +10980,24 @@
     "ci_method": "none",
     "hedge": "none"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 11069
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -10839,14 +11057,17 @@
     "metric": "top_shot_speed",
     "window": {
      "start_t": 0.0,
-     "end_t": 2699.9
+     "end_t": 2699.9,
+     "half": "first",
+     "n": 8,
+     "k": 1
     },
     "comparator": "eq",
     "value": 109
    },
    "text": {
-    "draft_en": "Fastest shot of the first half: 109 km/h from Y. Castell.",
-    "canonical_en": "Fastest shot of the first half: 109 km/h from Y. Castell.",
+    "draft_en": "Y. Castell's shot reached 109 km/h, the fastest shot of the first half.",
+    "canonical_en": "Y. Castell's shot reached 109 km/h, the fastest shot of the first half.",
     "numbers": [
      {
       "key": "value",
@@ -10864,7 +11085,10 @@
     ],
     "window": {
      "start_t": 0.0,
-     "end_t": 2699.9
+     "end_t": 2699.9,
+     "half": "first",
+     "n": 8,
+     "k": 1
     }
    },
    "verification": {
@@ -10912,6 +11136,24 @@
     "ci_method": "none",
     "hedge": "none"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 10575
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -10922,7 +11164,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Fastest shot of the first half: 109 km/h from Y. Castell.",
+     "text": "Y. Castell's shot reached 109 km/h, the fastest shot of the first half.",
      "layout": "ticker",
      "duration_s": 8,
      "start_t": 2702.9,
@@ -10940,7 +11182,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Fastest shot of the first half: 109 km/h from Y. Castell.",
+     "text": "Y. Castell's shot reached 109 km/h, the fastest shot of the first half.",
      "numbers_preserved": true
     },
     {
@@ -10952,7 +11194,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Fastest shot of the first half: one hundred and nine kilometres per hour from Y. Castell.",
+     "text": "Y. Castell's shot reached one hundred and nine kilometres per hour, the fastest shot of the first half.",
      "numbers_preserved": true
     }
    ]
@@ -10977,8 +11219,8 @@
     "value": 0.32
    },
    "text": {
-    "draft_en": "Northbridge generated 0.32 xG in the first half.",
-    "canonical_en": "Northbridge generated 0.32 xG in the first half.",
+    "draft_en": "Northbridge have 0.32 xG in the first half.",
+    "canonical_en": "Northbridge have 0.32 xG in the first half.",
     "numbers": [
      {
       "key": "value",
@@ -11043,6 +11285,24 @@
     "ci_method": "none",
     "hedge": "none"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 6788
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -11053,7 +11313,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Northbridge generated 0.32 xG in the first half.",
+     "text": "Northbridge have 0.32 xG in the first half.",
      "layout": "ticker",
      "duration_s": 8,
      "start_t": 2702.9,
@@ -11071,7 +11331,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Northbridge generated 0.32 xG in the first half.",
+     "text": "Northbridge have 0.32 xG in the first half.",
      "numbers_preserved": true
     },
     {
@@ -11083,7 +11343,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Northbridge generated nought point three two expected goals in the first half.",
+     "text": "Northbridge have nought point three two expected goals in the first half.",
      "numbers_preserved": true
     }
    ]
@@ -11108,8 +11368,8 @@
     "value": 1.0
    },
    "text": {
-    "draft_en": "Harlow generated 1.00 xG in the first half.",
-    "canonical_en": "Harlow generated 1.00 xG in the first half.",
+    "draft_en": "Harlow have 1.00 xG in the first half.",
+    "canonical_en": "Harlow have 1.00 xG in the first half.",
     "numbers": [
      {
       "key": "value",
@@ -11178,6 +11438,24 @@
     "ci_method": "none",
     "hedge": "none"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 13222
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -11188,7 +11466,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Harlow generated 1.00 xG in the first half.",
+     "text": "Harlow have 1.00 xG in the first half.",
      "layout": "ticker",
      "duration_s": 8,
      "start_t": 2702.9,
@@ -11206,7 +11484,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Harlow generated 1.00 xG in the first half.",
+     "text": "Harlow have 1.00 xG in the first half.",
      "numbers_preserved": true
     },
     {
@@ -11218,7 +11496,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Harlow generated one point nought nought expected goals in the first half.",
+     "text": "Harlow have one point nought nought expected goals in the first half.",
      "numbers_preserved": true
     }
    ]
@@ -11244,8 +11522,8 @@
     "baseline": 33.33
    },
    "text": {
-    "draft_en": "The numbers suggest Northbridge are favouring the right: 50% of their attacks since the 41st minute.",
-    "canonical_en": "The numbers suggest Northbridge are favouring the right: 50% of their attacks since the 41st minute.",
+    "draft_en": "The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st.",
+    "canonical_en": "The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st.",
     "numbers": [
      {
       "key": "value",
@@ -11319,6 +11597,24 @@
     "ci_high": 0.7634,
     "hedge": "suggests"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 8947
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -11329,7 +11625,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "The numbers suggest Northbridge are favouring the right: 50% of their attacks since the 41st minute.",
+     "text": "The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 3303.0,
@@ -11347,7 +11643,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "The numbers suggest Northbridge are favouring the right: 50% of their attacks since the 41st minute.",
+     "text": "The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st.",
      "numbers_preserved": true
     },
     {
@@ -11359,7 +11655,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "The numbers suggest Northbridge are favouring the right: fifty per cent of their attacks since the forty-first minute.",
+     "text": "The numbers suggest fifty per cent of Northbridge attacks have gone down the right since the forty-first.",
      "numbers_preserved": true
     }
    ]
@@ -11385,8 +11681,8 @@
     "baseline": 33.33
    },
    "text": {
-    "draft_en": "The numbers suggest Harlow are favouring the centre: 57% of their attacks since the 41st minute.",
-    "canonical_en": "The numbers suggest Harlow are favouring the centre: 57% of their attacks since the 41st minute.",
+    "draft_en": "The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute.",
+    "canonical_en": "The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute.",
     "numbers": [
      {
       "key": "value",
@@ -11463,6 +11759,24 @@
     "ci_high": 0.7862,
     "hedge": "suggests"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 11569
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -11473,7 +11787,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "The numbers suggest Harlow are favouring the centre: 57% of their attacks since the 41st minute.",
+     "text": "The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 3303.0,
@@ -11491,7 +11805,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "The numbers suggest Harlow are favouring the centre: 57% of their attacks since the 41st minute.",
+     "text": "The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute.",
      "numbers_preserved": true
     },
     {
@@ -11503,7 +11817,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "The numbers suggest Harlow are favouring the centre: fifty-seven per cent of their attacks since the forty-first minute.",
+     "text": "The numbers suggest fifty-seven per cent of Harlow attacks have gone down the centre since the forty-first minute.",
      "numbers_preserved": true
     }
    ]
@@ -11528,12 +11842,13 @@
     "value": 1
    },
    "text": {
-    "draft_en": "Substitution for Northbridge in the 58th minute: B. Adeyemi-Ross on, D. Varga off.",
-    "canonical_en": "Substitution for Northbridge in the 58th minute: B. Adeyemi-Ross on, D. Varga off.",
+    "draft_en": "58th-minute substitution for Northbridge: D. Varga off, B. Adeyemi-Ross on.",
+    "canonical_en": "58th-minute substitution for Northbridge: D. Varga off, B. Adeyemi-Ross on.",
     "numbers": [
      {
       "key": "minute",
-      "value": 58
+      "value": 58,
+      "unit": "minute"
      }
     ]
    },
@@ -11595,6 +11910,24 @@
     "ci_method": "none",
     "hedge": "none"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 9191
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T0",
     "reasons": [
@@ -11605,7 +11938,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Substitution for Northbridge in the 58th minute: B. Adeyemi-Ross on, D. Varga off.",
+     "text": "58th-minute substitution for Northbridge: D. Varga off, B. Adeyemi-Ross on.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 3445.0,
@@ -11623,7 +11956,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Substitution for Northbridge in the 58th minute: B. Adeyemi-Ross on, D. Varga off.",
+     "text": "58th-minute substitution for Northbridge: D. Varga off, B. Adeyemi-Ross on.",
      "numbers_preserved": true
     },
     {
@@ -11635,7 +11968,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Substitution for Northbridge in the fifty-eighth minute: B. Adeyemi-Ross on, D. Varga off.",
+     "text": "fifty-eighth-minute substitution for Northbridge: D. Varga off, B. Adeyemi-Ross on.",
      "numbers_preserved": true
     }
    ]
@@ -11744,6 +12077,22 @@
     "ci_high": 0.9385,
     "hedge": "early"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Drafter",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "rules"
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "corrected",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T2",
     "reasons": [
@@ -11808,20 +12157,23 @@
     "value": 1
    },
    "text": {
-    "draft_en": "GOAL. C. Nkemelu scores for Northbridge in the 63rd minute. Northbridge 1-0 Harlow.",
-    "canonical_en": "GOAL. C. Nkemelu scores for Northbridge in the 63rd minute. Northbridge 1-0 Harlow.",
+    "draft_en": "63rd C. Nkemelu scores, Northbridge 1, Harlow 0.",
+    "canonical_en": "63rd C. Nkemelu scores, Northbridge 1, Harlow 0.",
     "numbers": [
      {
       "key": "minute",
-      "value": 63
+      "value": 63,
+      "unit": "minute"
      },
      {
       "key": "score_NOR",
-      "value": 1
+      "value": 1,
+      "unit": "goals"
      },
      {
       "key": "score_HAR",
-      "value": 0
+      "value": 0,
+      "unit": "goals"
      }
     ]
    },
@@ -11890,6 +12242,24 @@
     "ci_method": "none",
     "hedge": "none"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 11095
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T0",
     "reasons": [
@@ -11900,7 +12270,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "GOAL. C. Nkemelu scores for Northbridge in the 63rd minute. Northbridge 1-0 Harlow.",
+     "text": "63rd C. Nkemelu scores, Northbridge 1, Harlow 0.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 3748.5,
@@ -11918,7 +12288,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "GOAL. C. Nkemelu scores for Northbridge in the 63rd minute. Northbridge 1-0 Harlow.",
+     "text": "63rd C. Nkemelu scores, Northbridge 1, Harlow 0.",
      "numbers_preserved": true
     },
     {
@@ -11930,7 +12300,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "GOAL. C. Nkemelu scores for Northbridge in the sixty-third minute. Northbridge one nil Harlow.",
+     "text": "sixty-third C. Nkemelu scores, Northbridge one, Harlow nought.",
      "numbers_preserved": true
     }
    ]
@@ -11956,8 +12326,8 @@
     "baseline": 33.33
    },
    "text": {
-    "draft_en": "Since the 51st minute, 77% of Harlow attacks have gone down the left.",
-    "canonical_en": "Since the 51st minute, 77% of Harlow attacks have gone down the left.",
+    "draft_en": "77% of Harlow attacks have gone down the left since the 51st minute.",
+    "canonical_en": "77% of Harlow attacks have gone down the left since the 51st minute.",
     "numbers": [
      {
       "key": "value",
@@ -12036,6 +12406,24 @@
     "ci_high": 0.9182,
     "hedge": "clear"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 12609
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -12046,7 +12434,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Since the 51st minute, 77% of Harlow attacks have gone down the left.",
+     "text": "77% of Harlow attacks have gone down the left since the 51st minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 3903.0,
@@ -12064,7 +12452,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Since the 51st minute, 77% of Harlow attacks have gone down the left.",
+     "text": "77% of Harlow attacks have gone down the left since the 51st minute.",
      "numbers_preserved": true
     },
     {
@@ -12076,7 +12464,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Since the fifty-first minute, seventy-seven per cent of Harlow attacks have gone down the left.",
+     "text": "seventy-seven per cent of Harlow attacks have gone down the left since the fifty-first minute.",
      "numbers_preserved": true
     }
    ]
@@ -12102,8 +12490,8 @@
     "baseline": 33.33
    },
    "text": {
-    "draft_en": "Since the 58th minute, 71% of Northbridge attacks have gone down the left.",
-    "canonical_en": "Since the 58th minute, 71% of Northbridge attacks have gone down the left.",
+    "draft_en": "71% of Northbridge attacks have gone down the left since the 58th minute.",
+    "canonical_en": "71% of Northbridge attacks have gone down the left since the 58th minute.",
     "numbers": [
      {
       "key": "value",
@@ -12177,6 +12565,24 @@
     "ci_high": 0.9178,
     "hedge": "clear"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 8840
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -12187,7 +12593,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Since the 58th minute, 71% of Northbridge attacks have gone down the left.",
+     "text": "71% of Northbridge attacks have gone down the left since the 58th minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 4203.0,
@@ -12205,7 +12611,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Since the 58th minute, 71% of Northbridge attacks have gone down the left.",
+     "text": "71% of Northbridge attacks have gone down the left since the 58th minute.",
      "numbers_preserved": true
     },
     {
@@ -12217,7 +12623,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Since the fifty-eighth minute, seventy-one per cent of Northbridge attacks have gone down the left.",
+     "text": "seventy-one per cent of Northbridge attacks have gone down the left since the fifty-eighth minute.",
      "numbers_preserved": true
     }
    ]
@@ -12242,12 +12648,13 @@
     "value": 1
    },
    "text": {
-    "draft_en": "Substitution for Harlow in the 71st minute: A. Somerby on, Z. Halloran off.",
-    "canonical_en": "Substitution for Harlow in the 71st minute: A. Somerby on, Z. Halloran off.",
+    "draft_en": "71st minute: Harlow substitution — Z. Halloran off for A. Somerby.",
+    "canonical_en": "71st minute: Harlow substitution — Z. Halloran off for A. Somerby.",
     "numbers": [
      {
       "key": "minute",
-      "value": 71
+      "value": 71,
+      "unit": "minute"
      }
     ]
    },
@@ -12309,6 +12716,24 @@
     "ci_method": "none",
     "hedge": "none"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 8613
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T0",
     "reasons": [
@@ -12319,7 +12744,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Substitution for Harlow in the 71st minute: A. Somerby on, Z. Halloran off.",
+     "text": "71st minute: Harlow substitution — Z. Halloran off for A. Somerby.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 4230.0,
@@ -12337,7 +12762,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Substitution for Harlow in the 71st minute: A. Somerby on, Z. Halloran off.",
+     "text": "71st minute: Harlow substitution — Z. Halloran off for A. Somerby.",
      "numbers_preserved": true
     },
     {
@@ -12349,7 +12774,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Substitution for Harlow in the seventy-first minute: A. Somerby on, Z. Halloran off.",
+     "text": "seventy-first minute: Harlow substitution — Z. Halloran off for A. Somerby.",
      "numbers_preserved": true
     }
    ]
@@ -12374,8 +12799,8 @@
     "value": 7
    },
    "text": {
-    "draft_en": "Harlow have lost the ball 7 times in their own third since the 71st minute.",
-    "canonical_en": "Harlow have lost the ball 7 times in their own third since the 71st minute.",
+    "draft_en": "Harlow have made 7 turnovers in their own third since the 71st minute.",
+    "canonical_en": "Harlow have made 7 turnovers in their own third since the 71st minute.",
     "numbers": [
      {
       "key": "value",
@@ -12448,6 +12873,24 @@
     "ci_method": "none",
     "hedge": "none"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 11030
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -12458,7 +12901,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Harlow have lost the ball 7 times in their own third since the 71st minute.",
+     "text": "Harlow have made 7 turnovers in their own third since the 71st minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 4803.0,
@@ -12476,7 +12919,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Harlow have lost the ball 7 times in their own third since the 71st minute.",
+     "text": "Harlow have made 7 turnovers in their own third since the 71st minute.",
      "numbers_preserved": true
     },
     {
@@ -12488,7 +12931,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Harlow have lost the ball seven times in their own third since the seventy-first minute.",
+     "text": "Harlow have made seven turnovers in their own third since the seventy-first minute.",
      "numbers_preserved": true
     }
    ]
@@ -12514,8 +12957,8 @@
     "baseline": 33.33
    },
    "text": {
-    "draft_en": "Since the 58th minute, 51% of Northbridge attacks have gone down the left.",
-    "canonical_en": "Since the 58th minute, 51% of Northbridge attacks have gone down the left.",
+    "draft_en": "51% of Northbridge attacks have gone down the left since the 58th minute.",
+    "canonical_en": "51% of Northbridge attacks have gone down the left since the 58th minute.",
     "numbers": [
      {
       "key": "value",
@@ -12524,7 +12967,8 @@
      },
      {
       "key": "since_minute",
-      "value": 58
+      "value": 58,
+      "unit": "minute"
      }
     ]
    },
@@ -12604,6 +13048,24 @@
     "ci_high": 0.6614,
     "hedge": "clear"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 12284
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -12614,7 +13076,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Since the 58th minute, 51% of Northbridge attacks have gone down the left.",
+     "text": "51% of Northbridge attacks have gone down the left since the 58th minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 5103.0,
@@ -12632,7 +13094,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Since the 58th minute, 51% of Northbridge attacks have gone down the left.",
+     "text": "51% of Northbridge attacks have gone down the left since the 58th minute.",
      "numbers_preserved": true
     },
     {
@@ -12644,7 +13106,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Since the fifty-eighth minute, fifty-one per cent of Northbridge attacks have gone down the left.",
+     "text": "fifty-one per cent of Northbridge attacks have gone down the left since the fifty-eighth minute.",
      "numbers_preserved": true
     }
    ]
@@ -12670,8 +13132,8 @@
     "baseline": 33.33
    },
    "text": {
-    "draft_en": "The numbers suggest Northbridge are favouring the centre: 50% of their attacks since the 76th minute.",
-    "canonical_en": "The numbers suggest Northbridge are favouring the centre: 50% of their attacks since the 76th minute.",
+    "draft_en": "The numbers suggest 50% of Northbridge attacks have gone down the centre since the 76th minute.",
+    "canonical_en": "The numbers suggest 50% of Northbridge attacks have gone down the centre since the 76th minute.",
     "numbers": [
      {
       "key": "value",
@@ -12752,6 +13214,24 @@
     "ci_high": 0.6857,
     "hedge": "suggests"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 11056
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -12762,7 +13242,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "The numbers suggest Northbridge are favouring the centre: 50% of their attacks since the 76th minute.",
+     "text": "The numbers suggest 50% of Northbridge attacks have gone down the centre since the 76th minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 5403.0,
@@ -12780,7 +13260,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "The numbers suggest Northbridge are favouring the centre: 50% of their attacks since the 76th minute.",
+     "text": "The numbers suggest 50% of Northbridge attacks have gone down the centre since the 76th minute.",
      "numbers_preserved": true
     },
     {
@@ -12792,7 +13272,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "The numbers suggest Northbridge are favouring the centre: fifty per cent of their attacks since the seventy-sixth minute.",
+     "text": "The numbers suggest fifty per cent of Northbridge attacks have gone down the centre since the seventy-sixth minute.",
      "numbers_preserved": true
     }
    ]
@@ -12893,6 +13373,24 @@
     "ci_high": 0.9699,
     "hedge": "clear"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 10000
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -12958,8 +13456,8 @@
     "value": 81
    },
    "text": {
-    "draft_en": "Northbridge completed 81% of their passes in the second half.",
-    "canonical_en": "Northbridge completed 81% of their passes in the second half.",
+    "draft_en": "Northbridge's pass accuracy in the second half was 81%.",
+    "canonical_en": "Northbridge's pass accuracy in the second half was 81%.",
     "numbers": [
      {
       "key": "value",
@@ -13088,6 +13586,24 @@
     "ci_high": 0.8814,
     "hedge": "clear"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 9353
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -13098,7 +13614,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Northbridge completed 81% of their passes in the second half.",
+     "text": "Northbridge's pass accuracy in the second half was 81%.",
      "layout": "ticker",
      "duration_s": 8,
      "start_t": 5403.0,
@@ -13116,7 +13632,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Northbridge completed 81% of their passes in the second half.",
+     "text": "Northbridge's pass accuracy in the second half was 81%.",
      "numbers_preserved": true
     },
     {
@@ -13128,7 +13644,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Northbridge completed eighty-one per cent of their passes in the second half.",
+     "text": "Northbridge's pass accuracy in the second half was eighty-one per cent.",
      "numbers_preserved": true
     }
    ]
@@ -13153,8 +13669,8 @@
     "value": 70
    },
    "text": {
-    "draft_en": "Harlow completed 70% of their passes in the second half.",
-    "canonical_en": "Harlow completed 70% of their passes in the second half.",
+    "draft_en": "Harlow's pass accuracy was 70% in the second half.",
+    "canonical_en": "Harlow's pass accuracy was 70% in the second half.",
     "numbers": [
      {
       "key": "value",
@@ -13272,6 +13788,24 @@
     "ci_high": 0.7891,
     "hedge": "clear"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 14586
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -13282,7 +13816,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Harlow completed 70% of their passes in the second half.",
+     "text": "Harlow's pass accuracy was 70% in the second half.",
      "layout": "ticker",
      "duration_s": 8,
      "start_t": 5403.0,
@@ -13300,7 +13834,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Harlow completed 70% of their passes in the second half.",
+     "text": "Harlow's pass accuracy was 70% in the second half.",
      "numbers_preserved": true
     },
     {
@@ -13312,7 +13846,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Harlow completed seventy per cent of their passes in the second half.",
+     "text": "Harlow's pass accuracy was seventy per cent in the second half.",
      "numbers_preserved": true
     }
    ]
@@ -13337,12 +13871,13 @@
     "value": 4
    },
    "text": {
-    "draft_en": "C. Nkemelu had 4 shots in the second half.",
-    "canonical_en": "C. Nkemelu had 4 shots in the second half.",
+    "draft_en": "C. Nkemelu has 4 shots in the second half.",
+    "canonical_en": "C. Nkemelu has 4 shots in the second half.",
     "numbers": [
      {
       "key": "value",
-      "value": 4
+      "value": 4,
+      "unit": "shots"
      }
     ]
    },
@@ -13406,6 +13941,24 @@
     "ci_method": "none",
     "hedge": "none"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 12315
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -13416,7 +13969,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "C. Nkemelu had 4 shots in the second half.",
+     "text": "C. Nkemelu has 4 shots in the second half.",
      "layout": "ticker",
      "duration_s": 8,
      "start_t": 5403.0,
@@ -13434,7 +13987,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "C. Nkemelu had 4 shots in the second half.",
+     "text": "C. Nkemelu has 4 shots in the second half.",
      "numbers_preserved": true
     },
     {
@@ -13446,7 +13999,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "C. Nkemelu had four shots in the second half.",
+     "text": "C. Nkemelu has four shots in the second half.",
      "numbers_preserved": true
     }
    ]
@@ -13471,8 +14024,8 @@
     "value": 109
    },
    "text": {
-    "draft_en": "Fastest shot of the second half: 109 km/h from D. Varga.",
-    "canonical_en": "Fastest shot of the second half: 109 km/h from D. Varga.",
+    "draft_en": "D. Varga's 109 km/h shot was the fastest shot of the second half.",
+    "canonical_en": "D. Varga's 109 km/h shot was the fastest shot of the second half.",
     "numbers": [
      {
       "key": "value",
@@ -13538,6 +14091,24 @@
     "ci_method": "none",
     "hedge": "none"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 6385
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -13548,7 +14119,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Fastest shot of the second half: 109 km/h from D. Varga.",
+     "text": "D. Varga's 109 km/h shot was the fastest shot of the second half.",
      "layout": "ticker",
      "duration_s": 8,
      "start_t": 5403.0,
@@ -13566,7 +14137,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Fastest shot of the second half: 109 km/h from D. Varga.",
+     "text": "D. Varga's 109 km/h shot was the fastest shot of the second half.",
      "numbers_preserved": true
     },
     {
@@ -13578,7 +14149,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Fastest shot of the second half: one hundred and nine kilometres per hour from D. Varga.",
+     "text": "D. Varga's one hundred and nine kilometres per hour shot was the fastest shot of the second half.",
      "numbers_preserved": true
     }
    ]
@@ -13603,16 +14174,18 @@
     "value": 3
    },
    "text": {
-    "draft_en": "Harlow have lost the ball 3 times in their own third since the 81st minute.",
-    "canonical_en": "Harlow have lost the ball 3 times in their own third since the 81st minute.",
+    "draft_en": "Harlow have 3 turnovers in their own third since the 81st minute.",
+    "canonical_en": "Harlow have 3 turnovers in their own third since the 81st minute.",
     "numbers": [
      {
       "key": "value",
-      "value": 3
+      "value": 3,
+      "unit": "turnovers"
      },
      {
       "key": "since_minute",
-      "value": 81
+      "value": 81,
+      "unit": "minute"
      }
     ]
    },
@@ -13673,6 +14246,24 @@
     "ci_method": "none",
     "hedge": "none"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 6724
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -13683,7 +14274,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Harlow have lost the ball 3 times in their own third since the 81st minute.",
+     "text": "Harlow have 3 turnovers in their own third since the 81st minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 5403.0,
@@ -13701,7 +14292,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Harlow have lost the ball 3 times in their own third since the 81st minute.",
+     "text": "Harlow have 3 turnovers in their own third since the 81st minute.",
      "numbers_preserved": true
     },
     {
@@ -13713,7 +14304,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Harlow have lost the ball three times in their own third since the eighty-first minute.",
+     "text": "Harlow have three turnovers in their own third since the eighty-first minute.",
      "numbers_preserved": true
     }
    ]
@@ -13738,8 +14329,8 @@
     "value": 1.97
    },
    "text": {
-    "draft_en": "Northbridge generated 1.97 xG in the second half.",
-    "canonical_en": "Northbridge generated 1.97 xG in the second half.",
+    "draft_en": "Northbridge have accumulated 1.97 xG since the start of the second half.",
+    "canonical_en": "Northbridge have accumulated 1.97 xG since the start of the second half.",
     "numbers": [
      {
       "key": "value",
@@ -13810,6 +14401,24 @@
     "ci_method": "none",
     "hedge": "none"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 11878
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -13820,7 +14429,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Northbridge generated 1.97 xG in the second half.",
+     "text": "Northbridge have accumulated 1.97 xG since the start of the second half.",
      "layout": "ticker",
      "duration_s": 8,
      "start_t": 5403.0,
@@ -13838,7 +14447,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Northbridge generated 1.97 xG in the second half.",
+     "text": "Northbridge have accumulated 1.97 xG since the start of the second half.",
      "numbers_preserved": true
     },
     {
@@ -13850,7 +14459,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Northbridge generated one point nine seven expected goals in the second half.",
+     "text": "Northbridge have accumulated one point nine seven expected goals since the start of the second half.",
      "numbers_preserved": true
     }
    ]
@@ -13875,8 +14484,8 @@
     "value": 0.3
    },
    "text": {
-    "draft_en": "Harlow generated 0.30 xG in the second half.",
-    "canonical_en": "Harlow generated 0.30 xG in the second half.",
+    "draft_en": "Harlow have 0.30 xG in the second half.",
+    "canonical_en": "Harlow have 0.30 xG in the second half.",
     "numbers": [
      {
       "key": "value",
@@ -13941,6 +14550,38 @@
     "ci_method": "none",
     "hedge": "none"
    },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 19246
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "rejected",
+      "path": "rules"
+     },
+     {
+      "agent": "Scout",
+      "attempt": 2,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 7470
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 2,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
    "risk": {
     "tier": "T1",
     "reasons": [
@@ -13951,7 +14592,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Harlow generated 0.30 xG in the second half.",
+     "text": "Harlow have 0.30 xG in the second half.",
      "layout": "ticker",
      "duration_s": 8,
      "start_t": 5403.0,
@@ -13969,7 +14610,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Harlow generated 0.30 xG in the second half.",
+     "text": "Harlow have 0.30 xG in the second half.",
      "numbers_preserved": true
     },
     {
@@ -13981,7 +14622,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Harlow generated nought point three nought expected goals in the second half.",
+     "text": "Harlow have nought point three nought expected goals in the second half.",
      "numbers_preserved": true
     }
    ]
@@ -14082,6 +14723,22 @@
     "ci_low": 0.3589,
     "ci_high": 0.9178,
     "hedge": "clear"
+   },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Drafter",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "rules"
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "rejected",
+      "path": "rules"
+     }
+    ]
    }
   },
   {
@@ -14179,6 +14836,22 @@
     "ci_low": 0.3589,
     "ci_high": 0.9178,
     "hedge": "clear"
+   },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Drafter",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "rules"
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "rejected",
+      "path": "rules"
+     }
+    ]
    }
   },
   {
@@ -14281,6 +14954,22 @@
     "n": 0,
     "ci_method": "none",
     "hedge": "none"
+   },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Drafter",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "rules"
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "rejected",
+      "path": "rules"
+     }
+    ]
    }
   },
   {
@@ -14371,6 +15060,22 @@
     "n": 0,
     "ci_method": "none",
     "hedge": "none"
+   },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Drafter",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "rules"
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "rejected",
+      "path": "rules"
+     }
+    ]
    }
   }
  ],
@@ -14388,7 +15093,13 @@
    "T2": 2,
    "T0": 4
   },
-  "renditions_failed_number_check": 0
+  "renditions_failed_number_check": 0,
+  "scout": {
+   "first_pass": 31,
+   "after_retry": 1,
+   "rejected": 0,
+   "rules": 0
+  }
  },
  "series": {
   "step_s": 60,

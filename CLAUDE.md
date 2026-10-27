@@ -9,32 +9,35 @@ All data is synthetic. Clubs and players are fictional. No real names, logos, cr
 ## Stack (do not change without asking)
 - Python 3.12 standard library plus `pytest` and `jsonschema`. No other dependencies without asking.
 - Front end: plain HTML, CSS and JavaScript in `docs/`. No npm, no framework, no build step, no CDN links, no network calls.
-- No servers, no database, no cloud services, no API keys, no LLM calls anywhere. One exception: `scripts/foundry_smoke.py`, a manual connectivity check (see below).
+- No servers, no database, no cloud services, no API keys, no LLM calls at run time. Two exceptions, both on my machine only: the build-time Scout agent (`--foundry`, below) and `scripts/foundry_smoke.py`, a manual connectivity check.
 - Hosting: GitHub Pages serving the `docs/` folder. Optional: a GitHub Actions workflow that runs `pytest -q`.
-- Do not mention or claim any Microsoft or Azure technology in code or docs, except the optional build-time Translator add-on in SPEC section 18, and only when I explicitly ask for it. Even then: it runs only inside the build script on my machine, keys stay in a local `.env`, and nothing in `docs/` ever calls the network.
-- Foundry smoke test: `scripts/foundry_smoke.py` checks that my Foundry project and model deployment answer. I run it by hand on my machine; it reads its endpoint and model from `.env`. Nothing in `app/`, `core/`, `sim/`, `docs/` or `tests/` imports or calls it, it is not part of the build, eval or CI, and its packages (`azure-ai-projects`, `azure-identity`, `python-dotenv`) are not project dependencies.
+- Do not mention or claim any Microsoft or Azure technology in code or docs, except the build-time Scout agent on Microsoft Foundry (SPEC section 19) and the optional build-time Translator add-on in SPEC section 18, and the Translator only when I explicitly ask for it. Even then: it runs only inside the build script on my machine, keys stay in a local `.env`, and nothing in `docs/` ever calls the network.
+- Scout agent: `app/agents_foundry.py` calls a prompt agent on Microsoft Foundry only inside `python -m app.build_bundle --foundry`. Every request and response is cached in `data/agent_cache.json` (committed), so the plain build replays it with no network. Azure packages are imported only on that path and live in `requirements-foundry.txt`, not in the core dependencies.
+- Foundry smoke test: `scripts/foundry_smoke.py` checks that my Foundry project and model deployment answer. I run it by hand on my machine; it reads its endpoint and model from `.env`. Nothing in `app/`, `core/`, `sim/`, `docs/` or `tests/` imports or calls it, and it is not part of the build, eval or CI.
 
 ## Layout
 ```
 sim/      generate.py
 core/     xg.py shares.py winprob.py wilson.py moments.py
-app/      drafter.py verifier.py router.py renditions.py templates_es.py build_bundle.py
+app/      agents_foundry.py drafter.py verifier.py router.py renditions.py templates_es.py build_bundle.py
 docs/     index.html app.js styles.css prototype.html data/
 tests/    seeded_claims.json test_*.py
 scripts/  eval.py foundry_smoke.py
-config.yaml  README.md  data_card.md
+data/     events.json league_stats.json agent_cache.json
+config.yaml  README.md  data_card.md  requirements-foundry.txt
 ```
 
 ## Commands
 - Simulate: `python -m sim.generate --seed 7`
-- Build bundle: `python -m app.build_bundle`
+- Build bundle (offline, replays the agent cache): `python -m app.build_bundle`
+- Build bundle with the Scout agent (needs `.env`, calls Foundry): `python -m app.build_bundle --foundry`
 - Test: `pytest -q`
 - Eval: `python scripts/eval.py`
 - Foundry smoke test (manual, needs `.env`): `python scripts/foundry_smoke.py`
 - Serve locally: `python -m http.server 8000 --directory docs`
 
 ## Rules
-1. Code decides truth. There is no LLM. The drafter is rule-based and injects known errors so the verifier has something to catch.
+1. Code decides truth. The Scout agent drafts claims at build time; the deterministic verifier decides whether they air, and a rejected claim gets one retry. The rule-based drafter is the fallback and also injects known errors so the verifier has something to catch. Nothing at run time calls a model.
 2. Mark every injected error with `injected: true`.
 3. Every fact validates against `fact.schema.json` at creation and after verification.
 4. Every number in a rendition must come from the fact's `text.numbers`. Check it in code.

@@ -118,7 +118,7 @@
     <div class="build" id="build"></div>
     <div class="ph"><h2>Verifier results</h2><span class="sp lbl">Six deterministic checks per draft</span></div>
     <div class="tblwrap"><table id="vt"><caption class="sr-only">Verifier check results for each drafted fact</caption>
-      <thead><tr><th>Time</th><th>Fact</th><th>Claim</th><th title="recompute">RC</th><th title="evidence_exists">EV</th><th title="entities">EN</th><th title="numbers_match">NM</th><th title="intent_stripped">IN</th><th title="sample_size">SS</th><th>Result</th><th>Outcome</th></tr></thead><tbody></tbody></table></div>
+      <thead><tr><th>Time</th><th>Fact</th><th>Claim</th><th>Agent trace</th><th title="recompute">RC</th><th title="evidence_exists">EV</th><th title="entities">EN</th><th title="numbers_match">NM</th><th title="intent_stripped">IN</th><th title="sample_size">SS</th><th>Result</th><th>Outcome</th></tr></thead><tbody></tbody></table></div>
     <div class="ph"><h2>Routing rules</h2></div>
     <div class="tblwrap"><table class="tiers"><caption class="sr-only">Risk tiers</caption><tbody>
       <tr><td><span class="tag c-green">T0</span></td><td>Plain event-log facts: goal, substitution, card</td><td>Airs at once</td></tr>
@@ -140,7 +140,7 @@
   <div class="body"><ul class="facts">
     <li><b>Synthetic data.</b> Clubs, players and events come from a seeded simulator. No real match data.</li>
     <li><b>Replay, not live.</b> The page replays a pre-built bundle. No server and no network calls.</li>
-    <li><b>No language model.</b> A rule-based drafter writes claims and plants known errors. The deterministic verifier is what you are watching.</li>
+    <li><b>Drafts come from an agent on Microsoft Foundry, run at build time.</b> A deterministic verifier checks every claim before it can air. The replay never calls a model. Six drafts with planted errors come from a rule-based drafter, as test cases for the verifier.</li>
     <li><b>Spanish</b> comes from templates and a glossary and has not been reviewed by a native speaker.</li>
     <li><b>Win probability</b> is a simple Poisson model with stated assumptions, not a prediction about real football.</li>
   </ul></div>

@@ -1,0 +1,6 @@
+# Only for `python -m app.build_bundle --foundry` and scripts/foundry_smoke.py.
+# The core build, tests and site need only Python, pytest and jsonschema.
+azure-ai-projects>=2.3.0
+azure-identity
+python-dotenv
+brotli>=1.2

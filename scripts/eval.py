@@ -1,9 +1,11 @@
 """Run the verifier over tests/seeded_claims.json and print catch and false-reject rates.
+Then replay the Scout agent's cached answers (data/agent_cache.json) through the verifier.
 
 Run: python scripts/eval.py
 
 The injected claims come from our own rule-based drafter. They are test cases
-for the verifier, not a measurement of how any language model behaves.
+for the verifier, not a measurement of how any language model behaves. The Scout
+section reads only the cache; it makes no network calls.
 """
 from __future__ import annotations
 
@@ -15,6 +17,8 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from app.agents_foundry import CACHE_PATH, load_cache  # noqa: E402
+from app.build_bundle import build  # noqa: E402
 from app.verifier import verify  # noqa: E402
 from core.config import ROOT  # noqa: E402
 
@@ -70,5 +74,23 @@ def main() -> None:
         print("False rejects:", ", ".join(r["false_rejects"]))
 
 
+def scout_report() -> None:
+    """Scout outcomes from replaying the cache through the verifier (same path as the offline build)."""
+    print("\nScout agent (replayed from data/agent_cache.json)")
+    if not CACHE_PATH.exists():
+        print("no agent cache: run python -m app.build_bundle --foundry first")
+        return
+    hero, _ = build()
+    s = hero["metrics"]["scout"]
+    calls = [r for r in load_cache().values() if "ms" in r]
+    ms = sorted(r["ms"] for r in calls)
+    print(f"moments: {sum(s.values())}  passed first time: {s['first_pass']}  passed after retry: {s['after_retry']}  "
+          f"still rejected: {s['rejected']}  fell back to rules: {s['rules']}")
+    if ms:
+        print(f"answered calls: {len(ms)}  model: {', '.join(sorted({r['model'] for r in calls}))}  "
+              f"paths: {', '.join(sorted({r['path'] for r in calls}))}  latency median {ms[len(ms) // 2]} ms, max {ms[-1]} ms")
+
+
 if __name__ == "__main__":
     main()
+    scout_report()

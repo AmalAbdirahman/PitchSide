@@ -6,7 +6,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "Since the 1st minute, 71% of Northbridge attacks have gone down the right.",
+  "text": "71% of Northbridge attacks have gone down the right since the 1st minute.",
   "evidence_ids": [
    10,
    11,
@@ -42,7 +42,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "Northbridge have lost the ball 3 times in their own third since the 1st minute.",
+  "text": "Northbridge have had 3 turnovers in their own third since the 1st minute.",
   "evidence_ids": [
    50,
    56,
@@ -74,7 +74,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "The numbers suggest Harlow are favouring the centre: 50% of their attacks since the 6th minute.",
+  "text": "The numbers suggest 50% of Harlow attacks have gone down the centre since the 6th minute.",
   "evidence_ids": [
    51,
    52,
@@ -118,7 +118,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "Since the 11th minute, 69% of Northbridge attacks have gone down the centre.",
+  "text": "69% of Northbridge attacks have gone down the centre since the 11th minute.",
   "evidence_ids": [
    114,
    121,
@@ -166,7 +166,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "The numbers suggest Harlow are favouring the left: 56% of their attacks since the 11th minute.",
+  "text": "The numbers suggest 56% of Harlow attacks have gone down the left since the 11th.",
   "evidence_ids": [
    80,
    87,
@@ -202,7 +202,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "Northbridge have lost the ball 3 times in their own third since the 26th minute.",
+  "text": "Northbridge have had 3 turnovers in their own third since the 26th minute.",
   "evidence_ids": [
    187,
    191,
@@ -302,7 +302,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "Yellow card for I. Marchetti-Holt of Harlow in the 45th minute.",
+  "text": "45th minute: I. Marchetti-Holt (Harlow) received a yellow card.",
   "evidence_ids": [
    301
   ],
@@ -654,7 +654,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Fastest shot of the first half: 109 km/h from Y. Castell.",
+  "text": "Y. Castell's shot reached 109 km/h, the fastest shot of the first half.",
   "evidence_ids": [
    225
   ],
@@ -682,7 +682,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Northbridge generated 0.32 xG in the first half.",
+  "text": "Northbridge have 0.32 xG in the first half.",
   "evidence_ids": [
    128,
    166
@@ -712,7 +712,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Harlow generated 1.00 xG in the first half.",
+  "text": "Harlow have 1.00 xG in the first half.",
   "evidence_ids": [
    99,
    188,
@@ -750,7 +750,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "The numbers suggest Northbridge are favouring the right: 50% of their attacks since the 41st minute.",
+  "text": "The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st.",
   "evidence_ids": [
    281,
    320,
@@ -786,7 +786,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "The numbers suggest Harlow are favouring the centre: 57% of their attacks since the 41st minute.",
+  "text": "The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute.",
   "evidence_ids": [
    274,
    276,
@@ -828,7 +828,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "Substitution for Northbridge in the 58th minute: B. Adeyemi-Ross on, D. Varga off.",
+  "text": "58th-minute substitution for Northbridge: D. Varga off, B. Adeyemi-Ross on.",
   "evidence_ids": [
    383
   ],
@@ -856,7 +856,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "GOAL. C. Nkemelu scores for Northbridge in the 63rd minute. Northbridge 1-0 Harlow.",
+  "text": "63rd C. Nkemelu scores, Northbridge 1, Harlow 0.",
   "evidence_ids": [
    418,
    419
@@ -886,7 +886,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "Since the 51st minute, 77% of Harlow attacks have gone down the left.",
+  "text": "77% of Harlow attacks have gone down the left since the 51st minute.",
   "evidence_ids": [
    348,
    349,
@@ -932,7 +932,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "Since the 58th minute, 71% of Northbridge attacks have gone down the left.",
+  "text": "71% of Northbridge attacks have gone down the left since the 58th minute.",
   "evidence_ids": [
    404,
    416,
@@ -968,7 +968,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "Substitution for Harlow in the 71st minute: A. Somerby on, Z. Halloran off.",
+  "text": "71st minute: Harlow substitution — Z. Halloran off for A. Somerby.",
   "evidence_ids": [
    470
   ],
@@ -996,7 +996,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "Harlow have lost the ball 7 times in their own third since the 71st minute.",
+  "text": "Harlow have made 7 turnovers in their own third since the 71st minute.",
   "evidence_ids": [
    469,
    477,
@@ -1036,7 +1036,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "Since the 58th minute, 51% of Northbridge attacks have gone down the left.",
+  "text": "51% of Northbridge attacks have gone down the left since the 58th minute.",
   "evidence_ids": [
    404,
    416,
@@ -1102,7 +1102,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "The numbers suggest Northbridge are favouring the centre: 50% of their attacks since the 76th minute.",
+  "text": "The numbers suggest 50% of Northbridge attacks have gone down the centre since the 76th minute.",
   "evidence_ids": [
    506,
    510,
@@ -1188,7 +1188,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Northbridge completed 81% of their passes in the second half.",
+  "text": "Northbridge's pass accuracy in the second half was 81%.",
   "evidence_ids": [
    315,
    316,
@@ -1342,7 +1342,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Harlow completed 70% of their passes in the second half.",
+  "text": "Harlow's pass accuracy was 70% in the second half.",
   "evidence_ids": [
    304,
    306,
@@ -1474,7 +1474,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "C. Nkemelu had 4 shots in the second half.",
+  "text": "C. Nkemelu has 4 shots in the second half.",
   "evidence_ids": [
    370,
    418,
@@ -1508,7 +1508,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Fastest shot of the second half: 109 km/h from D. Varga.",
+  "text": "D. Varga's 109 km/h shot was the fastest shot of the second half.",
   "evidence_ids": [
    366
   ],
@@ -1536,7 +1536,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "Harlow have lost the ball 3 times in their own third since the 81st minute.",
+  "text": "Harlow have 3 turnovers in their own third since the 81st minute.",
   "evidence_ids": [
    558,
    568,
@@ -1568,7 +1568,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Northbridge generated 1.97 xG in the second half.",
+  "text": "Northbridge have accumulated 1.97 xG since the start of the second half.",
   "evidence_ids": [
    341,
    366,
@@ -1610,7 +1610,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Harlow generated 0.30 xG in the second half.",
+  "text": "Harlow have 0.30 xG in the second half.",
   "evidence_ids": [
    314,
    437

@@ -6,26 +6,27 @@ Hackathon build. All data is synthetic; clubs and players are fictional. Thresho
 
 A producer-first control room for a replayed synthetic match. Python builds a replay bundle offline. A static web page (GitHub Pages, no server) replays it. Proposed facts are verified by deterministic code, routed by risk tier, approved by a human (or auto-aired), and shown as three renditions: on-screen cue, EN/ES caption, audio script.
 
-No cloud services, no model calls, no network access at build or run time.
+No cloud services and no network access at run time. The one model call is the build-time Scout agent on Microsoft Foundry (section 19), run only with `--foundry`; its answers are cached so every other build is offline.
 
 Exception: `scripts/foundry_smoke.py` is a manual check, run by hand on the developer's machine, that a Microsoft Foundry project and model deployment respond. It reads its endpoint and model from a local `.env`. It is not part of the build, the bundle, the eval, the tests or CI, and nothing in the product depends on it.
 
 ## 2. Honesty rules (write these into the README)
 
 1. The data is synthetic and the match is a replay, not a live feed.
-2. There is no LLM. Drafts come from a rule-based drafter that deliberately includes some sloppy phrasing and wrong numbers. The verifier's job is to catch them. Say this plainly: the injected errors are test cases, not claims about how any model behaves.
+2. Drafts for each moment come from the Scout, an LLM agent on Microsoft Foundry, at build time only. The deterministic verifier decides what can air. A separate rule-based drafter deliberately includes some wrong numbers, players, windows and intent words; the verifier's job is to catch them. Say this plainly: the injected errors are test cases, not claims about how any model behaves. Report Scout pass, retry and reject counts only from the cache of a real run.
 3. Spanish text comes from templates plus a small glossary. It has not been reviewed by a native speaker.
 4. Win probability is a simple model with stated assumptions, not a prediction of real matches.
 5. Report eval numbers only from an actual run of `scripts/eval.py`.
-6. Do not claim any Microsoft or Azure technology unless it really ran. The base build uses only GitHub (Pages, optionally Actions). If the optional build-time Translator add-on (section 18) was run, say exactly that: translations were generated offline at build time.
+6. Do not claim any Microsoft or Azure technology unless it really ran. Claim Microsoft Foundry only if the committed `data/agent_cache.json` came from a real `--foundry` run. If the optional build-time Translator add-on (section 18) was run, say exactly that: translations were generated offline at build time.
 
 ## 3. Pipeline
 
 ```
 sim.generate -> events.json
 core (xG, shares, win prob, Wilson) + moment rules -> moments
-drafter -> draft facts (some deliberately wrong)
-verifier -> verified / corrected / rejected
+Scout agent (Foundry, build time; cached) -> draft facts, one per moment; rule-based drafter as fallback
+drafter -> injected drafts (deliberately wrong)
+verifier -> verified / corrected / rejected (a rejected Scout claim gets one retry)
 router -> T0 | T1 | T2
 renditions -> cue, caption EN, caption ES, audio script
 build_bundle -> docs/data/hero.json and docs/data/cues.json
@@ -53,7 +54,7 @@ See `fact.schema.json`. Every fact has a structured claim (`subject, metric, win
 
 ## 6. Drafter
 
-`draft_facts(moments)` returns drafts in sloppy natural wording. It includes at least these injected errors: a wrong number, a wrong player, a wrong window, a future event, an intent word ("deliberately"), and a small-sample overclaim. Each injected draft is tagged `injected: true` in the bundle so the eval can compare results.
+The rule-based drafter is the fallback when the Scout is unavailable and the source of the injected drafts. `draft_facts(moments)` returns drafts in sloppy natural wording. It includes at least these injected errors: a wrong number, a wrong player, a wrong window, a future event, an intent word ("deliberately"), and a small-sample overclaim. Each injected draft is tagged `injected: true` in the bundle so the eval can compare results.
 
 ## 7. Verifier (deterministic)
 
@@ -133,8 +134,18 @@ Only after the GitHub-only version is complete and submittable.
 - The number-preservation check applies to the translated text exactly as it does to template text. A failure falls back to the template.
 - Record `translation_source` (`template` or `azure`) per rendition, and show it in Analyst depth.
 - Claim Azure AI Translator in the README and pitch only if the bundle in the repo was actually built with `--azure`.
-- Do not add Foundry, Agent Framework, or any model call. Do not put any key in `docs/` or in git.
+- Do not put any key in `docs/` or in git.
 
 ## 17. Publish
 
 Commit `docs/` and enable GitHub Pages (Settings, Pages, deploy from branch `main`, folder `/docs`). Optional: a GitHub Actions workflow that runs `pytest -q` on push.
+
+## 19. Build-time Scout agent on Microsoft Foundry
+
+- `app/agents_foundry.py` runs only inside `python -m app.build_bundle --foundry`, on the developer's machine. It reads `FOUNDRY_PROJECT_ENDPOINT` and `FOUNDRY_MODEL` from a local `.env` and creates a prompt agent (`agents.create_version` with `PromptAgentDefinition`), called through `get_openai_client(agent_name=...)`. If the agent API fails, it falls back to a plain `responses.create(model=...)` with the same instructions. Each call records which path ran.
+- Input: one moment summary computed by `core/` (subject, metric, window, minutes, numbers, evidence ids, names, hedge). Output: strict JSON with `claim`, `text.canonical_en`, `text.numbers` and `evidence_ids`. Code, not the agent, sets ids, times, the evidence window and impact, and rejects output whose number keys differ from the input.
+- Every Scout claim goes through the verifier (section 7). A rejected or unverifiable claim goes back once with the failed checks; if it still fails it stays rejected and is logged.
+- Limits (in `config.yaml`): 20 s per call, at most 40 calls per build. Any call failure falls back to the rule-based drafter for that moment; the build always completes.
+- Every request and response, including failures, is cached in `data/agent_cache.json` keyed by a hash of the instructions and input. The cache is committed. Without `--foundry` the build replays it with no network and reproduces the same bundle. A `--foundry` run reuses successful answers to identical requests and repeats only the rest.
+- Each fact carries `audit.steps` (agent, path, model, ms, attempt, outcome). The Audit view shows the trace; Analyst rows show who drafted the fact.
+- Renditions still come from templates (section 11). There is no Editor agent.
