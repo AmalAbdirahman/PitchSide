@@ -54,7 +54,7 @@ def _event_fact(fact: Fact, match: Match, n: dict[str, float]) -> str:
     if metric == "goals":
         home, away = match["meta"]["home"], match["meta"]["away"]
         return (f"¡GOL! {_player(match, subj['id'])} marca para {_team_of(match, subj['id'])} en el minuto {m}. "
-                f"{_team(match, home)} {int(n['score_' + home])}-{int(n['score_' + away])} {_team(match, away)}.")
+                f"{_team(match, home)} {int(n['score_' + home])}–{int(n['score_' + away])} {_team(match, away)}.")
     if metric == "substitutions":
         on, off = (_player(match, p) for p in fact["evidence"]["players"])
         return f"Cambio en {_team(match, subj['id'])} en el minuto {m}: entra {on}, sale {off}."

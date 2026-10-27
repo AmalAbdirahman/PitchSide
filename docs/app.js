@@ -522,10 +522,15 @@ function draftedBy(f) {
   const s = scoutStep(f);
   return s ? `drafted by Scout · Foundry · ${s.model} · attempt ${s.attempt}` : 'drafted by rules';
 }
+const VERDICT = { verified: ['c-green', '✓'], corrected: ['c-amber', '✎ corrected'] };
+/* Trace as HTML: verifier verdicts in colour (green ✓ verified, amber ✎ corrected, red ✗ otherwise). */
 function agentTrace(f) {
   return ((f.audit || {}).steps || []).map(s => {
-    if (s.agent === 'Verifier') return `Verifier ${s.outcome === 'verified' || s.outcome === 'corrected' ? '✓' : '✗'}`;
-    if (s.agent === 'Scout') return `Scout #${s.attempt}${s.outcome === 'drafted' ? '' : ' ' + s.outcome.split(':')[0]}`;
+    if (s.agent === 'Verifier') {
+      const [cls, mark] = VERDICT[s.outcome] || ['c-red', '✗'];
+      return `Verifier <span class="${cls}">${mark}</span>`;
+    }
+    if (s.agent === 'Scout') return `Scout #${s.attempt}${s.outcome === 'drafted' ? '' : ' ' + esc(s.outcome.split(':')[0])}`;
     return 'Rules';
   }).join(' → ');
 }
@@ -642,7 +647,7 @@ function auditRow(it) {
   const st = it.status === 'verified' ? 'c-green' : it.status === 'corrected' ? 'c-amber' : 'c-red';
   return `<tr><td class="num">${clock(it.t)}</td><td><span style="font-family:var(--mono);font-size:11px">${esc(it.id)}</span>` +
     `${it.f.injected ? '<br><span class="tag c-pink">injected</span>' : ''}</td><td>${esc(it.f.text.draft_en)}</td>` +
-    `<td class="trace">${esc(agentTrace(it.f))}</td>${cells}` +
+    `<td class="trace">${agentTrace(it.f)}</td>${cells}` +
     `<td><span class="tag ${st}">${esc(it.status)}</span></td><td class="${ph[1]}">${ph[0]}</td></tr>`;
 }
 
