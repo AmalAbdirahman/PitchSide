@@ -22,7 +22,7 @@ Match = dict[str, Any]
 Check = dict[str, Any]
 
 _VALIDATOR = Draft202012Validator(json.loads((ROOT / "fact.schema.json").read_text(encoding="utf-8")))
-COUNT_METRICS = {"goals", "shots", "turnovers_own_third"}
+COUNT_METRICS = {"goals", "shots", "turnovers_own_third", "substitutions", "cards"}
 SHARE_METRICS = {"attack_share_left", "attack_share_centre", "attack_share_right", "pass_accuracy"}
 HEDGE_LEVEL = {"early": 0, "suggests": 1, "clear": 2, "none": 2}
 NUMBER = re.compile(r"\d+(?:\.\d+)?")
@@ -83,7 +83,8 @@ def _names(match: Match) -> dict[str, str]:
 
 def check_entities(fact: Fact, by_id: dict[int, dict[str, Any]], match: Match) -> Check:
     cited = [by_id[i] for i in fact["evidence"]["event_ids"] if i in by_id]
-    teams, players = {e["team"] for e in cited}, {e["player_id"] for e in cited}
+    teams = {e["team"] for e in cited}
+    players = {e["player_id"] for e in cited} | {e["player_off"] for e in cited if "player_off" in e}
     subj, problems = fact["claim"]["subject"], []
     if subj["type"] == "team" and subj["id"] not in teams:
         problems.append(f"team {subj['id']} does not appear in the cited events")

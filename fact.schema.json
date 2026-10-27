@@ -139,7 +139,7 @@
             "id": { "type": "string" }
           }
         },
-        "metric": { "enum": ["goals", "shots", "xg_sum", "attack_share_left", "attack_share_centre", "attack_share_right", "pass_accuracy", "turnovers_own_third", "duels_lost", "win_prob", "top_shot_speed"] },
+        "metric": { "enum": ["goals", "shots", "xg_sum", "attack_share_left", "attack_share_centre", "attack_share_right", "pass_accuracy", "turnovers_own_third", "duels_lost", "win_prob", "top_shot_speed", "substitutions", "cards"] },
         "window": { "$ref": "#/$defs/window" },
         "comparator": { "enum": ["eq", "gt", "lt", "share_gt"] },
         "value": { "type": "number" },

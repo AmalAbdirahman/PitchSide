@@ -93,9 +93,22 @@ def _text_half(m: dict[str, Any], match: Match) -> tuple[str, list[dict[str, Any
     return f"{player_name(match, m['subject']['id'])} had {c} shots in the {half} half.", [_num("value", c)]
 
 
+def _text_event(m: dict[str, Any], match: Match) -> tuple[str, list[dict[str, Any]]]:
+    mn = minute(m["window"]["end_t"])
+    if m["rule"] == "substitution":
+        on, off = (player_name(match, p) for p in m["players"])
+        text = f"Substitution for {team_name(match, m['subject']['id'])} in the {ordinal(mn)} minute: {on} on, {off} off."
+    else:
+        text = (f"{m['card'].capitalize()} card for {player_name(match, m['subject']['id'])} of "
+                f"{team_name(match, m['team'])} in the {ordinal(mn)} minute.")
+    return text, [_num("minute", mn)]
+
+
 def render(m: dict[str, Any], match: Match, force_plain: bool = False) -> tuple[str, list[dict[str, Any]]]:
     if m["rule"] == "goal":
         return _text_goal(m, match)
+    if m["rule"] in ("substitution", "card"):
+        return _text_event(m, match)
     if m["rule"] == "overload":
         return _text_overload(m, match, force_plain)
     if m["rule"] == "turnovers":

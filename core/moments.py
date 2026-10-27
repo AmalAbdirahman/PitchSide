@@ -65,6 +65,10 @@ def compute_metric(metric: str, subject: dict[str, str], window: dict[str, float
         return _count([e for e in evs if e["type"] == "goal"])
     if metric == "shots":
         return _count(shots)
+    if metric == "substitutions":
+        return _count([e for e in evs if e["type"] == "substitution"])
+    if metric == "cards":
+        return _count([e for e in evs if e["type"] == "card"])
     if metric == "xg_sum":
         return Metric(sum(e["xg"] for e in shots), len(shots), len(shots), [e["id"] for e in shots])
     if metric == "top_shot_speed":
@@ -122,6 +126,20 @@ def goal_moments(events: list[Event], teams: tuple[str, str], mu: float) -> list
                            impact={"subject_team": g["team"], "win_prob_before": round(before, 3),
                                    "win_prob_after": round(after, 3), "delta": round(after - before, 3),
                                    "method": "poisson_v1"}))
+    return out
+
+
+def event_moments(events: list[Event]) -> list[dict[str, Any]]:
+    """Plain event-log moments: substitutions and cards."""
+    out = []
+    for e in events:
+        m = Metric(1, 1, 1, [e["id"]])
+        if e["type"] == "substitution":
+            out.append(_moment("moment", "substitution", "substitutions", _team(e["team"]), e["t"], e["t"], m,
+                               players=[e["player_id"], e["player_off"]]))
+        elif e["type"] == "card":
+            out.append(_moment("moment", "card", "cards", {"type": "player", "id": e["player_id"]}, e["t"], e["t"], m,
+                               team=e["team"], players=[e["player_id"]], card=e.get("card", "yellow")))
     return out
 
 
@@ -208,6 +226,6 @@ def _top_shooter(events: list[Event], w: dict[str, float], name: str) -> list[di
 
 def detect_moments(events: list[Event], teams: tuple[str, str], mu: float) -> list[dict[str, Any]]:
     """All moments in the match, sorted by creation time."""
-    moments = (goal_moments(events, teams, mu) + overload_moments(events, teams)
+    moments = (goal_moments(events, teams, mu) + event_moments(events) + overload_moments(events, teams)
                + turnover_moments(events, teams) + half_moments(events, teams))
     return sorted(moments, key=lambda m: (m["created_t"], m["rule"]))
