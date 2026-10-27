@@ -8,6 +8,8 @@ A producer-first control room for a replayed synthetic match. Python builds a re
 
 No cloud services, no model calls, no network access at build or run time.
 
+Exception: `scripts/foundry_smoke.py` is a manual check, run by hand on the developer's machine, that a Microsoft Foundry project and model deployment respond. It reads its endpoint and model from a local `.env`. It is not part of the build, the bundle, the eval, the tests or CI, and nothing in the product depends on it.
+
 ## 2. Honesty rules (write these into the README)
 
 1. The data is synthetic and the match is a replay, not a live feed.
