@@ -57,7 +57,8 @@ def decimal_words(token: str) -> str:
 def speak(text: str) -> str:
     """Speakable English with every number spelled out."""
     out = re.sub(r"\d+\.\d+", lambda m: decimal_words(m.group()), text)
-    out = re.sub(r"(\d+)-(\d+)", lambda m: " ".join("nil" if g == "0" else cardinal(int(g)) for g in m.groups()), out)
+    out = re.sub(r"(\d+)[-–](\d+)", lambda m: " ".join("nil" if g == "0" else cardinal(int(g)) for g in m.groups()), out)
+    out = re.sub(r"(\d+)'", lambda m: f"{ordinal_words(int(m.group(1)))} minute", out)
     out = re.sub(r"(\d+)(st|nd|rd|th)\b", lambda m: ordinal_words(int(m.group(1))), out)
     out = re.sub(r"(\d+)%", lambda m: f"{cardinal(int(m.group(1)))} per cent", out)
     out = re.sub(r"\d+", lambda m: cardinal(int(m.group())), out)

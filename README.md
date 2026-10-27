@@ -7,6 +7,7 @@ A producer-first control room for a replayed, synthetic football match. Python b
 - **Synthetic data.** The clubs (Northbridge, Harlow), players and events come from a seeded simulator. No real match data, names or logos.
 - **Replay, not live.** The page replays a pre-built bundle. It has no server and makes no network calls.
 - **The model runs at build time only.** Drafts for each moment come from the Scout, a prompt agent on Microsoft Foundry, called by `python -m app.build_bundle --foundry`. Its answers are cached in `data/agent_cache.json`, so the normal build and the site never call a model.
+- **Template wording for T0.** Goals, substitutions and cards air at once, so they use fixed templates; agent wording is used only for facts that pass through a veto window or a producer (T1/T2).
 - **Code decides truth.** A deterministic verifier recomputes every claim from the event log before it can air. The Scout's words are not trusted.
 - **Injected errors are test cases.** Six drafts with planted errors (wrong number, player, window, a future event, an intent word, a small-sample overclaim) come from a rule-based drafter, not from the model. They exist so the verifier has something to catch; they say nothing about how any model behaves.
 - **Spanish is unreviewed.** It comes from templates and a small glossary and has not been checked by a native speaker.
@@ -50,7 +51,7 @@ python -m pip install -r requirements-foundry.txt
 python -m app.build_bundle --foundry
 ```
 
-Limits: 20 s per call, at most 40 calls per build (`config.yaml`). A `--foundry` run reuses cached successful answers to identical requests and only calls for the rest.
+Limits: 45 s per call, at most 40 calls per build (`config.yaml`). A `--foundry` run reuses cached successful answers to identical requests and only calls for the rest.
 
 ## Microsoft technologies used
 
@@ -82,7 +83,7 @@ Scout agent, replayed from `data/agent_cache.json`:
 
 ### What the verifier does not catch
 
-The verifier checks numbers, windows, evidence, entities, intent words and hedging, not what a sentence means. In the first `--foundry` run, the Scout wrote lines like "Northbridge had 69% of centre attacks" when the data meant 69% of Northbridge's attacks went through the centre. Every number was right, so they passed. Tighter instructions fixed this in the committed run, but a sentence-meaning check is roadmap. Some agent wording is also awkward (for example "63rd C. Nkemelu scores, Northbridge 1, Harlow 0.").
+The verifier checks numbers, windows, evidence, entities, intent words and hedging, not what a sentence means. In the first `--foundry` run, the Scout wrote lines like "Northbridge had 69% of centre attacks" when the data meant 69% of Northbridge's attacks went through the centre. Every number was right, so they passed. Tighter instructions fixed this in the committed run, but a sentence-meaning check is roadmap. Goals, substitutions and cards (T0, which air with no human check) therefore use fixed template wording, such as "GOAL, Northbridge 1–0 Harlow. C. Nkemelu, 63'."; the Scout still drafts and cites the claim, and its own wording is kept in the log.
 
 ## Layout
 

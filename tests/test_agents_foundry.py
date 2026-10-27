@@ -138,3 +138,22 @@ def test_live_rerun_reuses_good_answers_and_repeats_failures(moments: list[Momen
     facts = run_scout(rerun, ms, rules_for(ms, match), match)
     assert [r["moment"]["rule"] for r in sent] == ["turnovers"]
     assert scout_metrics(facts)["first_pass"] == 3
+
+
+def test_t0_facts_use_template_wording_but_keep_scout_trace(moments: list[Moment], match: dict[str, Any]) -> None:
+    ms = [m for m in moments if m["metric"] in ("goals", "substitutions", "cards")]
+    good = good_output(moments, match)
+
+    def chatty(req: dict[str, Any]) -> dict[str, Any]:
+        out = good(req)
+        out["text"]["canonical_en"] = "Agent wording: " + out["text"]["canonical_en"]
+        return out
+    facts = run_scout(Scout(fake_caller(chatty), {}, 40), ms, rules_for(ms, match), match)
+    for f, m in zip(facts, ms):
+        assert f["text"]["canonical_en"] == render(m, match)[0]
+        assert f["text"]["draft_en"].startswith("Agent wording: ")
+        assert [s["agent"] for s in f["audit"]["steps"]] == ["Scout", "Drafter", "Verifier"]
+        assert f["verification"]["status"] == "verified"
+    assert scout_metrics(facts)["first_pass"] == len(ms) >= 4
+    goal = next(f for f, m in zip(facts, ms) if m["metric"] == "goals")
+    assert goal["text"]["canonical_en"] == "GOAL, Northbridge 1–0 Harlow. C. Nkemelu, 63'."

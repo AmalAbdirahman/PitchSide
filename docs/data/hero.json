@@ -10344,12 +10344,11 @@
    },
    "text": {
     "draft_en": "45th minute: I. Marchetti-Holt (Harlow) received a yellow card.",
-    "canonical_en": "45th minute: I. Marchetti-Holt (Harlow) received a yellow card.",
+    "canonical_en": "Yellow card for I. Marchetti-Holt of Harlow in the 45th minute.",
     "numbers": [
      {
       "key": "minute",
-      "value": 45,
-      "unit": "minute"
+      "value": 45
      }
     ]
    },
@@ -10421,6 +10420,12 @@
       "ms": 10205
      },
      {
+      "agent": "Drafter",
+      "attempt": 1,
+      "outcome": "template wording (T0)",
+      "path": "rules"
+     },
+     {
       "agent": "Verifier",
       "attempt": 1,
       "outcome": "verified",
@@ -10438,7 +10443,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "45th minute: I. Marchetti-Holt (Harlow) received a yellow card.",
+     "text": "Yellow card for I. Marchetti-Holt of Harlow in the 45th minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 2692.0,
@@ -10456,7 +10461,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "45th minute: I. Marchetti-Holt (Harlow) received a yellow card.",
+     "text": "Yellow card for I. Marchetti-Holt of Harlow in the 45th minute.",
      "numbers_preserved": true
     },
     {
@@ -10468,7 +10473,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "forty-fifth minute: I. Marchetti-Holt (Harlow) received a yellow card.",
+     "text": "Yellow card for I. Marchetti-Holt of Harlow in the forty-fifth minute.",
      "numbers_preserved": true
     }
    ]
@@ -11843,12 +11848,11 @@
    },
    "text": {
     "draft_en": "58th-minute substitution for Northbridge: D. Varga off, B. Adeyemi-Ross on.",
-    "canonical_en": "58th-minute substitution for Northbridge: D. Varga off, B. Adeyemi-Ross on.",
+    "canonical_en": "Substitution for Northbridge in the 58th minute: B. Adeyemi-Ross on, D. Varga off.",
     "numbers": [
      {
       "key": "minute",
-      "value": 58,
-      "unit": "minute"
+      "value": 58
      }
     ]
    },
@@ -11921,6 +11925,12 @@
       "ms": 9191
      },
      {
+      "agent": "Drafter",
+      "attempt": 1,
+      "outcome": "template wording (T0)",
+      "path": "rules"
+     },
+     {
       "agent": "Verifier",
       "attempt": 1,
       "outcome": "verified",
@@ -11938,7 +11948,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "58th-minute substitution for Northbridge: D. Varga off, B. Adeyemi-Ross on.",
+     "text": "Substitution for Northbridge in the 58th minute: B. Adeyemi-Ross on, D. Varga off.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 3445.0,
@@ -11956,7 +11966,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "58th-minute substitution for Northbridge: D. Varga off, B. Adeyemi-Ross on.",
+     "text": "Substitution for Northbridge in the 58th minute: B. Adeyemi-Ross on, D. Varga off.",
      "numbers_preserved": true
     },
     {
@@ -11968,7 +11978,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "fifty-eighth-minute substitution for Northbridge: D. Varga off, B. Adeyemi-Ross on.",
+     "text": "Substitution for Northbridge in the fifty-eighth minute: B. Adeyemi-Ross on, D. Varga off.",
      "numbers_preserved": true
     }
    ]
@@ -12158,22 +12168,19 @@
    },
    "text": {
     "draft_en": "63rd C. Nkemelu scores, Northbridge 1, Harlow 0.",
-    "canonical_en": "63rd C. Nkemelu scores, Northbridge 1, Harlow 0.",
+    "canonical_en": "GOAL, Northbridge 1–0 Harlow. C. Nkemelu, 63'.",
     "numbers": [
      {
       "key": "minute",
-      "value": 63,
-      "unit": "minute"
+      "value": 63
      },
      {
       "key": "score_NOR",
-      "value": 1,
-      "unit": "goals"
+      "value": 1
      },
      {
       "key": "score_HAR",
-      "value": 0,
-      "unit": "goals"
+      "value": 0
      }
     ]
    },
@@ -12253,6 +12260,12 @@
       "ms": 11095
      },
      {
+      "agent": "Drafter",
+      "attempt": 1,
+      "outcome": "template wording (T0)",
+      "path": "rules"
+     },
+     {
       "agent": "Verifier",
       "attempt": 1,
       "outcome": "verified",
@@ -12270,7 +12283,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "63rd C. Nkemelu scores, Northbridge 1, Harlow 0.",
+     "text": "GOAL, Northbridge 1–0 Harlow. C. Nkemelu, 63'.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 3748.5,
@@ -12288,7 +12301,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "63rd C. Nkemelu scores, Northbridge 1, Harlow 0.",
+     "text": "GOAL, Northbridge 1–0 Harlow. C. Nkemelu, 63'.",
      "numbers_preserved": true
     },
     {
@@ -12300,7 +12313,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "sixty-third C. Nkemelu scores, Northbridge one, Harlow nought.",
+     "text": "GOAL, Northbridge one nil Harlow. C. Nkemelu, sixty-third minute.",
      "numbers_preserved": true
     }
    ]
@@ -12649,12 +12662,11 @@
    },
    "text": {
     "draft_en": "71st minute: Harlow substitution — Z. Halloran off for A. Somerby.",
-    "canonical_en": "71st minute: Harlow substitution — Z. Halloran off for A. Somerby.",
+    "canonical_en": "Substitution for Harlow in the 71st minute: A. Somerby on, Z. Halloran off.",
     "numbers": [
      {
       "key": "minute",
-      "value": 71,
-      "unit": "minute"
+      "value": 71
      }
     ]
    },
@@ -12727,6 +12739,12 @@
       "ms": 8613
      },
      {
+      "agent": "Drafter",
+      "attempt": 1,
+      "outcome": "template wording (T0)",
+      "path": "rules"
+     },
+     {
       "agent": "Verifier",
       "attempt": 1,
       "outcome": "verified",
@@ -12744,7 +12762,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "71st minute: Harlow substitution — Z. Halloran off for A. Somerby.",
+     "text": "Substitution for Harlow in the 71st minute: A. Somerby on, Z. Halloran off.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 4230.0,
@@ -12762,7 +12780,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "71st minute: Harlow substitution — Z. Halloran off for A. Somerby.",
+     "text": "Substitution for Harlow in the 71st minute: A. Somerby on, Z. Halloran off.",
      "numbers_preserved": true
     },
     {
@@ -12774,7 +12792,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "seventy-first minute: Harlow substitution — Z. Halloran off for A. Somerby.",
+     "text": "Substitution for Harlow in the seventy-first minute: A. Somerby on, Z. Halloran off.",
      "numbers_preserved": true
     }
    ]
@@ -14874,8 +14892,8 @@
     "value": 1
    },
    "text": {
-    "draft_en": "GOAL. L. Corrigan scores for Northbridge in the 63rd minute. Northbridge 1-0 Harlow.",
-    "canonical_en": "GOAL. L. Corrigan scores for Northbridge in the 63rd minute. Northbridge 1-0 Harlow.",
+    "draft_en": "GOAL, Northbridge 1–0 Harlow. L. Corrigan, 63'.",
+    "canonical_en": "GOAL, Northbridge 1–0 Harlow. L. Corrigan, 63'.",
     "numbers": [
      {
       "key": "minute",

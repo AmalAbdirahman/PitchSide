@@ -302,7 +302,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "45th minute: I. Marchetti-Holt (Harlow) received a yellow card.",
+  "text": "Yellow card for I. Marchetti-Holt of Harlow in the 45th minute.",
   "evidence_ids": [
    301
   ],
@@ -828,7 +828,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "58th-minute substitution for Northbridge: D. Varga off, B. Adeyemi-Ross on.",
+  "text": "Substitution for Northbridge in the 58th minute: B. Adeyemi-Ross on, D. Varga off.",
   "evidence_ids": [
    383
   ],
@@ -856,7 +856,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "63rd C. Nkemelu scores, Northbridge 1, Harlow 0.",
+  "text": "GOAL, Northbridge 1–0 Harlow. C. Nkemelu, 63'.",
   "evidence_ids": [
    418,
    419
@@ -968,7 +968,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "71st minute: Harlow substitution — Z. Halloran off for A. Somerby.",
+  "text": "Substitution for Harlow in the 71st minute: A. Somerby on, Z. Halloran off.",
   "evidence_ids": [
    470
   ],

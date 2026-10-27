@@ -105,6 +105,15 @@ def scout_fact(out: dict[str, Any], m: dict[str, Any], match: Match, fact_id: st
     return fact
 
 
+def template_wording(draft: Fact, m: dict[str, Any], match: Match) -> Fact:
+    """Goals, substitutions and cards (T0) air in fixed template wording. The Scout's claim and
+    evidence stand, and its own wording stays in draft_en for the log."""
+    text, nums = render(m, match)
+    draft["text"].update(canonical_en=text, numbers=nums)
+    validate_fact(draft)
+    return draft
+
+
 def feedback(checked: Fact) -> str:
     failed = [f"{c['name']}: {c['detail']}" for c in checked["verification"]["checks"] if not c["passed"]]
     return "Your claim failed the verifier. " + "; ".join(failed) + ". Revise using only the input."
@@ -197,24 +206,28 @@ class Scout:
 
 def attempt(scout: Scout, request: dict[str, Any], m: dict[str, Any], match: Match, fact_id: str,
             n: int) -> tuple[Fact | None, dict[str, Any] | None, Step]:
-    """One Scout call. Returns (checked fact or None, parsed output or None, the Scout step)."""
+    """One Scout call. Returns (checked fact or None, parsed output or None, the steps taken)."""
     outcome, rec = scout.ask(request)
     if outcome != "ok" or rec is None:
-        return None, None, step("Scout", n, outcome, rec)
+        return None, None, [step("Scout", n, outcome, rec)]
     try:
         out = parse_output(rec["response_text"])
         draft = scout_fact(out, m, match, fact_id, [k["key"] for k in request["numbers"]])
     except (ValueError, KeyError, TypeError) as e:
-        return None, None, step("Scout", n, f"invalid_output: {str(e)[:120]}", rec)
-    return verify(draft, match), out, step("Scout", n, "drafted", rec)
+        return None, None, [step("Scout", n, f"invalid_output: {str(e)[:120]}", rec)]
+    steps = [step("Scout", n, "drafted", rec)]
+    if m["metric"] in load()["router"]["t0_metrics"]:
+        draft = template_wording(draft, m, match)
+        steps.append(step("Drafter", n, "template wording (T0)", path="rules"))
+    return verify(draft, match), out, steps
 
 
 def scout_moment_first(scout: Scout, m: dict[str, Any], rules_draft: Fact, match: Match) -> tuple[Fact, Any]:
     request = scout_request(m, match)
-    checked, out, s = attempt(scout, request, m, match, rules_draft["fact_id"], 1)
+    checked, out, steps = attempt(scout, request, m, match, rules_draft["fact_id"], 1)
     if checked is None:
-        return verify_rules(rules_draft, match, [s]), None
-    trail = [s, step("Verifier", 1, checked["verification"]["status"], path="rules")]
+        return verify_rules(rules_draft, match, steps), None
+    trail = steps + [step("Verifier", 1, checked["verification"]["status"], path="rules")]
     return with_audit(checked, trail), (request, out)
 
 
@@ -224,8 +237,8 @@ def scout_moment_retry(scout: Scout, m: dict[str, Any], first: Fact, ctx: Any, m
         return first
     request, out = ctx
     retry_req = {**request, "previous_output": out, "feedback": feedback(first)}
-    checked, _, s = attempt(scout, retry_req, m, match, first["fact_id"], 2)
-    trail = first["audit"]["steps"] + [s]
+    checked, _, steps = attempt(scout, retry_req, m, match, first["fact_id"], 2)
+    trail = first["audit"]["steps"] + steps
     if checked is None:
         return with_audit(first, trail)
     return with_audit(checked, trail + [step("Verifier", 2, checked["verification"]["status"], path="rules")])

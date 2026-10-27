@@ -73,3 +73,8 @@ def test_speak_decimals_and_units() -> None:
 
 def test_match_phrases_are_not_numbers() -> None:
     assert words_to_numbers("in the first half and the second half, in their own third") == []
+
+
+def test_goal_audio_reads_score_and_minute() -> None:
+    assert speak("GOAL, Northbridge 1–0 Harlow. C. Nkemelu, 63'.") == \
+        "GOAL, Northbridge one nil Harlow. C. Nkemelu, sixty-third minute."

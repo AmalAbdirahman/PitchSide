@@ -96,4 +96,4 @@ agents:
   scout_name: pitchside-scout
   max_calls: 40
   max_retries: 1
-  timeout_s: 20
+  timeout_s: 45

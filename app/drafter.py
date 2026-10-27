@@ -53,8 +53,8 @@ def _text_goal(m: dict[str, Any], match: Match) -> tuple[str, list[dict[str, Any
     home, away = match["meta"]["home"], match["meta"]["away"]
     mn = minute(m["window"]["end_t"])
     s = m["score"]
-    text = (f"GOAL. {player_name(match, m['subject']['id'])} scores for {team_name(match, m['team'])} "
-            f"in the {ordinal(mn)} minute. {team_name(match, home)} {s[home]}-{s[away]} {team_name(match, away)}.")
+    text = (f"GOAL, {team_name(match, home)} {s[home]}–{s[away]} {team_name(match, away)}. "
+            f"{player_name(match, m['subject']['id'])}, {mn}'.")
     nums = [_num("minute", mn), _num(f"score_{home}", s[home]), _num(f"score_{away}", s[away])]
     return text, nums
 
