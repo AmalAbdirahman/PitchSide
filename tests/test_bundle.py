@@ -54,7 +54,7 @@ def test_cues_validate_and_match_facts(bundle: tuple[dict[str, Any], list[dict[s
 
 def test_bundle_shape(bundle: tuple[dict[str, Any], list[dict[str, Any]]]) -> None:
     hero, _ = bundle
-    assert set(hero) == {"meta", "events", "score_timeline", "facts", "log", "metrics"}
+    assert set(hero) == {"meta", "events", "score_timeline", "facts", "log", "metrics", "series"}
     assert hero["meta"]["win_prob_label"] == "model estimate"
     assert hero["score_timeline"][-1] == {"t": hero["score_timeline"][-1]["t"], "NOR": 1, "HAR": 0}
     assert {"id", "t", "type", "team", "player"} <= set(hero["events"][0])

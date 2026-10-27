@@ -24,7 +24,8 @@
   </div>
   <nav class="views" role="tablist" aria-label="Views">
     <button type="button" role="tab" aria-selected="true" aria-controls="view-bc" data-view="bc" id="v-bc"><i>01</i>Broadcast</button>
-    <button type="button" role="tab" aria-selected="false" aria-controls="view-au" data-view="au" id="v-au"><i>02</i>Audit</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="view-an" data-view="an" id="v-an"><i>02</i>Analysis</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="view-au" data-view="au" id="v-au"><i>03</i>Audit</button>
   </nav>
   <div class="match num" role="group" aria-label="Score">
     <div class="tm"><i style="background:var(--nor)"></i><span id="home-name">HOME</span><b class="ab" id="home-ab"></b></div>
@@ -50,10 +51,9 @@
         <select id="follow"><option value="">Whole match</option></select></label>
     </div>
     <div class="stage">
-      <svg id="pitch" viewBox="-2 -2 109 72" role="img" aria-label="Pitch outline. The simulator does not produce player positions, so no players are drawn."></svg>
+      <svg id="pitch" viewBox="-2 -2 109 72" role="img" aria-label="Pitch with the latest events at their simulated locations. Only the player on the ball has a position, so other players are not drawn."></svg>
       <div class="bug" aria-hidden="true"><span><i style="background:var(--nor)"></i><b id="bug-h"></b></span><span class="s num" id="bug-s">0–0</span><span><b id="bug-a"></b><i style="background:var(--har)"></i></span><span class="m" id="bug-m">0'</span></div>
       <div class="live" aria-hidden="true"><b>●</b> REPLAY</div>
-      <ol class="feed" id="feed" aria-label="Latest events"></ol>
       <div class="lt" id="lt" aria-live="polite">
         <div class="k" id="lt-k">Verified</div>
         <div class="b"><p id="lt-t"></p></div>
@@ -62,6 +62,7 @@
       </div>
       <div class="flash" id="flash"></div>
     </div>
+    <ol class="feed" id="feed" aria-label="Latest events"></ol>
     <div class="out">
       <section aria-labelledby="cap-h"><h3><span class="lbl" id="cap-h">Caption · EN</span><span class="tag c-muted" id="cap-b">waiting</span></h3><p id="cap-t">Press play. Aired facts appear here.</p></section>
       <section aria-labelledby="aud-h"><h3><span class="lbl" id="aud-h">Audio script · EN</span><button type="button" class="btn xs" id="speak" hidden>Speak</button></h3><p id="aud-t">Numbers are spelled out for speech.</p><p class="note" id="aud-n"></p></section>
@@ -77,7 +78,21 @@
  </div>
 </section>
 
-<!-- ===================== 02 AUDIT ===================== -->
+<!-- ===================== 02 ANALYSIS ===================== -->
+<section class="view" id="view-an" role="tabpanel" aria-labelledby="v-an" hidden>
+ <div class="an">
+  <div class="panel wide"><div class="ph"><h2>xG race</h2><span class="sp lbl">Cumulative expected goals · model · per minute</span></div>
+    <div class="pad"><svg id="xgrace" viewBox="0 0 820 230" role="img" aria-label="Cumulative xG for both teams up to the replay clock"></svg></div></div>
+  <div class="panel"><div class="ph"><h2>Shot map</h2><span class="sp lbl">Size = xG · filled = goal</span></div>
+    <div class="pad"><svg id="shotmap" viewBox="-2 -2 109 72" role="img" aria-label="Shot locations up to the replay clock"></svg><div class="note" id="shot-note"></div></div></div>
+  <div class="panel"><div class="ph"><h2>Team comparison</h2><span class="sp lbl" id="cmp-t">to 0'</span></div>
+    <div class="pad"><div class="cmp" id="cmp"></div><div class="note">Counts and xG come from the synthetic event log; win probability is a model estimate.</div></div></div>
+  <div class="panel wide"><div class="ph"><h2>Attack lanes</h2><span class="sp lbl" id="lanes-t">Trailing window · 95% Wilson interval</span></div>
+    <div class="pad lanes2"><div id="lanes-h"></div><div id="lanes-a"></div></div></div>
+ </div>
+</section>
+
+<!-- ===================== 03 AUDIT ===================== -->
 <section class="view" id="view-au" role="tabpanel" aria-labelledby="v-au" hidden>
  <div class="au">
   <div class="panel">
@@ -112,9 +127,9 @@
     </div>
     <div class="clk num" id="clk2" aria-hidden="true">00:00</div>
     <div class="rib">
-      <div class="legend"><span><i style="background:var(--amber)"></i>Goal</span><span><i style="background:var(--cyan)"></i>Sub</span><span><i style="background:var(--pink)"></i>Card</span><span><i style="background:var(--green)"></i>Played</span></div>
-      <svg id="ribbon" viewBox="0 0 900 56" preserveAspectRatio="none" role="img" aria-label="Match timeline with goals, substitutions and cards"></svg>
-      <div class="keys"><kbd>Space</kbd> play/pause · <kbd>A</kbd> approve · <kbd>R</kbd> reject · <kbd>V</kbd> veto (oldest waiting fact) · <kbd>1</kbd>/<kbd>2</kbd> views</div>
+      <div class="legend"><span><i style="background:var(--text)"></i><b id="wp-name">Home</b> win prob (model estimate)</span><span><i style="background:var(--amber)"></i>Goal</span><span><i style="background:var(--cyan)"></i>Sub</span><span><i style="background:var(--pink)"></i>Card</span><span><i style="background:var(--green)"></i>Played</span></div>
+      <svg id="ribbon" viewBox="0 0 900 72" preserveAspectRatio="none" role="img" aria-label="Match timeline: home win probability (model estimate), goals, substitutions and cards"></svg>
+      <div class="keys"><kbd>Space</kbd> play/pause · <kbd>A</kbd> approve · <kbd>R</kbd> reject · <kbd>V</kbd> veto (oldest waiting fact) · <kbd>1</kbd>–<kbd>3</kbd> views</div>
     </div>
   </div>
 </div>

@@ -17,11 +17,15 @@ from jsonschema import Draft202012Validator
 from app.drafter import draft_facts
 from app.renditions import all_preserved, with_renditions
 from app.router import route
+from app.series import build_series
 from app.verifier import validate_fact, verify
-from core.config import ROOT
+from core.config import ROOT, load
 from core.moments import detect_moments
 
 Fact = dict[str, Any]
+# Optional event fields kept for the pitch, shot map and evidence drawer.
+EVENT_EXTRAS = ("period", "x", "y", "end_x", "end_y", "outcome", "xg", "shot_speed", "ball_speed",
+                "player_speed", "pass_difficulty", "pass_distance", "card")
 CUE_SCHEMA: dict[str, Any] = {
     "type": "array",
     "items": {
@@ -55,8 +59,7 @@ def slim_events(match: dict[str, Any]) -> list[dict[str, Any]]:
     for e in match["events"]:
         row = {"id": e["id"], "t": e["t"], "type": e["type"], "team": e["team"], "player_id": e["player_id"],
                "player": names[e["player_id"]]}
-        if "outcome" in e:
-            row["outcome"] = e["outcome"]
+        row.update({k: e[k] for k in EVENT_EXTRAS if k in e})
         if "player_off" in e:
             row["player_off"] = names[e["player_off"]]
         out.append(row)
@@ -109,9 +112,11 @@ def build() -> tuple[dict[str, Any], list[dict[str, Any]]]:
     log = [c for c in checked if c not in routable]
     for f in facts + log:
         validate_fact(f)
-    meta = {**match["meta"], "win_prob_label": "model estimate", "win_prob_method": "poisson_v1", "mu": mu}
+    meta = {**match["meta"], "win_prob_label": "model estimate", "win_prob_method": "poisson_v1", "mu": mu,
+            "pitch": load()["pitch"]}
     hero = {"meta": meta, "events": slim_events(match), "score_timeline": score_timeline(match),
-            "facts": facts, "log": log, "metrics": metrics(drafts, checked, facts)}
+            "facts": facts, "log": log, "metrics": metrics(drafts, checked, facts),
+            "series": build_series(match["events"], teams, mu)}
     cues = make_cues(facts)
     Draft202012Validator(CUE_SCHEMA).validate(cues)
     return hero, cues

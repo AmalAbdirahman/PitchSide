@@ -11,6 +11,8 @@ const PHASE = {
   rejected: ['Rejected by verifier', 'c-red'],
 };
 const TIER_CLS = { T0: 'c-green', T1: 'c-cyan', T2: 'c-amber' };
+const LANES = ['left', 'centre', 'right'];
+const HOME_COL = '#04f5ff', AWAY_COL = '#ff2d7e';
 
 let D = null;      // bundle: meta, events, items, players, end
 let CUES = [];     // docs/data/cues.json
@@ -24,6 +26,15 @@ const clock = t => pad(Math.floor(t / 60)) + ':' + pad(Math.floor(t % 60));
 const minute = t => Math.floor(t / 60) + 1 + "'";
 const nameOf = id => (D.players[id] ? D.players[id].name : id || '');
 const rend = (f, kind, lang) => f.renditions.find(r => r.kind === kind && r.lang === lang) || null;
+const teamCol = team => (team === D.meta.home ? HOME_COL : AWAY_COL);
+const idxAt = t => Math.min(D.series.t.length - 1, Math.floor(t / D.series.step_s));
+const fix = (v, d) => (v === null || v === undefined ? '–' : Number(v).toFixed(d));
+
+/* Event coordinates are per team, attacking left to right. On screen the home side attacks right. */
+function toScreen(team, x, y) {
+  const p = D.meta.pitch;
+  return team === D.meta.home ? [x, y] : [p.length - x, p.width - y];
+}
 
 function freshState() {
   return {
@@ -68,7 +79,7 @@ function prepare(hero) {
   items.sort((a, b) => a.t - b.t || a.id.localeCompare(b.id));
   const events = hero.events.slice().sort((a, b) => a.t - b.t);
   const last = Math.max(events[events.length - 1].t, items[items.length - 1].t);
-  return { meta: hero.meta, metrics: hero.metrics, scores: hero.score_timeline, events, items, players,
+  return { meta: hero.meta, metrics: hero.metrics, scores: hero.score_timeline, series: hero.series, events, items, players,
     byId: new Map(hero.events.map(e => [e.id, e])), end: last };
 }
 
@@ -93,6 +104,7 @@ function setupStatic() {
   $('#away-name').textContent = teams[away].name.toUpperCase();
   $('#home-ab').textContent = $('#bug-h').textContent = home;
   $('#away-ab').textContent = $('#bug-a').textContent = away;
+  $('#wp-name').textContent = home;
   drawPitch();
   drawRibbon();
   fillFollow();
@@ -100,30 +112,106 @@ function setupStatic() {
   setupSpeech();
 }
 
+function pitchLines(op) {
+  const p = D.meta.pitch, L = p.length, W = p.width, my = W / 2;
+  const s = `fill="none" stroke="rgba(255,255,255,${op})" stroke-width=".3"`;
+  return `<rect x="0" y="0" width="${L}" height="${W}" ${s}/><line x1="${L / 2}" y1="0" x2="${L / 2}" y2="${W}" ${s}/>
+    <circle cx="${L / 2}" cy="${my}" r="9.15" ${s}/><circle cx="${L / 2}" cy="${my}" r=".5" fill="rgba(255,255,255,${op})"/>
+    <rect x="0" y="${my - 20.15}" width="16.5" height="40.3" ${s}/><rect x="${L - 16.5}" y="${my - 20.15}" width="16.5" height="40.3" ${s}/>
+    <rect x="0" y="${my - 9.15}" width="5.5" height="18.3" ${s}/><rect x="${L - 5.5}" y="${my - 9.15}" width="5.5" height="18.3" ${s}/>
+    <rect x="-1.6" y="${my - 3.66}" width="1.6" height="7.32" ${s}/><rect x="${L}" y="${my - 3.66}" width="1.6" height="7.32" ${s}/>`;
+}
+
 function drawPitch() {
-  const s = 'fill="none" stroke="rgba(255,255,255,.22)" stroke-width=".3"';
-  $('#pitch').innerHTML = `<rect x="-2" y="-2" width="109" height="72" fill="#0d0617"/>
-    <rect x="0" y="0" width="105" height="68" ${s}/><line x1="52.5" y1="0" x2="52.5" y2="68" ${s}/>
-    <circle cx="52.5" cy="34" r="9.15" ${s}/><circle cx="52.5" cy="34" r=".5" fill="rgba(255,255,255,.22)"/>
-    <rect x="0" y="13.85" width="16.5" height="40.3" ${s}/><rect x="88.5" y="13.85" width="16.5" height="40.3" ${s}/>
-    <rect x="0" y="24.85" width="5.5" height="18.3" ${s}/><rect x="99.5" y="24.85" width="5.5" height="18.3" ${s}/>
-    <rect x="-1.6" y="30.34" width="1.6" height="7.32" ${s}/><rect x="105" y="30.34" width="1.6" height="7.32" ${s}/>`;
+  const p = D.meta.pitch, d = 'stroke="rgba(255,255,255,.12)" stroke-dasharray="1 1" stroke-width=".25"';
+  const grid = [p.own_third_x, p.final_third_x].map(x => `<line x1="${x}" y1="0" x2="${x}" y2="${p.width}" ${d}/>`)
+    .concat([1, 2].map(k => `<line x1="0" y1="${p.width * k / 3}" x2="${p.length}" y2="${p.width * k / 3}" ${d}/>`)).join('');
+  $('#pitch').innerHTML = `<rect x="-2" y="-2" width="${p.length + 4}" height="${p.width + 4}" fill="#0d0617"/>
+    <g id="zones"></g><g id="lanegrid" opacity="0">${grid}</g>${pitchLines(0.22)}
+    <text x="${p.length - 1}" y="${p.width + 1.6}" text-anchor="end" font-size="1.6" font-weight="800" fill="${HOME_COL}">${esc(D.meta.home)} ATTACK ▶</text>
+    <text x="1" y="${p.width + 1.6}" font-size="1.6" font-weight="800" fill="${AWAY_COL}">◀ ${esc(D.meta.away)} ATTACK</text>
+    <g id="trail"></g><circle id="ring" r="2.6" fill="none" stroke="#00ff85" stroke-width=".35" stroke-dasharray="1 .8" opacity="0"/>
+    <circle id="ball" r=".75" fill="#fff" opacity="0"/>
+    <g id="tag" opacity="0"><rect id="tag-bg" height="3.4" fill="#38003c"/><rect width=".5" height="3.4" fill="#00ff85"/>
+      <text id="tag-tx" x="1.3" y="2.35" font-size="1.8" font-weight="800" fill="#fff"></text></g>`;
+}
+
+function eventTag(e) {
+  let label = `${e.player.toUpperCase()} · ${e.type.replace('_', ' ').toUpperCase()}`;
+  if (UI.depth !== 'analyst') return label;
+  if (e.type === 'shot') label += ` · ${e.shot_speed} KM/H · xG ${e.xg.toFixed(2)}`;
+  else if (e.type === 'pass') label += ` · ${e.ball_speed} KM/H · DIFF ${e.pass_difficulty.toFixed(2)}`;
+  else if (e.type === 'carry') label += ` · ${e.player_speed} KM/H`;
+  return label;
+}
+
+function trailMarks(recent) {
+  return recent.map((e, i) => {
+    const op = ((i + 1) / recent.length).toFixed(2), col = teamCol(e.team), [x1, y1] = toScreen(e.team, e.x, e.y);
+    let g = `<circle cx="${x1}" cy="${y1}" r=".8" fill="${col}" opacity="${op}"/>`;
+    if ('end_x' in e) {
+      const [x2, y2] = toScreen(e.team, e.end_x, e.end_y), dash = e.type === 'carry' ? ' stroke-dasharray=".8 .6"' : '';
+      g += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width=".35" opacity="${op}"${dash}/>`;
+    }
+    return g;
+  }).join('');
+}
+
+function setAttrs(sel, attrs) {
+  const el = $(sel);
+  for (const [k, v] of Object.entries(attrs)) el.setAttribute(k, v);
+}
+
+function renderPitch() {
+  const recent = D.events.slice(Math.max(0, S.evNext - 6), S.evNext).filter(e => 'x' in e);
+  $('#trail').innerHTML = trailMarks(recent);
+  $('#lanegrid').setAttribute('opacity', UI.depth === 'analyst' ? 1 : 0);
+  for (const id of ['#ball', '#tag', '#ring']) $(id).setAttribute('opacity', 0);
+  const cur = recent[recent.length - 1], p = D.meta.pitch;
+  if (!cur) return;
+  const [bx, by] = 'end_x' in cur ? toScreen(cur.team, cur.end_x, cur.end_y) : toScreen(cur.team, cur.x, cur.y);
+  setAttrs('#ball', { cx: bx, cy: by, opacity: 1 });
+  const label = eventTag(cur), w = label.length * 1.08 + 2.4;
+  $('#tag-tx').textContent = label;
+  $('#tag-bg').setAttribute('width', w);
+  const tx = Math.min(Math.max(bx - w / 2, 0.5), p.length - w - 0.5), ty = by > 8 ? by - 6.5 : by + 3;
+  setAttrs('#tag', { transform: `translate(${tx.toFixed(1)} ${ty.toFixed(1)})`, opacity: 1 });
+  if (UI.follow && cur.player_id === UI.follow) setAttrs('#ring', { cx: bx, cy: by, opacity: 1 });
+}
+
+function zoneFor(team, lanes) {
+  const p = D.meta.pitch, band = p.width / 3, k = LANES.indexOf(lanes.overload), home = team === D.meta.home;
+  const x0 = home ? p.length / 2 : 0, y0 = home ? k * band : p.width - (k + 1) * band;
+  const pct = Math.round(lanes[lanes.overload].share * 100), mins = D.series.lane_window_s / 60;
+  const text = `${team} ${lanes.overload.toUpperCase()} OVERLOAD · ${pct}% OF ${lanes.n} ATTACKS · LAST ${mins} MIN`;
+  const ty = y0 + band / 2 + 0.6, tx = home ? p.length / 2 + 1.5 : p.length / 2 - 1.5;  // clear of the corner graphics
+  return `<rect x="${x0}" y="${y0}" width="${p.length / 2}" height="${band}" fill="${teamCol(team)}" opacity=".13"/>` +
+    `<text x="${tx}" y="${ty}" text-anchor="${home ? 'start' : 'end'}" font-size="1.7" font-weight="800" fill="${teamCol(team)}">${esc(text)}</text>`;
+}
+
+function renderZones() {
+  const i = idxAt(S.t);
+  $('#zones').innerHTML = [D.meta.home, D.meta.away]
+    .map(team => (D.series.lanes[team][i].overload ? zoneFor(team, D.series.lanes[team][i]) : '')).join('');
 }
 
 const ribX = t => 8 + (t / D.end) * 884;
+const ribY = p => 62 - p * 56;
 
 function drawRibbon() {
   const colour = { goal: '#ffd23f', substitution: '#04f5ff', card: '#ff2d7e' };
   const short = { goal: 'GOAL', substitution: 'SUB', card: 'CARD' };
-  let g = '<defs><clipPath id="rc"><rect id="rcr" x="0" y="0" width="8" height="56"/></clipPath></defs>';
-  g += '<rect x="8" y="24" width="884" height="6" rx="3" fill="rgba(255,255,255,.08)"/>';
-  g += '<rect x="8" y="24" width="884" height="6" rx="3" fill="#00ff85" clip-path="url(#rc)"/>';
+  const wp = D.series.win_prob.map((r, i) => `${i ? 'L' : 'M'}${ribX(D.series.t[i]).toFixed(1)} ${ribY(r[0]).toFixed(1)}`).join('');
+  let g = '<defs><clipPath id="rc"><rect id="rcr" x="0" y="0" width="8" height="72"/></clipPath></defs>';
+  g += `<line x1="8" x2="892" y1="${ribY(0.5)}" y2="${ribY(0.5)}" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 3"/>`;
+  g += `<text x="10" y="${ribY(0.5) - 2}" class="rl">50%</text><g clip-path="url(#rc)">`;
   D.events.filter(e => colour[e.type]).forEach((e, i) => {
-    const x = ribX(e.t).toFixed(1), y = i % 2 ? 50 : 14;
-    g += `<line x1="${x}" x2="${x}" y1="6" y2="48" stroke="${colour[e.type]}" stroke-width="1.5" vector-effect="non-scaling-stroke"/>`;
+    const x = ribX(e.t).toFixed(1), y = i % 2 ? 70 : 9;
+    g += `<line x1="${x}" x2="${x}" y1="2" y2="66" stroke="${colour[e.type]}" stroke-width="1.2" stroke-dasharray="2 2" vector-effect="non-scaling-stroke"/>`;
     g += `<text x="${+x + 3}" y="${y}" class="rl" style="fill:${colour[e.type]}">${short[e.type]} ${minute(e.t)}</text>`;
   });
-  g += '<line id="head" x1="8" x2="8" y1="0" y2="56" stroke="#f5f1f9" stroke-width="2" vector-effect="non-scaling-stroke"/>';
+  g += `<path d="${wp}" fill="none" stroke="#f5f1f9" stroke-width="2" vector-effect="non-scaling-stroke"/></g>`;
+  g += '<line id="head" x1="8" x2="8" y1="0" y2="72" stroke="#00ff85" stroke-width="2" vector-effect="non-scaling-stroke"/>';
   $('#ribbon').innerHTML = g;
 }
 
@@ -282,6 +370,11 @@ function frame(now) {
   }
   if (S.dirty) renderAll();
   if (S.feedDirty) renderFeed();
+  if (idxAt(S.t) !== S.zoneIdx) {
+    S.zoneIdx = idxAt(S.t);
+    renderZones();
+  }
+  if (UI.view === 'an') maybeRenderAnalysis(now);
   renderClock();
   renderTimers();
   requestAnimationFrame(frame);
@@ -294,6 +387,9 @@ function renderAll() {
   renderOnAir();
   renderLog();
   renderAudit();
+  renderPitch();
+  renderZones();
+  S.anKey = null;
 }
 
 function scoreAt(t) {
@@ -321,8 +417,9 @@ function eventLine(e) {
 
 function renderFeed() {
   S.feedDirty = false;
-  const recent = D.events.slice(Math.max(0, S.evNext - 4), S.evNext).reverse();
+  const recent = D.events.slice(Math.max(0, S.evNext - 4), S.evNext).reverse();  // newest first
   $('#feed').innerHTML = recent.map(e => `<li class="${esc(e.team)}">${esc(eventLine(e))}</li>`).join('');
+  renderPitch();
 }
 
 function flash() {
@@ -519,6 +616,121 @@ function auditRow(it) {
     `<td><span class="tag ${st}">${esc(it.status)}</span></td><td class="${ph[1]}">${ph[0]}</td></tr>`;
 }
 
+/* ---------- analysis (draws bundle series; computes no statistics) ---------- */
+let lastAnalysis = 0;
+function maybeRenderAnalysis(now) {
+  const key = `${idxAt(S.t)}|${S.evNext}|${UI.follow}`;
+  if (key === S.anKey || now - lastAnalysis < 250) return;
+  S.anKey = key;
+  lastAnalysis = now;
+  renderXgRace();
+  renderShots();
+  renderCompare();
+  renderLanes();
+}
+
+function xgScale() {
+  const finals = [D.meta.home, D.meta.away].map(tm => D.series.teams[tm].xg_sum.slice(-1)[0] || 0);
+  return Math.max(0.5, Math.ceil(Math.max(...finals) * 2) / 2);
+}
+
+function renderXgRace() {
+  const top = xgScale(), X = t => 44 + (t / D.end) * 760, Y = v => 200 - (v / top) * 180;
+  const i = idxAt(S.t), ts = D.series.t;
+  let g = '';
+  for (let v = 0; v <= top + 1e-9; v += 0.5) {
+    g += `<line x1="44" x2="804" y1="${Y(v)}" y2="${Y(v)}" stroke="rgba(255,255,255,.07)"/><text x="36" y="${Y(v) + 3}" text-anchor="end" class="rl" style="font-size:10px">${v.toFixed(1)}</text>`;
+  }
+  for (let m = 0; m * 60 <= D.end; m += 15) g += `<text x="${X(m * 60)}" y="218" text-anchor="middle" class="rl" style="font-size:10px">${m}'</text>`;
+  const ht = D.events.find(e => e.period === 2);
+  if (ht) g += `<line x1="${X(ht.t)}" x2="${X(ht.t)}" y1="16" y2="200" stroke="rgba(255,255,255,.14)" stroke-dasharray="3 3"/><text x="${X(ht.t) + 4}" y="26" class="rl" style="font-size:10px">2ND HALF</text>`;
+  for (const team of [D.meta.home, D.meta.away]) {
+    const col = D.series.teams[team].xg_sum;
+    let d = `M${X(0)} ${Y(0)}`;
+    for (let k = 1; k <= i; k++) d += ` H${X(ts[k]).toFixed(1)} V${Y(col[k] || 0).toFixed(1)}`;
+    d += ` H${X(Math.min(S.t, D.end)).toFixed(1)}`;
+    g += `<path d="${d}" fill="none" stroke="${teamCol(team)}" stroke-width="2.5" stroke-linejoin="round"/>`;
+    g += `<text x="${X(Math.min(S.t, D.end)) + 6}" y="${Y(col[i] || 0) + 4}" fill="${teamCol(team)}" font-size="12" font-weight="800" font-family="ui-monospace,monospace">${team} ${fix(col[i] || 0, 2)}</text>`;
+  }
+  for (const e of D.events) {
+    if (e.type !== 'goal' || e.t > S.t) continue;
+    const y = Y(D.series.teams[e.team].xg_sum[Math.min(i, idxAt(e.t) + 1)] || 0);  // first sample after the goal
+    g += `<line x1="${X(e.t)}" x2="${X(e.t)}" y1="44" y2="${y}" stroke="#ffd23f" stroke-dasharray="2 3"/>`;
+    g += `<circle cx="${X(e.t)}" cy="${y}" r="6" fill="${teamCol(e.team)}" stroke="#07030d" stroke-width="2"/>`;
+    g += `<text x="${X(e.t)}" y="38" text-anchor="middle" fill="#ffd23f" font-size="11" font-weight="800">GOAL ${esc(e.player.toUpperCase())} ${minute(e.t)}</text>`;
+  }
+  $('#xgrace').innerHTML = g;
+}
+
+function renderShots() {
+  const p = D.meta.pitch;
+  let g = `<rect x="0" y="0" width="${p.length}" height="${p.width}" rx="2" fill="#0a0412"/>${pitchLines(0.18)}`;
+  for (const e of D.events) {
+    if (e.type !== 'shot' || e.t > S.t) continue;
+    const [x, y] = toScreen(e.team, e.x, e.y), col = teamCol(e.team), r = 0.8 + Math.sqrt(e.xg) * 4.2;
+    const hi = UI.follow && e.player_id === UI.follow;
+    g += `<circle cx="${x}" cy="${y}" r="${r.toFixed(2)}" fill="${col}" fill-opacity="${e.outcome === 'goal' ? 1 : 0.2}" stroke="${hi ? '#00ff85' : col}" stroke-width="${hi ? 0.7 : 0.3}">` +
+      `<title>${esc(e.player)} ${minute(e.t)} · xG ${e.xg.toFixed(2)} · ${e.shot_speed} km/h · ${esc(e.outcome.replace('_', ' '))}</title></circle>`;
+  }
+  g += `<text x="${p.length - 1}" y="${p.width - 1.5}" text-anchor="end" font-size="2.2" fill="${HOME_COL}" font-weight="800">${esc(D.meta.home)} ATTACK ▶</text>`;
+  g += `<text x="1" y="${p.width - 1.5}" font-size="2.2" fill="${AWAY_COL}" font-weight="800">◀ ${esc(D.meta.away)} ATTACK</text>`;
+  $('#shotmap').innerHTML = g;
+  $('#shot-note').textContent = UI.follow ? `${nameOf(UI.follow)}'s shots are outlined in green. Hover a shot for details.`
+    : 'Pick a player in Follow to outline their shots. Hover a shot for details.';
+}
+
+function compareRow(name, a, b, digits) {
+  const va = a || 0, vb = b || 0, sum = va + vb || 1;
+  return `<div class="r"><span class="v c-cyan">${fix(a, digits)}</span><span class="n">${name}</span><span class="v c-pink">${fix(b, digits)}</span>` +
+    `<div class="bars"><i style="width:${(va / sum) * 100}%;background:${HOME_COL}"></i><i style="width:${(vb / sum) * 100}%;background:${AWAY_COL}"></i></div></div>`;
+}
+
+function renderCompare() {
+  const i = idxAt(S.t), h = D.series.teams[D.meta.home], a = D.series.teams[D.meta.away], wp = D.series.win_prob[i];
+  const rows = [
+    ['Win prob % (model estimate)', wp[0] * 100, wp[2] * 100, 0], ['Shots', h.shots[i], a.shots[i], 0],
+    ['xG', h.xg_sum[i], a.xg_sum[i], 2], ['Pass accuracy %', h.pass_accuracy[i], a.pass_accuracy[i], 0],
+    ['Turnovers in own third', h.turnovers_own_third[i], a.turnovers_own_third[i], 0],
+    ['Top shot speed km/h', h.top_shot_speed[i], a.top_shot_speed[i], 1],
+  ];
+  $('#cmp').innerHTML = rows.map(r => compareRow(...r)).join('');
+  $('#cmp-t').textContent = `${D.meta.home} vs ${D.meta.away} · to ${minute(S.t)} · draw ${Math.round(wp[1] * 100)}%`;
+}
+
+const HEDGE_TEXT = {
+  early: ['EARLY', 'c-amber', 'Too few attacks to say much. Any caption must say "early sign".'],
+  suggests: ['SUGGESTS', 'c-cyan', 'The interval overlaps the baseline. A caption must say "suggests".'],
+  clear: ['CLEAR', 'c-green', 'The interval excludes the baseline. A plain statement is allowed.'],
+};
+
+function laneRow(name, lane, base, col) {
+  const W = 600, X = v => v * W;
+  const bracket = `<line x1="${X(lane.lo)}" x2="${X(lane.hi)}" y1="11" y2="11" stroke="#f5f1f9" stroke-width="2"/>` +
+    `<line x1="${X(lane.lo)}" x2="${X(lane.lo)}" y1="5" y2="17" stroke="#f5f1f9" stroke-width="2"/><line x1="${X(lane.hi)}" x2="${X(lane.hi)}" y1="5" y2="17" stroke="#f5f1f9" stroke-width="2"/>`;
+  return `<div class="lane"><span class="lbl">${name}</span>
+    <svg viewBox="0 0 ${W} 22" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="6" width="${W}" height="10" fill="rgba(255,255,255,.06)" rx="5"/>
+      <rect x="0" y="6" width="${X(lane.share)}" height="10" fill="${col}" rx="5"/>${bracket}
+      <line x1="${X(base)}" x2="${X(base)}" y1="0" y2="22" stroke="#ffd23f" stroke-dasharray="3 2" stroke-width="1.5"/></svg>
+    <span class="val">${lane.k} · ${Math.round(lane.share * 100)}% <span class="c-muted">[${Math.round(lane.lo * 100)}–${Math.round(lane.hi * 100)}]</span></span></div>`;
+}
+
+function lanePanel(team, i) {
+  const L = D.series.lanes[team][i], base = D.series.lane_baseline;
+  let h = `<h3 style="color:${teamCol(team)}">${esc(D.meta.teams[team].name)} · ${L.n} attacks</h3>`;
+  if (!L.n) return h + '<p class="note">No attacks in the window yet.</p>';
+  h += LANES.map(ln => laneRow(ln[0].toUpperCase() + ln.slice(1), L[ln], base, ln === L.top ? teamCol(team) : '#7d6c94')).join('');
+  const [word, cls, why] = HEDGE_TEXT[L.hedge];
+  const over = L.overload ? ` Flagged as a ${L.overload}-lane overload.` : '';
+  return h + `<div class="hedge"><span class="tag ${cls}">${word}</span><span>Most attacks go ${L.top === 'centre' ? 'through the centre' : 'down the ' + L.top} (${Math.round(L[L.top].share * 100)}%). ${why}${over}</span></div>`;
+}
+
+function renderLanes() {
+  const i = idxAt(S.t), mins = D.series.lane_window_s / 60;
+  $('#lanes-t').textContent = `Last ${mins} min of play · 95% Wilson interval · dashed line = ${Math.round(D.series.lane_baseline * 100)}% baseline`;
+  $('#lanes-h').innerHTML = lanePanel(D.meta.home, i);
+  $('#lanes-a').innerHTML = lanePanel(D.meta.away, i);
+}
+
 /* ---------- evidence drawer ---------- */
 function evidenceRow(e, f, id) {
   if (!e) return `<tr><td>${id}</td><td colspan="5"><span class="tag c-red">not in the event log</span></td></tr>`;
@@ -571,8 +783,8 @@ function togglePlay() {
 function setView(v) {
   UI.view = v;
   $$('nav.views button').forEach(b => b.setAttribute('aria-selected', String(b.dataset.view === v)));
-  $('#view-bc').hidden = v !== 'bc';
-  $('#view-au').hidden = v !== 'au';
+  for (const k of ['bc', 'an', 'au']) $('#view-' + k).hidden = k !== v;
+  S.anKey = null;
 }
 
 function oldest(phase) {
@@ -592,7 +804,8 @@ function onKey(e) {
   else if (k === 'a' || k === 'r') { const it = oldest('queued'); if (it) act(it.id, k === 'a' ? 'approve' : 'reject'); }
   else if (k === 'v') { const it = oldest('veto'); if (it) act(it.id, 'veto'); }
   else if (k === '1') setView('bc');
-  else if (k === '2') setView('au');
+  else if (k === '2') setView('an');
+  else if (k === '3') setView('au');
 }
 
 function press(sel, fn) {

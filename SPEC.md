@@ -95,7 +95,9 @@ A deterministic check confirms every number in each rendition appears in `text.n
 
 ## 12. Bundle format
 
-`docs/data/hero.json`: `{meta, events (id, t, type, team, player), score_timeline, facts[], log[], metrics}`.
+`docs/data/hero.json`: `{meta, events, score_timeline, facts[], log[], metrics, series}`.
+- `events`: at least `id, t, type, team, player`; may also carry the simulator fields the UI draws (`x, y, end_x, end_y, xg`, speeds, `period`, `outcome`). Coordinates are per team, attacking left to right.
+- `series`: per-minute values for the charts, all computed in Python by `core/` (win probability, team stats, attack lanes with Wilson interval and hedge). The front end draws them and computes no statistics of its own.
 `docs/data/cues.json`: an array of timed cues `{cue_id, fact_id, start_t, duration_s, layout, lang, text, evidence_ids, checked, tier}`, the machine-readable overlay feed. Provide a download link for it in the UI.
 
 ## 13. Static UI (`docs/`, no build step)
