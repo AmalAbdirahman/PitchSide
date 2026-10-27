@@ -35,6 +35,23 @@
   </div>
 </header>
 
+<!-- ===================== MATCH STRIP ===================== -->
+<div class="strip" role="region" aria-label="Replay controls">
+  <div class="in">
+    <div class="pl">
+      <button type="button" class="btn go" id="play" aria-label="Play">▶</button>
+      <button type="button" class="btn" id="restart" aria-label="Restart">↺</button>
+      <div class="seg" role="group" aria-label="Replay speed"><button type="button" data-speed="1" aria-pressed="true">1×</button><button type="button" data-speed="2" aria-pressed="false">2×</button><button type="button" data-speed="4" aria-pressed="false">4×</button></div>
+    </div>
+    <div class="clk num" id="clk2" aria-hidden="true">00:00</div>
+    <div class="rib">
+      <div class="legend"><span><i style="background:var(--text)"></i><b id="wp-name">Home</b> win prob (model estimate)</span><span><i style="background:var(--amber)"></i>Goal</span><span><i style="background:var(--cyan)"></i>Sub</span><span><i style="background:var(--pink)"></i>Card</span><span><i style="background:var(--green)"></i>Played</span></div>
+      <svg id="ribbon" viewBox="0 0 900 52" preserveAspectRatio="none" role="img" aria-label="Match timeline: home win probability (model estimate), goals, substitutions and cards"></svg>
+      <div class="keys"><kbd>Space</kbd> play/pause · <kbd>A</kbd> approve · <kbd>R</kbd> reject · <kbd>V</kbd> veto (oldest waiting fact) · <kbd>1</kbd>–<kbd>3</kbd> views</div>
+    </div>
+  </div>
+</div>
+
 <div id="load-error" class="err" role="alert" hidden></div>
 
 <!-- ===================== 01 BROADCAST ===================== -->
@@ -117,22 +134,6 @@
 
 </div>
 
-<!-- ===================== MATCH STRIP ===================== -->
-<div class="strip" role="region" aria-label="Replay controls">
-  <div class="in">
-    <div class="pl">
-      <button type="button" class="btn go" id="play" aria-label="Play">▶</button>
-      <button type="button" class="btn" id="restart" aria-label="Restart">↺</button>
-      <div class="seg" role="group" aria-label="Replay speed"><button type="button" data-speed="1" aria-pressed="true">1×</button><button type="button" data-speed="2" aria-pressed="false">2×</button><button type="button" data-speed="4" aria-pressed="false">4×</button></div>
-    </div>
-    <div class="clk num" id="clk2" aria-hidden="true">00:00</div>
-    <div class="rib">
-      <div class="legend"><span><i style="background:var(--text)"></i><b id="wp-name">Home</b> win prob (model estimate)</span><span><i style="background:var(--amber)"></i>Goal</span><span><i style="background:var(--cyan)"></i>Sub</span><span><i style="background:var(--pink)"></i>Card</span><span><i style="background:var(--green)"></i>Played</span></div>
-      <svg id="ribbon" viewBox="0 0 900 72" preserveAspectRatio="none" role="img" aria-label="Match timeline: home win probability (model estimate), goals, substitutions and cards"></svg>
-      <div class="keys"><kbd>Space</kbd> play/pause · <kbd>A</kbd> approve · <kbd>R</kbd> reject · <kbd>V</kbd> veto (oldest waiting fact) · <kbd>1</kbd>–<kbd>3</kbd> views</div>
-    </div>
-  </div>
-</div>
 
 <dialog id="aboutdlg" aria-labelledby="ab-t">
   <div class="ph"><h2 id="ab-t">About this replay</h2><button type="button" class="btn xs sp" id="ab-x">Close</button></div>

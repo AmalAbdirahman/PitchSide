@@ -6,8 +6,8 @@ const $$ = sel => [...document.querySelectorAll(sel)];
 const MATCH_S_PER_S = 40;  // at 1x, one match minute passes every 1.5 real seconds
 const CHECK_ORDER = ['recompute', 'evidence_exists', 'entities', 'numbers_match', 'intent_stripped', 'sample_size'];
 const PHASE = {
-  veto: ['Veto window', 'c-cyan'], queued: ['Awaiting producer', 'c-amber'], aired: ['On air', 'c-green'],
-  vetoed: ['Vetoed', 'c-red'], declined: ['Rejected by producer', 'c-red'], expired: ['Expired · not aired', 'c-red'],
+  veto: ['Veto window', 'c-cyan'], queued: ['Awaiting producer', 'c-amber'], aired: ['Aired', 'c-green'],
+  vetoed: ['Vetoed', 'c-red'], onair: ['On air now', 'c-green'], declined: ['Rejected by producer', 'c-red'], expired: ['Expired · not aired', 'c-red'],
   rejected: ['Rejected by verifier', 'c-red'],
 };
 const TIER_CLS = { T0: 'c-green', T1: 'c-cyan', T2: 'c-amber' };
@@ -183,7 +183,7 @@ function zoneFor(team, lanes) {
   const p = D.meta.pitch, band = p.width / 3, k = LANES.indexOf(lanes.overload), home = team === D.meta.home;
   const x0 = home ? p.length / 2 : 0, y0 = home ? k * band : p.width - (k + 1) * band;
   const pct = Math.round(lanes[lanes.overload].share * 100), mins = D.series.lane_window_s / 60;
-  const text = `${team} ${lanes.overload.toUpperCase()} OVERLOAD · ${pct}% OF ${lanes.n} ATTACKS · LAST ${mins} MIN`;
+  const text = `${team} ${lanes.overload.toUpperCase()} OVERLOAD · ${pct}% · ${mins} MIN`;
   const ty = y0 + band / 2 + 0.6, tx = home ? p.length / 2 + 1.5 : p.length / 2 - 1.5;  // clear of the corner graphics
   return `<rect x="${x0}" y="${y0}" width="${p.length / 2}" height="${band}" fill="${teamCol(team)}" opacity=".13"/>` +
     `<text x="${tx}" y="${ty}" text-anchor="${home ? 'start' : 'end'}" font-size="1.7" font-weight="800" fill="${teamCol(team)}">${esc(text)}</text>`;
@@ -196,22 +196,22 @@ function renderZones() {
 }
 
 const ribX = t => 8 + (t / D.end) * 884;
-const ribY = p => 62 - p * 56;
+const ribY = p => 46 - p * 40;
 
 function drawRibbon() {
   const colour = { goal: '#ffd23f', substitution: '#04f5ff', card: '#ff2d7e' };
   const short = { goal: 'GOAL', substitution: 'SUB', card: 'CARD' };
   const wp = D.series.win_prob.map((r, i) => `${i ? 'L' : 'M'}${ribX(D.series.t[i]).toFixed(1)} ${ribY(r[0]).toFixed(1)}`).join('');
-  let g = '<defs><clipPath id="rc"><rect id="rcr" x="0" y="0" width="8" height="72"/></clipPath></defs>';
+  let g = '<defs><clipPath id="rc"><rect id="rcr" x="0" y="0" width="8" height="52"/></clipPath></defs>';
   g += `<line x1="8" x2="892" y1="${ribY(0.5)}" y2="${ribY(0.5)}" stroke="rgba(255,255,255,.14)" stroke-dasharray="2 3"/>`;
   g += `<text x="10" y="${ribY(0.5) - 2}" class="rl">50%</text><g clip-path="url(#rc)">`;
   D.events.filter(e => colour[e.type]).forEach((e, i) => {
-    const x = ribX(e.t).toFixed(1), y = i % 2 ? 70 : 9;
-    g += `<line x1="${x}" x2="${x}" y1="2" y2="66" stroke="${colour[e.type]}" stroke-width="1.2" stroke-dasharray="2 2" vector-effect="non-scaling-stroke"/>`;
+    const x = ribX(e.t).toFixed(1), y = i % 2 ? 51 : 8;
+    g += `<line x1="${x}" x2="${x}" y1="1" y2="51" stroke="${colour[e.type]}" stroke-width="1.2" stroke-dasharray="2 2" vector-effect="non-scaling-stroke"/>`;
     g += `<text x="${+x + 3}" y="${y}" class="rl" style="fill:${colour[e.type]}">${short[e.type]} ${minute(e.t)}</text>`;
   });
   g += `<path d="${wp}" fill="none" stroke="#f5f1f9" stroke-width="2" vector-effect="non-scaling-stroke"/></g>`;
-  g += '<line id="head" x1="8" x2="8" y1="0" y2="72" stroke="#00ff85" stroke-width="2" vector-effect="non-scaling-stroke"/>';
+  g += '<line id="head" x1="8" x2="8" y1="0" y2="52" stroke="#00ff85" stroke-width="2" vector-effect="non-scaling-stroke"/>';
   $('#ribbon').innerHTML = g;
 }
 
@@ -292,6 +292,12 @@ function air(it, by) {
   S.c.aired++;
   S.airQ.push(it);
   log(`Aired ${it.id} (${by})`, 'c-green');
+  // One lower-third slot: if facts pile up, the newest waiting one replaces older waiting ones on screen.
+  while (S.airQ.length > 1) {
+    const old = S.airQ.shift();
+    S.rt[old.id].superseded = true;
+    log(`Lower third for ${old.id} skipped on screen: newer fact ${it.id} was waiting`);
+  }
 }
 
 function decide(id, act) {
@@ -338,7 +344,7 @@ function tickOnAir(dt) {
   const it = S.airQ.shift();
   if (!it) return;
   const cue = rend(it.f, 'cue', 'en');
-  S.onAir = { it, left: cue ? cue.duration_s : 6 };
+  S.onAir = { it, left: cue.duration_s / UI.speed };  // hold scales with replay speed so graphics keep pace
   S.lastAired = it;
   if (it.f.kind === 'score_event') flash();
   S.dirty = true;
@@ -495,8 +501,10 @@ const mentions = (it, pid) => it.players.includes(pid);
 const actionable = it => ['veto', 'queued'].includes(S.rt[it.id].phase);
 
 function rowHead(it, rt, fol) {
-  const ph = PHASE[rt.phase] || ['', ''];
-  const by = rt.phase === 'aired' && rt.by !== 'system' && rt.by !== 'auto' ? ' · ' + rt.by : '';
+  const live = rt.phase === 'aired' && S.onAir && S.onAir.it === it;
+  const ph = PHASE[live ? 'onair' : rt.phase] || ['', ''];
+  let by = rt.phase === 'aired' && rt.by !== 'system' && rt.by !== 'auto' ? ' · ' + rt.by : '';
+  if (rt.superseded) by += ' · not shown on screen (newer fact)';
   let h = it.rejected ? '<span class="tag c-red">REJ</span>' : `<span class="tag ${TIER_CLS[it.tier]}">${it.tier}</span>`;
   h += `<span class="st ${ph[1]}">${ph[0]}${by}</span>`;
   if (it.status === 'corrected') h += '<span class="tag c-amber">corrected</span>';
@@ -551,6 +559,9 @@ function row(it) {
 function renderQueue() {
   const active = document.activeElement, key = active && active.dataset ? active.dataset : {};
   const shown = D.items.filter(it => S.rt[it.id]).filter(it => !UI.follow || mentions(it, UI.follow) || actionable(it)).reverse();
+  // Facts needing a decision go first, the one closest to its deadline at the top.
+  const urgent = shown.filter(actionable).sort((a, b) => S.rt[a.id].left - S.rt[b.id].left);
+  shown.splice(0, shown.length, ...urgent, ...shown.filter(it => !actionable(it)));
   $('#rows').innerHTML = shown.length ? shown.map(row).join('')
     : `<div class="empty">${S.next ? 'No facts name this player yet.' : 'Nothing drafted yet. Press play on the replay strip.'}</div>`;
   if (key.act && key.id) restoreFocus(key.act, key.id);
