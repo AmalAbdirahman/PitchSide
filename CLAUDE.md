@@ -20,7 +20,8 @@ All data is synthetic. Clubs and players are fictional. No real names, logos, cr
 sim/      generate.py
 core/     xg.py shares.py winprob.py wilson.py moments.py
 app/      agents_foundry.py drafter.py verifier.py router.py renditions.py templates_es.py build_bundle.py
-docs/     index.html app.js styles.css prototype.html data/
+docs/     index.html app.js styles.css .nojekyll data/
+design/   prototype.html (mockup only, never published)
 tests/    seeded_claims.json test_*.py
 scripts/  eval.py foundry_smoke.py
 data/     events.json league_stats.json agent_cache.json

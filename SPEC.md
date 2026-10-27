@@ -110,7 +110,7 @@ A deterministic check confirms every number in each rendition appears in `text.n
 - Controls: language EN/ES; depth Casual/Analyst (Analyst shows evidence ids, hedge, impact, verifier corrections); Follow player (highlights facts naming that player and filters to them); Autopilot.
 - Evidence drawer per fact listing the cited events.
 - Accessible: labelled controls, contrast, keyboard operable, `prefers-reduced-motion`.
-- Base the look on `docs/prototype.html`.
+- Base the look on `design/prototype.html` (the design mockup; kept outside `docs/` because it loads web fonts and must not be published).
 
 ## 14. Evaluation
 

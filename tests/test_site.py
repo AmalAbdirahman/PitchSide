@@ -11,9 +11,8 @@ import pytest
 from core.config import ROOT
 
 DOCS = ROOT / "docs"
-SITE_FILES = [DOCS / "index.html", DOCS / "app.js", DOCS / "styles.css"]
+PUBLISHED = sorted(p for p in DOCS.rglob("*") if p.is_file())  # everything GitHub Pages serves
 URL = re.compile(r"https?://[^\s\"'<>)]+")
-ALLOWED_URLS = ("http://www.w3.org/",)  # XML namespaces, never fetched
 
 
 @pytest.fixture(scope="module")
@@ -35,11 +34,11 @@ def test_app_fetches_only_local_data() -> None:
         assert (DOCS / path).is_file(), f"app.js fetches missing file {path}"
 
 
-@pytest.mark.parametrize("path", SITE_FILES, ids=lambda p: Path(p).name)
+@pytest.mark.parametrize("path", PUBLISHED, ids=lambda p: p.relative_to(DOCS).as_posix())
 def test_no_network_urls(path: Path) -> None:
-    text = path.read_text(encoding="utf-8")
-    bad = [u for u in URL.findall(text) if not u.startswith(ALLOWED_URLS)]
-    assert not bad, f"{path.name} references the network: {bad}"
+    """No file under docs/ may reference http(s):// at all, not even an XML namespace."""
+    bad = URL.findall(path.read_text(encoding="utf-8", errors="replace"))
+    assert not bad, f"{path.relative_to(DOCS)} references the network: {bad}"
 
 
 def test_routable_facts_have_what_the_ui_reads(hero: dict[str, Any]) -> None:

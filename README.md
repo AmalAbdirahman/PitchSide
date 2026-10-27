@@ -57,7 +57,7 @@ Limits: 45 s per call, at most 40 calls per build (`config.yaml`). A `--foundry`
 
 - **Microsoft Foundry (Agent Service), `gpt-5-mini` deployment, at build time.** The Scout is created with `agents.create_version` (`PromptAgentDefinition`) and called through the project's OpenAI-compatible client. In the committed cache, all 33 calls went through the agent path (`foundry_agent`); none needed the plain-responses fallback.
 - **GitHub Pages** is the hosting target: the site is plain static files in `docs/`.
-- Roadmap: a GitHub Actions workflow that runs `pytest -q`. It is not set up yet.
+- **GitHub Actions** runs `pytest -q` on Python 3.12 for every push and pull request (`.github/workflows/test.yml`). It installs only `pytest` and `jsonschema`, so the tests prove the build needs no Azure packages or network.
 
 ## Results (from real runs)
 
@@ -92,10 +92,15 @@ sim/      seeded match simulator
 core/     xG, attack shares, Wilson intervals, win probability, moment rules
 app/      agents_foundry.py (Scout), drafter.py (fallback + injected errors), verifier.py, router.py,
           renditions.py, templates_es.py, build_bundle.py
-docs/     static control room (index.html, app.js, styles.css) and data/
+docs/     static control room (index.html, app.js, styles.css) and data/ — published by GitHub Pages
+design/   prototype.html, the original design mockup (not published)
 data/     events.json, league_stats.json, agent_cache.json
 tests/    seeded_claims.json and pytest suites
 scripts/  eval.py, build_seeded_claims.py, foundry_smoke.py
 ```
 
 See `SPEC.md` for the full contract and `data_card.md` for the simulator's realism checks.
+
+## License
+
+MIT, see `LICENSE`.
