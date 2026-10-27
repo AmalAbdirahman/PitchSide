@@ -1,0 +1,170 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "fact.schema.json",
+  "title": "Fact",
+  "type": "object",
+  "required": ["fact_id", "match_id", "kind", "created_t", "claim", "text", "evidence", "verification", "approval"],
+  "properties": {
+    "fact_id": { "type": "string", "pattern": "^f_[0-9]{6}$" },
+    "match_id": { "type": "string" },
+    "kind": { "enum": ["score_event", "stat", "moment", "milestone", "tactical", "recap"] },
+    "created_t": { "type": "number", "description": "Match clock seconds when proposed." },
+    "injected": { "type": "boolean", "description": "True if the drafter deliberately injected an error, for eval only." },
+    "claim": { "$ref": "#/$defs/claim" },
+    "text": {
+      "type": "object",
+      "required": ["canonical_en", "numbers"],
+      "properties": {
+        "draft_en": { "type": "string", "description": "Original drafter wording, kept for the log." },
+        "canonical_en": { "type": "string", "maxLength": 280 },
+        "numbers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["key", "value"],
+            "properties": {
+              "key": { "type": "string" },
+              "value": { "type": "number" },
+              "unit": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "required": ["event_ids"],
+      "properties": {
+        "event_ids": { "type": "array", "items": { "type": "integer" }, "minItems": 1 },
+        "players": { "type": "array", "items": { "type": "string" } },
+        "window": { "$ref": "#/$defs/window" }
+      }
+    },
+    "impact": {
+      "type": "object",
+      "required": ["delta", "method"],
+      "properties": {
+        "subject_team": { "type": "string" },
+        "win_prob_before": { "type": "number", "minimum": 0, "maximum": 1 },
+        "win_prob_after": { "type": "number", "minimum": 0, "maximum": 1 },
+        "delta": { "type": "number", "minimum": -1, "maximum": 1 },
+        "method": { "type": "string", "const": "poisson_v1" }
+      }
+    },
+    "uncertainty": {
+      "type": "object",
+      "required": ["n", "ci_method", "hedge"],
+      "properties": {
+        "n": { "type": "integer", "minimum": 0 },
+        "ci_method": { "enum": ["wilson", "none"] },
+        "ci_low": { "type": "number" },
+        "ci_high": { "type": "number" },
+        "hedge": { "enum": ["none", "early", "suggests", "clear"] }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "required": ["status", "checks"],
+      "properties": {
+        "status": { "enum": ["pending", "verified", "corrected", "rejected", "unverifiable"] },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "passed"],
+            "properties": {
+              "name": { "enum": ["recompute", "evidence_exists", "entities", "numbers_match", "intent_stripped", "sample_size"] },
+              "passed": { "type": "boolean" },
+              "detail": { "type": "string" }
+            }
+          }
+        },
+        "corrections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["field", "from", "to", "reason"],
+            "properties": {
+              "field": { "type": "string" },
+              "from": { "type": "string" },
+              "to": { "type": "string" },
+              "reason": { "type": "string" }
+            }
+          }
+        },
+        "reject_reason": { "type": "string" }
+      }
+    },
+    "risk": {
+      "type": "object",
+      "required": ["tier"],
+      "properties": {
+        "tier": { "enum": ["T0", "T1", "T2"] },
+        "reasons": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "approval": {
+      "type": "object",
+      "required": ["state"],
+      "properties": {
+        "state": { "enum": ["not_routed", "queued", "veto_window", "auto_approved", "approved", "rejected", "vetoed", "expired"] },
+        "decided_by": { "enum": ["auto", "producer", "autopilot"] },
+        "valid_from_t": { "type": "number" },
+        "ttl_s": { "type": "number", "minimum": 0 }
+      }
+    },
+    "renditions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/rendition" }
+    }
+  },
+  "$defs": {
+    "window": {
+      "type": "object",
+      "required": ["start_t", "end_t"],
+      "properties": {
+        "start_t": { "type": "number" },
+        "end_t": { "type": "number" }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "required": ["subject", "metric", "window", "comparator", "value"],
+      "properties": {
+        "subject": {
+          "type": "object",
+          "required": ["type", "id"],
+          "properties": {
+            "type": { "enum": ["team", "player", "match"] },
+            "id": { "type": "string" }
+          }
+        },
+        "metric": { "enum": ["goals", "shots", "xg_sum", "attack_share_left", "attack_share_centre", "attack_share_right", "pass_accuracy", "turnovers_own_third", "duels_lost", "win_prob", "top_shot_speed"] },
+        "window": { "$ref": "#/$defs/window" },
+        "comparator": { "enum": ["eq", "gt", "lt", "share_gt"] },
+        "value": { "type": "number" },
+        "baseline": { "type": "number" },
+        "observed": {
+          "type": "object",
+          "properties": {
+            "value": { "type": "number" },
+            "n": { "type": "integer", "minimum": 0 }
+          }
+        }
+      }
+    },
+    "rendition": {
+      "type": "object",
+      "required": ["kind", "lang", "text", "numbers_preserved"],
+      "properties": {
+        "kind": { "enum": ["cue", "caption", "audio_script"] },
+        "lang": { "enum": ["en", "es"] },
+        "text": { "type": "string" },
+        "layout": { "enum": ["lower_third", "score_bug", "ticker"] },
+        "start_t": { "type": "number" },
+        "duration_s": { "type": "number" },
+        "numbers_preserved": { "type": "boolean" }
+      }
+    }
+  }
+}

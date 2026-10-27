@@ -1,0 +1,79 @@
+﻿# Tunable defaults, not validated values (SPEC.md).
+
+seed: 7
+
+pitch:
+  length: 105
+  width: 68
+  own_third_x: 35
+  final_third_x: 70
+
+sim:
+  hero_match_id: nb_v_hr_hero
+  league_matches: 50
+  half_s: 2700
+  mean_gap_s: 13
+  lane_weights: [0.36, 0.28, 0.36]
+  overload_lane_weights: [0.75, 0.10, 0.15]
+  pass_logit_intercept: -3.0
+  pass_logit_dist: 0.07
+  pass_logit_pressure: 1.2
+  pass_logit_final_third: 0.8
+  press_logit_boost: 1.0
+  pressure_prob: 0.25
+  press_pressure_prob: 0.7
+  tackle_prob: 0.12
+  card_prob: 0.05
+  shot_prob_box: 0.45
+  shot_prob_long: 0.06
+  hero_sub_t: 3445
+  hero_goal_t: 3748
+  hero_overload_until_t: 4500
+  hero_press_from_t: 3900
+  hero_away_sub_t: 4230
+
+# xG = logistic(intercept + dist * metres + angle * radians).
+# Hand-set so a central shot from 6 m is about 0.40, 11 m about 0.20, 20 m about 0.07.
+xg:
+  intercept: -0.98
+  dist: -0.10
+  angle: 1.08
+  goal_width: 7.32
+
+winprob:
+  k: 20
+  goal_cap: 10
+  match_minutes: 90
+
+moments:
+  check_every_s: 300
+  first_check_s: 600
+  overload_window_s: 900
+  overload_min_share: 0.5
+  turnover_window_s: 600
+  turnover_min_count: 3
+
+verifier:
+  n_min: 6
+  z: 1.96
+  lane_baseline: 0.3333333
+  tol_share_pp: 0.5
+  tol_xg: 0.01
+  tol_speed: 0.5
+  early_markers:
+    - 'early sign'
+    - 'so far'
+  suggest_markers:
+    - 'suggest'
+    - 'looks like'
+  intent_patterns:
+    - ',?\s+(as|because) (he|she|they) (tried|wanted|decided) to [^.;]*'
+    - '\s*\bdeliberately\b'
+    - '\b(tried|wanted|decided) to\s+'
+
+data_card:
+  goals_per_match: [1.8, 3.5]
+  shots_per_team: [7, 18]
+  xg_per_shot: [0.07, 0.16]
+  pass_completion: [0.70, 0.90]
+  hero_events: [550, 650]
