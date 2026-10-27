@@ -71,6 +71,19 @@ verifier:
     - '\s*\bdeliberately\b'
     - '\b(tried|wanted|decided) to\s+'
 
+router:
+  veto_window_s: 3
+  t2_ttl_s: 12
+  impact_t2: 0.10
+  t0_metrics: [goals, substitutions, cards]
+  negative_metrics: [turnovers_own_third, duels_lost]
+  negative_words: [lost, error, mistake, poor]
+
+renditions:
+  cue_duration_s: 6
+  ticker_duration_s: 8
+  ticker_metrics: [xg_sum, pass_accuracy, top_shot_speed, shots]
+
 data_card:
   goals_per_match: [1.8, 3.5]
   shots_per_team: [7, 18]
