@@ -1,0 +1,1965 @@
+{
+ "entries": {
+  "052a185ed566cd667eb26efb080b0a20969ee2a2dd32e1245100d5801c05673b": {
+   "model": "gpt-5-mini",
+   "ms": 11069,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 3,
+    "evidence_ids": [
+     99,
+     193,
+     248
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 45,
+     "window_start": 1
+    },
+    "moment": {
+     "half": "first",
+     "k": 3,
+     "kind": "stat",
+     "metric": "shots",
+     "n": 3,
+     "rule": "player_shots",
+     "subject": {
+      "id": "HAR_09",
+      "type": "player"
+     },
+     "window": {
+      "end_t": 2699.9,
+      "start_t": 0.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "value": 3
+     }
+    ],
+    "players": {
+     "HAR_09": "T. Brannock"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\":{\"subject\":{\"type\":\"player\",\"id\":\"HAR_09\"},\"metric\":\"shots\",\"window\":{\"start_t\":0.0,\"end_t\":2699.9},\"comparator\":\"eq\",\"value\":3},\"text\":{\"canonical_en\":\"T. Brannock had 3 shots in the first half.\",\"numbers\":[{\"key\":\"value\",\"value\":3,\"unit\":\"shots\"}]},\"evidence_ids\":[99,193,248]}"
+  },
+  "07540d0d274d479f8015c584fb38d0944b4505925fb964af82ef783eae8adc87": {
+   "model": "gpt-5-mini",
+   "ms": 10205,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 1,
+    "evidence_ids": [
+     301
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 45,
+     "window_start": 45
+    },
+    "moment": {
+     "card": "yellow",
+     "k": 1,
+     "kind": "moment",
+     "metric": "cards",
+     "n": 1,
+     "rule": "card",
+     "subject": {
+      "id": "HAR_05",
+      "type": "player"
+     },
+     "team": "HAR",
+     "window": {
+      "end_t": 2692.0,
+      "start_t": 2692.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "minute",
+      "value": 45
+     }
+    ],
+    "players": {
+     "HAR_05": "I. Marchetti-Holt"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"player\",\n      \"id\": \"HAR_05\"\n    },\n    \"metric\": \"cards\",\n    \"window\": {\n      \"start_t\": 2692.0,\n      \"end_t\": 2692.0\n    },\n    \"comparator\": \"eq\",\n    \"value\": 1\n  },\n  \"text\": {\n    \"canonical_en\": \"45th minute: I. Marchetti-Holt (Harlow) received a yellow card.\",\n    \"numbers\": [\n      {\n        \"key\": \"minute\",\n        \"value\": 45,\n        \"unit\": \"minute\"\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    301\n  ]\n}"
+  },
+  "18bdf1b7e5d3edf397fc7f2c41425e0f4b907016cf94d83a45b7e6a85cd6846a": {
+   "model": "gpt-5-mini",
+   "ms": 9962,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 72,
+    "evidence_ids": [
+     181,
+     182,
+     212,
+     223,
+     224,
+     225,
+     228,
+     229,
+     230,
+     231,
+     232,
+     233,
+     234,
+     235,
+     236,
+     237,
+     238,
+     239,
+     240,
+     241,
+     242
+    ],
+    "hedge": "clear",
+    "minutes": {
+     "window_end": 41,
+     "window_start": 26
+    },
+    "moment": {
+     "k": 21,
+     "kind": "tactical",
+     "lane": "left",
+     "metric": "attack_share_left",
+     "n": 29,
+     "rule": "overload",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 2400.0,
+      "start_t": 1500.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 72
+     },
+     {
+      "key": "since_minute",
+      "value": 26
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\": {\"subject\": {\"type\": \"team\", \"id\": \"HAR\"}, \"metric\": \"attack_share_left\", \"window\": {\"start_t\": 1500.0, \"end_t\": 2400.0}, \"comparator\": \"eq\", \"value\": 72}, \"text\": {\"canonical_en\": \"Since the 26th minute, 72% of Harlow attacks have gone down the left.\", \"numbers\": [{\"key\": \"value\", \"value\": 72, \"unit\": \"%\"}, {\"key\": \"since_minute\", \"value\": 26}]}, \"evidence_ids\": [181, 182, 212, 223, 224, 225, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242]}"
+  },
+  "1b5eae7c194c1f0ec1dd17e4a619ebb08c0040a705be451ff8f2b9129a29724c": {
+   "model": "gpt-5-mini",
+   "ms": 8613,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 1,
+    "evidence_ids": [
+     470
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 71,
+     "window_start": 71
+    },
+    "moment": {
+     "k": 1,
+     "kind": "moment",
+     "metric": "substitutions",
+     "n": 1,
+     "rule": "substitution",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 4230.0,
+      "start_t": 4230.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "minute",
+      "value": 71
+     }
+    ],
+    "players": {
+     "HAR_10": "Z. Halloran",
+     "HAR_12": "A. Somerby"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\":{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"substitutions\",\"window\":{\"start_t\":4230.0,\"end_t\":4230.0},\"comparator\":\"eq\",\"value\":1},\"text\":{\"canonical_en\":\"71st minute: Harlow substitution — Z. Halloran off for A. Somerby.\",\"numbers\":[{\"key\":\"minute\",\"value\":71,\"unit\":\"minute\"}]},\"evidence_ids\":[470]}"
+  },
+  "1c8899aafc672e72d44883d5c4a9ad2d705659821b7849936ed9d08bd8cba914": {
+   "model": "gpt-5-mini",
+   "ms": 12284,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 51,
+    "evidence_ids": [
+     404,
+     416,
+     462,
+     463,
+     465,
+     478,
+     479,
+     480,
+     482,
+     483,
+     485,
+     486,
+     488,
+     489,
+     490,
+     499,
+     500,
+     528,
+     547,
+     548
+    ],
+    "hedge": "clear",
+    "minutes": {
+     "window_end": 86,
+     "window_start": 58
+    },
+    "moment": {
+     "k": 20,
+     "kind": "tactical",
+     "lane": "left",
+     "metric": "attack_share_left",
+     "n": 39,
+     "rule": "overload",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 5100.0,
+      "start_t": 3445.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 51
+     },
+     {
+      "key": "since_minute",
+      "value": 58
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\": {\"subject\": {\"type\": \"team\", \"id\": \"NOR\"}, \"metric\": \"attack_share_left\", \"window\": {\"start_t\": 3445.0, \"end_t\": 5100.0}, \"comparator\": \"eq\", \"value\": 51}, \"text\": {\"canonical_en\": \"51% of Northbridge attacks have gone down the left since the 58th minute.\", \"numbers\": [{\"key\": \"value\", \"value\": 51, \"unit\": \"%\"}, {\"key\": \"since_minute\", \"value\": 58, \"unit\": \"minute\"}]}, \"evidence_ids\": [404, 416, 462, 463, 465, 478, 479, 480, 482, 483, 485, 486, 488, 489, 490, 499, 500, 528, 547, 548]}"
+  },
+  "23e8c4a7bdc28bec63593a014cda5597424457208b4e5d1eff81a101bd5fc4b6": {
+   "model": "gpt-5-mini",
+   "ms": 9191,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 1,
+    "evidence_ids": [
+     383
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 58,
+     "window_start": 58
+    },
+    "moment": {
+     "k": 1,
+     "kind": "moment",
+     "metric": "substitutions",
+     "n": 1,
+     "rule": "substitution",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 3445.0,
+      "start_t": 3445.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "minute",
+      "value": 58
+     }
+    ],
+    "players": {
+     "NOR_07": "D. Varga",
+     "NOR_12": "B. Adeyemi-Ross"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\":{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"substitutions\",\"window\":{\"start_t\":3445.0,\"end_t\":3445.0},\"comparator\":\"eq\",\"value\":1},\"text\":{\"canonical_en\":\"58th-minute substitution for Northbridge: D. Varga off, B. Adeyemi-Ross on.\",\"numbers\":[{\"key\":\"minute\",\"value\":58,\"unit\":\"minute\"}]},\"evidence_ids\":[383]}"
+  },
+  "259c6750267faa3df41f0d2fe94f5dd29451b3d5976a3e5cf501d4ef1498b090": {
+   "model": "gpt-5-mini",
+   "ms": 9287,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 50,
+    "evidence_ids": [
+     51,
+     52,
+     53,
+     58,
+     62,
+     89,
+     97,
+     98,
+     99
+    ],
+    "hedge": "suggests",
+    "minutes": {
+     "window_end": 21,
+     "window_start": 6
+    },
+    "moment": {
+     "k": 9,
+     "kind": "tactical",
+     "lane": "centre",
+     "metric": "attack_share_centre",
+     "n": 18,
+     "rule": "overload",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 1200.0,
+      "start_t": 300.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 50
+     },
+     {
+      "key": "since_minute",
+      "value": 6
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"team\",\n      \"id\": \"HAR\"\n    },\n    \"metric\": \"attack_share_centre\",\n    \"window\": {\n      \"start_t\": 300.0,\n      \"end_t\": 1200.0\n    },\n    \"comparator\": \"eq\",\n    \"value\": 50\n  },\n  \"text\": {\n    \"canonical_en\": \"The numbers suggest 50% of Harlow attacks have gone down the centre since the 6th minute.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 50,\n        \"unit\": \"%\"\n      },\n      {\n        \"key\": \"since_minute\",\n        \"value\": 6\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    51,\n    52,\n    53,\n    58,\n    62,\n    89,\n    97,\n    98,\n    99\n  ]\n}"
+  },
+  "27c205e0fc5f6998d253c0dcc886f513851b9b8564c1cc26946d7c6443cc0f4a": {
+   "model": "gpt-5-mini",
+   "ms": 19246,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 0.3,
+    "evidence_ids": [
+     314,
+     437
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 91,
+     "window_start": 46
+    },
+    "moment": {
+     "half": "second",
+     "k": 2,
+     "kind": "stat",
+     "metric": "xg_sum",
+     "n": 2,
+     "rule": "xg_sum",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 5400.0,
+      "start_t": 2700.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "xG",
+      "value": 0.3
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"team\",\n      \"id\": \"HAR\"\n    },\n    \"metric\": \"xg_sum\",\n    \"window\": {\n      \"start_t\": 2700.0,\n      \"end_t\": 5400.0\n    },\n    \"comparator\": \"eq\",\n    \"value\": 0.3\n  },\n  \"text\": {\n    \"canonical_en\": \"Since the 46th minute, Harlow have 0.30 xG.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 0.3,\n        \"unit\": \"xG\"\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    314,\n    437\n  ]\n}"
+  },
+  "386b2d2b188528cbf3944845d80a9463f089649d4b32ea1a7c6b846a4914e073": {
+   "model": "gpt-5-mini",
+   "ms": 9203,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 69,
+    "evidence_ids": [
+     114,
+     121,
+     126,
+     143,
+     147,
+     148,
+     151,
+     161,
+     164,
+     165,
+     166
+    ],
+    "hedge": "clear",
+    "minutes": {
+     "window_end": 26,
+     "window_start": 11
+    },
+    "moment": {
+     "k": 11,
+     "kind": "tactical",
+     "lane": "centre",
+     "metric": "attack_share_centre",
+     "n": 16,
+     "rule": "overload",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 1500.0,
+      "start_t": 600.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 69
+     },
+     {
+      "key": "since_minute",
+      "value": 11
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"team\",\n      \"id\": \"NOR\"\n    },\n    \"metric\": \"attack_share_centre\",\n    \"window\": {\n      \"start_t\": 600.0,\n      \"end_t\": 1500.0\n    },\n    \"comparator\": \"eq\",\n    \"value\": 69\n  },\n  \"text\": {\n    \"canonical_en\": \"69% of Northbridge attacks have gone down the centre since the 11th minute.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 69,\n        \"unit\": \"%\"\n      },\n      {\n        \"key\": \"since_minute\",\n        \"value\": 11\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    114,\n    121,\n    126,\n    143,\n    147,\n    148,\n    151,\n    161,\n    164,\n    165,\n    166\n  ]\n}"
+  },
+  "403a8eb6ecb45b6f559ec0db85df42597e9a72298463e01e0bb9e6f0449844ae": {
+   "model": "gpt-5-mini",
+   "ms": 13222,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 1.0,
+    "evidence_ids": [
+     99,
+     188,
+     193,
+     225,
+     248,
+     255
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 45,
+     "window_start": 1
+    },
+    "moment": {
+     "half": "first",
+     "k": 6,
+     "kind": "stat",
+     "metric": "xg_sum",
+     "n": 6,
+     "rule": "xg_sum",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 2699.9,
+      "start_t": 0.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "xG",
+      "value": 1.0
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\":{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"xg_sum\",\"window\":{\"start_t\":0.0,\"end_t\":2699.9},\"comparator\":\"eq\",\"value\":1.0},\"text\":{\"canonical_en\":\"Harlow have 1.00 xG in the first half.\",\"numbers\":[{\"key\":\"value\",\"value\":1.0,\"unit\":\"xG\"}]},\"evidence_ids\":[99,188,193,225,248,255]}"
+  },
+  "6f0cf7d0014c2c73515c1f8b8212a042402300c21b109d263b611eee9aba1653": {
+   "model": "gpt-5-mini",
+   "ms": 6385,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 109,
+    "evidence_ids": [
+     366
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 91,
+     "window_start": 46
+    },
+    "moment": {
+     "half": "second",
+     "k": 1,
+     "kind": "milestone",
+     "metric": "top_shot_speed",
+     "n": 10,
+     "rule": "top_speed",
+     "subject": {
+      "id": "match",
+      "type": "match"
+     },
+     "window": {
+      "end_t": 5400.0,
+      "start_t": 2700.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "km/h",
+      "value": 109
+     }
+    ],
+    "players": {
+     "NOR_07": "D. Varga"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"match\",\n      \"id\": \"match\"\n    },\n    \"metric\": \"top_shot_speed\",\n    \"window\": {\n      \"start_t\": 2700.0,\n      \"end_t\": 5400.0\n    },\n    \"comparator\": \"eq\",\n    \"value\": 109\n  },\n  \"text\": {\n    \"canonical_en\": \"D. Varga's 109 km/h shot was the fastest shot of the second half.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 109,\n        \"unit\": \"km/h\"\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    366\n  ]\n}"
+  },
+  "6f178050e1c9ab84b780adab6235d97ded32dacc92cb4c747f5e8b6dad517551": {
+   "model": "gpt-5-mini",
+   "ms": 6658,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 3,
+    "evidence_ids": [
+     187,
+     191,
+     227
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 36,
+     "window_start": 26
+    },
+    "moment": {
+     "k": 3,
+     "kind": "stat",
+     "metric": "turnovers_own_third",
+     "n": 3,
+     "rule": "turnovers",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 2100.0,
+      "start_t": 1500.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "value": 3
+     },
+     {
+      "key": "since_minute",
+      "value": 26
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\":{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"turnovers_own_third\",\"window\":{\"start_t\":1500.0,\"end_t\":2100.0},\"comparator\":\"eq\",\"value\":3},\"text\":{\"canonical_en\":\"Northbridge have had 3 turnovers in their own third since the 26th minute.\",\"numbers\":[{\"key\":\"value\",\"value\":3,\"unit\":\"\"},{\"key\":\"since_minute\",\"value\":26,\"unit\":\"\"}]},\"evidence_ids\":[187,191,227]}"
+  },
+  "77c0f9d63e93869571ccceb5347b30de90b846b249ba77006c68c3e7fb062554": {
+   "model": "gpt-5-mini",
+   "ms": 8947,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 50,
+    "evidence_ids": [
+     281,
+     320,
+     338,
+     340,
+     341
+    ],
+    "hedge": "suggests",
+    "minutes": {
+     "window_end": 56,
+     "window_start": 41
+    },
+    "moment": {
+     "k": 5,
+     "kind": "tactical",
+     "lane": "right",
+     "metric": "attack_share_right",
+     "n": 10,
+     "rule": "overload",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 3300.0,
+      "start_t": 2400.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 50
+     },
+     {
+      "key": "since_minute",
+      "value": 41
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\":{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"attack_share_right\",\"window\":{\"start_t\":2400.0,\"end_t\":3300.0},\"comparator\":\"eq\",\"value\":50},\"text\":{\"canonical_en\":\"The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st.\",\"numbers\":[{\"key\":\"value\",\"value\":50,\"unit\":\"%\"},{\"key\":\"since_minute\",\"value\":41}]},\"evidence_ids\":[281,320,338,340,341]}"
+  },
+  "79fc14b15e9091846568cde39eb3207599daf2fe6a5a7536f58bcf7d0735ffb8": {
+   "model": "gpt-5-mini",
+   "ms": 6724,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 3,
+    "evidence_ids": [
+     558,
+     568,
+     579
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 91,
+     "window_start": 81
+    },
+    "moment": {
+     "k": 3,
+     "kind": "stat",
+     "metric": "turnovers_own_third",
+     "n": 3,
+     "rule": "turnovers",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 5400.0,
+      "start_t": 4800.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "value": 3
+     },
+     {
+      "key": "since_minute",
+      "value": 81
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\": {\"subject\": {\"type\": \"team\", \"id\": \"HAR\"}, \"metric\": \"turnovers_own_third\", \"window\": {\"start_t\": 4800.0, \"end_t\": 5400.0}, \"comparator\": \"eq\", \"value\": 3}, \"text\": {\"canonical_en\": \"Harlow have 3 turnovers in their own third since the 81st minute.\", \"numbers\": [{\"key\": \"value\", \"value\": 3, \"unit\": \"turnovers\"}, {\"key\": \"since_minute\", \"value\": 81, \"unit\": \"minute\"}]}, \"evidence_ids\": [558, 568, 579]}"
+  },
+  "7a25123b41235d05f4e20bec46cc7fc2ecbb209a84c17349f933205ed95276a6": {
+   "model": "gpt-5-mini",
+   "ms": 11056,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 50,
+    "evidence_ids": [
+     506,
+     510,
+     513,
+     520,
+     521,
+     523,
+     561,
+     562,
+     569,
+     571,
+     580,
+     581
+    ],
+    "hedge": "suggests",
+    "minutes": {
+     "window_end": 91,
+     "window_start": 76
+    },
+    "moment": {
+     "k": 12,
+     "kind": "tactical",
+     "lane": "centre",
+     "metric": "attack_share_centre",
+     "n": 24,
+     "rule": "overload",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 5400.0,
+      "start_t": 4500.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 50
+     },
+     {
+      "key": "since_minute",
+      "value": 76
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\":{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"attack_share_centre\",\"window\":{\"start_t\":4500.0,\"end_t\":5400.0},\"comparator\":\"eq\",\"value\":50},\"text\":{\"canonical_en\":\"The numbers suggest 50% of Northbridge attacks have gone down the centre since the 76th minute.\",\"numbers\":[{\"key\":\"value\",\"value\":50,\"unit\":\"%\"},{\"key\":\"since_minute\",\"value\":76}]},\"evidence_ids\":[506,510,513,520,521,523,561,562,569,571,580,581]}"
+  },
+  "904486ac544b593e8f101068a5a632af72f98e09a27828fc926b0e564b882f61": {
+   "model": "gpt-5-mini",
+   "ms": 7773,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 56,
+    "evidence_ids": [
+     80,
+     87,
+     90,
+     134,
+     135
+    ],
+    "hedge": "suggests",
+    "minutes": {
+     "window_end": 26,
+     "window_start": 11
+    },
+    "moment": {
+     "k": 5,
+     "kind": "tactical",
+     "lane": "left",
+     "metric": "attack_share_left",
+     "n": 9,
+     "rule": "overload",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 1500.0,
+      "start_t": 600.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 56
+     },
+     {
+      "key": "since_minute",
+      "value": 11
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\": {\"subject\": {\"type\": \"team\", \"id\": \"HAR\"}, \"metric\": \"attack_share_left\", \"window\": {\"start_t\": 600.0, \"end_t\": 1500.0}, \"comparator\": \"eq\", \"value\": 56}, \"text\": {\"canonical_en\": \"The numbers suggest 56% of Harlow attacks have gone down the left since the 11th.\", \"numbers\": [{\"key\": \"value\", \"value\": 56, \"unit\": \"%\"}, {\"key\": \"since_minute\", \"value\": 11}]}, \"evidence_ids\": [80, 87, 90, 134, 135]}"
+  },
+  "98c3f0e37cd2d8c745c850797394b1b4c24107f44c685cb456d4d5dc6597ddfb": {
+   "model": "gpt-5-mini",
+   "ms": 11030,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 7,
+    "evidence_ids": [
+     469,
+     477,
+     504,
+     509,
+     512,
+     519,
+     527
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 81,
+     "window_start": 71
+    },
+    "moment": {
+     "k": 7,
+     "kind": "stat",
+     "metric": "turnovers_own_third",
+     "n": 7,
+     "rule": "turnovers",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 4800.0,
+      "start_t": 4200.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "value": 7
+     },
+     {
+      "key": "since_minute",
+      "value": 71
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"team\",\n      \"id\": \"HAR\"\n    },\n    \"metric\": \"turnovers_own_third\",\n    \"window\": {\n      \"start_t\": 4200.0,\n      \"end_t\": 4800.0\n    },\n    \"comparator\": \"eq\",\n    \"value\": 7\n  },\n  \"text\": {\n    \"canonical_en\": \"Harlow have made 7 turnovers in their own third since the 71st minute.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 7\n      },\n      {\n        \"key\": \"since_minute\",\n        \"value\": 71\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    469,\n    477,\n    504,\n    509,\n    512,\n    519,\n    527\n  ]\n}"
+  },
+  "9db660aeb05a4e3efecb708e2379a708e43de3e436615be4ae5bfbc7e5a5d2d9": {
+   "model": "gpt-5-mini",
+   "ms": 8840,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 71,
+    "evidence_ids": [
+     404,
+     416,
+     462,
+     463,
+     465
+    ],
+    "hedge": "clear",
+    "minutes": {
+     "window_end": 71,
+     "window_start": 58
+    },
+    "moment": {
+     "k": 5,
+     "kind": "tactical",
+     "lane": "left",
+     "metric": "attack_share_left",
+     "n": 7,
+     "rule": "overload",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 4200.0,
+      "start_t": 3445.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 71
+     },
+     {
+      "key": "since_minute",
+      "value": 58
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"team\",\n      \"id\": \"NOR\"\n    },\n    \"metric\": \"attack_share_left\",\n    \"window\": {\n      \"start_t\": 3445.0,\n      \"end_t\": 4200.0\n    },\n    \"comparator\": \"eq\",\n    \"value\": 71\n  },\n  \"text\": {\n    \"canonical_en\": \"71% of Northbridge attacks have gone down the left since the 58th minute.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 71,\n        \"unit\": \"%\"\n      },\n      {\n        \"key\": \"since_minute\",\n        \"value\": 58\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    404,\n    416,\n    462,\n    463,\n    465\n  ]\n}"
+  },
+  "b021a577f115c90581886b19d8fe2fa600c3fb60ace3e9619d7a4dffaf6ff1df": {
+   "model": "gpt-5-mini",
+   "ms": 11095,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 1,
+    "evidence_ids": [
+     418,
+     419
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 63,
+     "window_start": 63
+    },
+    "moment": {
+     "k": 1,
+     "kind": "score_event",
+     "metric": "goals",
+     "n": 1,
+     "rule": "goal",
+     "subject": {
+      "id": "NOR_09",
+      "type": "player"
+     },
+     "team": "NOR",
+     "window": {
+      "end_t": 3748.5,
+      "start_t": 3748.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "minute",
+      "value": 63
+     },
+     {
+      "key": "score_NOR",
+      "value": 1
+     },
+     {
+      "key": "score_HAR",
+      "value": 0
+     }
+    ],
+    "players": {
+     "NOR_09": "C. Nkemelu"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"player\",\n      \"id\": \"NOR_09\"\n    },\n    \"metric\": \"goals\",\n    \"window\": {\n      \"start_t\": 3748.0,\n      \"end_t\": 3748.5\n    },\n    \"comparator\": \"eq\",\n    \"value\": 1\n  },\n  \"text\": {\n    \"canonical_en\": \"63rd C. Nkemelu scores, Northbridge 1, Harlow 0.\",\n    \"numbers\": [\n      {\n        \"key\": \"minute\",\n        \"value\": 63,\n        \"unit\": \"minute\"\n      },\n      {\n        \"key\": \"score_NOR\",\n        \"value\": 1,\n        \"unit\": \"goals\"\n      },\n      {\n        \"key\": \"score_HAR\",\n        \"value\": 0,\n        \"unit\": \"goals\"\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    418,\n    419\n  ]\n}"
+  },
+  "b54b62b34142dfa7b223de2088bfc39eff0e8a4bda37919c77746aa3613700fb": {
+   "model": "gpt-5-mini",
+   "ms": 9353,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 81,
+    "evidence_ids": [
+     315,
+     316,
+     317,
+     318,
+     331,
+     332,
+     333,
+     334,
+     336,
+     337,
+     338,
+     340,
+     353,
+     354,
+     356,
+     358,
+     360,
+     362,
+     363,
+     364,
+     365,
+     389,
+     392,
+     400,
+     401,
+     417,
+     438,
+     439,
+     440,
+     442,
+     443,
+     455,
+     457,
+     461,
+     463,
+     478,
+     479,
+     480,
+     482,
+     483,
+     485,
+     488,
+     489,
+     498,
+     499,
+     513,
+     521,
+     542,
+     544,
+     545,
+     546,
+     547,
+     559,
+     560,
+     561,
+     569,
+     571,
+     593,
+     594,
+     595,
+     596,
+     597,
+     598,
+     599
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 91,
+     "window_start": 46
+    },
+    "moment": {
+     "half": "second",
+     "k": 64,
+     "kind": "stat",
+     "metric": "pass_accuracy",
+     "n": 79,
+     "rule": "pass_accuracy",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 5400.0,
+      "start_t": 2700.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 81
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\": {\"subject\": {\"type\": \"team\", \"id\": \"NOR\"}, \"metric\": \"pass_accuracy\", \"window\": {\"start_t\": 2700.0, \"end_t\": 5400.0}, \"comparator\": \"eq\", \"value\": 81}, \"text\": {\"canonical_en\": \"Northbridge's pass accuracy in the second half was 81%.\", \"numbers\": [{\"key\": \"value\", \"value\": 81, \"unit\": \"%\"}]}, \"evidence_ids\": [315, 316, 317, 318, 331, 332, 333, 334, 336, 337, 338, 340, 353, 354, 356, 358, 360, 362, 363, 364, 365, 389, 392, 400, 401, 417, 438, 439, 440, 442, 443, 455, 457, 461, 463, 478, 479, 480, 482, 483, 485, 488, 489, 498, 499, 513, 521, 542, 544, 545, 546, 547, 559, 560, 561, 569, 571, 593, 594, 595, 596, 597, 598, 599]}"
+  },
+  "ba95dd1b663b1169e7a36ebb48fd689c372b6fe6ab0bde187a7ebc86149174af": {
+   "model": "gpt-5-mini",
+   "ms": 14586,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 70,
+    "evidence_ids": [
+     304,
+     306,
+     307,
+     312,
+     322,
+     323,
+     325,
+     326,
+     343,
+     345,
+     346,
+     348,
+     372,
+     373,
+     374,
+     376,
+     381,
+     384,
+     396,
+     397,
+     408,
+     410,
+     411,
+     412,
+     413,
+     420,
+     428,
+     429,
+     430,
+     431,
+     433,
+     435,
+     436,
+     449,
+     450,
+     451,
+     474,
+     491,
+     495,
+     532,
+     536,
+     537,
+     550,
+     564,
+     565,
+     576,
+     582,
+     583,
+     584,
+     585,
+     586,
+     587,
+     603
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 91,
+     "window_start": 46
+    },
+    "moment": {
+     "half": "second",
+     "k": 53,
+     "kind": "stat",
+     "metric": "pass_accuracy",
+     "n": 76,
+     "rule": "pass_accuracy",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 5400.0,
+      "start_t": 2700.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 70
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\": {\"subject\": {\"type\": \"team\", \"id\": \"HAR\"}, \"metric\": \"pass_accuracy\", \"window\": {\"start_t\": 2700.0, \"end_t\": 5400.0}, \"comparator\": \"eq\", \"value\": 70}, \"text\": {\"canonical_en\": \"Harlow's pass accuracy was 70% in the second half.\", \"numbers\": [{\"key\": \"value\", \"value\": 70, \"unit\": \"%\"}]}, \"evidence_ids\": [304, 306, 307, 312, 322, 323, 325, 326, 343, 345, 346, 348, 372, 373, 374, 376, 381, 384, 396, 397, 408, 410, 411, 412, 413, 420, 428, 429, 430, 431, 433, 435, 436, 449, 450, 451, 474, 491, 495, 532, 536, 537, 550, 564, 565, 576, 582, 583, 584, 585, 586, 587, 603]}"
+  },
+  "c281c128f7cc978c98e429cc1ab7f7858d84def7c491331c4c65e6bc3a89b5a3": {
+   "model": "gpt-5-mini",
+   "ms": 12315,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 4,
+    "evidence_ids": [
+     370,
+     418,
+     510,
+     562
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 91,
+     "window_start": 46
+    },
+    "moment": {
+     "half": "second",
+     "k": 4,
+     "kind": "stat",
+     "metric": "shots",
+     "n": 4,
+     "rule": "player_shots",
+     "subject": {
+      "id": "NOR_09",
+      "type": "player"
+     },
+     "window": {
+      "end_t": 5400.0,
+      "start_t": 2700.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "value": 4
+     }
+    ],
+    "players": {
+     "NOR_09": "C. Nkemelu"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"player\",\n      \"id\": \"NOR_09\"\n    },\n    \"metric\": \"shots\",\n    \"window\": {\n      \"start_t\": 2700.0,\n      \"end_t\": 5400.0\n    },\n    \"comparator\": \"eq\",\n    \"value\": 4\n  },\n  \"text\": {\n    \"canonical_en\": \"C. Nkemelu has 4 shots in the second half.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 4,\n        \"unit\": \"shots\"\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    370,\n    418,\n    510,\n    562\n  ]\n}"
+  },
+  "cadd8112893fa08abd30ba5bc51d68ceb44e55ba884504378145aa131c231834": {
+   "model": "gpt-5-mini",
+   "ms": 13412,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 3,
+    "evidence_ids": [
+     50,
+     56,
+     61
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 11,
+     "window_start": 1
+    },
+    "moment": {
+     "k": 3,
+     "kind": "stat",
+     "metric": "turnovers_own_third",
+     "n": 3,
+     "rule": "turnovers",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 600.0,
+      "start_t": 0.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "value": 3
+     },
+     {
+      "key": "since_minute",
+      "value": 1
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\": {\"subject\": {\"type\": \"team\", \"id\": \"NOR\"}, \"metric\": \"turnovers_own_third\", \"window\": {\"start_t\": 0.0, \"end_t\": 600.0}, \"comparator\": \"eq\", \"value\": 3}, \"text\": {\"canonical_en\": \"Northbridge have had 3 turnovers in their own third since the 1st minute.\", \"numbers\": [{\"key\": \"value\", \"value\": 3}, {\"key\": \"since_minute\", \"value\": 1}]}, \"evidence_ids\": [50, 56, 61]}"
+  },
+  "d160d51a1bf3bb83d5614fea0548ae18b998d75a5701e883859d343fcd667102": {
+   "model": "gpt-5-mini",
+   "ms": 12534,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 71,
+    "evidence_ids": [
+     10,
+     11,
+     12,
+     13,
+     14
+    ],
+    "hedge": "clear",
+    "minutes": {
+     "window_end": 11,
+     "window_start": 1
+    },
+    "moment": {
+     "k": 5,
+     "kind": "tactical",
+     "lane": "right",
+     "metric": "attack_share_right",
+     "n": 7,
+     "rule": "overload",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 600.0,
+      "start_t": 0.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 71
+     },
+     {
+      "key": "since_minute",
+      "value": 1
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\":{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"attack_share_right\",\"window\":{\"start_t\":0.0,\"end_t\":600.0},\"comparator\":\"eq\",\"value\":71},\"text\":{\"canonical_en\":\"71% of Northbridge attacks have gone down the right since the 1st minute.\",\"numbers\":[{\"key\":\"value\",\"value\":71,\"unit\":\"%\"},{\"key\":\"since_minute\",\"value\":1}]},\"evidence_ids\":[10,11,12,13,14]}"
+  },
+  "d3f8f599390245159c0efb81b724c46865c74f3035ea976d1567aba6e0116ecd": {
+   "model": "gpt-5-mini",
+   "ms": 7470,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 0.3,
+    "evidence_ids": [
+     314,
+     437
+    ],
+    "feedback": "Your claim failed the verifier. numbers_match: 46 in the text is not in text.numbers. Revise using only the input.",
+    "hedge": "none",
+    "minutes": {
+     "window_end": 91,
+     "window_start": 46
+    },
+    "moment": {
+     "half": "second",
+     "k": 2,
+     "kind": "stat",
+     "metric": "xg_sum",
+     "n": 2,
+     "rule": "xg_sum",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 5400.0,
+      "start_t": 2700.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "xG",
+      "value": 0.3
+     }
+    ],
+    "players": {},
+    "previous_output": {
+     "claim": {
+      "comparator": "eq",
+      "metric": "xg_sum",
+      "subject": {
+       "id": "HAR",
+       "type": "team"
+      },
+      "value": 0.3,
+      "window": {
+       "end_t": 5400.0,
+       "start_t": 2700.0
+      }
+     },
+     "evidence_ids": [
+      314,
+      437
+     ],
+     "text": {
+      "canonical_en": "Since the 46th minute, Harlow have 0.30 xG.",
+      "numbers": [
+       {
+        "key": "value",
+        "unit": "xG",
+        "value": 0.3
+       }
+      ]
+     }
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"team\",\n      \"id\": \"HAR\"\n    },\n    \"metric\": \"xg_sum\",\n    \"window\": {\n      \"start_t\": 2700.0,\n      \"end_t\": 5400.0\n    },\n    \"comparator\": \"eq\",\n    \"value\": 0.3\n  },\n  \"text\": {\n    \"canonical_en\": \"Harlow have 0.30 xG in the second half.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 0.3,\n        \"unit\": \"xG\"\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    314,\n    437\n  ]\n}"
+  },
+  "e031d0c316379b0ae58422fca1175c86492efeee48c21db7c1111ace444eaf37": {
+   "model": "gpt-5-mini",
+   "ms": 11569,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 57,
+    "evidence_ids": [
+     274,
+     276,
+     306,
+     307,
+     308,
+     312,
+     313,
+     314
+    ],
+    "hedge": "suggests",
+    "minutes": {
+     "window_end": 56,
+     "window_start": 41
+    },
+    "moment": {
+     "k": 8,
+     "kind": "tactical",
+     "lane": "centre",
+     "metric": "attack_share_centre",
+     "n": 14,
+     "rule": "overload",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 3300.0,
+      "start_t": 2400.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 57
+     },
+     {
+      "key": "since_minute",
+      "value": 41
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"team\",\n      \"id\": \"HAR\"\n    },\n    \"metric\": \"attack_share_centre\",\n    \"window\": {\n      \"start_t\": 2400.0,\n      \"end_t\": 3300.0\n    },\n    \"comparator\": \"eq\",\n    \"value\": 57\n  },\n  \"text\": {\n    \"canonical_en\": \"The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 57,\n        \"unit\": \"%\"\n      },\n      {\n        \"key\": \"since_minute\",\n        \"value\": 41\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    274,\n    276,\n    306,\n    307,\n    308,\n    312,\n    313,\n    314\n  ]\n}"
+  },
+  "e5be6d022f5766e02e19ac5b99124efa19adfbf2e51c22de9d3ebd8966af107e": {
+   "model": "gpt-5-mini",
+   "ms": 11878,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 1.97,
+    "evidence_ids": [
+     341,
+     366,
+     370,
+     418,
+     490,
+     510,
+     562,
+     581
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 91,
+     "window_start": 46
+    },
+    "moment": {
+     "half": "second",
+     "k": 8,
+     "kind": "stat",
+     "metric": "xg_sum",
+     "n": 8,
+     "rule": "xg_sum",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 5400.0,
+      "start_t": 2700.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "xG",
+      "value": 1.97
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\":{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"xg_sum\",\"window\":{\"start_t\":2700.0,\"end_t\":5400.0},\"comparator\":\"eq\",\"value\":1.97},\"text\":{\"canonical_en\":\"Northbridge have accumulated 1.97 xG since the start of the second half.\",\"numbers\":[{\"key\":\"value\",\"value\":1.97,\"unit\":\"xG\"}]},\"evidence_ids\":[341,366,370,418,490,510,562,581]}"
+  },
+  "ead526c1dd99d5be4076b181675b3b612d28f04fe9053566496991a141f3ae84": {
+   "model": "gpt-5-mini",
+   "ms": 8160,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 77,
+    "evidence_ids": [
+     16,
+     17,
+     18,
+     19,
+     27,
+     28,
+     36,
+     37,
+     38,
+     39,
+     40,
+     42,
+     43,
+     51,
+     62,
+     72,
+     86,
+     89,
+     96,
+     97,
+     98,
+     110,
+     111,
+     117,
+     129,
+     131,
+     132,
+     133,
+     134,
+     153,
+     168,
+     169,
+     170,
+     178,
+     179,
+     180,
+     181,
+     192,
+     204,
+     205,
+     206,
+     207,
+     208,
+     209,
+     210,
+     218,
+     220,
+     222,
+     223,
+     230,
+     232,
+     233,
+     234,
+     235,
+     236,
+     237,
+     238,
+     239,
+     241,
+     254,
+     270,
+     271,
+     272,
+     274,
+     283,
+     284,
+     286,
+     289,
+     295
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 45,
+     "window_start": 1
+    },
+    "moment": {
+     "half": "first",
+     "k": 69,
+     "kind": "stat",
+     "metric": "pass_accuracy",
+     "n": 90,
+     "rule": "pass_accuracy",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 2699.9,
+      "start_t": 0.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 77
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\": {\"subject\": {\"type\": \"team\", \"id\": \"HAR\"}, \"metric\": \"pass_accuracy\", \"window\": {\"start_t\": 0.0, \"end_t\": 2699.9}, \"comparator\": \"eq\", \"value\": 77}, \"text\": {\"canonical_en\": \"Harlow completed 77% of their passes in the first half.\", \"numbers\": [{\"key\": \"value\", \"value\": 77, \"unit\": \"%\"}]}, \"evidence_ids\": [16,17,18,19,27,28,36,37,38,39,40,42,43,51,62,72,86,89,96,97,98,110,111,117,129,131,132,133,134,153,168,169,170,178,179,180,181,192,204,205,206,207,208,209,210,218,220,222,223,230,232,233,234,235,236,237,238,239,241,254,270,271,272,274,283,284,286,289,295]}"
+  },
+  "eae20fae3c8588eb4a96e186f729bf3e4add4c823ddff2f38b3ce58317e5abb5": {
+   "model": "gpt-5-mini",
+   "ms": 6788,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 0.32,
+    "evidence_ids": [
+     128,
+     166
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 45,
+     "window_start": 1
+    },
+    "moment": {
+     "half": "first",
+     "k": 2,
+     "kind": "stat",
+     "metric": "xg_sum",
+     "n": 2,
+     "rule": "xg_sum",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 2699.9,
+      "start_t": 0.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "xG",
+      "value": 0.32
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\": {\"subject\": {\"type\": \"team\", \"id\": \"NOR\"}, \"metric\": \"xg_sum\", \"window\": {\"start_t\": 0.0, \"end_t\": 2699.9}, \"comparator\": \"eq\", \"value\": 0.32}, \"text\": {\"canonical_en\": \"Northbridge have 0.32 xG in the first half.\", \"numbers\": [{\"key\": \"value\", \"value\": 0.32, \"unit\": \"xG\"}]}, \"evidence_ids\": [128, 166]}"
+  },
+  "f1001d9a316a7e9eec1efa9488396d38f590de08433031d6fbfb976bcb979c55": {
+   "model": "gpt-5-mini",
+   "ms": 10575,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 109,
+    "evidence_ids": [
+     225
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 45,
+     "window_start": 1
+    },
+    "moment": {
+     "half": "first",
+     "k": 1,
+     "kind": "milestone",
+     "metric": "top_shot_speed",
+     "n": 8,
+     "rule": "top_speed",
+     "subject": {
+      "id": "match",
+      "type": "match"
+     },
+     "window": {
+      "end_t": 2699.9,
+      "start_t": 0.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "km/h",
+      "value": 109
+     }
+    ],
+    "players": {
+     "HAR_07": "Y. Castell"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"match\",\n      \"id\": \"match\"\n    },\n    \"metric\": \"top_shot_speed\",\n    \"window\": {\n      \"start_t\": 0.0,\n      \"end_t\": 2699.9,\n      \"half\": \"first\",\n      \"n\": 8,\n      \"k\": 1\n    },\n    \"comparator\": \"eq\",\n    \"value\": 109\n  },\n  \"text\": {\n    \"canonical_en\": \"Y. Castell's shot reached 109 km/h, the fastest shot of the first half.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 109,\n        \"unit\": \"km/h\"\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    225\n  ]\n}"
+  },
+  "f1c97665c15f3c764b91c747d6440e51694e3df3cb0206f0ddf341fd513c827e": {
+   "model": "gpt-5-mini",
+   "ms": 12609,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 77,
+    "evidence_ids": [
+     348,
+     349,
+     351,
+     384,
+     385,
+     422,
+     429,
+     430,
+     431,
+     432
+    ],
+    "hedge": "clear",
+    "minutes": {
+     "window_end": 66,
+     "window_start": 51
+    },
+    "moment": {
+     "k": 10,
+     "kind": "tactical",
+     "lane": "left",
+     "metric": "attack_share_left",
+     "n": 13,
+     "rule": "overload",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 3900.0,
+      "start_t": 3000.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 77
+     },
+     {
+      "key": "since_minute",
+      "value": 51
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"team\",\n      \"id\": \"HAR\"\n    },\n    \"metric\": \"attack_share_left\",\n    \"window\": {\n      \"start_t\": 3000.0,\n      \"end_t\": 3900.0\n    },\n    \"comparator\": \"eq\",\n    \"value\": 77\n  },\n  \"text\": {\n    \"canonical_en\": \"77% of Harlow attacks have gone down the left since the 51st minute.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 77,\n        \"unit\": \"%\"\n      },\n      {\n        \"key\": \"since_minute\",\n        \"value\": 51\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    348,\n    349,\n    351,\n    384,\n    385,\n    422,\n    429,\n    430,\n    431,\n    432\n  ]\n}"
+  },
+  "f39354debb314d2629d6a8ce958c555699af19e1971cb2fe2936a97af5bbb4a9": {
+   "model": "gpt-5-mini",
+   "ms": 10000,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 83,
+    "evidence_ids": [
+     537,
+     539,
+     587,
+     588,
+     590
+    ],
+    "hedge": "clear",
+    "minutes": {
+     "window_end": 91,
+     "window_start": 71
+    },
+    "moment": {
+     "k": 5,
+     "kind": "tactical",
+     "lane": "right",
+     "metric": "attack_share_right",
+     "n": 6,
+     "rule": "overload",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 5400.0,
+      "start_t": 4230.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 83
+     },
+     {
+      "key": "since_minute",
+      "value": 71
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\":{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"attack_share_right\",\"window\":{\"start_t\":4230.0,\"end_t\":5400.0},\"comparator\":\"eq\",\"value\":83},\"text\":{\"canonical_en\":\"Since the 71st minute, 83% of Harlow attacks have gone down the right.\",\"numbers\":[{\"key\":\"value\",\"value\":83,\"unit\":\"%\"},{\"key\":\"since_minute\",\"value\":71}]},\"evidence_ids\":[537,539,587,588,590]}"
+  },
+  "f6b77bd4ead0d2a360cff454bbfdd84e94050cdf19d58cdaecdd44e2fb6338b5": {
+   "model": "gpt-5-mini",
+   "ms": 12312,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 67,
+    "evidence_ids": [
+     8,
+     9,
+     10,
+     12,
+     31,
+     32,
+     33,
+     67,
+     75,
+     82,
+     100,
+     102,
+     104,
+     106,
+     107,
+     114,
+     126,
+     127,
+     138,
+     140,
+     141,
+     147,
+     148,
+     150,
+     158,
+     160,
+     161,
+     162,
+     164,
+     174,
+     175,
+     184,
+     185,
+     194,
+     195,
+     196,
+     197,
+     198,
+     200,
+     201,
+     214,
+     244,
+     249,
+     256,
+     257,
+     258,
+     260,
+     262,
+     266,
+     278,
+     279
+    ],
+    "hedge": "none",
+    "minutes": {
+     "window_end": 45,
+     "window_start": 1
+    },
+    "moment": {
+     "half": "first",
+     "k": 51,
+     "kind": "stat",
+     "metric": "pass_accuracy",
+     "n": 76,
+     "rule": "pass_accuracy",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 2699.9,
+      "start_t": 0.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 67
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\":{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"pass_accuracy\",\"window\":{\"start_t\":0.0,\"end_t\":2699.9},\"comparator\":\"eq\",\"value\":67},\"text\":{\"canonical_en\":\"Northbridge completed 67% of their passes in the first half.\",\"numbers\":[{\"key\":\"value\",\"value\":67,\"unit\":\"%\"}]},\"evidence_ids\":[8,9,10,12,31,32,33,67,75,82,100,102,104,106,107,114,126,127,138,140,141,147,148,150,158,160,161,162,164,174,175,184,185,194,195,196,197,198,200,201,214,244,249,256,257,258,260,262,266,278,279]}"
+  }
+ },
+ "note": "Scout requests and responses from a --foundry build. Synthetic match data only."
+}
