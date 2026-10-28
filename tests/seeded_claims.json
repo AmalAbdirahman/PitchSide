@@ -1,0 +1,4653 @@
+[
+ {
+  "id": "sc_001",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000001",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 600.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_right",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 600.0
+    },
+    "comparator": "eq",
+    "value": 71,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "Since the 1st minute, 71% of Northbridge attacks have gone down the right.",
+    "canonical_en": "Since the 1st minute, 71% of Northbridge attacks have gone down the right.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 71,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 1
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     10,
+     11,
+     12,
+     13,
+     14
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 600.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_002",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000002",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 600.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 600.0
+    },
+    "comparator": "eq",
+    "value": 3
+   },
+   "text": {
+    "draft_en": "Northbridge have lost the ball 3 times in their own third since the 1st minute.",
+    "canonical_en": "Northbridge have lost the ball 3 times in their own third since the 1st minute.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 3
+     },
+     {
+      "key": "since_minute",
+      "value": 1
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     50,
+     56,
+     61
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 600.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_003",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000003",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 1200.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "start_t": 300.0,
+     "end_t": 1200.0
+    },
+    "comparator": "eq",
+    "value": 50,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "The numbers suggest Harlow are favouring the centre: 50% of their attacks since the 6th minute.",
+    "canonical_en": "The numbers suggest Harlow are favouring the centre: 50% of their attacks since the 6th minute.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 50,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 6
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     51,
+     52,
+     53,
+     58,
+     62,
+     89,
+     97,
+     98,
+     99
+    ],
+    "players": [],
+    "window": {
+     "start_t": 300.0,
+     "end_t": 1200.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_004",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000004",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 1500.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "start_t": 600.0,
+     "end_t": 1500.0
+    },
+    "comparator": "eq",
+    "value": 69,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "Since the 11th minute, 69% of Northbridge attacks have gone down the centre.",
+    "canonical_en": "Since the 11th minute, 69% of Northbridge attacks have gone down the centre.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 69,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 11
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     114,
+     121,
+     126,
+     143,
+     147,
+     148,
+     151,
+     161,
+     164,
+     165,
+     166
+    ],
+    "players": [],
+    "window": {
+     "start_t": 600.0,
+     "end_t": 1500.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_005",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000005",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 1500.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "start_t": 600.0,
+     "end_t": 1500.0
+    },
+    "comparator": "eq",
+    "value": 56,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "The numbers suggest Harlow are favouring the left: 56% of their attacks since the 11th minute.",
+    "canonical_en": "The numbers suggest Harlow are favouring the left: 56% of their attacks since the 11th minute.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 56,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 11
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     80,
+     87,
+     90,
+     134,
+     135
+    ],
+    "players": [],
+    "window": {
+     "start_t": 600.0,
+     "end_t": 1500.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_006",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000006",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2100.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "start_t": 1500.0,
+     "end_t": 2100.0
+    },
+    "comparator": "eq",
+    "value": 3
+   },
+   "text": {
+    "draft_en": "Northbridge have lost the ball 3 times in their own third since the 26th minute.",
+    "canonical_en": "Northbridge have lost the ball 3 times in their own third since the 26th minute.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 3
+     },
+     {
+      "key": "since_minute",
+      "value": 26
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     187,
+     191,
+     227
+    ],
+    "players": [],
+    "window": {
+     "start_t": 1500.0,
+     "end_t": 2100.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_007",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000007",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 2400.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "start_t": 1500.0,
+     "end_t": 2400.0
+    },
+    "comparator": "eq",
+    "value": 72,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "Since the 26th minute, 72% of Harlow attacks have gone down the left.",
+    "canonical_en": "Since the 26th minute, 72% of Harlow attacks have gone down the left.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 72,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 26
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     181,
+     182,
+     212,
+     223,
+     224,
+     225,
+     228,
+     229,
+     230,
+     231,
+     232,
+     233,
+     234,
+     235,
+     236,
+     237,
+     238,
+     239,
+     240,
+     241,
+     242
+    ],
+    "players": [],
+    "window": {
+     "start_t": 1500.0,
+     "end_t": 2400.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_008",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000008",
+   "match_id": "nb_v_hr_hero",
+   "kind": "moment",
+   "created_t": 2692.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_05"
+    },
+    "metric": "cards",
+    "window": {
+     "start_t": 2692.0,
+     "end_t": 2692.0
+    },
+    "comparator": "eq",
+    "value": 1
+   },
+   "text": {
+    "draft_en": "Yellow card for I. Marchetti-Holt of Harlow in the 45th minute.",
+    "canonical_en": "Yellow card for I. Marchetti-Holt of Harlow in the 45th minute.",
+    "numbers": [
+     {
+      "key": "minute",
+      "value": 45
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     301
+    ],
+    "players": [
+     "HAR_05"
+    ],
+    "window": {
+     "start_t": 2692.0,
+     "end_t": 2692.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_009",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000009",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2699.9,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 67
+   },
+   "text": {
+    "draft_en": "Northbridge completed 67% of their passes in the first half.",
+    "canonical_en": "Northbridge completed 67% of their passes in the first half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 67,
+      "unit": "%"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     8,
+     9,
+     10,
+     12,
+     31,
+     32,
+     33,
+     67,
+     75,
+     82,
+     100,
+     102,
+     104,
+     106,
+     107,
+     114,
+     126,
+     127,
+     138,
+     140,
+     141,
+     147,
+     148,
+     150,
+     158,
+     160,
+     161,
+     162,
+     164,
+     174,
+     175,
+     184,
+     185,
+     194,
+     195,
+     196,
+     197,
+     198,
+     200,
+     201,
+     214,
+     244,
+     249,
+     256,
+     257,
+     258,
+     260,
+     262,
+     266,
+     278,
+     279
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_010",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000010",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2699.9,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 77
+   },
+   "text": {
+    "draft_en": "Harlow completed 77% of their passes in the first half.",
+    "canonical_en": "Harlow completed 77% of their passes in the first half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 77,
+      "unit": "%"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     16,
+     17,
+     18,
+     19,
+     27,
+     28,
+     36,
+     37,
+     38,
+     39,
+     40,
+     42,
+     43,
+     51,
+     62,
+     72,
+     86,
+     89,
+     96,
+     97,
+     98,
+     110,
+     111,
+     117,
+     129,
+     131,
+     132,
+     133,
+     134,
+     153,
+     168,
+     169,
+     170,
+     178,
+     179,
+     180,
+     181,
+     192,
+     204,
+     205,
+     206,
+     207,
+     208,
+     209,
+     210,
+     218,
+     220,
+     222,
+     223,
+     230,
+     232,
+     233,
+     234,
+     235,
+     236,
+     237,
+     238,
+     239,
+     241,
+     254,
+     270,
+     271,
+     272,
+     274,
+     283,
+     284,
+     286,
+     289,
+     295
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_011",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000011",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2699.9,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_09"
+    },
+    "metric": "shots",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 3
+   },
+   "text": {
+    "draft_en": "T. Brannock had 3 shots in the first half.",
+    "canonical_en": "T. Brannock had 3 shots in the first half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 3
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     99,
+     193,
+     248
+    ],
+    "players": [
+     "HAR_09"
+    ],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_012",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000012",
+   "match_id": "nb_v_hr_hero",
+   "kind": "milestone",
+   "created_t": 2699.9,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "match",
+     "id": "match"
+    },
+    "metric": "top_shot_speed",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 109
+   },
+   "text": {
+    "draft_en": "Fastest shot of the first half: 109 km/h from Y. Castell.",
+    "canonical_en": "Fastest shot of the first half: 109 km/h from Y. Castell.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 109,
+      "unit": "km/h"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     225
+    ],
+    "players": [
+     "HAR_07"
+    ],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_013",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000013",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2699.9,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 0.32
+   },
+   "text": {
+    "draft_en": "Northbridge generated 0.32 xG in the first half.",
+    "canonical_en": "Northbridge generated 0.32 xG in the first half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 0.32,
+      "unit": "xG"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     128,
+     166
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_014",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000014",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2699.9,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 1.0
+   },
+   "text": {
+    "draft_en": "Harlow generated 1.00 xG in the first half.",
+    "canonical_en": "Harlow generated 1.00 xG in the first half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 1.0,
+      "unit": "xG"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     99,
+     188,
+     193,
+     225,
+     248,
+     255
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_015",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000015",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 3300.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_right",
+    "window": {
+     "start_t": 2400.0,
+     "end_t": 3300.0
+    },
+    "comparator": "eq",
+    "value": 50,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "The numbers suggest Northbridge are favouring the right: 50% of their attacks since the 41st minute.",
+    "canonical_en": "The numbers suggest Northbridge are favouring the right: 50% of their attacks since the 41st minute.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 50,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 41
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     281,
+     320,
+     338,
+     340,
+     341
+    ],
+    "players": [],
+    "window": {
+     "start_t": 2400.0,
+     "end_t": 3300.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_016",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000016",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 3300.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "start_t": 2400.0,
+     "end_t": 3300.0
+    },
+    "comparator": "eq",
+    "value": 57,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "The numbers suggest Harlow are favouring the centre: 57% of their attacks since the 41st minute.",
+    "canonical_en": "The numbers suggest Harlow are favouring the centre: 57% of their attacks since the 41st minute.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 57,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 41
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     274,
+     276,
+     306,
+     307,
+     308,
+     312,
+     313,
+     314
+    ],
+    "players": [],
+    "window": {
+     "start_t": 2400.0,
+     "end_t": 3300.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_017",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000017",
+   "match_id": "nb_v_hr_hero",
+   "kind": "moment",
+   "created_t": 3445.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "substitutions",
+    "window": {
+     "start_t": 3445.0,
+     "end_t": 3445.0
+    },
+    "comparator": "eq",
+    "value": 1
+   },
+   "text": {
+    "draft_en": "Substitution for Northbridge in the 58th minute: B. Adeyemi-Ross on, D. Varga off.",
+    "canonical_en": "Substitution for Northbridge in the 58th minute: B. Adeyemi-Ross on, D. Varga off.",
+    "numbers": [
+     {
+      "key": "minute",
+      "value": 58
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     383
+    ],
+    "players": [
+     "NOR_12",
+     "NOR_07"
+    ],
+    "window": {
+     "start_t": 3445.0,
+     "end_t": 3445.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_018",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000018",
+   "match_id": "nb_v_hr_hero",
+   "kind": "score_event",
+   "created_t": 3748.5,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_09"
+    },
+    "metric": "goals",
+    "window": {
+     "start_t": 3748.0,
+     "end_t": 3748.5
+    },
+    "comparator": "eq",
+    "value": 1
+   },
+   "text": {
+    "draft_en": "GOAL. C. Nkemelu scores for Northbridge in the 63rd minute. Northbridge 1-0 Harlow.",
+    "canonical_en": "GOAL. C. Nkemelu scores for Northbridge in the 63rd minute. Northbridge 1-0 Harlow.",
+    "numbers": [
+     {
+      "key": "minute",
+      "value": 63
+     },
+     {
+      "key": "score_NOR",
+      "value": 1
+     },
+     {
+      "key": "score_HAR",
+      "value": 0
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     418,
+     419
+    ],
+    "players": [
+     "NOR_09"
+    ],
+    "window": {
+     "start_t": 3748.0,
+     "end_t": 3748.5
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   },
+   "impact": {
+    "subject_team": "NOR",
+    "win_prob_before": 0.165,
+    "win_prob_after": 0.696,
+    "delta": 0.531,
+    "method": "poisson_v1"
+   }
+  }
+ },
+ {
+  "id": "sc_019",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000019",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 3900.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "start_t": 3000.0,
+     "end_t": 3900.0
+    },
+    "comparator": "eq",
+    "value": 77,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "Since the 51st minute, 77% of Harlow attacks have gone down the left.",
+    "canonical_en": "Since the 51st minute, 77% of Harlow attacks have gone down the left.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 77,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 51
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     348,
+     349,
+     351,
+     384,
+     385,
+     422,
+     429,
+     430,
+     431,
+     432
+    ],
+    "players": [],
+    "window": {
+     "start_t": 3000.0,
+     "end_t": 3900.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_020",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000020",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 4200.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "start_t": 3445.0,
+     "end_t": 4200.0
+    },
+    "comparator": "eq",
+    "value": 71,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "Since the 58th minute, 71% of Northbridge attacks have gone down the left.",
+    "canonical_en": "Since the 58th minute, 71% of Northbridge attacks have gone down the left.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 71,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 58
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     404,
+     416,
+     462,
+     463,
+     465
+    ],
+    "players": [],
+    "window": {
+     "start_t": 3445.0,
+     "end_t": 4200.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_021",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000021",
+   "match_id": "nb_v_hr_hero",
+   "kind": "moment",
+   "created_t": 4230.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "substitutions",
+    "window": {
+     "start_t": 4230.0,
+     "end_t": 4230.0
+    },
+    "comparator": "eq",
+    "value": 1
+   },
+   "text": {
+    "draft_en": "Substitution for Harlow in the 71st minute: A. Somerby on, Z. Halloran off.",
+    "canonical_en": "Substitution for Harlow in the 71st minute: A. Somerby on, Z. Halloran off.",
+    "numbers": [
+     {
+      "key": "minute",
+      "value": 71
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     470
+    ],
+    "players": [
+     "HAR_12",
+     "HAR_10"
+    ],
+    "window": {
+     "start_t": 4230.0,
+     "end_t": 4230.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_022",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000022",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 4800.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "start_t": 4200.0,
+     "end_t": 4800.0
+    },
+    "comparator": "eq",
+    "value": 7
+   },
+   "text": {
+    "draft_en": "Harlow have lost the ball 7 times in their own third since the 71st minute.",
+    "canonical_en": "Harlow have lost the ball 7 times in their own third since the 71st minute.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 7
+     },
+     {
+      "key": "since_minute",
+      "value": 71
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     469,
+     477,
+     504,
+     509,
+     512,
+     519,
+     527
+    ],
+    "players": [],
+    "window": {
+     "start_t": 4200.0,
+     "end_t": 4800.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_023",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000023",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 5100.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "start_t": 3445.0,
+     "end_t": 5100.0
+    },
+    "comparator": "eq",
+    "value": 51,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "Since the 58th minute, 51% of Northbridge attacks have gone down the left.",
+    "canonical_en": "Since the 58th minute, 51% of Northbridge attacks have gone down the left.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 51,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 58
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     404,
+     416,
+     462,
+     463,
+     465,
+     478,
+     479,
+     480,
+     482,
+     483,
+     485,
+     486,
+     488,
+     489,
+     490,
+     499,
+     500,
+     528,
+     547,
+     548
+    ],
+    "players": [],
+    "window": {
+     "start_t": 3445.0,
+     "end_t": 5100.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_024",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000024",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 5400.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "start_t": 4500.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 50,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "The numbers suggest Northbridge are favouring the centre: 50% of their attacks since the 76th minute.",
+    "canonical_en": "The numbers suggest Northbridge are favouring the centre: 50% of their attacks since the 76th minute.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 50,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 76
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     506,
+     510,
+     513,
+     520,
+     521,
+     523,
+     561,
+     562,
+     569,
+     571,
+     580,
+     581
+    ],
+    "players": [],
+    "window": {
+     "start_t": 4500.0,
+     "end_t": 5400.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_025",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000025",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 5400.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_right",
+    "window": {
+     "start_t": 4230.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 83,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "Since the 71st minute, 83% of Harlow attacks have gone down the right.",
+    "canonical_en": "Since the 71st minute, 83% of Harlow attacks have gone down the right.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 83,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 71
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     537,
+     539,
+     587,
+     588,
+     590
+    ],
+    "players": [],
+    "window": {
+     "start_t": 4230.0,
+     "end_t": 5400.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_026",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000026",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 5400.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 81
+   },
+   "text": {
+    "draft_en": "Northbridge completed 81% of their passes in the second half.",
+    "canonical_en": "Northbridge completed 81% of their passes in the second half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 81,
+      "unit": "%"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     315,
+     316,
+     317,
+     318,
+     331,
+     332,
+     333,
+     334,
+     336,
+     337,
+     338,
+     340,
+     353,
+     354,
+     356,
+     358,
+     360,
+     362,
+     363,
+     364,
+     365,
+     389,
+     392,
+     400,
+     401,
+     417,
+     438,
+     439,
+     440,
+     442,
+     443,
+     455,
+     457,
+     461,
+     463,
+     478,
+     479,
+     480,
+     482,
+     483,
+     485,
+     488,
+     489,
+     498,
+     499,
+     513,
+     521,
+     542,
+     544,
+     545,
+     546,
+     547,
+     559,
+     560,
+     561,
+     569,
+     571,
+     593,
+     594,
+     595,
+     596,
+     597,
+     598,
+     599
+    ],
+    "players": [],
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_027",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000027",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 5400.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 70
+   },
+   "text": {
+    "draft_en": "Harlow completed 70% of their passes in the second half.",
+    "canonical_en": "Harlow completed 70% of their passes in the second half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 70,
+      "unit": "%"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     304,
+     306,
+     307,
+     312,
+     322,
+     323,
+     325,
+     326,
+     343,
+     345,
+     346,
+     348,
+     372,
+     373,
+     374,
+     376,
+     381,
+     384,
+     396,
+     397,
+     408,
+     410,
+     411,
+     412,
+     413,
+     420,
+     428,
+     429,
+     430,
+     431,
+     433,
+     435,
+     436,
+     449,
+     450,
+     451,
+     474,
+     491,
+     495,
+     532,
+     536,
+     537,
+     550,
+     564,
+     565,
+     576,
+     582,
+     583,
+     584,
+     585,
+     586,
+     587,
+     603
+    ],
+    "players": [],
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_028",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000028",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 5400.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_09"
+    },
+    "metric": "shots",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 4
+   },
+   "text": {
+    "draft_en": "C. Nkemelu had 4 shots in the second half.",
+    "canonical_en": "C. Nkemelu had 4 shots in the second half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 4
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     370,
+     418,
+     510,
+     562
+    ],
+    "players": [
+     "NOR_09"
+    ],
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_029",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000029",
+   "match_id": "nb_v_hr_hero",
+   "kind": "milestone",
+   "created_t": 5400.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "match",
+     "id": "match"
+    },
+    "metric": "top_shot_speed",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 109
+   },
+   "text": {
+    "draft_en": "Fastest shot of the second half: 109 km/h from D. Varga.",
+    "canonical_en": "Fastest shot of the second half: 109 km/h from D. Varga.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 109,
+      "unit": "km/h"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     366
+    ],
+    "players": [
+     "NOR_07"
+    ],
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_030",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000030",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 5400.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "start_t": 4800.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 3
+   },
+   "text": {
+    "draft_en": "Harlow have lost the ball 3 times in their own third since the 81st minute.",
+    "canonical_en": "Harlow have lost the ball 3 times in their own third since the 81st minute.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 3
+     },
+     {
+      "key": "since_minute",
+      "value": 81
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     558,
+     568,
+     579
+    ],
+    "players": [],
+    "window": {
+     "start_t": 4800.0,
+     "end_t": 5400.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_031",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000031",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 5400.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 1.97
+   },
+   "text": {
+    "draft_en": "Northbridge generated 1.97 xG in the second half.",
+    "canonical_en": "Northbridge generated 1.97 xG in the second half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 1.97,
+      "unit": "xG"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     341,
+     366,
+     370,
+     418,
+     490,
+     510,
+     562,
+     581
+    ],
+    "players": [],
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_032",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000032",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 5400.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 0.3
+   },
+   "text": {
+    "draft_en": "Harlow generated 0.30 xG in the second half.",
+    "canonical_en": "Harlow generated 0.30 xG in the second half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 0.3,
+      "unit": "xG"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     314,
+     437
+    ],
+    "players": [],
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_033",
+  "category": "wrong_number",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900001",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 600.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_right",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 600.0
+    },
+    "comparator": "eq",
+    "value": 80,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "Since the 1st minute, 80% of Northbridge attacks have gone down the right.",
+    "canonical_en": "Since the 1st minute, 80% of Northbridge attacks have gone down the right.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 80,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 1
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     10,
+     11,
+     12,
+     13,
+     14
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 600.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_034",
+  "category": "wrong_number",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900002",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 1500.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "start_t": 600.0,
+     "end_t": 1500.0
+    },
+    "comparator": "eq",
+    "value": 50,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "The numbers suggest Harlow are favouring the left: 50% of their attacks since the 11th minute.",
+    "canonical_en": "The numbers suggest Harlow are favouring the left: 50% of their attacks since the 11th minute.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 50,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 11
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     80,
+     87,
+     90,
+     134,
+     135
+    ],
+    "players": [],
+    "window": {
+     "start_t": 600.0,
+     "end_t": 1500.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_035",
+  "category": "wrong_number",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900003",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 600.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 600.0
+    },
+    "comparator": "eq",
+    "value": 4
+   },
+   "text": {
+    "draft_en": "Northbridge have lost the ball 4 times in their own third since the 1st minute.",
+    "canonical_en": "Northbridge have lost the ball 4 times in their own third since the 1st minute.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 4
+     },
+     {
+      "key": "since_minute",
+      "value": 1
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     50,
+     56,
+     61
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 600.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_036",
+  "category": "wrong_number",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900004",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2100.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "start_t": 1500.0,
+     "end_t": 2100.0
+    },
+    "comparator": "eq",
+    "value": 1
+   },
+   "text": {
+    "draft_en": "Northbridge have lost the ball 1 times in their own third since the 26th minute.",
+    "canonical_en": "Northbridge have lost the ball 1 times in their own third since the 26th minute.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 1
+     },
+     {
+      "key": "since_minute",
+      "value": 26
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     187,
+     191,
+     227
+    ],
+    "players": [],
+    "window": {
+     "start_t": 1500.0,
+     "end_t": 2100.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_037",
+  "category": "wrong_number",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900005",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2699.9,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 1.15
+   },
+   "text": {
+    "draft_en": "Harlow generated 1.15 xG in the first half.",
+    "canonical_en": "Harlow generated 1.15 xG in the first half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 1.15,
+      "unit": "xG"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     99,
+     188,
+     193,
+     225,
+     248,
+     255
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_038",
+  "category": "wrong_number",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900006",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2699.9,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 72
+   },
+   "text": {
+    "draft_en": "Northbridge completed 72% of their passes in the first half.",
+    "canonical_en": "Northbridge completed 72% of their passes in the first half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 72,
+      "unit": "%"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     8,
+     9,
+     10,
+     12,
+     31,
+     32,
+     33,
+     67,
+     75,
+     82,
+     100,
+     102,
+     104,
+     106,
+     107,
+     114,
+     126,
+     127,
+     138,
+     140,
+     141,
+     147,
+     148,
+     150,
+     158,
+     160,
+     161,
+     162,
+     164,
+     174,
+     175,
+     184,
+     185,
+     194,
+     195,
+     196,
+     197,
+     198,
+     200,
+     201,
+     214,
+     244,
+     249,
+     256,
+     257,
+     258,
+     260,
+     262,
+     266,
+     278,
+     279
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_039",
+  "category": "wrong_number",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900007",
+   "match_id": "nb_v_hr_hero",
+   "kind": "milestone",
+   "created_t": 2699.9,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "match",
+     "id": "match"
+    },
+    "metric": "top_shot_speed",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 116
+   },
+   "text": {
+    "draft_en": "Fastest shot of the first half: 116 km/h from Y. Castell.",
+    "canonical_en": "Fastest shot of the first half: 116 km/h from Y. Castell.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 116,
+      "unit": "km/h"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     225
+    ],
+    "players": [
+     "HAR_07"
+    ],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_040",
+  "category": "wrong_number",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900008",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2699.9,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_09"
+    },
+    "metric": "shots",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 4
+   },
+   "text": {
+    "draft_en": "T. Brannock had 4 shots in the first half.",
+    "canonical_en": "T. Brannock had 4 shots in the first half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 4
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     99,
+     193,
+     248
+    ],
+    "players": [
+     "HAR_09"
+    ],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_041",
+  "category": "wrong_number",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900009",
+   "match_id": "nb_v_hr_hero",
+   "kind": "score_event",
+   "created_t": 3748.5,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_09"
+    },
+    "metric": "goals",
+    "window": {
+     "start_t": 3748.0,
+     "end_t": 3748.5
+    },
+    "comparator": "eq",
+    "value": 1
+   },
+   "text": {
+    "draft_en": "GOAL. C. Nkemelu scores for Northbridge in the 61st minute. Northbridge 1-0 Harlow.",
+    "canonical_en": "GOAL. C. Nkemelu scores for Northbridge in the 61st minute. Northbridge 1-0 Harlow.",
+    "numbers": [
+     {
+      "key": "minute",
+      "value": 61
+     },
+     {
+      "key": "score_NOR",
+      "value": 1
+     },
+     {
+      "key": "score_HAR",
+      "value": 0
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     418,
+     419
+    ],
+    "players": [
+     "NOR_09"
+    ],
+    "window": {
+     "start_t": 3748.0,
+     "end_t": 3748.5
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   },
+   "impact": {
+    "subject_team": "NOR",
+    "win_prob_before": 0.165,
+    "win_prob_after": 0.696,
+    "delta": 0.531,
+    "method": "poisson_v1"
+   }
+  }
+ },
+ {
+  "id": "sc_042",
+  "category": "wrong_player",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900010",
+   "match_id": "nb_v_hr_hero",
+   "kind": "score_event",
+   "created_t": 3748.5,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_02"
+    },
+    "metric": "goals",
+    "window": {
+     "start_t": 3748.0,
+     "end_t": 3748.5
+    },
+    "comparator": "eq",
+    "value": 1
+   },
+   "text": {
+    "draft_en": "GOAL. L. Corrigan scores for Northbridge in the 63rd minute. Northbridge 1-0 Harlow.",
+    "canonical_en": "GOAL. L. Corrigan scores for Northbridge in the 63rd minute. Northbridge 1-0 Harlow.",
+    "numbers": [
+     {
+      "key": "minute",
+      "value": 63
+     },
+     {
+      "key": "score_NOR",
+      "value": 1
+     },
+     {
+      "key": "score_HAR",
+      "value": 0
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     418,
+     419
+    ],
+    "players": [
+     "NOR_02"
+    ],
+    "window": {
+     "start_t": 3748.0,
+     "end_t": 3748.5
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   },
+   "impact": {
+    "subject_team": "NOR",
+    "win_prob_before": 0.165,
+    "win_prob_after": 0.696,
+    "delta": 0.531,
+    "method": "poisson_v1"
+   }
+  }
+ },
+ {
+  "id": "sc_043",
+  "category": "wrong_player",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900011",
+   "match_id": "nb_v_hr_hero",
+   "kind": "score_event",
+   "created_t": 3748.5,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_08"
+    },
+    "metric": "goals",
+    "window": {
+     "start_t": 3748.0,
+     "end_t": 3748.5
+    },
+    "comparator": "eq",
+    "value": 1
+   },
+   "text": {
+    "draft_en": "GOAL. E. Lindqvist scores for Northbridge in the 63rd minute. Northbridge 1-0 Harlow.",
+    "canonical_en": "GOAL. E. Lindqvist scores for Northbridge in the 63rd minute. Northbridge 1-0 Harlow.",
+    "numbers": [
+     {
+      "key": "minute",
+      "value": 63
+     },
+     {
+      "key": "score_NOR",
+      "value": 1
+     },
+     {
+      "key": "score_HAR",
+      "value": 0
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     418,
+     419
+    ],
+    "players": [
+     "NOR_08"
+    ],
+    "window": {
+     "start_t": 3748.0,
+     "end_t": 3748.5
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   },
+   "impact": {
+    "subject_team": "NOR",
+    "win_prob_before": 0.165,
+    "win_prob_after": 0.696,
+    "delta": 0.531,
+    "method": "poisson_v1"
+   }
+  }
+ },
+ {
+  "id": "sc_044",
+  "category": "wrong_player",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900012",
+   "match_id": "nb_v_hr_hero",
+   "kind": "milestone",
+   "created_t": 2699.9,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "match",
+     "id": "match"
+    },
+    "metric": "top_shot_speed",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 109
+   },
+   "text": {
+    "draft_en": "Fastest shot of the first half: 109 km/h from T. Brannock.",
+    "canonical_en": "Fastest shot of the first half: 109 km/h from T. Brannock.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 109,
+      "unit": "km/h"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     225
+    ],
+    "players": [
+     "HAR_09"
+    ],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_045",
+  "category": "wrong_player",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900013",
+   "match_id": "nb_v_hr_hero",
+   "kind": "milestone",
+   "created_t": 5400.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "match",
+     "id": "match"
+    },
+    "metric": "top_shot_speed",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 109
+   },
+   "text": {
+    "draft_en": "Fastest shot of the second half: 109 km/h from K. Tamsin.",
+    "canonical_en": "Fastest shot of the second half: 109 km/h from K. Tamsin.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 109,
+      "unit": "km/h"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     366
+    ],
+    "players": [
+     "NOR_11"
+    ],
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_046",
+  "category": "wrong_player",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900014",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2699.9,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_08"
+    },
+    "metric": "shots",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 3
+   },
+   "text": {
+    "draft_en": "O. Fenwick had 3 shots in the first half.",
+    "canonical_en": "O. Fenwick had 3 shots in the first half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 3
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     99,
+     193,
+     248
+    ],
+    "players": [
+     "HAR_08"
+    ],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_047",
+  "category": "wrong_player",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900015",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 5400.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_10"
+    },
+    "metric": "shots",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 4
+   },
+   "text": {
+    "draft_en": "F. Moreau-Lake had 4 shots in the second half.",
+    "canonical_en": "F. Moreau-Lake had 4 shots in the second half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 4
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     370,
+     418,
+     510,
+     562
+    ],
+    "players": [
+     "NOR_10"
+    ],
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_048",
+  "category": "wrong_window",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900016",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 600.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "start_t": 0.0,
+     "end_t": -300.0
+    },
+    "comparator": "eq",
+    "value": 3
+   },
+   "text": {
+    "draft_en": "Northbridge have lost the ball 3 times in their own third since the 1st minute.",
+    "canonical_en": "Northbridge have lost the ball 3 times in their own third since the 1st minute.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 3
+     },
+     {
+      "key": "since_minute",
+      "value": 1
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     50,
+     56,
+     61
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": -300.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_049",
+  "category": "wrong_window",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900017",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 1500.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 900.0
+    },
+    "comparator": "eq",
+    "value": 69,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "Since the 11th minute, 69% of Northbridge attacks have gone down the centre.",
+    "canonical_en": "Since the 11th minute, 69% of Northbridge attacks have gone down the centre.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 69,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 11
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     114,
+     121,
+     126,
+     143,
+     147,
+     148,
+     151,
+     161,
+     164,
+     165,
+     166
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 900.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_050",
+  "category": "wrong_window",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900018",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 5400.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2700.0
+    },
+    "comparator": "eq",
+    "value": 1.97
+   },
+   "text": {
+    "draft_en": "Northbridge generated 1.97 xG in the second half.",
+    "canonical_en": "Northbridge generated 1.97 xG in the second half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 1.97,
+      "unit": "xG"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     341,
+     366,
+     370,
+     418,
+     490,
+     510,
+     562,
+     581
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2700.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_051",
+  "category": "wrong_window",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900019",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 5400.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2700.0
+    },
+    "comparator": "eq",
+    "value": 81
+   },
+   "text": {
+    "draft_en": "Northbridge completed 81% of their passes in the second half.",
+    "canonical_en": "Northbridge completed 81% of their passes in the second half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 81,
+      "unit": "%"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     315,
+     316,
+     317,
+     318,
+     331,
+     332,
+     333,
+     334,
+     336,
+     337,
+     338,
+     340,
+     353,
+     354,
+     356,
+     358,
+     360,
+     362,
+     363,
+     364,
+     365,
+     389,
+     392,
+     400,
+     401,
+     417,
+     438,
+     439,
+     440,
+     442,
+     443,
+     455,
+     457,
+     461,
+     463,
+     478,
+     479,
+     480,
+     482,
+     483,
+     485,
+     488,
+     489,
+     498,
+     499,
+     513,
+     521,
+     542,
+     544,
+     545,
+     546,
+     547,
+     559,
+     560,
+     561,
+     569,
+     571,
+     593,
+     594,
+     595,
+     596,
+     597,
+     598,
+     599
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2700.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_052",
+  "category": "wrong_window",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900020",
+   "match_id": "nb_v_hr_hero",
+   "kind": "score_event",
+   "created_t": 3748.5,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_09"
+    },
+    "metric": "goals",
+    "window": {
+     "start_t": 3628.0,
+     "end_t": 3628.5
+    },
+    "comparator": "eq",
+    "value": 1
+   },
+   "text": {
+    "draft_en": "GOAL. C. Nkemelu scores for Northbridge in the 63rd minute. Northbridge 1-0 Harlow.",
+    "canonical_en": "GOAL. C. Nkemelu scores for Northbridge in the 63rd minute. Northbridge 1-0 Harlow.",
+    "numbers": [
+     {
+      "key": "minute",
+      "value": 63
+     },
+     {
+      "key": "score_NOR",
+      "value": 1
+     },
+     {
+      "key": "score_HAR",
+      "value": 0
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     418,
+     419
+    ],
+    "players": [
+     "NOR_09"
+    ],
+    "window": {
+     "start_t": 3628.0,
+     "end_t": 3628.5
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   },
+   "impact": {
+    "subject_team": "NOR",
+    "win_prob_before": 0.165,
+    "win_prob_after": 0.696,
+    "delta": 0.531,
+    "method": "poisson_v1"
+   }
+  }
+ },
+ {
+  "id": "sc_053",
+  "category": "wrong_window",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900021",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 5400.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_09"
+    },
+    "metric": "shots",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2700.0
+    },
+    "comparator": "eq",
+    "value": 4
+   },
+   "text": {
+    "draft_en": "C. Nkemelu had 4 shots in the second half.",
+    "canonical_en": "C. Nkemelu had 4 shots in the second half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 4
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     370,
+     418,
+     510,
+     562
+    ],
+    "players": [
+     "NOR_09"
+    ],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2700.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_054",
+  "category": "future_event",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900022",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 600.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_right",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 600.0
+    },
+    "comparator": "eq",
+    "value": 71,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "Since the 1st minute, 71% of Northbridge attacks have gone down the right.",
+    "canonical_en": "Since the 1st minute, 71% of Northbridge attacks have gone down the right.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 71,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 1
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     10,
+     11,
+     12,
+     13,
+     14,
+     75
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 600.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_055",
+  "category": "future_event",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900023",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2100.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "start_t": 1500.0,
+     "end_t": 2100.0
+    },
+    "comparator": "eq",
+    "value": 3
+   },
+   "text": {
+    "draft_en": "Northbridge have lost the ball 3 times in their own third since the 26th minute.",
+    "canonical_en": "Northbridge have lost the ball 3 times in their own third since the 26th minute.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 3
+     },
+     {
+      "key": "since_minute",
+      "value": 26
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     187,
+     191,
+     227,
+     233
+    ],
+    "players": [],
+    "window": {
+     "start_t": 1500.0,
+     "end_t": 2100.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_056",
+  "category": "future_event",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900024",
+   "match_id": "nb_v_hr_hero",
+   "kind": "score_event",
+   "created_t": 3748.5,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_09"
+    },
+    "metric": "goals",
+    "window": {
+     "start_t": 3748.0,
+     "end_t": 3748.5
+    },
+    "comparator": "eq",
+    "value": 1
+   },
+   "text": {
+    "draft_en": "GOAL. C. Nkemelu scores for Northbridge in the 63rd minute. Northbridge 1-0 Harlow.",
+    "canonical_en": "GOAL. C. Nkemelu scores for Northbridge in the 63rd minute. Northbridge 1-0 Harlow.",
+    "numbers": [
+     {
+      "key": "minute",
+      "value": 63
+     },
+     {
+      "key": "score_NOR",
+      "value": 1
+     },
+     {
+      "key": "score_HAR",
+      "value": 0
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     418,
+     419,
+     420
+    ],
+    "players": [
+     "NOR_09"
+    ],
+    "window": {
+     "start_t": 3748.0,
+     "end_t": 3748.5
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   },
+   "impact": {
+    "subject_team": "NOR",
+    "win_prob_before": 0.165,
+    "win_prob_after": 0.696,
+    "delta": 0.531,
+    "method": "poisson_v1"
+   }
+  }
+ },
+ {
+  "id": "sc_057",
+  "category": "future_event",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900025",
+   "match_id": "nb_v_hr_hero",
+   "kind": "score_event",
+   "created_t": 3718.5,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_09"
+    },
+    "metric": "goals",
+    "window": {
+     "start_t": 3748.0,
+     "end_t": 3748.5
+    },
+    "comparator": "eq",
+    "value": 1
+   },
+   "text": {
+    "draft_en": "GOAL. C. Nkemelu scores for Northbridge in the 63rd minute. Northbridge 1-0 Harlow.",
+    "canonical_en": "GOAL. C. Nkemelu scores for Northbridge in the 63rd minute. Northbridge 1-0 Harlow.",
+    "numbers": [
+     {
+      "key": "minute",
+      "value": 63
+     },
+     {
+      "key": "score_NOR",
+      "value": 1
+     },
+     {
+      "key": "score_HAR",
+      "value": 0
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     418,
+     419
+    ],
+    "players": [
+     "NOR_09"
+    ],
+    "window": {
+     "start_t": 3748.0,
+     "end_t": 3748.5
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   },
+   "impact": {
+    "subject_team": "NOR",
+    "win_prob_before": 0.165,
+    "win_prob_after": 0.696,
+    "delta": 0.531,
+    "method": "poisson_v1"
+   }
+  }
+ },
+ {
+  "id": "sc_058",
+  "category": "future_event",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900026",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 2185.3,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "start_t": 1500.0,
+     "end_t": 2400.0
+    },
+    "comparator": "eq",
+    "value": 72,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "Since the 26th minute, 72% of Harlow attacks have gone down the left.",
+    "canonical_en": "Since the 26th minute, 72% of Harlow attacks have gone down the left.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 72,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 26
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     181,
+     182,
+     212,
+     223,
+     224,
+     225,
+     228,
+     229,
+     230,
+     231,
+     232,
+     233,
+     234,
+     235,
+     236,
+     237,
+     238,
+     239,
+     240,
+     241,
+     242
+    ],
+    "players": [],
+    "window": {
+     "start_t": 1500.0,
+     "end_t": 2400.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_059",
+  "category": "future_event",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900027",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 1389.9,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 0.32
+   },
+   "text": {
+    "draft_en": "Northbridge generated 0.32 xG in the first half.",
+    "canonical_en": "Northbridge generated 0.32 xG in the first half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 0.32,
+      "unit": "xG"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     128,
+     166
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_060",
+  "category": "intent_word",
+  "expect": "corrected",
+  "fact": {
+   "fact_id": "f_900028",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 1500.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "start_t": 600.0,
+     "end_t": 1500.0
+    },
+    "comparator": "eq",
+    "value": 69,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "Since the 11th minute, 69% of Northbridge attacks have deliberately gone down the centre.",
+    "canonical_en": "Since the 11th minute, 69% of Northbridge attacks have deliberately gone down the centre.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 69,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 11
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     114,
+     121,
+     126,
+     143,
+     147,
+     148,
+     151,
+     161,
+     164,
+     165,
+     166
+    ],
+    "players": [],
+    "window": {
+     "start_t": 600.0,
+     "end_t": 1500.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_061",
+  "category": "intent_word",
+  "expect": "corrected",
+  "fact": {
+   "fact_id": "f_900029",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 4800.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "start_t": 4200.0,
+     "end_t": 4800.0
+    },
+    "comparator": "eq",
+    "value": 7
+   },
+   "text": {
+    "draft_en": "Harlow have deliberately lost the ball 7 times in their own third since the 71st minute.",
+    "canonical_en": "Harlow have deliberately lost the ball 7 times in their own third since the 71st minute.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 7
+     },
+     {
+      "key": "since_minute",
+      "value": 71
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     469,
+     477,
+     504,
+     509,
+     512,
+     519,
+     527
+    ],
+    "players": [],
+    "window": {
+     "start_t": 4200.0,
+     "end_t": 4800.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_062",
+  "category": "intent_word",
+  "expect": "corrected",
+  "fact": {
+   "fact_id": "f_900030",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 5400.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 0.3
+   },
+   "text": {
+    "draft_en": "Harlow deliberately generated 0.30 xG in the second half.",
+    "canonical_en": "Harlow deliberately generated 0.30 xG in the second half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 0.3,
+      "unit": "xG"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     314,
+     437
+    ],
+    "players": [],
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_063",
+  "category": "intent_word",
+  "expect": "corrected",
+  "fact": {
+   "fact_id": "f_900031",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 600.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 600.0
+    },
+    "comparator": "eq",
+    "value": 3
+   },
+   "text": {
+    "draft_en": "Northbridge have lost the ball 3 times in their own third since the 1st minute as they tried to stretch the play.",
+    "canonical_en": "Northbridge have lost the ball 3 times in their own third since the 1st minute as they tried to stretch the play.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 3
+     },
+     {
+      "key": "since_minute",
+      "value": 1
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     50,
+     56,
+     61
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 600.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_064",
+  "category": "intent_word",
+  "expect": "corrected",
+  "fact": {
+   "fact_id": "f_900032",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2699.9,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_09"
+    },
+    "metric": "shots",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 3
+   },
+   "text": {
+    "draft_en": "T. Brannock had 3 shots in the first half as he tried to make an impact.",
+    "canonical_en": "T. Brannock had 3 shots in the first half as he tried to make an impact.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 3
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     99,
+     193,
+     248
+    ],
+    "players": [
+     "HAR_09"
+    ],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_065",
+  "category": "intent_word",
+  "expect": "corrected",
+  "fact": {
+   "fact_id": "f_900033",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2699.9,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 77
+   },
+   "text": {
+    "draft_en": "Harlow completed 77% of their passes in the first half as they tried to stretch the play.",
+    "canonical_en": "Harlow completed 77% of their passes in the first half as they tried to stretch the play.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 77,
+      "unit": "%"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     16,
+     17,
+     18,
+     19,
+     27,
+     28,
+     36,
+     37,
+     38,
+     39,
+     40,
+     42,
+     43,
+     51,
+     62,
+     72,
+     86,
+     89,
+     96,
+     97,
+     98,
+     110,
+     111,
+     117,
+     129,
+     131,
+     132,
+     133,
+     134,
+     153,
+     168,
+     169,
+     170,
+     178,
+     179,
+     180,
+     181,
+     192,
+     204,
+     205,
+     206,
+     207,
+     208,
+     209,
+     210,
+     218,
+     220,
+     222,
+     223,
+     230,
+     232,
+     233,
+     234,
+     235,
+     236,
+     237,
+     238,
+     239,
+     241,
+     254,
+     270,
+     271,
+     272,
+     274,
+     283,
+     284,
+     286,
+     289,
+     295
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_066",
+  "category": "small_sample",
+  "expect": "hedge early or unverifiable",
+  "fact": {
+   "fact_id": "f_900034",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 3745.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "start_t": 3445,
+     "end_t": 3745.0
+    },
+    "comparator": "eq",
+    "value": 67,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "Since the 58th minute, 67% of Northbridge attacks have gone down the left.",
+    "canonical_en": "Since the 58th minute, 67% of Northbridge attacks have gone down the left.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 67,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 58
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     404,
+     416
+    ],
+    "players": [],
+    "window": {
+     "start_t": 3445,
+     "end_t": 3745.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_067",
+  "category": "small_sample",
+  "expect": "hedge early or unverifiable",
+  "fact": {
+   "fact_id": "f_900035",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 360.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 360.0
+    },
+    "comparator": "eq",
+    "value": 67,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "Since the 1st minute, 67% of Harlow attacks have gone down the left.",
+    "canonical_en": "Since the 1st minute, 67% of Harlow attacks have gone down the left.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 67,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 1
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     5,
+     29
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 360.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_068",
+  "category": "small_sample",
+  "expect": "hedge early or unverifiable",
+  "fact": {
+   "fact_id": "f_900036",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 90.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_right",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 90.0
+    },
+    "comparator": "eq",
+    "value": 100,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "Since the 1st minute, 100% of Northbridge attacks have gone down the right.",
+    "canonical_en": "Since the 1st minute, 100% of Northbridge attacks have gone down the right.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 100,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 1
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     10,
+     11,
+     12,
+     13
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 90.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_069",
+  "category": "small_sample",
+  "expect": "hedge early or unverifiable",
+  "fact": {
+   "fact_id": "f_900037",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 2760.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 2760.0
+    },
+    "comparator": "eq",
+    "value": 100,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "Since the 46th minute, 100% of Harlow attacks have gone down the centre.",
+    "canonical_en": "Since the 46th minute, 100% of Harlow attacks have gone down the centre.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 100,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 46
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     306,
+     307,
+     308,
+     312
+    ],
+    "players": [],
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 2760.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_070",
+  "category": "small_sample",
+  "expect": "hedge early or unverifiable",
+  "fact": {
+   "fact_id": "f_900039",
+   "match_id": "nb_v_hr_hero",
+   "kind": "tactical",
+   "created_t": 5220.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_right",
+    "window": {
+     "start_t": 4200.0,
+     "end_t": 5220.0
+    },
+    "comparator": "eq",
+    "value": 67,
+    "baseline": 33.33
+   },
+   "text": {
+    "draft_en": "Since the 71st minute, 67% of Harlow attacks have gone down the right.",
+    "canonical_en": "Since the 71st minute, 67% of Harlow attacks have gone down the right.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 67,
+      "unit": "%"
+     },
+     {
+      "key": "since_minute",
+      "value": 71
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     537,
+     539
+    ],
+    "players": [],
+    "window": {
+     "start_t": 4200.0,
+     "end_t": 5220.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ }
+]
