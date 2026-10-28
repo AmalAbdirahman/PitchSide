@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Pitchside · Match control room</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-mode="casual">
+<a class="skip" href="#view-bc">Skip to broadcast</a>
+<div class="wrap">
+
+<header class="top">
+  <div class="brand">
+    <svg class="mark" viewBox="0 0 38 38" aria-hidden="true">
+      <circle cx="19" cy="19" r="16.5" fill="none" stroke="#00ff85" stroke-width="1.6" stroke-dasharray="72 32" stroke-linecap="round"/>
+      <rect x="7.5" y="11" width="23" height="16" rx="1.5" fill="none" stroke="#f5f1f9" stroke-width="1.5"/>
+      <line x1="19" y1="11" x2="19" y2="27" stroke="#00ff85" stroke-width="1.8"/>
+      <circle cx="19" cy="19" r="3.2" fill="none" stroke="#f5f1f9" stroke-width="1.3"/>
+    </svg>
+    <div><b>PITCHSIDE</b><span>Match control room</span></div>
+    <button class="about" id="about" type="button" aria-haspopup="dialog">Synthetic replay <i>i</i></button>
+  </div>
+  <nav class="views" role="tablist" aria-label="Views">
+    <button type="button" role="tab" aria-selected="true" aria-controls="view-bc" data-view="bc" id="v-bc"><i>01</i>Broadcast</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="view-an" data-view="an" id="v-an"><i>02</i>Analysis</button>
+    <button type="button" role="tab" aria-selected="false" aria-controls="view-au" data-view="au" id="v-au"><i>03</i>Audit</button>
+  </nav>
+  <div class="match num" role="group" aria-label="Score">
+    <div class="tm"><i style="background:var(--nor)"></i><span id="home-name">HOME</span><b class="ab" id="home-ab"></b></div>
+    <div class="sc" id="score" aria-live="polite">0–0</div>
+    <div class="tm"><b class="ab" id="away-ab"></b><span id="away-name">AWAY</span><i style="background:var(--har)"></i></div>
+    <div class="ck" id="clock">00:00</div>
+  </div>
+</header>
+
+<!-- ===================== MATCH STRIP ===================== -->
+<div class="strip" role="region" aria-label="Replay controls">
+  <div class="in">
+    <div class="pl">
+      <button type="button" class="btn go" id="play" aria-label="Play">▶</button>
+      <button type="button" class="btn" id="restart" aria-label="Restart">↺</button>
+      <div class="seg" role="group" aria-label="Replay speed"><button type="button" data-speed="1" aria-pressed="true">1×</button><button type="button" data-speed="2" aria-pressed="false">2×</button><button type="button" data-speed="4" aria-pressed="false">4×</button></div>
+    </div>
+    <div class="clk num" id="clk2" aria-hidden="true">00:00</div>
+    <div class="rib">
+      <div class="legend"><span><i style="background:var(--text)"></i><b id="wp-name">Home</b> win prob (model estimate)</span><span><i style="background:var(--amber)"></i>Goal</span><span><i style="background:var(--cyan)"></i>Sub</span><span><i style="background:var(--pink)"></i>Card</span><span><i style="background:var(--green)"></i>Played</span></div>
+      <svg id="ribbon" viewBox="0 0 900 52" preserveAspectRatio="none" role="img" aria-label="Match timeline: home win probability (model estimate), goals, substitutions and cards"></svg>
+      <div class="keys"><kbd>Space</kbd> play/pause · <kbd>A</kbd> approve · <kbd>R</kbd> reject · <kbd>V</kbd> veto (oldest waiting fact) · <kbd>1</kbd>–<kbd>3</kbd> views</div>
+    </div>
+  </div>
+</div>
+
+<div id="load-error" class="err" role="alert" hidden></div>
+
+<!-- ===================== 01 BROADCAST ===================== -->
+<section class="view" id="view-bc" role="tabpanel" aria-labelledby="v-bc">
+ <div class="bc">
+  <div class="panel">
+    <div class="ph">
+      <h2>On-air preview</h2>
+      <div class="ctl sp"><span class="lbl" id="depth-l">Viewer</span>
+        <div class="seg" role="group" aria-labelledby="depth-l"><button type="button" data-depth="casual" aria-pressed="true">Casual</button><button type="button" data-depth="analyst" aria-pressed="false">Analyst</button></div></div>
+      <div class="ctl"><span class="lbl" id="lang-l">Lang</span>
+        <div class="seg" role="group" aria-labelledby="lang-l"><button type="button" data-lang="en" aria-pressed="true">EN</button><button type="button" data-lang="es" aria-pressed="false">ES</button></div></div>
+      <label class="ctl"><span class="lbl">Follow</span>
+        <select id="follow"><option value="">Whole match</option></select></label>
+    </div>
+    <div class="stage">
+      <svg id="pitch" viewBox="-2 -2 109 72" role="img" aria-label="Pitch with the latest events at their simulated locations. Only the player on the ball has a position, so other players are not drawn."></svg>
+      <div class="bug" aria-hidden="true"><span><i style="background:var(--nor)"></i><b id="bug-h"></b></span><span class="s num" id="bug-s">0–0</span><span><b id="bug-a"></b><i style="background:var(--har)"></i></span><span class="m" id="bug-m">0'</span></div>
+      <div class="live" aria-hidden="true"><b>●</b> REPLAY</div>
+      <div class="lt" id="lt" aria-live="polite">
+        <div class="k" id="lt-k">Verified</div>
+        <div class="b"><p id="lt-t"></p></div>
+        <div class="f"><span id="lt-f"></span><button id="lt-why" type="button">Why?</button></div>
+        <div class="rule"></div>
+      </div>
+      <div class="flash" id="flash"></div>
+    </div>
+    <ol class="feed" id="feed" aria-label="Latest events"></ol>
+    <div class="out">
+      <section aria-labelledby="cap-h"><h3><span class="lbl" id="cap-h">Caption · EN</span><span class="tag c-muted" id="cap-b">waiting</span></h3><p id="cap-t">Press play. Aired facts appear here.</p></section>
+      <section aria-labelledby="aud-h"><h3><span class="lbl" id="aud-h">Audio script · EN</span><button type="button" class="btn xs" id="speak" hidden>Speak</button></h3><p id="aud-t">Numbers are spelled out for speech.</p><p class="note" id="aud-n"></p></section>
+      <section aria-labelledby="cue-h"><h3><span class="lbl" id="cue-h">Cue feed · JSON</span><a class="btn xs" id="dl" href="data/cues.json" download="cues.json">cues.json ↓</a></h3><pre id="cue-j">// no cues yet</pre></section>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="ph"><h2>Producer queue</h2><label class="tog sp"><input type="checkbox" id="auto"><i></i>Autopilot</label></div>
+    <div class="qhead num" id="qhead" role="status" aria-live="polite" aria-atomic="true"></div>
+    <div class="queue" role="region" aria-label="Drafted facts"><div class="rows" id="rows"></div></div>
+  </div>
+ </div>
+</section>
+
+<!-- ===================== 02 ANALYSIS ===================== -->
+<section class="view" id="view-an" role="tabpanel" aria-labelledby="v-an" hidden>
+ <div class="an">
+  <div class="panel wide"><div class="ph"><h2>xG race</h2><span class="sp lbl">Cumulative expected goals · model · per minute</span></div>
+    <div class="pad"><svg id="xgrace" viewBox="0 0 820 230" role="img" aria-label="Cumulative xG for both teams up to the replay clock"></svg></div></div>
+  <div class="panel"><div class="ph"><h2>Shot map</h2><span class="sp lbl">Size = xG · filled = goal</span></div>
+    <div class="pad"><svg id="shotmap" viewBox="-2 -2 109 72" role="img" aria-label="Shot locations up to the replay clock"></svg><div class="note" id="shot-note"></div></div></div>
+  <div class="panel"><div class="ph"><h2>Team comparison</h2><span class="sp lbl" id="cmp-t">to 0'</span></div>
+    <div class="pad"><div class="cmp" id="cmp"></div><div class="note">Counts and xG come from the synthetic event log; win probability is a model estimate.</div></div></div>
+  <div class="panel wide"><div class="ph"><h2>Attack lanes</h2><span class="sp lbl" id="lanes-t">Trailing window · 95% Wilson interval</span></div>
+    <div class="pad lanes2"><div id="lanes-h"></div><div id="lanes-a"></div></div></div>
+ </div>
+</section>
+
+<!-- ===================== 03 AUDIT ===================== -->
+<section class="view" id="view-au" role="tabpanel" aria-labelledby="v-au" hidden>
+ <div class="au">
+  <div class="panel">
+    <div class="ph"><h2>Metrics</h2><span class="sp lbl">Live counts this replay</span></div>
+    <div class="flow num" id="flow"></div>
+    <div class="build" id="build"></div>
+    <div class="ph"><h2>Verifier results</h2><span class="sp lbl">Six deterministic checks per draft</span></div>
+    <div class="tblwrap"><table id="vt"><caption class="sr-only">Verifier check results for each drafted fact</caption>
+      <thead><tr><th>Time</th><th>Fact</th><th>Claim</th><th>Agent trace</th><th title="recompute">RC</th><th title="evidence_exists">EV</th><th title="entities">EN</th><th title="numbers_match">NM</th><th title="intent_stripped">IN</th><th title="sample_size">SS</th><th>Result</th><th>Outcome</th></tr></thead><tbody></tbody></table></div>
+    <div class="ph"><h2>Routing rules</h2></div>
+    <div class="tblwrap"><table class="tiers"><caption class="sr-only">Risk tiers</caption><tbody>
+      <tr><td><span class="tag c-green">T0</span></td><td>Plain event-log facts: goal, substitution, card</td><td>Airs at once</td></tr>
+      <tr><td><span class="tag c-cyan">T1</span></td><td>Verified, no corrections, impact under 0.10, hedge suggests or clear</td><td id="rule-t1">Airs after a veto window</td></tr>
+      <tr><td><span class="tag c-amber">T2</span></td><td>Corrected, impact 0.10 or more, names a player negatively, or hedge early</td><td id="rule-t2">Producer approves before expiry or it is dropped</td></tr>
+      <tr><td><span class="tag c-red">REJ</span></td><td>Fails recompute, evidence or entity checks</td><td>Never reaches the router</td></tr>
+    </tbody></table></div>
+    <p class="note" style="padding:0 16px 12px">Veto and expiry timers count real seconds and pause with the replay, so a producer can react at any replay speed.</p>
+  </div>
+  <div class="panel"><div class="ph"><h2>Decision log</h2><span class="sp lbl">Newest first</span></div><ul class="log" id="log"></ul></div>
+ </div>
+</section>
+
+</div>
+
+
+<dialog id="aboutdlg" aria-labelledby="ab-t">
+  <div class="ph"><h2 id="ab-t">About this replay</h2><button type="button" class="btn xs sp" id="ab-x">Close</button></div>
+  <div class="body"><ul class="facts">
+    <li><b>Synthetic data.</b> Clubs, players and events come from a seeded simulator. No real match data.</li>
+    <li><b>Replay, not live.</b> The page replays a pre-built bundle. No server and no network calls.</li>
+    <li><b>Drafts come from an agent on Microsoft Foundry, run at build time.</b> A deterministic verifier checks every claim before it can air. The replay never calls a model. Six drafts with planted errors come from a rule-based drafter, as test cases for the verifier.</li>
+    <li><b>Spanish</b> comes from templates and a glossary and has not been reviewed by a native speaker.</li>
+    <li><b>Win probability</b> is a simple Poisson model with stated assumptions, not a prediction about real football.</li>
+  </ul></div>
+</dialog>
+<dialog id="drawer" aria-labelledby="dr-t">
+  <div class="ph"><h2 id="dr-t">Evidence</h2><button type="button" class="btn xs sp" id="dr-x">Close</button></div>
+  <div class="body" id="dr-b"></div>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>
