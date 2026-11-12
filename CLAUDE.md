@@ -22,7 +22,6 @@ The hackathon is over. The goal now is a polished, honest portfolio project: cle
 - Config comes from `config.yaml` through a hand-written parser in `core/config.py`, read as a global (`load()`) deep inside functions.
 - `compute_metric` in `core/moments.py` is the single definition of every metric. Keep that property.
 - The front end re-implements the router's timing rules in `docs/app.js`. That is a known duplication.
-- **The published GitHub repo is missing root files** (`config.yaml`, `fact.schema.json`, `SPEC.md`, `data_card.md`, `requirements-foundry.txt`, `pytest.ini`, `.gitignore`). Tests fail at collection on a fresh clone. Task P0 fixes this first.
 
 ## Stack rules
 - Python 3.12. Allowed runtime deps: `pydantic>=2`, `pyyaml`, `jsonschema`, `numpy`. Analysis extras: `pandas`, `scipy`, `scikit-learn`, `kloppy`, `statsbombpy`, `matplotlib`. Agent extras: `azure-ai-projects`, `azure-identity`, `python-dotenv`. Ask before adding anything else.

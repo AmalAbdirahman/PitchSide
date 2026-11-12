@@ -40,16 +40,20 @@ A producer-first control room for a replayed, synthetic football match. Python b
 ## Run it
 
 ```
+python -m pip install -e ".[dev]"                  # jsonschema plus pytest, ruff, mypy, pre-commit
 python -m http.server 8000 --directory docs        # then open http://localhost:8000
 pytest -q                                          # no network needed
+ruff check . && ruff format --check . && mypy core app
 python scripts/eval.py                             # verifier eval + Scout numbers from the cache
 python -m app.build_bundle                         # offline rebuild, replays data/agent_cache.json
 ```
 
+Dependency groups live in `pyproject.toml`: `dev` (tooling), `data` (open-data analysis, not yet used) and `agents` (the Foundry client). `pre-commit install` runs ruff and mypy before each commit.
+
 Rebuilding with the agent (needs a Foundry project and a local `.env` with `FOUNDRY_PROJECT_ENDPOINT` and `FOUNDRY_MODEL`):
 
 ```
-python -m pip install -r requirements-foundry.txt
+python -m pip install -e ".[agents]"
 python -m app.build_bundle --foundry
 ```
 
@@ -59,7 +63,7 @@ Limits: 45 s per call, at most 40 calls per build (`config.yaml`). A `--foundry`
 
 - **Microsoft Foundry (Agent Service), `gpt-5-mini` deployment, at build time.** The Scout is created with `agents.create_version` (`PromptAgentDefinition`) and called through the project's OpenAI-compatible client. In the committed cache, all 33 calls went through the agent path (`foundry_agent`); none needed the plain-responses fallback.
 - **GitHub Pages** is the hosting target: the site is plain static files in `docs/`.
-- **GitHub Actions** runs `pytest -q` on Python 3.12 for every push and pull request (`.github/workflows/test.yml`). It installs only `pytest` and `jsonschema`, so the tests prove the build needs no Azure packages or network.
+- **GitHub Actions** runs `ruff`, `mypy core app` and `pytest -q` on Python 3.12 for every push and pull request (`.github/workflows/test.yml`). It installs only the `dev` group (`jsonschema` plus tooling), so the checks prove the build needs no Azure packages or network.
 
 ## Results (from real runs)
 

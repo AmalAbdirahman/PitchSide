@@ -5,13 +5,16 @@ on:
   pull_request:
 
 jobs:
-  pytest:
+  checks:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      # Core dependencies only. The Foundry packages are build-time extras and must not be needed here.
-      - run: python -m pip install pytest jsonschema
+      # Dev tooling only. The agents and data extras must not be needed for lint, types or tests.
+      - run: python -m pip install -e ".[dev]"
+      - run: ruff check .
+      - run: ruff format --check .
+      - run: mypy core app
       - run: pytest -q

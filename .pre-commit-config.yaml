@@ -1,0 +1,26 @@
+# Install once with: pre-commit install   (after python -m pip install -e ".[dev]")
+# Generated and data files are excluded from the whitespace hooks: the build writes them
+# byte-for-byte and the offline rebuild must stay identical.
+exclude: ^(data/|docs/data/|tests/seeded_claims\.json|design/)
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.4
+    hooks:
+      - id: ruff-check
+        args: [--fix]
+      - id: ruff-format
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy core app
+        entry: mypy core app
+        language: system
+        pass_filenames: false
+        types: [python]
