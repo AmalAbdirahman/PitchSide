@@ -19,39 +19,41 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from app.agents_foundry import CACHE_PATH, load_cache  # noqa: E402
-from app.build_bundle import build  # noqa: E402
+from app.build_bundle import build, load_match  # noqa: E402
 from app.verifier import verify  # noqa: E402
 from core.config import ROOT, load  # noqa: E402
+from core.facts import Fact  # noqa: E402
 
 REJECT_CATEGORIES = {"wrong_number", "wrong_player", "wrong_window", "future_event"}
 
 
-def caught(category: str, out: dict[str, Any]) -> bool:
+def caught(category: str, out: Fact) -> bool:
     """Did the verifier handle this injected claim the way SPEC section 7 requires?"""
-    v = out["verification"]
+    v = out.verification
     if category in REJECT_CATEGORIES:
-        return v["status"] == "rejected"
+        return v.status == "rejected"
     if category == "intent_word":
-        return v["status"] == "corrected" and any(
-            c["reason"].startswith("intent") for c in v.get("corrections", [])
+        return v.status == "corrected" and any(
+            c.reason.startswith("intent") for c in v.corrections or []
         )
     if category == "small_sample":
-        return v["status"] == "unverifiable" or out.get("uncertainty", {}).get("hedge") == "early"
+        hedge = out.uncertainty.hedge if out.uncertainty else None
+        return v.status == "unverifiable" or hedge == "early"
     raise ValueError(category)
 
 
 def run() -> dict[str, Any]:
     settings = load()
     seeded = json.loads((ROOT / "tests" / "seeded_claims.json").read_text(encoding="utf-8"))
-    match = json.loads((ROOT / "data" / "events.json").read_text(encoding="utf-8"))
+    match, _ = load_match()
     per: dict[str, list[int]] = defaultdict(lambda: [0, 0])
     false_rejects: list[str] = []
     for entry in seeded:
-        out = verify(entry["fact"], match, settings)
+        out = verify(Fact.model_validate(entry["fact"], strict=True), match, settings)
         cat = entry["category"]
         if cat == "good":
             per[cat][1] += 1
-            if out["verification"]["status"] != "verified":
+            if out.verification.status != "verified":
                 false_rejects.append(entry["id"])
             else:
                 per[cat][0] += 1

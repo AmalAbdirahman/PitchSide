@@ -27,15 +27,16 @@ from app.agents_foundry import (
     scout_metrics,
     verify_rules,
 )
-from app.drafter import draft_facts
+from app.drafter import Moment, draft_facts
 from app.renditions import all_preserved, with_renditions
 from app.router import route
 from app.series import build_series
-from app.verifier import validate_fact
 from core.config import ROOT, Settings, load
+from core.events import Match
+from core.facts import Fact, validate_fact
 from core.moments import detect_moments
 
-Fact = dict[str, Any]
+ROUTABLE = ("verified", "corrected")
 # Optional event fields kept for the pitch, shot map and evidence drawer.
 EVENT_EXTRAS = (
     "period",
@@ -85,41 +86,41 @@ CUE_SCHEMA: dict[str, Any] = {
 }
 
 
-def load_match() -> tuple[dict[str, Any], float]:
-    match = json.loads((ROOT / "data" / "events.json").read_text(encoding="utf-8"))
+def load_match() -> tuple[Match, float]:
+    match = Match.model_validate_json((ROOT / "data" / "events.json").read_text(encoding="utf-8"))
     mu = json.loads((ROOT / "data" / "league_stats.json").read_text(encoding="utf-8"))[
         "mu_xg_per_team_minute"
     ]
     return match, mu
 
 
-def slim_events(match: dict[str, Any]) -> list[dict[str, Any]]:
+def slim_events(match: Match) -> list[dict[str, Any]]:
     """Events for the replay and the evidence drawer."""
-    names = {pid: n for t in match["meta"]["teams"].values() for pid, n in t["players"].items()}
+    names = match.meta.names()
     out = []
-    for e in match["events"]:
-        row = {
-            "id": e["id"],
-            "t": e["t"],
-            "type": e["type"],
-            "team": e["team"],
-            "player_id": e["player_id"],
-            "player": names[e["player_id"]],
+    for e in match.events:
+        row: dict[str, Any] = {
+            "id": e.id,
+            "t": e.t,
+            "type": e.type,
+            "team": e.team,
+            "player_id": e.player_id,
+            "player": names[e.player_id],
         }
-        row.update({k: e[k] for k in EVENT_EXTRAS if k in e})
-        if "player_off" in e:
-            row["player_off"] = names[e["player_off"]]
+        row.update({k: v for k in EVENT_EXTRAS if (v := getattr(e, k)) is not None})
+        if e.player_off is not None:
+            row["player_off"] = names[e.player_off]
         out.append(row)
     return out
 
 
-def score_timeline(match: dict[str, Any]) -> list[dict[str, Any]]:
-    home, away = match["meta"]["home"], match["meta"]["away"]
+def score_timeline(match: Match) -> list[dict[str, Any]]:
+    home, away = match.meta.home, match.meta.away
     score, out = {home: 0, away: 0}, [{"t": 0.0, home: 0, away: 0}]
-    for e in match["events"]:
-        if e["type"] == "goal":
-            score[e["team"]] += 1
-            out.append({"t": e["t"], **score})
+    for e in match.events:
+        if e.type == "goal":
+            score[e.team] += 1
+            out.append({"t": e.t, **score})
     return out
 
 
@@ -127,21 +128,21 @@ def make_cues(facts: list[Fact]) -> list[dict[str, Any]]:
     """Cues that air with nobody at the controls (T0 now, T1 after the veto window)."""
     cues = []
     for f in facts:
-        if not all_preserved(f):
+        if not all_preserved(f) or f.risk is None:
             continue
-        for r in f["renditions"]:
-            if r["kind"] == "cue" and "start_t" in r:
+        for r in f.renditions or []:
+            if r.kind == "cue" and r.start_t is not None:
                 cues.append(
                     {
-                        "fact_id": f["fact_id"],
-                        "start_t": r["start_t"],
-                        "duration_s": r["duration_s"],
-                        "layout": r["layout"],
-                        "lang": r["lang"],
-                        "text": r["text"],
-                        "evidence_ids": f["evidence"]["event_ids"],
+                        "fact_id": f.fact_id,
+                        "start_t": r.start_t,
+                        "duration_s": r.duration_s,
+                        "layout": r.layout,
+                        "lang": r.lang,
+                        "text": r.text,
+                        "evidence_ids": list(f.evidence.event_ids),
                         "checked": True,
-                        "tier": f["risk"]["tier"],
+                        "tier": f.risk.tier,
                     }
                 )
     cues.sort(key=lambda c: (c["start_t"], c["fact_id"], c["lang"]))
@@ -157,7 +158,7 @@ def make_scout(foundry: bool, s: Settings) -> Scout | None:
 
 
 def checked_drafts(
-    moments: list[dict[str, Any]], match: dict[str, Any], scout: Scout | None, s: Settings
+    moments: list[Moment], match: Match, scout: Scout | None, s: Settings
 ) -> list[Fact]:
     """Verified drafts: one per moment (Scout, else rules), then the rule-based injected drafts."""
     drafts = draft_facts(moments, match, s)
@@ -170,15 +171,15 @@ def checked_drafts(
 
 
 def metrics(checked: list[Fact], facts: list[Fact]) -> dict[str, Any]:
-    injected = [c for c in checked if c["injected"]]
+    injected = [c for c in checked if c.injected]
     return {
         "drafts": len(checked),
         "injected_drafts": len(injected),
-        "injected_not_verified": sum(c["verification"]["status"] != "verified" for c in injected),
-        "by_status": dict(Counter(c["verification"]["status"] for c in checked)),
-        "by_tier": dict(Counter(f["risk"]["tier"] for f in facts)),
+        "injected_not_verified": sum(c.verification.status != "verified" for c in injected),
+        "by_status": dict(Counter(c.verification.status for c in checked)),
+        "by_tier": dict(Counter(f.risk.tier for f in facts if f.risk)),
         "renditions_failed_number_check": sum(not all_preserved(f) for f in facts),
-        "scout": scout_metrics([c for c in checked if not c["injected"]]),
+        "scout": scout_metrics([c for c in checked if not c.injected]),
     }
 
 
@@ -186,21 +187,21 @@ def build(
     s: Settings, scout: Scout | None = None, use_cache: bool = True
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     match, mu = load_match()
-    teams = (match["meta"]["home"], match["meta"]["away"])
+    teams = (match.meta.home, match.meta.away)
     if scout is None and use_cache:
         scout = make_scout(False, s)
-    moments = detect_moments(match["events"], teams, mu, s)
+    moments = detect_moments(match.events, teams, mu, s)
     checked = checked_drafts(moments, match, scout, s)
-    routable = [c for c in checked if c["verification"]["status"] in ("verified", "corrected")]
+    routable = [c for c in checked if c.verification.status in ROUTABLE]
     facts = sorted(
         (with_renditions(route(c, s.router), match, s) for c in routable),
-        key=lambda f: (f["created_t"], f["fact_id"]),
+        key=lambda f: (f.created_t, f.fact_id),
     )
-    log = [c for c in checked if c not in routable]
+    log = [c for c in checked if c.verification.status not in ROUTABLE]
     for f in facts + log:
         validate_fact(f)
     meta = {
-        **match["meta"],
+        **match.meta.model_dump(),
         "win_prob_label": "model estimate",
         "win_prob_method": "poisson_v1",
         "mu": mu,
@@ -210,10 +211,10 @@ def build(
         "meta": meta,
         "events": slim_events(match),
         "score_timeline": score_timeline(match),
-        "facts": facts,
-        "log": log,
+        "facts": [f.to_dict() for f in facts],
+        "log": [f.to_dict() for f in log],
         "metrics": metrics(checked, facts),
-        "series": build_series(match["events"], teams, mu, s),
+        "series": build_series(match.events, teams, mu, s),
     }
     cues = make_cues(facts)
     Draft202012Validator(CUE_SCHEMA).validate(cues)

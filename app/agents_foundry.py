@@ -23,15 +23,25 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from app.drafter import player_name, render, share_hedge, team_name
-from app.verifier import validate_fact, verify
+from app.drafter import Moment, claim_value, player_name, render, share_hedge, team_name
+from app.verifier import verify
 from core.config import ROOT, Agents, Settings, Verifier
+from core.events import Match
+from core.facts import (
+    Audit,
+    AuditStep,
+    Claim,
+    Evidence,
+    Fact,
+    FactText,
+    Impact,
+    TextNumber,
+    validate_fact,
+)
 from core.moments import minute
 
-Fact = dict[str, Any]
-Match = dict[str, Any]
-Record = dict[str, Any]
-Step = dict[str, Any]
+Record = dict[str, Any]  # one cache entry: the request and the raw response, as JSON
+Step = AuditStep
 CACHE_PATH = ROOT / "data" / "agent_cache.json"
 ROUTABLE = ("verified", "corrected")
 MOMENT_FIELDS = (
@@ -75,10 +85,10 @@ Rules:
 # ---- requests and facts -----------------------------------------------------
 
 
-def scout_request(m: dict[str, Any], match: Match, v: Verifier) -> dict[str, Any]:
+def scout_request(m: Moment, match: Match, v: Verifier) -> dict[str, Any]:
     """The JSON the Scout sees for one moment: facts computed by code, nothing else."""
     _, nums = render(m, match, v)
-    teams = {tid: team_name(match, tid) for tid in match["meta"]["teams"]}
+    teams = {tid: team_name(match, tid) for tid in match.meta.teams}
     pids = set(m.get("players", [])) | (
         {m["subject"]["id"]} if m["subject"]["type"] == "player" else set()
     )
@@ -93,8 +103,8 @@ def scout_request(m: dict[str, Any], match: Match, v: Verifier) -> dict[str, Any
         },
         "teams": teams,
         "players": {p: player_name(match, p) for p in sorted(pids)},
-        "numbers": nums,
-        "claim_value": next((n["value"] for n in nums if n["key"] == "value"), m["value"]),
+        "numbers": [n.model_dump(exclude_none=True) for n in nums],
+        "claim_value": claim_value(m, nums),
         "evidence_ids": list(m["evidence_ids"]),
         "hedge": hedge,
     }
@@ -110,58 +120,64 @@ def parse_output(text: str) -> dict[str, Any]:
 
 def scout_fact(
     out: dict[str, Any],
-    m: dict[str, Any],
+    m: Moment,
     match: Match,
     fact_id: str,
     required: list[str],
     v: Verifier,
 ) -> Fact:
-    """Build a draft fact from Scout output. Raises ValueError/KeyError/TypeError on malformed output."""
-    claim, text = dict(out["claim"]), out["text"]
-    keys = sorted(n["key"] for n in text["numbers"])
+    """Build a draft fact from Scout output. Raises ValueError/KeyError/TypeError on malformed output.
+
+    The output is validated strictly (no "71" for 71), as the JSON Schema did before.
+    """
+    claim = Claim.model_validate(out["claim"], strict=True)
+    text = out["text"]
+    numbers = [TextNumber.model_validate(n, strict=True) for n in text["numbers"]]
+    keys = sorted(n.key for n in numbers)
     if keys != sorted(required):
         raise ValueError(f"numbers keys {keys} differ from the input keys {sorted(required)}")
-    if str(claim.get("metric", "")).startswith("attack_share_"):
-        claim["baseline"] = round(100 * v.lane_baseline, 2)
-    fact: Fact = {
-        "fact_id": fact_id,
-        "match_id": match["meta"]["match_id"],
-        "kind": m["kind"],
-        "created_t": m["created_t"],
-        "injected": False,
-        "claim": claim,
-        "text": {
-            "draft_en": text["canonical_en"],
-            "canonical_en": text["canonical_en"],
-            "numbers": text["numbers"],
-        },
-        "evidence": {
-            "event_ids": [int(i) for i in out["evidence_ids"]],
-            "players": list(m.get("players", [])),
-            "window": dict(claim["window"]),
-        },
-        "verification": {"status": "pending", "checks": []},
-        "approval": {"state": "not_routed"},
-    }
-    if "impact" in m:
-        fact["impact"] = dict(m["impact"])
+    if claim.metric.startswith("attack_share_"):
+        claim.baseline = round(100 * v.lane_baseline, 2)
+    fact = Fact.model_validate(
+        {
+            "fact_id": fact_id,
+            "match_id": match.meta.match_id,
+            "kind": m["kind"],
+            "created_t": m["created_t"],
+            "injected": False,
+            "claim": claim,
+            "text": FactText.model_validate(
+                {
+                    "draft_en": text["canonical_en"],
+                    "canonical_en": text["canonical_en"],
+                    "numbers": numbers,
+                },
+                strict=True,
+            ),
+            "evidence": Evidence(
+                event_ids=[int(i) for i in out["evidence_ids"]],
+                players=list(m.get("players", [])),
+                window=claim.window.model_copy(),
+            ),
+            "verification": {"status": "pending", "checks": []},
+            "approval": {"state": "not_routed"},
+            "impact": Impact.model_validate(m["impact"]) if "impact" in m else None,
+        }
+    )
     validate_fact(fact)
     return fact
 
 
-def template_wording(draft: Fact, m: dict[str, Any], match: Match, v: Verifier) -> Fact:
+def template_wording(draft: Fact, m: Moment, match: Match, v: Verifier) -> Fact:
     """Goals, substitutions and cards (T0) air in fixed template wording. The Scout's claim and
     evidence stand, and its own wording stays in draft_en for the log."""
-    text, nums = render(m, match, v)
-    draft["text"].update(canonical_en=text, numbers=nums)
+    draft.text.canonical_en, draft.text.numbers = render(m, match, v)
     validate_fact(draft)
     return draft
 
 
 def feedback(checked: Fact) -> str:
-    failed = [
-        f"{c['name']}: {c['detail']}" for c in checked["verification"]["checks"] if not c["passed"]
-    ]
+    failed = [f"{c.name}: {c.detail}" for c in checked.verification.checks if not c.passed]
     return "Your claim failed the verifier. " + "; ".join(failed) + ". Revise using only the input."
 
 
@@ -171,16 +187,16 @@ def feedback(checked: Fact) -> str:
 def step(
     agent: str, attempt: int, outcome: str, rec: Record | None = None, path: str | None = None
 ) -> Step:
-    s: Step = {"agent": agent, "attempt": attempt, "outcome": outcome}
+    s: dict[str, Any] = {"agent": agent, "attempt": attempt, "outcome": outcome}
     if rec and "path" in rec:
         s.update(path=rec["path"], model=rec["model"], ms=rec["ms"])
     elif path:
         s["path"] = path
-    return s
+    return AuditStep.model_validate(s)
 
 
 def with_audit(fact: Fact, steps: list[Step]) -> Fact:
-    fact["audit"] = {"steps": steps}
+    fact.audit = Audit(steps=steps)
     validate_fact(fact)
     return fact
 
@@ -190,7 +206,7 @@ def verify_rules(draft: Fact, match: Match, s: Settings, steps: list[Step] | Non
     checked = verify(draft, match, s)
     trail = (steps or []) + [
         step("Drafter", 1, "drafted", path="rules"),
-        step("Verifier", 1, checked["verification"]["status"], path="rules"),
+        step("Verifier", 1, checked.verification.status, path="rules"),
     ]
     return with_audit(checked, trail)
 
@@ -276,7 +292,7 @@ class Scout:
 def attempt(
     scout: Scout,
     request: dict[str, Any],
-    m: dict[str, Any],
+    m: Moment,
     match: Match,
     fact_id: str,
     n: int,
@@ -300,36 +316,36 @@ def attempt(
 
 
 def scout_moment_first(
-    scout: Scout, m: dict[str, Any], rules_draft: Fact, match: Match, s: Settings
+    scout: Scout, m: Moment, rules_draft: Fact, match: Match, s: Settings
 ) -> tuple[Fact, Any]:
     request = scout_request(m, match, s.verifier)
-    checked, out, steps = attempt(scout, request, m, match, rules_draft["fact_id"], 1, s)
+    checked, out, steps = attempt(scout, request, m, match, rules_draft.fact_id, 1, s)
     if checked is None:
         return verify_rules(rules_draft, match, s, steps), None
-    trail = steps + [step("Verifier", 1, checked["verification"]["status"], path="rules")]
+    trail = steps + [step("Verifier", 1, checked.verification.status, path="rules")]
     return with_audit(checked, trail), (request, out)
 
 
 def scout_moment_retry(
-    scout: Scout, m: dict[str, Any], first: Fact, ctx: Any, match: Match, s: Settings
+    scout: Scout, m: Moment, first: Fact, ctx: Any, match: Match, s: Settings
 ) -> Fact:
     """One retry for a Scout claim the verifier did not pass. Otherwise the fact is unchanged."""
-    if ctx is None or first["verification"]["status"] in ROUTABLE:
+    if ctx is None or first.verification.status in ROUTABLE:
         return first
     request, out = ctx
     retry_req = {**request, "previous_output": out, "feedback": feedback(first)}
-    checked, _, steps = attempt(scout, retry_req, m, match, first["fact_id"], 2, s)
-    trail = first["audit"]["steps"] + steps
+    checked, _, steps = attempt(scout, retry_req, m, match, first.fact_id, 2, s)
+    trail = (first.audit.steps if first.audit else []) + steps
     if checked is None:
         return with_audit(first, trail)
     return with_audit(
-        checked, trail + [step("Verifier", 2, checked["verification"]["status"], path="rules")]
+        checked, trail + [step("Verifier", 2, checked.verification.status, path="rules")]
     )
 
 
 def run_scout(
     scout: Scout,
-    moments: list[dict[str, Any]],
+    moments: list[Moment],
     rules_drafts: list[Fact],
     match: Match,
     s: Settings,
@@ -349,14 +365,14 @@ def scout_metrics(facts: list[Fact]) -> dict[str, int]:
     """How each moment's fact came about, read from the audit trails."""
     out = {"first_pass": 0, "after_retry": 0, "rejected": 0, "rules": 0}
     for f in facts:
-        steps = f.get("audit", {}).get("steps", [])
-        drafted = [s for s in steps if s["agent"] == "Scout" and s["outcome"] == "drafted"]
+        steps = f.audit.steps if f.audit else []
+        drafted = [s for s in steps if s.agent == "Scout" and s.outcome == "drafted"]
         if not drafted:
             out["rules"] += 1
-        elif f["verification"]["status"] not in ROUTABLE:
+        elif f.verification.status not in ROUTABLE:
             out["rejected"] += 1
         else:
-            out["after_retry" if drafted[-1]["attempt"] > 1 else "first_pass"] += 1
+            out["after_retry" if drafted[-1].attempt > 1 else "first_pass"] += 1
     return out
 
 

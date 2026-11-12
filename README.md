@@ -40,7 +40,7 @@ A producer-first control room for a replayed, synthetic football match. Python b
 ## Run it
 
 ```
-python -m pip install -e ".[dev]"                  # jsonschema plus pytest, ruff, mypy, pre-commit
+python -m pip install -e ".[dev]"                  # pydantic, pyyaml, jsonschema plus pytest, ruff, mypy, pre-commit
 python -m http.server 8000 --directory docs        # then open http://localhost:8000
 pytest -q                                          # no network needed
 ruff check . && ruff format --check . && mypy core app
@@ -63,7 +63,7 @@ Limits: 45 s per call, at most 40 calls per build (`config.yaml`). A `--foundry`
 
 - **Microsoft Foundry (Agent Service), `gpt-5-mini` deployment, at build time.** The Scout is created with `agents.create_version` (`PromptAgentDefinition`) and called through the project's OpenAI-compatible client. In the committed cache, all 33 calls went through the agent path (`foundry_agent`); none needed the plain-responses fallback.
 - **GitHub Pages** is the hosting target: the site is plain static files in `docs/`.
-- **GitHub Actions** runs `ruff`, `mypy core app` and `pytest -q` on Python 3.12 for every push and pull request (`.github/workflows/test.yml`). It installs only the `dev` group (`jsonschema` plus tooling), so the checks prove the build needs no Azure packages or network.
+- **GitHub Actions** runs `ruff`, `mypy core app` and `pytest -q` on Python 3.12 for every push and pull request (`.github/workflows/test.yml`). It installs only the runtime dependencies and the `dev` group, so the checks prove the build needs no Azure packages or network.
 
 ## Results (from real runs)
 
@@ -95,15 +95,18 @@ The verifier checks numbers, windows, evidence, entities, intent words and hedgi
 
 ```
 sim/      seeded match simulator
-core/     xG, attack shares, Wilson intervals, win probability, moment rules
+core/     typed models (events.py, facts.py), config, xG, attack shares, Wilson intervals,
+          win probability, moment rules
 app/      agents_foundry.py (Scout), drafter.py (fallback + injected errors), verifier.py, router.py,
           renditions.py, templates_es.py, build_bundle.py
 docs/     static control room (index.html, app.js, styles.css) and data/ — published by GitHub Pages
 design/   prototype.html, the original design mockup (not published)
 data/     events.json, league_stats.json, agent_cache.json
 tests/    seeded_claims.json and pytest suites
-scripts/  eval.py, build_seeded_claims.py, foundry_smoke.py
+scripts/  eval.py, build_seeded_claims.py, write_schema.py, foundry_smoke.py
 ```
+
+Facts and events are Pydantic models (`core/facts.py`, `core/events.py`). `fact.schema.json` is generated from the fact models by `python scripts/write_schema.py`, and a test fails if the committed file and the models disagree.
 
 See `SPEC.md` for the full contract and `data_card.md` for the simulator's realism checks.
 

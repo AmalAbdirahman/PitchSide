@@ -3,29 +3,33 @@
 from __future__ import annotations
 
 import re
-from typing import Any
 
 import pytest
 
 from app.build_bundle import build
 from app.renditions import cardinal, numbers_preserved, ordinal_words, speak, words_to_numbers
 from core.config import load
+from core.facts import Fact
 
 S = load()
 
 
 @pytest.fixture(scope="module")
-def facts() -> list[dict[str, Any]]:
-    return build(S)[0]["facts"]
+def facts() -> list[Fact]:
+    return [Fact.model_validate(f, strict=True) for f in build(S)[0]["facts"]]
 
 
-def _fact(facts: list[dict[str, Any]], metric: str) -> dict[str, Any]:
-    return next(f for f in facts if f["claim"]["metric"] == metric)
+def _fact(facts: list[Fact], metric: str) -> Fact:
+    return next(f for f in facts if f.claim.metric == metric)
 
 
-def test_number_preservation_en_es(facts: list[dict[str, Any]]) -> None:
+def _text(f: Fact, kind: str, lang: str) -> str:
+    return next(r.text for r in f.renditions or [] if r.kind == kind and r.lang == lang)
+
+
+def test_number_preservation_en_es(facts: list[Fact]) -> None:
     for f in facts:
-        kinds = {(r["kind"], r["lang"]) for r in f["renditions"]}
+        kinds = {(r.kind, r.lang) for r in f.renditions or []}
         assert kinds == {
             ("cue", "en"),
             ("cue", "es"),
@@ -33,13 +37,13 @@ def test_number_preservation_en_es(facts: list[dict[str, Any]]) -> None:
             ("caption", "es"),
             ("audio_script", "en"),
         }
-        for r in f["renditions"]:
-            assert r["numbers_preserved"], (f["fact_id"], r)
+        for r in f.renditions or []:
+            assert r.numbers_preserved, (f.fact_id, r)
 
 
-def test_tampered_spanish_fails(facts: list[dict[str, Any]]) -> None:
+def test_tampered_spanish_fails(facts: list[Fact]) -> None:
     f = _fact(facts, "turnovers_own_third")
-    es = next(r["text"] for r in f["renditions"] if r["kind"] == "caption" and r["lang"] == "es")
+    es = _text(f, "caption", "es")
     assert numbers_preserved(es, "caption", "es", f)
     changed = es.replace("desde el minuto ", "desde el minuto 1")
     assert not numbers_preserved(changed, "caption", "es", f)
@@ -47,17 +51,17 @@ def test_tampered_spanish_fails(facts: list[dict[str, Any]]) -> None:
     assert not numbers_preserved(dropped, "caption", "es", f)
 
 
-def test_spanish_decimal_comma(facts: list[dict[str, Any]]) -> None:
+def test_spanish_decimal_comma(facts: list[Fact]) -> None:
     f = _fact(facts, "xg_sum")
-    es = next(r["text"] for r in f["renditions"] if r["kind"] == "caption" and r["lang"] == "es")
+    es = _text(f, "caption", "es")
     assert "," in es
     assert numbers_preserved(es, "caption", "es", f)
     assert not numbers_preserved(es.replace(",", ".", 1), "caption", "es", f)
 
 
-def test_tampered_audio_fails(facts: list[dict[str, Any]]) -> None:
+def test_tampered_audio_fails(facts: list[Fact]) -> None:
     f = _fact(facts, "goals")
-    audio = next(r["text"] for r in f["renditions"] if r["kind"] == "audio_script")
+    audio = _text(f, "audio_script", "en")
     assert "sixty-third" in audio and re.search(
         r"\bone\b", audio
     )  # minute 63, score 1-0 (wording varies)

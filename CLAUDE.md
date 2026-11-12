@@ -18,7 +18,7 @@ The hackathon is over. The goal now is a polished, honest portfolio project: cle
 
 ## Current state (read before changing anything)
 - `sim/` seeded simulator, `core/` metrics and models, `app/` Scout agent, verifier, router, renditions, bundle builder, `docs/` static site (GitHub Pages), `tests/`, `scripts/`.
-- Facts are `dict[str, Any]` validated against `fact.schema.json` with jsonschema.
+- Facts, events and the match are Pydantic models (`core/facts.py`, `core/events.py`). Field order in `Fact` is the serialised order of hero.json. `fact.schema.json` is generated from the models (`python scripts/write_schema.py`); `tests/test_models.py` fails if they disagree. Moments are still plain dicts until P4.
 - Config comes from `config.yaml` through PyYAML into a frozen, validated Pydantic `Settings` (`core/config.py`). Entry points call `load()` once and pass `Settings` (or a section of it) down as an argument; no function reads config through a global.
 - `compute_metric` in `core/moments.py` is the single definition of every metric. Keep that property.
 - The front end re-implements the router's timing rules in `docs/app.js`. That is a known duplication.

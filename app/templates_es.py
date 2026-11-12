@@ -7,10 +7,8 @@ reappear. Not reviewed by a native speaker.
 
 from __future__ import annotations
 
-from typing import Any
-
-Fact = dict[str, Any]
-Match = dict[str, Any]
+from core.events import Match
+from core.facts import Fact
 
 GLOSSARY: dict[str, str] = {
     "left": "la banda izquierda",
@@ -33,52 +31,47 @@ def es_number(v: float, decimals: int = 0) -> str:
 
 
 def _nums(fact: Fact) -> dict[str, float]:
-    return {n["key"]: n["value"] for n in fact["text"]["numbers"]}
-
-
-def _team(match: Match, tid: str) -> str:
-    return match["meta"]["teams"][tid]["name"]
-
-
-def _player(match: Match, pid: str) -> str:
-    for t in match["meta"]["teams"].values():
-        if pid in t["players"]:
-            return t["players"][pid]
-    raise KeyError(pid)
+    return {n.key: n.value for n in fact.text.numbers}
 
 
 def _team_of(match: Match, pid: str) -> str:
-    return next(t["name"] for t in match["meta"]["teams"].values() if pid in t["players"])
+    return match.meta.team_name(match.meta.team_of(pid))
 
 
 def _half(fact: Fact, half_s: int) -> str:
-    second = fact["claim"]["window"]["start_t"] >= half_s
+    second = fact.claim.window.start_t >= half_s
     return GLOSSARY["second" if second else "first"]
 
 
+def _players(fact: Fact) -> list[str]:
+    return fact.evidence.players or []
+
+
 def _event_fact(fact: Fact, match: Match, n: dict[str, float]) -> str:
-    metric, subj, m = fact["claim"]["metric"], fact["claim"]["subject"], int(n["minute"])
+    metric, subj, m = fact.claim.metric, fact.claim.subject, int(n["minute"])
+    meta = match.meta
     if metric == "goals":
-        home, away = match["meta"]["home"], match["meta"]["away"]
+        home, away = meta.home, meta.away
         return (
-            f"¡GOL! {_player(match, subj['id'])} marca para {_team_of(match, subj['id'])} en el minuto {m}. "
-            f"{_team(match, home)} {int(n['score_' + home])}–{int(n['score_' + away])} {_team(match, away)}."
+            f"¡GOL! {meta.player_name(subj.id)} marca para {_team_of(match, subj.id)} en el minuto {m}. "
+            f"{meta.team_name(home)} {int(n['score_' + home])}–{int(n['score_' + away])} {meta.team_name(away)}."
         )
     if metric == "substitutions":
-        on, off = (_player(match, p) for p in fact["evidence"]["players"])
-        return f"Cambio en {_team(match, subj['id'])} en el minuto {m}: entra {on}, sale {off}."
-    pid = subj["id"]
-    return f"Tarjeta {GLOSSARY['yellow']} para {_player(match, pid)} ({_team_of(match, pid)}) en el minuto {m}."
+        on, off = (meta.player_name(p) for p in _players(fact))
+        return f"Cambio en {meta.team_name(subj.id)} en el minuto {m}: entra {on}, sale {off}."
+    pid = subj.id
+    return f"Tarjeta {GLOSSARY['yellow']} para {meta.player_name(pid)} ({_team_of(match, pid)}) en el minuto {m}."
 
 
 def _share_fact(fact: Fact, match: Match, n: dict[str, float], half_s: int) -> str:
-    claim, hedge = fact["claim"], fact.get("uncertainty", {}).get("hedge", "clear")
-    team = _team(match, claim["subject"]["id"])
-    if claim["metric"] == "pass_accuracy":
+    claim = fact.claim
+    hedge = fact.uncertainty.hedge if fact.uncertainty else "clear"
+    team = match.meta.team_name(claim.subject.id)
+    if claim.metric == "pass_accuracy":
         if "k" in n:
             return f"Primeras señales: {team} completó {int(n['k'])} de {int(n['n'])} pases en este tramo."
         return f"{team} completó el {int(n['value'])} % de sus pases en la {_half(fact, half_s)} parte."
-    lane = GLOSSARY[claim["metric"].removeprefix("attack_share_")]
+    lane = GLOSSARY[claim.metric.removeprefix("attack_share_")]
     since = int(n["since_minute"])
     if "k" in n:
         return (
@@ -95,8 +88,8 @@ def _share_fact(fact: Fact, match: Match, n: dict[str, float], half_s: int) -> s
 
 def caption_es(fact: Fact, match: Match, half_s: int) -> str:
     """Spanish caption for a routed fact. `half_s` is the length of a half in seconds."""
-    n, claim = _nums(fact), fact["claim"]
-    metric, subj = claim["metric"], claim["subject"]
+    n, claim, meta = _nums(fact), fact.claim, match.meta
+    metric, subj = claim.metric, claim.subject
     if metric in ("goals", "substitutions", "cards"):
         return _event_fact(fact, match, n)
     if metric.startswith("attack_share_") or metric == "pass_accuracy":
@@ -104,16 +97,16 @@ def caption_es(fact: Fact, match: Match, half_s: int) -> str:
     half = _half(fact, half_s)
     if metric == "turnovers_own_third":
         return (
-            f"{_team(match, subj['id'])} ha perdido el balón {int(n['value'])} veces en su "
+            f"{meta.team_name(subj.id)} ha perdido el balón {int(n['value'])} veces en su "
             f"{GLOSSARY['own third']} desde el minuto {int(n['since_minute'])}."
         )
     if metric == "xg_sum":
-        return f"{_team(match, subj['id'])} generó {es_number(n['value'], 2)} de xG en la {half} parte."
+        return (
+            f"{meta.team_name(subj.id)} generó {es_number(n['value'], 2)} de xG en la {half} parte."
+        )
     if metric == "top_shot_speed":
-        shooter = _player(match, fact["evidence"]["players"][0])
+        shooter = meta.player_name(_players(fact)[0])
         return f"Disparo más rápido de la {half} parte: {int(n['value'])} km/h, de {shooter}."
     if metric == "shots":
-        return (
-            f"{_player(match, subj['id'])} realizó {int(n['value'])} disparos en la {half} parte."
-        )
+        return f"{meta.player_name(subj.id)} realizó {int(n['value'])} disparos en la {half} parte."
     raise ValueError(f"no Spanish template for {metric}")

@@ -10,10 +10,10 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from core.config import Pitch, Settings, Winprob
+from core.events import Event
+from core.facts import Subject, Window
 from core.shares import attacks_by_lane
 from core.winprob import win_probability
-
-Event = dict[str, Any]
 
 
 @dataclass
@@ -37,19 +37,19 @@ def ordinal(n: int) -> str:
 
 
 def in_window(events: list[Event], start: float, end: float) -> list[Event]:
-    return [e for e in events if start <= e["t"] <= end]
+    return [e for e in events if start <= e.t <= end]
 
 
-def _of(events: list[Event], subject: dict[str, str]) -> list[Event]:
-    if subject["type"] == "team":
-        return [e for e in events if e["team"] == subject["id"]]
-    if subject["type"] == "player":
-        return [e for e in events if e["player_id"] == subject["id"]]
+def _of(events: list[Event], subject: Subject) -> list[Event]:
+    if subject.type == "team":
+        return [e for e in events if e.team == subject.id]
+    if subject.type == "player":
+        return [e for e in events if e.player_id == subject.id]
     return events
 
 
 def _count(events: list[Event]) -> Metric:
-    return Metric(len(events), len(events), len(events), [e["id"] for e in events])
+    return Metric(len(events), len(events), len(events), [e.id for e in events])
 
 
 def _share(hits: list[int], total: int) -> Metric:
@@ -59,47 +59,59 @@ def _share(hits: list[int], total: int) -> Metric:
 
 def compute_metric(
     metric: str,
-    subject: dict[str, str],
-    window: dict[str, float],
+    subject: Subject,
+    window: Window,
     events: list[Event],
     pitch: Pitch,
 ) -> Metric | None:
     """Recompute a metric from the events in a window. None if not computable."""
-    evs = _of(in_window(events, window["start_t"], window["end_t"]), subject)
-    shots = [e for e in evs if e["type"] == "shot"]
+    evs = _of(in_window(events, window.start_t, window.end_t), subject)
+    shots = [e for e in evs if e.type == "shot"]
     if metric == "goals":
-        return _count([e for e in evs if e["type"] == "goal"])
+        return _count([e for e in evs if e.type == "goal"])
     if metric == "shots":
         return _count(shots)
     if metric == "substitutions":
-        return _count([e for e in evs if e["type"] == "substitution"])
+        return _count([e for e in evs if e.type == "substitution"])
     if metric == "cards":
-        return _count([e for e in evs if e["type"] == "card"])
+        return _count([e for e in evs if e.type == "card"])
     if metric == "xg_sum":
-        return Metric(sum(e["xg"] for e in shots), len(shots), len(shots), [e["id"] for e in shots])
+        return Metric(sum(_xg(e) for e in shots), len(shots), len(shots), [e.id for e in shots])
     if metric == "top_shot_speed":
         if not shots:
             return None
-        best = max(shots, key=lambda e: e["shot_speed"])
-        return Metric(best["shot_speed"], len(shots), 1, [best["id"]])
+        best = max(shots, key=_speed)
+        return Metric(_speed(best), len(shots), 1, [best.id])
     if metric == "turnovers_own_third":
         own = pitch.own_third_x
-        return _count([e for e in evs if e["type"] == "possession_change" and e["x"] < own])
+        return _count([e for e in evs if e.type == "possession_change" and e.x < own])
     if metric == "pass_accuracy":
-        passes = [e for e in evs if e["type"] == "pass"]
-        return _share([e["id"] for e in passes if e["outcome"] == "success"], len(passes))
-    if metric.startswith("attack_share_") and subject["type"] == "team":
-        groups = attacks_by_lane(evs, subject["id"], pitch)
+        passes = [e for e in evs if e.type == "pass"]
+        return _share([e.id for e in passes if e.outcome == "success"], len(passes))
+    if metric.startswith("attack_share_") and subject.type == "team":
+        groups = attacks_by_lane(evs, subject.id, pitch)
         return _share(
             groups[metric.removeprefix("attack_share_")], sum(len(v) for v in groups.values())
         )
     return None
 
 
+def _xg(shot: Event) -> float:
+    if shot.xg is None:
+        raise ValueError(f"shot {shot.id} has no xg")
+    return shot.xg
+
+
+def _speed(shot: Event) -> float:
+    if shot.shot_speed is None:
+        raise ValueError(f"shot {shot.id} has no shot_speed")
+    return shot.shot_speed
+
+
 def require_metric(
     metric: str,
-    subject: dict[str, str],
-    window: dict[str, float],
+    subject: Subject,
+    window: Window,
     events: list[Event],
     pitch: Pitch,
 ) -> Metric:
@@ -113,15 +125,15 @@ def require_metric(
 # ---- moment rules ------------------------------------------------------
 
 
-def _team(team: str) -> dict[str, str]:
-    return {"type": "team", "id": team}
+def _team(team: str) -> Subject:
+    return Subject(type="team", id=team)
 
 
 def _moment(
     kind: str,
     rule: str,
     metric: str,
-    subject: dict[str, str],
+    subject: Subject,
     start: float,
     end: float,
     m: Metric,
@@ -131,7 +143,7 @@ def _moment(
         "kind": kind,
         "rule": rule,
         "metric": metric,
-        "subject": subject,
+        "subject": subject.model_dump(),
         "window": {"start_t": start, "end_t": end},
         "created_t": end,
         "value": m.value,
@@ -143,10 +155,7 @@ def _moment(
 
 
 def score_at(events: list[Event], t: float, teams: tuple[str, str]) -> dict[str, int]:
-    return {
-        tm: sum(e["type"] == "goal" and e["team"] == tm and e["t"] <= t for e in events)
-        for tm in teams
-    }
+    return {tm: sum(e.type == "goal" and e.team == tm and e.t <= t for e in events) for tm in teams}
 
 
 def _wp(
@@ -158,10 +167,10 @@ def _wp(
     inclusive: bool,
     wp: Winprob,
 ) -> float:
-    past = [e for e in events if (e["t"] <= t if inclusive else e["t"] < t)]
-    g = {tm: sum(e["type"] == "goal" and e["team"] == tm for e in past) for tm in (team, other)}
+    past = [e for e in events if (e.t <= t if inclusive else e.t < t)]
+    g = {tm: sum(e.type == "goal" and e.team == tm for e in past) for tm in (team, other)}
     x = {
-        tm: sum(e.get("xg", 0.0) for e in past if e["type"] == "shot" and e["team"] == tm)
+        tm: sum(e.xg or 0.0 for e in past if e.type == "shot" and e.team == tm)
         for tm in (team, other)
     }
     return win_probability(t / 60, g[team], g[other], x[team], x[other], mu, wp)[0]
@@ -171,30 +180,28 @@ def goal_moments(
     events: list[Event], teams: tuple[str, str], mu: float, wp: Winprob
 ) -> list[dict[str, Any]]:
     out = []
-    for g in (e for e in events if e["type"] == "goal"):
+    for g in (e for e in events if e.type == "goal"):
         shot = next(
-            e
-            for e in reversed(events)
-            if e["type"] == "shot" and e["t"] <= g["t"] and e["team"] == g["team"]
+            e for e in reversed(events) if e.type == "shot" and e.t <= g.t and e.team == g.team
         )
-        other = teams[1] if g["team"] == teams[0] else teams[0]
-        before = _wp(events, shot["t"], g["team"], other, mu, False, wp)
-        after = _wp(events, g["t"], g["team"], other, mu, True, wp)
-        m = Metric(1, 1, 1, [shot["id"], g["id"]])
+        other = teams[1] if g.team == teams[0] else teams[0]
+        before = _wp(events, shot.t, g.team, other, mu, False, wp)
+        after = _wp(events, g.t, g.team, other, mu, True, wp)
+        m = Metric(1, 1, 1, [shot.id, g.id])
         out.append(
             _moment(
                 "score_event",
                 "goal",
                 "goals",
-                {"type": "player", "id": g["player_id"]},
-                shot["t"],
-                g["t"],
+                Subject(type="player", id=g.player_id),
+                shot.t,
+                g.t,
                 m,
-                team=g["team"],
-                players=[g["player_id"]],
-                score=score_at(events, g["t"], teams),
+                team=g.team,
+                players=[g.player_id],
+                score=score_at(events, g.t, teams),
                 impact={
-                    "subject_team": g["team"],
+                    "subject_team": g.team,
                     "win_prob_before": round(before, 3),
                     "win_prob_after": round(after, 3),
                     "delta": round(after - before, 3),
@@ -209,33 +216,33 @@ def event_moments(events: list[Event]) -> list[dict[str, Any]]:
     """Plain event-log moments: substitutions and cards."""
     out = []
     for e in events:
-        m = Metric(1, 1, 1, [e["id"]])
-        if e["type"] == "substitution":
+        m = Metric(1, 1, 1, [e.id])
+        if e.type == "substitution":
             out.append(
                 _moment(
                     "moment",
                     "substitution",
                     "substitutions",
-                    _team(e["team"]),
-                    e["t"],
-                    e["t"],
+                    _team(e.team),
+                    e.t,
+                    e.t,
                     m,
-                    players=[e["player_id"], e["player_off"]],
+                    players=[e.player_id, e.player_off],
                 )
             )
-        elif e["type"] == "card":
+        elif e.type == "card":
             out.append(
                 _moment(
                     "moment",
                     "card",
                     "cards",
-                    {"type": "player", "id": e["player_id"]},
-                    e["t"],
-                    e["t"],
+                    Subject(type="player", id=e.player_id),
+                    e.t,
+                    e.t,
                     m,
-                    team=e["team"],
-                    players=[e["player_id"]],
-                    card=e.get("card", "yellow"),
+                    team=e.team,
+                    players=[e.player_id],
+                    card=e.card or "yellow",
                 )
             )
     return out
@@ -249,9 +256,7 @@ def _checkpoints(s: Settings) -> list[float]:
 
 def _overload_start(events: list[Event], team: str, cp: float, window_s: int) -> float:
     """Window start: the team's latest substitution if recent, else a rolling window."""
-    subs = [
-        e["t"] for e in events if e["type"] == "substitution" and e["team"] == team and e["t"] < cp
-    ]
+    subs = [e.t for e in events if e.type == "substitution" and e.team == team and e.t < cp]
     if subs and cp - subs[-1] <= 2 * window_s:
         return subs[-1]
     return max(0.0, cp - window_s)
@@ -266,7 +271,7 @@ def overload_moments(
     for cp in _checkpoints(s):
         for team in teams:
             start = _overload_start(events, team, cp, c.overload_window_s)
-            w = {"start_t": start, "end_t": cp}
+            w = Window(start_t=start, end_t=cp)
             shares = {
                 ln: require_metric(f"attack_share_{ln}", _team(team), w, events, s.pitch)
                 for ln in ("left", "centre", "right")
@@ -300,7 +305,7 @@ def turnover_moments(
     for cp in _checkpoints(s):
         for team in teams:
             start = cp - c.turnover_window_s
-            w = {"start_t": start, "end_t": cp}
+            w = Window(start_t=start, end_t=cp)
             m = compute_metric("turnovers_own_third", _team(team), w, events, s.pitch)
             if m and m.value >= c.turnover_min_count and cp >= next_ok[team]:
                 next_ok[team] = cp + c.turnover_window_s
@@ -316,20 +321,21 @@ def half_moments(events: list[Event], teams: tuple[str, str], s: Settings) -> li
     # The simulator keeps first-half events strictly below half_s.
     for idx, (start, end) in enumerate(((0.0, half - 0.1), (half, 2 * half))):
         name = ("first", "second")[idx]
-        w = {"start_t": start, "end_t": end}
+        w = Window(start_t=start, end_t=end)
         for team in teams:
             for metric in ("xg_sum", "pass_accuracy"):
                 m = require_metric(metric, _team(team), w, events, s.pitch)
                 out.append(_moment("stat", metric, metric, _team(team), start, end, m, half=name))
-        top = compute_metric("top_shot_speed", {"type": "match", "id": "match"}, w, events, s.pitch)
+        match_subject = Subject(type="match", id="match")
+        top = compute_metric("top_shot_speed", match_subject, w, events, s.pitch)
         if top:
-            shooter = next(e for e in events if e["id"] == top.ids[0])["player_id"]
+            shooter = next(e for e in events if e.id == top.ids[0]).player_id
             out.append(
                 _moment(
                     "milestone",
                     "top_speed",
                     "top_shot_speed",
-                    {"type": "match", "id": "match"},
+                    match_subject,
                     start,
                     end,
                     top,
@@ -341,19 +347,17 @@ def half_moments(events: list[Event], teams: tuple[str, str], s: Settings) -> li
     return out
 
 
-def _top_shooter(
-    events: list[Event], w: dict[str, float], name: str, pitch: Pitch
-) -> list[dict[str, Any]]:
-    shots = [e for e in in_window(events, w["start_t"], w["end_t"]) if e["type"] == "shot"]
+def _top_shooter(events: list[Event], w: Window, name: str, pitch: Pitch) -> list[dict[str, Any]]:
+    shots = [e for e in in_window(events, w.start_t, w.end_t) if e.type == "shot"]
     if not shots:
         return []
     counts: dict[str, int] = {}
     for e in shots:
-        counts[e["player_id"]] = counts.get(e["player_id"], 0) + 1
+        counts[e.player_id] = counts.get(e.player_id, 0) + 1
     pid = max(sorted(counts), key=lambda p: counts[p])
     if counts[pid] < 2:
         return []
-    subj = {"type": "player", "id": pid}
+    subj = Subject(type="player", id=pid)
     m = require_metric("shots", subj, w, events, pitch)
     return [
         _moment(
@@ -361,8 +365,8 @@ def _top_shooter(
             "player_shots",
             "shots",
             subj,
-            w["start_t"],
-            w["end_t"],
+            w.start_t,
+            w.end_t,
             m,
             half=name,
             players=[pid],

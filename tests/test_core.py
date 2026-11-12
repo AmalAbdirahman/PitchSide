@@ -3,6 +3,7 @@ from __future__ import annotations
 import pytest
 
 from core.config import load
+from core.events import Event
 from core.shares import lane_shares
 from core.wilson import hedge_for, wilson
 from core.winprob import win_probability
@@ -46,7 +47,7 @@ def test_xg_falls_with_distance_and_is_plausible() -> None:
 
 def test_lane_shares_sum_to_one() -> None:
     events = [
-        {"id": i, "type": "shot", "team": "A", "x": 95, "y": y}
+        Event(id=i, t=60.0 * i, period=1, type="shot", team="A", player_id="A_09", x=95, y=y)
         for i, y in enumerate((5, 30, 60, 10))
     ]
     shares, n = lane_shares(events, "A", S.pitch)

@@ -9,34 +9,30 @@ T2  corrected, |impact| >= 0.10, names a player negatively, or hedge early: queu
 
 from __future__ import annotations
 
-import copy
 import re
-from typing import Any
 
-from app.verifier import validate_fact
 from core.config import Router
+from core.facts import Approval, Fact, Risk, validate_fact
 
-Fact = dict[str, Any]
 AUTOPILOT_OK = "autopilot_ok"
 
 
 def names_player_negatively(fact: Fact, r: Router) -> bool:
     """A player is named and the claim is about something going wrong."""
-    named = fact["claim"]["subject"]["type"] == "player" or bool(fact["evidence"].get("players"))
+    named = fact.claim.subject.type == "player" or bool(fact.evidence.players)
     if not named:
         return False
-    text = fact["text"]["canonical_en"].lower()
+    text = fact.text.canonical_en.lower()
     words = any(re.search(rf"\b{re.escape(w)}\b", text) for w in r.negative_words)
-    return fact["claim"]["metric"] in r.negative_metrics or words
+    return fact.claim.metric in r.negative_metrics or words
 
 
 def tier_for(fact: Fact, r: Router) -> tuple[str, list[str]]:
     """Decide the tier and the reasons for it."""
-    v = fact["verification"]
-    corrected = v["status"] == "corrected"
-    hedge = fact.get("uncertainty", {}).get("hedge", "none")
-    impact = abs(fact.get("impact", {}).get("delta", 0.0))
-    if fact["claim"]["metric"] in r.t0_metrics and not corrected:
+    corrected = fact.verification.status == "corrected"
+    hedge = fact.uncertainty.hedge if fact.uncertainty else "none"
+    impact = abs(fact.impact.delta) if fact.impact else 0.0
+    if fact.claim.metric in r.t0_metrics and not corrected:
         return "T0", ["plain event-log fact"]
     reasons = []
     if corrected:
@@ -54,33 +50,29 @@ def tier_for(fact: Fact, r: Router) -> tuple[str, list[str]]:
 
 def autopilot_ok(fact: Fact) -> bool:
     """Autopilot may approve a T2 fact only if verification was clean and the hedge is clear."""
-    return (
-        fact["verification"]["status"] == "verified"
-        and fact.get("uncertainty", {}).get("hedge") == "clear"
-    )
+    hedge = fact.uncertainty.hedge if fact.uncertainty else None
+    return fact.verification.status == "verified" and hedge == "clear"
 
 
 def route(fact: Fact, r: Router) -> Fact:
     """Return a copy of the fact with risk tier and initial approval state set."""
-    status = fact["verification"]["status"]
+    status = fact.verification.status
     if status not in ("verified", "corrected"):
-        raise ValueError(
-            f"{fact['fact_id']} is {status}; only verified or corrected facts are routed"
-        )
-    out = copy.deepcopy(fact)
+        raise ValueError(f"{fact.fact_id} is {status}; only verified or corrected facts are routed")
+    out = fact.model_copy(deep=True)
     tier, reasons = tier_for(out, r)
     if tier == "T2" and autopilot_ok(out):
         reasons.append(AUTOPILOT_OK)
-    out["risk"] = {"tier": tier, "reasons": reasons}
-    approval: dict[str, Any] = {
-        "state": {"T0": "auto_approved", "T1": "veto_window", "T2": "queued"}[tier],
-        "valid_from_t": out["created_t"],
-    }
-    if tier == "T0":
-        approval["decided_by"] = "auto"
-    else:
-        approval["ttl_s"] = r.veto_window_s if tier == "T1" else r.t2_ttl_s
-    out["approval"] = approval
+    out.risk = Risk.model_validate({"tier": tier, "reasons": reasons})
+    ttl = None if tier == "T0" else (r.veto_window_s if tier == "T1" else r.t2_ttl_s)
+    out.approval = Approval.model_validate(
+        {
+            "state": {"T0": "auto_approved", "T1": "veto_window", "T2": "queued"}[tier],
+            "valid_from_t": out.created_t,
+            "decided_by": "auto" if tier == "T0" else None,
+            "ttl_s": ttl,
+        }
+    )
     validate_fact(out)
     return out
 
@@ -96,7 +88,9 @@ def resolve(
 
     Returns (state, decided_by). Decisions made after the window or expiry are ignored.
     """
-    tier, ttl = fact["risk"]["tier"], fact["approval"].get("ttl_s", 0)
+    if fact.risk is None:
+        raise ValueError(f"{fact.fact_id} has not been routed")
+    tier, ttl = fact.risk.tier, fact.approval.ttl_s or 0
     in_time = (
         decision is not None
         and decision_at_s is not None
@@ -111,6 +105,6 @@ def resolve(
         return ("auto_approved", "auto") if elapsed_s >= ttl else ("veto_window", None)
     if in_time and decision in ("approve", "reject"):
         return ("approved" if decision == "approve" else "rejected"), "producer"
-    if autopilot and AUTOPILOT_OK in fact["risk"]["reasons"]:
+    if autopilot and AUTOPILOT_OK in (fact.risk.reasons or []):
         return "approved", "autopilot"
     return ("expired", None) if elapsed_s >= ttl else ("queued", None)

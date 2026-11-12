@@ -7,16 +7,13 @@ Audio scripts spell numbers out, so they are parsed back from words to check.
 
 from __future__ import annotations
 
-import copy
 import re
 from typing import Any
 
 from app.templates_es import caption_es
-from app.verifier import validate_fact
 from core.config import Settings
-
-Fact = dict[str, Any]
-Match = dict[str, Any]
+from core.events import Match
+from core.facts import Fact, Rendition, validate_fact
 
 ONES = [
     "nought",
@@ -173,8 +170,8 @@ def digits_in(text: str, lang: str) -> list[float]:
 def numbers_preserved(text: str, kind: str, lang: str, fact: Fact) -> bool:
     """No new numbers, and none of the canonical numbers lost."""
     found = words_to_numbers(text) if kind == "audio_script" else digits_in(text, lang)
-    allowed = [n["value"] for n in fact["text"]["numbers"]]
-    canonical = digits_in(fact["text"]["canonical_en"], "en")
+    allowed = [n.value for n in fact.text.numbers]
+    canonical = digits_in(fact.text.canonical_en, "en")
     return all(any(_close(f, a) for a in allowed) for f in found) and all(
         any(_close(c, f) for f in found) for c in canonical
     )
@@ -189,51 +186,53 @@ def _close(a: float, b: float) -> bool:
 
 def air_time(fact: Fact, veto_window_s: int) -> float | None:
     """Match time a cue airs with no producer action: T0 now, T1 after the veto window, T2 never."""
-    tier = fact["risk"]["tier"]
+    tier = fact.risk.tier if fact.risk else None
     if tier == "T0":
-        return fact["created_t"]
+        return fact.created_t
     if tier == "T1":
-        return fact["created_t"] + veto_window_s
+        return fact.created_t + veto_window_s
     return None
 
 
-def _cue(fact: Fact, lang: str, text: str, s: Settings) -> dict[str, Any]:
+def _rendition(fact: Fact, kind: str, lang: str, text: str, **extra: Any) -> Rendition:
+    preserved = numbers_preserved(text, kind, lang, fact)
+    return Rendition.model_validate(
+        {"kind": kind, "lang": lang, "text": text, "numbers_preserved": preserved, **extra}
+    )
+
+
+def _cue(fact: Fact, lang: str, text: str, s: Settings) -> Rendition:
     r = s.renditions
-    ticker = fact["claim"]["metric"] in r.ticker_metrics
-    cue: dict[str, Any] = {
-        "kind": "cue",
-        "lang": lang,
-        "text": text,
-        "layout": "ticker" if ticker else "lower_third",
-        "duration_s": r.ticker_duration_s if ticker else r.cue_duration_s,
-    }
-    start = air_time(fact, s.router.veto_window_s)
-    if start is not None:
-        cue["start_t"] = start
-    return cue
+    ticker = fact.claim.metric in r.ticker_metrics
+    return _rendition(
+        fact,
+        "cue",
+        lang,
+        text,
+        layout="ticker" if ticker else "lower_third",
+        duration_s=r.ticker_duration_s if ticker else r.cue_duration_s,
+        start_t=air_time(fact, s.router.veto_window_s),
+    )
 
 
-def build_renditions(fact: Fact, match: Match, s: Settings) -> list[dict[str, Any]]:
-    en, es = fact["text"]["canonical_en"], caption_es(fact, match, s.sim.half_s)
-    items = [
+def build_renditions(fact: Fact, match: Match, s: Settings) -> list[Rendition]:
+    en, es = fact.text.canonical_en, caption_es(fact, match, s.sim.half_s)
+    return [
         _cue(fact, "en", en, s),
         _cue(fact, "es", es, s),
-        {"kind": "caption", "lang": "en", "text": en},
-        {"kind": "caption", "lang": "es", "text": es},
-        {"kind": "audio_script", "lang": "en", "text": speak(en)},
+        _rendition(fact, "caption", "en", en),
+        _rendition(fact, "caption", "es", es),
+        _rendition(fact, "audio_script", "en", speak(en)),
     ]
-    for r in items:
-        r["numbers_preserved"] = numbers_preserved(r["text"], r["kind"], r["lang"], fact)
-    return items
 
 
 def with_renditions(fact: Fact, match: Match, s: Settings) -> Fact:
     """Copy of a routed fact with its renditions attached and validated."""
-    out = copy.deepcopy(fact)
-    out["renditions"] = build_renditions(out, match, s)
+    out = fact.model_copy(deep=True)
+    out.renditions = build_renditions(out, match, s)
     validate_fact(out)
     return out
 
 
 def all_preserved(fact: Fact) -> bool:
-    return all(r["numbers_preserved"] for r in fact.get("renditions", []))
+    return all(r.numbers_preserved for r in fact.renditions or [])

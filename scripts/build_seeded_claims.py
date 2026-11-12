@@ -19,10 +19,10 @@ from typing import Any
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from app import drafter as d  # noqa: E402
+from app.build_bundle import load_match  # noqa: E402
 from core.config import ROOT, load  # noqa: E402
+from core.facts import Fact  # noqa: E402
 from core.moments import detect_moments  # noqa: E402
-
-Fact = dict[str, Any]
 
 
 def _ids() -> Iterator[str]:
@@ -32,20 +32,17 @@ def _ids() -> Iterator[str]:
 
 def build() -> list[dict[str, Any]]:
     settings = load()
-    match = json.loads((ROOT / "data" / "events.json").read_text(encoding="utf-8"))
-    mu = json.loads((ROOT / "data" / "league_stats.json").read_text(encoding="utf-8"))[
-        "mu_xg_per_team_minute"
-    ]
+    match, mu = load_match()
     good = [
         f
         for f in d.draft_facts(
-            detect_moments(match["events"], ("NOR", "HAR"), mu, settings), match, settings
+            detect_moments(match.events, ("NOR", "HAR"), mu, settings), match, settings
         )
-        if not f["injected"]
+        if not f.injected
     ]
 
     def find(metric: str) -> list[Fact]:
-        return [f for f in good if f["claim"]["metric"].startswith(metric)]
+        return [f for f in good if f.claim.metric.startswith(metric)]
 
     goal, over, turn = find("goals")[0], find("attack_share_"), find("turnovers_own_third")
     xg, acc, top, shots = (
@@ -58,7 +55,12 @@ def build() -> list[dict[str, Any]]:
 
     def add(cat: str, expect: str, fact: Fact) -> None:
         out.append(
-            {"id": f"sc_{len(out) + 1:03d}", "category": cat, "expect": expect, "fact": fact}
+            {
+                "id": f"sc_{len(out) + 1:03d}",
+                "category": cat,
+                "expect": expect,
+                "fact": fact.to_dict(),
+            }
         )
 
     for f in good:
@@ -75,7 +77,7 @@ def build() -> list[dict[str, Any]]:
         (goal, -2),
     ]:
         add("wrong_number", "rejected", d.inject_wrong_number(base, next(ids), bump))
-    mates = [p for p in match["meta"]["teams"]["NOR"]["players"] if p not in ("NOR_01", "NOR_09")]
+    mates = [p for p in match.meta.teams["NOR"].players if p not in ("NOR_01", "NOR_09")]
     for base, wrong in [
         (goal, mates[0]),
         (goal, mates[5]),

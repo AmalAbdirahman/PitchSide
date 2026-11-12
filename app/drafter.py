@@ -8,18 +8,27 @@ claim about how any model behaves.
 
 from __future__ import annotations
 
-import copy
 import re
 from collections.abc import Iterator
 from typing import Any
 
-from app.verifier import validate_fact
 from core.config import Settings, Verifier
+from core.events import Match
+from core.facts import (
+    Claim,
+    Evidence,
+    Fact,
+    FactText,
+    Impact,
+    Subject,
+    TextNumber,
+    Window,
+    validate_fact,
+)
 from core.moments import Metric, compute_metric, minute, ordinal
 from core.wilson import hedge_for, wilson
 
-Fact = dict[str, Any]
-Match = dict[str, Any]
+Moment = dict[str, Any]
 INTENT_CLAUSE = {
     "team": " as they tried to stretch the play",
     "player": " as he tried to make an impact",
@@ -29,21 +38,15 @@ INTENT_VERBS = ("gone", "lost", "generated", "completed", "had", "scores")
 
 
 def team_name(match: Match, team: str) -> str:
-    return match["meta"]["teams"][team]["name"]
+    return match.meta.team_name(team)
 
 
 def player_name(match: Match, pid: str) -> str:
-    for team in match["meta"]["teams"].values():
-        if pid in team["players"]:
-            return team["players"][pid]
-    raise KeyError(pid)
+    return match.meta.player_name(pid)
 
 
-def _num(key: str, value: float, unit: str | None = None) -> dict[str, Any]:
-    out: dict[str, Any] = {"key": key, "value": value}
-    if unit:
-        out["unit"] = unit
-    return out
+def _num(key: str, value: float, unit: str | None = None) -> TextNumber:
+    return TextNumber(key=key, value=value, unit=unit)
 
 
 def share_hedge(k: int, n: int, baseline_pct: float | None, v: Verifier) -> str:
@@ -53,9 +56,11 @@ def share_hedge(k: int, n: int, baseline_pct: float | None, v: Verifier) -> str:
 
 # ---- text per moment rule ---------------------------------------------
 
+Text = tuple[str, list[TextNumber]]
 
-def _text_goal(m: dict[str, Any], match: Match) -> tuple[str, list[dict[str, Any]]]:
-    home, away = match["meta"]["home"], match["meta"]["away"]
+
+def _text_goal(m: Moment, match: Match) -> Text:
+    home, away = match.meta.home, match.meta.away
     mn = minute(m["window"]["end_t"])
     s = m["score"]
     text = (
@@ -66,9 +71,7 @@ def _text_goal(m: dict[str, Any], match: Match) -> tuple[str, list[dict[str, Any
     return text, nums
 
 
-def _text_overload(
-    m: dict[str, Any], match: Match, v: Verifier, force_plain: bool = False
-) -> tuple[str, list[dict[str, Any]]]:
+def _text_overload(m: Moment, match: Match, v: Verifier, force_plain: bool = False) -> Text:
     pct, since = round(m["value"]), minute(m["window"]["start_t"])
     team, lane = team_name(match, m["subject"]["id"]), m["lane"]
     hedge = "clear" if force_plain else share_hedge(m["k"], m["n"], 100 * v.lane_baseline, v)
@@ -79,13 +82,13 @@ def _text_overload(
     return text, [_num("value", pct, "%"), _num("since_minute", since)]
 
 
-def _text_turnovers(m: dict[str, Any], match: Match) -> tuple[str, list[dict[str, Any]]]:
+def _text_turnovers(m: Moment, match: Match) -> Text:
     c, since = int(m["value"]), minute(m["window"]["start_t"])
     text = f"{team_name(match, m['subject']['id'])} have lost the ball {c} times in their own third since the {ordinal(since)} minute."
     return text, [_num("value", c), _num("since_minute", since)]
 
 
-def _text_half(m: dict[str, Any], match: Match) -> tuple[str, list[dict[str, Any]]]:
+def _text_half(m: Moment, match: Match) -> Text:
     rule, half = m["rule"], m["half"]
     if rule == "xg_sum":
         x = round(m["value"], 2)
@@ -110,7 +113,7 @@ def _text_half(m: dict[str, Any], match: Match) -> tuple[str, list[dict[str, Any
     ]
 
 
-def _text_event(m: dict[str, Any], match: Match) -> tuple[str, list[dict[str, Any]]]:
+def _text_event(m: Moment, match: Match) -> Text:
     mn = minute(m["window"]["end_t"])
     if m["rule"] == "substitution":
         on, off = (player_name(match, p) for p in m["players"])
@@ -123,9 +126,7 @@ def _text_event(m: dict[str, Any], match: Match) -> tuple[str, list[dict[str, An
     return text, [_num("minute", mn)]
 
 
-def render(
-    m: dict[str, Any], match: Match, v: Verifier, force_plain: bool = False
-) -> tuple[str, list[dict[str, Any]]]:
+def render(m: Moment, match: Match, v: Verifier, force_plain: bool = False) -> Text:
     if m["rule"] == "goal":
         return _text_goal(m, match)
     if m["rule"] in ("substitution", "card"):
@@ -140,54 +141,63 @@ def render(
 # ---- fact construction ----------------------------------------------------
 
 
-def _claim_value(m: dict[str, Any], nums: list[dict[str, Any]]) -> float:
-    return next((n["value"] for n in nums if n["key"] == "value"), m["value"])
+def claim_value(m: Moment, nums: list[TextNumber]) -> float:
+    """The number the claim states: the rounded headline number if there is one."""
+    return next((n.value for n in nums if n.key == "value"), m["value"])
 
 
-def to_fact(
-    m: dict[str, Any], match: Match, fact_id: str, v: Verifier, force_plain: bool = False
-) -> Fact:
+def _baseline(metric: str, v: Verifier) -> float | None:
+    return round(100 * v.lane_baseline, 2) if metric.startswith("attack_share_") else None
+
+
+def to_fact(m: Moment, match: Match, fact_id: str, v: Verifier, force_plain: bool = False) -> Fact:
     text, nums = render(m, match, v, force_plain)
-    claim: dict[str, Any] = {
-        "subject": m["subject"],
-        "metric": m["metric"],
-        "window": dict(m["window"]),
-        "comparator": "eq",
-        "value": _claim_value(m, nums),
-    }
-    if m["metric"].startswith("attack_share_"):
-        claim["baseline"] = round(100 * v.lane_baseline, 2)
-    fact: Fact = {
-        "fact_id": fact_id,
-        "match_id": match["meta"]["match_id"],
-        "kind": m["kind"],
-        "created_t": m["created_t"],
-        "injected": False,
-        "claim": claim,
-        "text": {"draft_en": text, "canonical_en": text, "numbers": nums},
-        "evidence": {
-            "event_ids": list(m["evidence_ids"]),
-            "players": list(m.get("players", [])),
-            "window": dict(m["window"]),
-        },
-        "verification": {"status": "pending", "checks": []},
-        "approval": {"state": "not_routed"},
-    }
-    if "impact" in m:
-        fact["impact"] = dict(m["impact"])
+    claim = Claim.model_validate(
+        {
+            "subject": m["subject"],
+            "metric": m["metric"],
+            "window": m["window"],
+            "comparator": "eq",
+            "value": claim_value(m, nums),
+            "baseline": _baseline(m["metric"], v),
+        }
+    )
+    fact = Fact.model_validate(
+        {
+            "fact_id": fact_id,
+            "match_id": match.meta.match_id,
+            "kind": m["kind"],
+            "created_t": m["created_t"],
+            "injected": False,
+            "claim": claim,
+            "text": FactText(draft_en=text, canonical_en=text, numbers=nums),
+            "evidence": Evidence(
+                event_ids=list(m["evidence_ids"]),
+                players=list(m.get("players", [])),
+                window=Window.model_validate(m["window"]),
+            ),
+            "verification": {"status": "pending", "checks": []},
+            "approval": {"state": "not_routed"},
+            "impact": Impact.model_validate(m["impact"]) if "impact" in m else None,
+        }
+    )
     validate_fact(fact)
     return fact
 
 
 def _set_text(fact: Fact, text: str) -> None:
-    fact["text"]["draft_en"] = text
-    fact["text"]["canonical_en"] = text
+    fact.text.draft_en = text
+    fact.text.canonical_en = text
 
 
 def _injected(fact: Fact, fact_id: str) -> Fact:
-    out = copy.deepcopy(fact)
-    out["fact_id"], out["injected"] = fact_id, True
+    out = fact.model_copy(deep=True)
+    out.fact_id, out.injected = fact_id, True
     return out
+
+
+def _draft(fact: Fact) -> str:
+    return fact.text.draft_en or fact.text.canonical_en
 
 
 def _fmt(v: float, unit: str | None = None) -> str:
@@ -197,18 +207,18 @@ def _fmt(v: float, unit: str | None = None) -> str:
 def inject_wrong_number(fact: Fact, fact_id: str, bump: float) -> Fact:
     """Change the headline number (claim value, or the minute for goals) in the claim and the text."""
     out = _injected(fact, fact_id)
-    num = (
-        next((n for n in out["text"]["numbers"] if n["key"] == "value"), None)
-        or out["text"]["numbers"][0]
-    )
-    old, new = num["value"], round(num["value"] + bump, 2)
-    num["value"] = new
-    if num["key"] == "value":
-        out["claim"]["value"] = new
-    unit = num.get("unit")
-    pat = re.compile(rf"(?<![\d.]){re.escape(_fmt(old, unit))}(st|nd|rd|th)?(?![\d.])")
-    repl = lambda mt: ordinal(int(new)) if mt.group(1) else _fmt(new, unit)  # noqa: E731
-    _set_text(out, pat.sub(repl, out["text"]["draft_en"], count=1))
+    nums = out.text.numbers
+    num = next((n for n in nums if n.key == "value"), None) or nums[0]
+    old, new = num.value, round(num.value + bump, 2)
+    num.value = new
+    if num.key == "value":
+        out.claim.value = new
+    pat = re.compile(rf"(?<![\d.]){re.escape(_fmt(old, num.unit))}(st|nd|rd|th)?(?![\d.])")
+
+    def repl(mt: re.Match[str]) -> str:
+        return ordinal(int(new)) if mt.group(1) else _fmt(new, num.unit)
+
+    _set_text(out, pat.sub(repl, _draft(out), count=1))
     validate_fact(out)
     return out
 
@@ -216,14 +226,11 @@ def inject_wrong_number(fact: Fact, fact_id: str, bump: float) -> Fact:
 def inject_wrong_player(fact: Fact, fact_id: str, wrong_pid: str, match: Match) -> Fact:
     """Name a different player than the one in the cited events."""
     out = _injected(fact, fact_id)
-    right = out["evidence"]["players"][0]
-    _set_text(
-        out,
-        out["text"]["draft_en"].replace(player_name(match, right), player_name(match, wrong_pid)),
-    )
-    if out["claim"]["subject"]["type"] == "player":
-        out["claim"]["subject"]["id"] = wrong_pid
-    out["evidence"]["players"] = [wrong_pid]
+    right = (out.evidence.players or [])[0]
+    _set_text(out, _draft(out).replace(player_name(match, right), player_name(match, wrong_pid)))
+    if out.claim.subject.type == "player":
+        out.claim.subject.id = wrong_pid
+    out.evidence.players = [wrong_pid]
     validate_fact(out)
     return out
 
@@ -231,9 +238,10 @@ def inject_wrong_player(fact: Fact, fact_id: str, wrong_pid: str, match: Match) 
 def inject_wrong_window(fact: Fact, fact_id: str, shift_s: float) -> Fact:
     """Claim the same thing about an earlier window."""
     out = _injected(fact, fact_id)
-    for w in (out["claim"]["window"], out["evidence"]["window"]):
-        w["start_t"] = max(0.0, w["start_t"] - shift_s)
-        w["end_t"] = w["end_t"] - shift_s
+    for w in (out.claim.window, out.evidence.window):
+        if w is not None:
+            w.start_t = max(0.0, w.start_t - shift_s)
+            w.end_t = w.end_t - shift_s
     validate_fact(out)
     return out
 
@@ -242,11 +250,11 @@ def inject_future_event(fact: Fact, fact_id: str, match: Match, mode: str) -> Fa
     """Cite an event after the claim was made, or date the claim before its evidence."""
     out = _injected(fact, fact_id)
     if mode == "cite_later":
-        later = next(e for e in match["events"] if e["t"] > out["created_t"])
-        out["evidence"]["event_ids"].append(later["id"])
+        later = next(e for e in match.events if e.t > out.created_t)
+        out.evidence.event_ids.append(later.id)
     else:
-        by_id = {e["id"]: e for e in match["events"]}
-        out["created_t"] = max(by_id[i]["t"] for i in out["evidence"]["event_ids"]) - 30
+        by_id = {e.id: e for e in match.events}
+        out.created_t = max(by_id[i].t for i in out.evidence.event_ids) - 30
     validate_fact(out)
     return out
 
@@ -254,12 +262,12 @@ def inject_future_event(fact: Fact, fact_id: str, match: Match, mode: str) -> Fa
 def inject_intent(fact: Fact, fact_id: str, style: str) -> Fact:
     """Add a word that asserts intent, which cannot be observed in event data."""
     out = _injected(fact, fact_id)
-    text = out["text"]["draft_en"]
+    text = _draft(out)
     if style == "deliberately":
         verb = next(v for v in INTENT_VERBS if f" {v} " in text)
         text = text.replace(f" {verb} ", f" deliberately {verb} ", 1)
     else:
-        text = text[:-1] + INTENT_CLAUSE[out["claim"]["subject"]["type"]] + "."
+        text = text[:-1] + INTENT_CLAUSE[out.claim.subject.type] + "."
     _set_text(out, text)
     validate_fact(out)
     return out
@@ -277,8 +285,8 @@ def small_sample_draft(
 ) -> Fact | None:
     """A lane-share claim over a window too short to support it, worded as a plain statement."""
     metric = f"attack_share_{lane}"
-    subject, window = {"type": "team", "id": team}, {"start_t": start, "end_t": end}
-    m: Metric | None = compute_metric(metric, subject, window, match["events"], s.pitch)
+    subject, window = Subject(type="team", id=team), Window(start_t=start, end_t=end)
+    m: Metric | None = compute_metric(metric, subject, window, match.events, s.pitch)
     if m is None or not min_n <= m.n < s.verifier.n_min or m.k == 0:
         return None
     moment = {
@@ -295,7 +303,7 @@ def small_sample_draft(
         "lane": lane,
     }
     out = to_fact(moment, match, fact_id, s.verifier, force_plain=True)
-    out["injected"] = True
+    out.injected = True
     return out
 
 
@@ -309,16 +317,11 @@ def _ids(start: int) -> Iterator[str]:
         i += 1
 
 
-def _first(facts: list[Fact], metric_prefix: str, **want: Any) -> Fact | None:
-    for f in facts:
-        if f["claim"]["metric"].startswith(metric_prefix) and all(
-            f["claim"]["subject"].get(k) == v for k, v in want.items()
-        ):
-            return f
-    return None
+def _first(facts: list[Fact], metric_prefix: str) -> Fact | None:
+    return next((f for f in facts if f.claim.metric.startswith(metric_prefix)), None)
 
 
-def injected_drafts(good: list[Fact], match: Match, ids: Any, s: Settings) -> list[Fact]:
+def injected_drafts(good: list[Fact], match: Match, ids: Iterator[str], s: Settings) -> list[Fact]:
     """One injected draft per error category, built from suitable good drafts."""
     out: list[Fact] = []
     goal, over = _first(good, "goals"), _first(good, "attack_share_")
@@ -326,12 +329,12 @@ def injected_drafts(good: list[Fact], match: Match, ids: Any, s: Settings) -> li
     if over:
         out.append(inject_wrong_number(over, next(ids), 9))
         out.append(inject_future_event(over, next(ids), match, "cite_later"))
-    if goal:
-        scorer_team = goal["impact"]["subject_team"]
+    if goal and goal.impact and goal.impact.subject_team:
+        scored = goal.evidence.players or []
         mate = next(
             p
-            for p in match["meta"]["teams"][scorer_team]["players"]
-            if p not in goal["evidence"]["players"] and not p.endswith("_01")
+            for p in match.meta.teams[goal.impact.subject_team].players
+            if p not in scored and not p.endswith("_01")
         )
         out.append(inject_wrong_player(goal, next(ids), mate, match))
     if turn:
@@ -354,7 +357,7 @@ def first_small_sample(
     return None
 
 
-def draft_facts(moments: list[dict[str, Any]], match: Match, s: Settings) -> list[Fact]:
+def draft_facts(moments: list[Moment], match: Match, s: Settings) -> list[Fact]:
     """Good drafts for every moment, followed by the injected drafts."""
     ids = _ids(1)
     good = [to_fact(m, match, next(ids), s.verifier) for m in moments]

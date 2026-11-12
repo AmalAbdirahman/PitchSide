@@ -6,9 +6,10 @@ import statistics
 from typing import Any
 
 from core.config import ROOT, Pitch, Settings
+from core.events import Event as TypedEvent
 from core.shares import lane_shares
 
-Event = dict[str, Any]
+Event = dict[str, Any]  # raw simulator output, before it is written to events.json
 
 
 def _minute(t: float) -> int:
@@ -22,6 +23,10 @@ def _quantile(values: list[float], q: float) -> float:
 
 def _completion(passes: list[Event]) -> float:
     return sum(p["outcome"] == "success" for p in passes) / max(1, len(passes))
+
+
+def _typed(events: list[Event]) -> list[TypedEvent]:
+    return [TypedEvent.model_validate(e) for e in events]
 
 
 def _zone(x: float, p: Pitch) -> str:
@@ -58,8 +63,8 @@ def story_checks(hero: list[Event], cfg: Settings) -> list[tuple[str, str, bool]
     goals = [e for e in hero if e["type"] == "goal"]
     before = [e for e in hero if s.hero_sub_t - 900 <= e["t"] < s.hero_sub_t]
     after = [e for e in hero if s.hero_sub_t <= e["t"] < s.hero_overload_until_t]
-    left_b, n_b = lane_shares(before, "NOR", cfg.pitch)
-    left_a, n_a = lane_shares(after, "NOR", cfg.pitch)
+    left_b, n_b = lane_shares(_typed(before), "NOR", cfg.pitch)
+    left_a, n_a = lane_shares(_typed(after), "NOR", cfg.pitch)
     losses = [
         e
         for e in hero

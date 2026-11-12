@@ -11,8 +11,8 @@ from jsonschema import Draft202012Validator
 
 from app.build_bundle import CUE_SCHEMA, build, write
 from app.renditions import all_preserved
-from app.verifier import validate_fact
 from core.config import load
+from core.facts import Fact
 
 S = load()
 
@@ -36,11 +36,11 @@ def test_every_fact_validates_and_only_routable_are_routed(
 ) -> None:
     hero, _ = bundle
     for f in hero["facts"]:
-        validate_fact(f)
+        Fact.model_validate(f, strict=True)
         assert f["verification"]["status"] in ("verified", "corrected")
         assert f["risk"]["tier"] in ("T0", "T1", "T2")
     for f in hero["log"]:
-        validate_fact(f)
+        Fact.model_validate(f, strict=True)
         assert f["verification"]["status"] in ("rejected", "unverifiable")
         assert "risk" not in f and "renditions" not in f
 
@@ -53,7 +53,7 @@ def test_cues_validate_and_match_facts(bundle: tuple[dict[str, Any], list[dict[s
     assert len({c["cue_id"] for c in cues}) == len(cues)
     for c in cues:
         f = by_id[c["fact_id"]]
-        assert f["risk"]["tier"] in ("T0", "T1") and all_preserved(f)
+        assert f["risk"]["tier"] in ("T0", "T1") and all_preserved(Fact.model_validate(f))
         assert c["start_t"] >= f["created_t"]
     assert not any(by_id[c["fact_id"]]["risk"]["tier"] == "T2" for c in cues)
 

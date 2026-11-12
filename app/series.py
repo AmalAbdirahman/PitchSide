@@ -10,12 +10,13 @@ import math
 from typing import Any
 
 from core.config import Pitch, Settings
+from core.events import Event
+from core.facts import Subject, Window
 from core.moments import compute_metric, require_metric, score_at
 from core.shares import LANES
 from core.wilson import hedge_for, wilson
 from core.winprob import win_probability
 
-Event = dict[str, Any]
 TEAM_METRICS = ("shots", "xg_sum", "pass_accuracy", "turnovers_own_third", "top_shot_speed")
 
 
@@ -25,13 +26,13 @@ def _r(x: float) -> float:
 
 def grid(events: list[Event], step_s: int) -> list[float]:
     """Sample times from kick-off to the last event, inclusive, every step_s seconds."""
-    last = max(e["t"] for e in events)
+    last = max(e.t for e in events)
     return [float(i * step_s) for i in range(math.ceil(last / step_s) + 1)]
 
 
 def team_stat(events: list[Event], team: str, metric: str, t: float, pitch: Pitch) -> float | None:
     """A metric for a team from kick-off to t (None if not computable yet)."""
-    subject, window = {"type": "team", "id": team}, {"start_t": 0.0, "end_t": t}
+    subject, window = Subject(type="team", id=team), Window(start_t=0.0, end_t=t)
     m = compute_metric(metric, subject, window, events, pitch)
     return None if m is None or (metric == "pass_accuracy" and m.n == 0) else _r(m.value)
 
@@ -51,11 +52,11 @@ def win_prob_at(
 def lanes_at(events: list[Event], team: str, t: float, s: Settings) -> dict[str, Any]:
     """Attack share by lane over the trailing window, with Wilson intervals and the hedge."""
     c, v = s.moments, s.verifier
-    window = {"start_t": max(0.0, t - c.overload_window_s), "end_t": t}
+    window = Window(start_t=max(0.0, t - c.overload_window_s), end_t=t)
     out: dict[str, Any] = {}
     ci: dict[str, tuple[float, float]] = {}
     for lane in LANES:
-        subject = {"type": "team", "id": team}
+        subject = Subject(type="team", id=team)
         m = require_metric(f"attack_share_{lane}", subject, window, events, s.pitch)
         ci[lane] = wilson(m.k, m.n, v.z)
         out[lane] = {

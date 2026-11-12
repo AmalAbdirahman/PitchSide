@@ -10,6 +10,7 @@ import pytest
 from pydantic import ValidationError
 
 from core.config import CONFIG_PATH, ROOT, Pitch, Settings, Xg, load
+from core.events import Match
 from core.moments import overload_moments
 from core.shares import lane_of
 from core.xg import xg
@@ -74,22 +75,58 @@ def test_lane_uses_the_pitch_it_is_given() -> None:
 
 
 def test_overload_moments_use_the_threshold_they_are_given(
-    match: dict[str, Any], settings: Settings
+    match: Match, settings: Settings
 ) -> None:
-    teams = (match["meta"]["home"], match["meta"]["away"])
-    assert overload_moments(match["events"], teams, settings)
+    teams = (match.meta.home, match.meta.away)
+    assert overload_moments(match.events, teams, settings)
     impossible = settings.model_copy(
         update={"moments": settings.moments.model_copy(update={"overload_min_share": 1.01})}
     )
-    assert overload_moments(match["events"], teams, impossible) == []
+    assert overload_moments(match.events, teams, impossible) == []
 
 
 def test_importing_the_pipeline_reads_no_project_file() -> None:
-    # The schema and config are read when first used, never at import time.
+    # Config, schema and data are read when an entry point asks, never at import time.
+    # Libraries may read their own package files; only files of this repo count.
     code = (
-        "import app.build_bundle, app.verifier;print(app.verifier._validator.cache_info().currsize)"
+        "import builtins, io, pathlib, sys\n"
+        "seen = []\n"
+        "real = io.open\n"
+        "def spy(file, *a, **k):\n"
+        "    seen.append(pathlib.Path(file).resolve())\n"
+        "    return real(file, *a, **k)\n"
+        "builtins.open = io.open = spy\n"
+        f"{_IMPORTS}\n"
+        "root = pathlib.Path.cwd().resolve()\n"
+        "venv = pathlib.Path(sys.prefix).resolve()\n"
+        "ours = [p for p in seen if p.is_relative_to(root) and not p.is_relative_to(venv)]\n"
+        "print([p.relative_to(root).as_posix() for p in ours if '.egg-info' not in str(p)])\n"
     )
-    out = subprocess.run(
+    run = subprocess.run(
         [sys.executable, "-c", code], capture_output=True, text=True, check=True, cwd=ROOT
     )
-    assert out.stdout.strip() == "0"
+    assert run.stdout.strip() == "[]"
+
+
+def test_the_import_spy_sees_project_reads() -> None:
+    # Guards the test above: with a load() call added, the spy must report config.yaml.
+    code = (
+        "import builtins, io\n"
+        "seen = []\n"
+        "real = io.open\n"
+        "def spy(file, *a, **k):\n"
+        "    seen.append(str(file))\n"
+        "    return real(file, *a, **k)\n"
+        "builtins.open = io.open = spy\n"
+        f"{_IMPORTS}\n"
+        "from core.config import load\n"
+        "load()\n"
+        "print(any(p.endswith('config.yaml') for p in seen))\n"
+    )
+    run = subprocess.run(
+        [sys.executable, "-c", code], capture_output=True, text=True, check=True, cwd=ROOT
+    )
+    assert run.stdout.strip() == "True"
+
+
+_IMPORTS = "import app.build_bundle, app.verifier, app.agents_foundry, core.facts"

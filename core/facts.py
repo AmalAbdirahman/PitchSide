@@ -1,0 +1,256 @@
+"""A fact and its parts as Pydantic models. `fact.schema.json` is generated from these.
+
+Field order is the order the bundle serialises, so changing it changes hero.json.
+Models fed from Scout output (Subject, Window, Observed, Claim, TextNumber) allow
+extra keys, as the hand-written schema did; everything code builds forbids them.
+Run `python scripts/write_schema.py` after changing a model.
+"""
+
+from __future__ import annotations
+
+from typing import Annotated, Any, Literal
+
+from pydantic import AliasChoices, BaseModel, ConfigDict, Field, WithJsonSchema
+from pydantic.json_schema import GenerateJsonSchema, JsonSchemaValue
+from pydantic_core import core_schema
+
+from core.events import Number
+
+# Bounded numbers: Field enforces the bound, WithJsonSchema writes it into the schema
+# (pydantic would otherwise emit a non-standard "ge"/"le" for an int | float union).
+Probability = Annotated[
+    int | float,
+    Field(ge=0, le=1),
+    WithJsonSchema({"type": "number", "minimum": 0, "maximum": 1}),
+]
+Delta = Annotated[
+    int | float,
+    Field(ge=-1, le=1),
+    WithJsonSchema({"type": "number", "minimum": -1, "maximum": 1}),
+]
+NonNegative = Annotated[int | float, Field(ge=0), WithJsonSchema({"type": "number", "minimum": 0})]
+
+MetricName = Literal[
+    "goals",
+    "shots",
+    "xg_sum",
+    "attack_share_left",
+    "attack_share_centre",
+    "attack_share_right",
+    "pass_accuracy",
+    "turnovers_own_third",
+    "duels_lost",
+    "win_prob",
+    "top_shot_speed",
+    "substitutions",
+    "cards",
+]
+Hedge = Literal["none", "early", "suggests", "clear"]
+Status = Literal["pending", "verified", "corrected", "rejected", "unverifiable"]
+Tier = Literal["T0", "T1", "T2"]
+
+
+class _Strict(BaseModel):
+    model_config = ConfigDict(extra="forbid", validate_assignment=True, serialize_by_alias=True)
+
+
+class _Open(BaseModel):
+    model_config = ConfigDict(extra="allow", validate_assignment=True)
+
+
+# ---- the claim ------------------------------------------------------------------
+
+
+class Subject(_Open):
+    type: Literal["team", "player", "match"]
+    id: str
+
+
+class Window(_Open):
+    start_t: Number
+    end_t: Number
+
+
+class Observed(_Open):
+    value: Number | None = None
+    n: Annotated[int, Field(ge=0)] | None = None
+
+
+class Claim(_Open):
+    subject: Subject
+    metric: MetricName
+    window: Window
+    comparator: Literal["eq", "gt", "lt", "share_gt"]
+    value: Number
+    baseline: Number | None = None
+    observed: Observed | None = None
+
+
+class TextNumber(_Open):
+    key: str
+    value: Number
+    unit: str | None = None
+
+
+class FactText(_Strict):
+    draft_en: str | None = Field(None, description="Original drafter wording, kept for the log.")
+    canonical_en: str = Field(max_length=280)
+    numbers: list[TextNumber]
+
+
+class Evidence(_Strict):
+    event_ids: list[int] = Field(min_length=1)
+    players: list[str] | None = None
+    window: Window | None = None
+
+
+class Impact(_Strict):
+    subject_team: str | None = None
+    win_prob_before: Probability | None = None
+    win_prob_after: Probability | None = None
+    delta: Delta
+    method: Literal["poisson_v1"]
+
+
+class Uncertainty(_Strict):
+    n: Annotated[int, Field(ge=0)]
+    ci_method: Literal["wilson", "none"]
+    ci_low: Number | None = None
+    ci_high: Number | None = None
+    hedge: Hedge
+
+
+# ---- verification, routing, output -------------------------------------------------
+
+
+class Check(_Strict):
+    name: Literal[
+        "recompute",
+        "evidence_exists",
+        "entities",
+        "numbers_match",
+        "intent_stripped",
+        "sample_size",
+    ]
+    passed: bool
+    detail: str | None = None
+
+
+class Correction(_Strict):
+    field: str
+    # "from" in JSON; `from_` in Python, where `from` is a keyword.
+    from_: str = Field(validation_alias=AliasChoices("from", "from_"), serialization_alias="from")
+    to: str
+    reason: str
+
+
+class Verification(_Strict):
+    status: Status
+    checks: list[Check]
+    corrections: list[Correction] | None = None
+    reject_reason: str | None = None
+
+
+class Risk(_Strict):
+    tier: Tier
+    reasons: list[str] | None = None
+
+
+class Approval(_Strict):
+    state: Literal[
+        "not_routed",
+        "queued",
+        "veto_window",
+        "auto_approved",
+        "approved",
+        "rejected",
+        "vetoed",
+        "expired",
+    ]
+    valid_from_t: Number | None = None
+    decided_by: Literal["auto", "producer", "autopilot"] | None = None
+    ttl_s: NonNegative | None = None
+
+
+class Rendition(_Strict):
+    kind: Literal["cue", "caption", "audio_script"]
+    lang: Literal["en", "es"]
+    text: str
+    layout: Literal["lower_third", "score_bug", "ticker"] | None = None
+    duration_s: Number | None = None
+    start_t: Number | None = None
+    numbers_preserved: bool
+
+
+class AuditStep(_Strict):
+    agent: Literal["Scout", "Drafter", "Verifier"]
+    attempt: Annotated[int, Field(ge=1)]
+    outcome: str
+    path: Literal["foundry_agent", "foundry_responses", "rules"] | None = None
+    model: str | None = None
+    ms: Annotated[int, Field(ge=0)] | None = None
+
+
+class Audit(_Strict):
+    """Who drafted and checked this fact, in order (SPEC section 19)."""
+
+    steps: list[AuditStep]
+
+
+class Fact(_Strict):
+    """One claim about the match, with its evidence, checks, routing and renditions."""
+
+    fact_id: str = Field(pattern=r"^f_[0-9]{6}$")
+    match_id: str
+    kind: Literal["score_event", "stat", "moment", "milestone", "tactical", "recap"]
+    created_t: Number = Field(description="Match clock seconds when proposed.")
+    injected: bool = Field(
+        False, description="True if the drafter deliberately injected an error, for eval only."
+    )
+    claim: Claim
+    text: FactText
+    evidence: Evidence
+    verification: Verification
+    approval: Approval
+    impact: Impact | None = None
+    uncertainty: Uncertainty | None = None
+    audit: Audit | None = None
+    risk: Risk | None = None
+    renditions: list[Rendition] | None = None
+
+    def to_dict(self) -> dict[str, Any]:
+        """The JSON form written to the bundle: absent fields are left out, not null."""
+        return self.model_dump(by_alias=True, exclude_none=True)
+
+
+def validate_fact(fact: Fact) -> None:
+    """Re-check a fact after in-place edits. Raises pydantic.ValidationError (a ValueError)."""
+    Fact.model_validate(fact.to_dict(), strict=True)
+
+
+# ---- schema generation --------------------------------------------------------------
+
+
+class _SchemaGen(GenerateJsonSchema):
+    """Optional fields are omitted when empty (never null), so the schema has no nulls."""
+
+    def field_title_should_be_set(self, schema: Any) -> bool:
+        return False
+
+    def nullable_schema(self, schema: core_schema.NullableSchema) -> JsonSchemaValue:
+        return self.generate_inner(schema["schema"])
+
+    def default_schema(self, schema: core_schema.WithDefaultSchema) -> JsonSchemaValue:
+        out = super().default_schema(schema)
+        if "default" in out and out["default"] is None:
+            del out["default"]
+        return out
+
+
+def fact_schema() -> dict[str, Any]:
+    """JSON Schema for a serialised fact, generated from the models."""
+    body = Fact.model_json_schema(by_alias=True, schema_generator=_SchemaGen, mode="serialization")
+    return {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "$id": "fact.schema.json",
+    } | body

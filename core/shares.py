@@ -11,12 +11,11 @@ Definitions (documented assumptions):
 from __future__ import annotations
 
 from collections.abc import Iterable
-from typing import Any
 
 from core.config import Pitch
+from core.events import Event
 
 LANES = ("left", "centre", "right")
-Event = dict[str, Any]
 
 
 def lane_of(y: float, pitch: Pitch) -> str:
@@ -29,16 +28,18 @@ def lane_of(y: float, pitch: Pitch) -> str:
 
 def is_attack(e: Event, pitch: Pitch) -> bool:
     """True if the event counts as an attack."""
-    if e["type"] == "shot":
+    if e.type == "shot":
         return True
-    if e["type"] in ("pass", "carry"):
-        return e.get("end_x", 0) > pitch.final_third_x
+    if e.type in ("pass", "carry"):
+        return (e.end_x or 0) > pitch.final_third_x
     return False
 
 
 def attack_lane(e: Event, pitch: Pitch) -> str:
     """Lane of an attack event."""
-    y = e["y"] if e["type"] == "shot" else e["end_y"]
+    y = e.y if e.type == "shot" else e.end_y
+    if y is None:
+        raise ValueError(f"attack event {e.id} has no end_y")
     return lane_of(y, pitch)
 
 
@@ -46,8 +47,8 @@ def attacks_by_lane(events: Iterable[Event], team: str, pitch: Pitch) -> dict[st
     """Event ids of a team's attacks grouped by lane."""
     out: dict[str, list[int]] = {lane: [] for lane in LANES}
     for e in events:
-        if e["team"] == team and is_attack(e, pitch):
-            out[attack_lane(e, pitch)].append(e["id"])
+        if e.team == team and is_attack(e, pitch):
+            out[attack_lane(e, pitch)].append(e.id)
     return out
 
 
