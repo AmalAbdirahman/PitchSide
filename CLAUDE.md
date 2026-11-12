@@ -1,58 +1,71 @@
 # CLAUDE.md
 
 ## What this is
-A producer-first control room for a replayed synthetic football match, built for a hackathon. Python builds a replay bundle offline. A static web page replays it. Deterministic code verifies facts, risk tiers decide what airs automatically and what a human approves, and each approved fact becomes a cue, EN and ES captions, and an audio script.
+PitchSide is a broadcast control room for football match insights. A drafting agent proposes claims, deterministic code recomputes every claim from the event log, risk tiers decide what airs automatically and what a human approves, and each approved fact becomes a cue, captions and an audio script.
 
-Source of truth: `SPEC.md` and `fact.schema.json`. If code and spec disagree, stop and ask me.
-All data is synthetic. Clubs and players are fictional. No real names, logos, crests or real match data. Ever.
+The hackathon is over. The goal now is a polished, honest portfolio project: clean architecture, real open data, properly fitted models, and a typed agent pipeline. Work through `ROADMAP_PROMPTS.md` in order, one task per session.
 
-## Stack (do not change without asking)
-- Python 3.12 standard library plus `pytest` and `jsonschema`. No other dependencies without asking.
-- Front end: plain HTML, CSS and JavaScript in `docs/`. No npm, no framework, no build step, no CDN links, no network calls.
-- No servers, no database, no cloud services, no API keys, no LLM calls at run time. Two exceptions, both on my machine only: the build-time Scout agent (`--foundry`, below) and `scripts/foundry_smoke.py`, a manual connectivity check.
-- Hosting: GitHub Pages serving the `docs/` folder. Optional: a GitHub Actions workflow that runs `pytest -q`.
-- Do not mention or claim any Microsoft or Azure technology in code or docs, except the build-time Scout agent on Microsoft Foundry (SPEC section 19) and the optional build-time Translator add-on in SPEC section 18, and the Translator only when I explicitly ask for it. Even then: it runs only inside the build script on my machine, keys stay in a local `.env`, and nothing in `docs/` ever calls the network.
-- Scout agent: `app/agents_foundry.py` calls a prompt agent on Microsoft Foundry only inside `python -m app.build_bundle --foundry`. Every request and response is cached in `data/agent_cache.json` (committed), so the plain build replays it with no network. Azure packages are imported only on that path and live in `requirements-foundry.txt`, not in the core dependencies.
-- Foundry smoke test: `scripts/foundry_smoke.py` checks that my Foundry project and model deployment answer. I run it by hand on my machine; it reads its endpoint and model from `.env`. Nothing in `app/`, `core/`, `sim/`, `docs/` or `tests/` imports or calls it, and it is not part of the build, eval or CI.
+## The one idea that must survive every change
+**Code decides truth.** No number, player, team or time reaches a viewer unless deterministic code has recomputed it from the event log. Every new metric must be recomputable by the verifier. A metric the verifier cannot check does not ship.
 
-## Layout
-```
-sim/      generate.py
-core/     xg.py shares.py winprob.py wilson.py moments.py
-app/      agents_foundry.py drafter.py verifier.py router.py renditions.py templates_es.py build_bundle.py
-docs/     index.html app.js styles.css .nojekyll data/
-design/   prototype.html (mockup only, never published)
-tests/    seeded_claims.json test_*.py
-scripts/  eval.py foundry_smoke.py
-data/     events.json league_stats.json agent_cache.json
-config.yaml  README.md  data_card.md  requirements-foundry.txt
-```
+## Honesty rules (never break these)
+1. Never claim in the README or docs something that does not run. Unfinished work goes under "Roadmap".
+2. Report numbers (eval, calibration, latency) only from a real run. Say which data and which commit.
+3. Say what is synthetic, what is real open data, and what is a model estimate.
+4. The project has **one** LLM agent (the Scout) plus deterministic code. Do not call it "multi-agent" until a second agent with a distinct role exists and is tested.
+5. There is no Streamlit app and no live streaming. Do not describe either as existing.
+6. Spanish text is unreviewed until a native speaker reviews it.
+
+## Current state (read before changing anything)
+- `sim/` seeded simulator, `core/` metrics and models, `app/` Scout agent, verifier, router, renditions, bundle builder, `docs/` static site (GitHub Pages), `tests/`, `scripts/`.
+- Facts are `dict[str, Any]` validated against `fact.schema.json` with jsonschema.
+- Config comes from `config.yaml` through a hand-written parser in `core/config.py`, read as a global (`load()`) deep inside functions.
+- `compute_metric` in `core/moments.py` is the single definition of every metric. Keep that property.
+- The front end re-implements the router's timing rules in `docs/app.js`. That is a known duplication.
+- **The published GitHub repo is missing root files** (`config.yaml`, `fact.schema.json`, `SPEC.md`, `data_card.md`, `requirements-foundry.txt`, `pytest.ini`, `.gitignore`). Tests fail at collection on a fresh clone. Task P0 fixes this first.
+
+## Stack rules
+- Python 3.12. Allowed runtime deps: `pydantic>=2`, `pyyaml`, `jsonschema`, `numpy`. Analysis extras: `pandas`, `scipy`, `scikit-learn`, `kloppy`, `statsbombpy`, `matplotlib`. Agent extras: `azure-ai-projects`, `azure-identity`, `python-dotenv`. Ask before adding anything else.
+- Tooling: `ruff` (lint and format), `mypy --strict` on `core/` and `app/`, `pytest`. All three run in CI.
+- Packaging: one `pyproject.toml` with optional dependency groups (`dev`, `data`, `agents`). No loose requirements files.
+- Front end: plain static files in `docs/`, no CDN, no network calls for data. TypeScript is allowed if the compiled output is committed and Pages still serves `docs/` with no build step on GitHub.
+- The static site never calls a model or Azure. Agents run at build time; responses are cached and committed.
+- No secrets in git. `.env` stays ignored. Never print keys or endpoints.
+
+## Data rules
+- Synthetic data: fictional clubs and players only.
+- Real data: open datasets only (StatsBomb Open Data, Metrica sample data). Follow each licence: keep attribution, do not commit raw data, download with a script into an ignored folder, and commit only small derived artefacts the licence allows.
+- Do not use real club crests, league logos or broadcaster branding.
+- Data from the Metrica "More than a Hack" competition must never enter this repo.
+
+## Engineering rules
+1. One task per session. Plan first, wait for "go", then implement.
+2. Write or update tests first for any behaviour change. `pytest -q` must pass with no network.
+3. Keep functions short and typed. No `dict[str, Any]` in new code where a model exists.
+4. No hidden globals in new code: pass config and data in as arguments.
+5. No `except Exception` without a comment saying why and what happens next.
+6. Do not change verifier behaviour and refactor in the same commit.
+7. Keep the offline rebuild byte-identical unless the task says outputs change. If outputs change, say exactly why in the commit message.
+8. Thresholds and constants live in config, with a comment stating where the value came from (fitted, literature, or chosen by hand).
+9. Every model (xG, xT, win probability) ships with a short method note and a validation result: calibration plot or table, and the metric used.
+10. Small commits with clear messages. Never rewrite published history.
 
 ## Commands
-- Simulate: `python -m sim.generate --seed 7`
-- Build bundle (offline, replays the agent cache): `python -m app.build_bundle`
-- Build bundle with the Scout agent (needs `.env`, calls Foundry): `python -m app.build_bundle --foundry`
-- Test: `pytest -q`
-- Eval: `python scripts/eval.py`
-- Foundry smoke test (manual, needs `.env`): `python scripts/foundry_smoke.py`
-- Serve locally: `python -m http.server 8000 --directory docs`
-
-## Rules
-1. Code decides truth. The Scout agent drafts claims at build time; the deterministic verifier decides whether they air, and a rejected claim gets one retry. The rule-based drafter is the fallback and also injects known errors so the verifier has something to catch. Nothing at run time calls a model.
-2. Mark every injected error with `injected: true`.
-3. Every fact validates against `fact.schema.json` at creation and after verification.
-4. Every number in a rendition must come from the fact's `text.numbers`. Check it in code.
-5. Thresholds and timings live in `config.yaml`, not in code.
-6. Keep files small and functions short. Type hints everywhere.
-7. Write the verifier tests first, using `tests/seeded_claims.json`.
-8. Do not add dependencies, files or features that are not in the current task. Ask first.
-9. Front end basics: labelled buttons, enough contrast, keyboard operable, respect `prefers-reduced-motion`. It must work from a plain static server with no network.
-10. Original work only. Do not copy code or text from other hackathon repos.
-11. Never claim in the README something that does not work. Mark unfinished items as roadmap. Report eval numbers only from a real run.
-12. Treat the Spanish text as unreviewed and say so in the README.
+```
+python -m pip install -e ".[dev]"            # after P1
+pytest -q
+ruff check . && ruff format --check .
+mypy core app
+python -m sim.generate --seed 7
+python -m app.build_bundle                    # offline, replays data/agent_cache.json
+python -m app.build_bundle --foundry          # live Scout; needs .env
+python scripts/eval.py
+python -m http.server 8000 --directory docs
+```
 
 ## Definition of done (every task)
-- `pytest -q` passes.
-- You gave me the exact command to see it working.
-- Changes are committed with a clear message.
-- You listed anything you skipped or are unsure about.
+- Tests, ruff and mypy pass locally and in CI.
+- You gave me the exact command to see the change working.
+- README and docs are updated if behaviour or claims changed.
+- You listed anything skipped, uncertain, or left as roadmap.
+- Changes are committed.

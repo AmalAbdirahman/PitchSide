@@ -1,5 +1,7 @@
 # PitchSide
 
+[![tests](https://github.com/AmalAbdirahman/PitchSide/actions/workflows/test.yml/badge.svg)](https://github.com/AmalAbdirahman/PitchSide/actions/workflows/test.yml)
+
 A producer-first control room for a replayed, synthetic football match. Python builds a replay bundle offline; a static web page in `docs/` replays it. An LLM agent drafts claims at build time, deterministic code verifies every one, risk tiers decide what airs on its own and what a human must approve, and each approved fact becomes a lower-third cue, English and Spanish captions, and an audio script.
 
 ## Honesty first
@@ -100,6 +102,10 @@ scripts/  eval.py, build_seeded_claims.py, foundry_smoke.py
 ```
 
 See `SPEC.md` for the full contract and `data_card.md` for the simulator's realism checks.
+
+## How this was built
+
+PitchSide was built for the Microsoft x Premier League "Inside the Game" hackathon, with AI coding assistance. The hackathon is over; the project is now being reworked into a portfolio piece. The planned work, in order, is in `ROADMAP_PROMPTS.md`.
 
 ## License
 
