@@ -25,7 +25,8 @@ from core.facts import (
     Window,
     validate_fact,
 )
-from core.moments import Metric, compute_metric, minute, ordinal
+from core.metrics import Metric, compute_metric
+from core.moments import minute, ordinal
 from core.wilson import hedge_for, wilson
 
 Moment = dict[str, Any]

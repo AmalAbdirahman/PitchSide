@@ -1,27 +1,18 @@
-"""Metric computation over an event window, and rule-based moment detection.
+"""Rule-based moment detection over the event log.
 
-`compute_metric` is the single definition of every metric. The moment rules
-and the verifier both use it, so a claim is always rechecked the same way.
+Moments are found with the same metric definitions the verifier uses to recheck
+claims (`core/metrics.py`), so a claim is always rechecked the way it was found.
 """
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
 from typing import Any
 
 from core.config import Pitch, Settings, Winprob
 from core.events import Event
 from core.facts import Subject, Window
-from core.shares import attacks_by_lane
+from core.metrics import Metric, compute_metric, in_window, require_metric
 from core.winprob import win_probability
-
-
-@dataclass
-class Metric:
-    value: float
-    n: int
-    k: int = 0
-    ids: list[int] = field(default_factory=list)
 
 
 def minute(t: float) -> int:
@@ -34,92 +25,6 @@ def ordinal(n: int) -> str:
     if 10 <= n % 100 <= 20:
         return f"{n}th"
     return f"{n}{ {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th') }"
-
-
-def in_window(events: list[Event], start: float, end: float) -> list[Event]:
-    return [e for e in events if start <= e.t <= end]
-
-
-def _of(events: list[Event], subject: Subject) -> list[Event]:
-    if subject.type == "team":
-        return [e for e in events if e.team == subject.id]
-    if subject.type == "player":
-        return [e for e in events if e.player_id == subject.id]
-    return events
-
-
-def _count(events: list[Event]) -> Metric:
-    return Metric(len(events), len(events), len(events), [e.id for e in events])
-
-
-def _share(hits: list[int], total: int) -> Metric:
-    value = 100 * len(hits) / total if total else 0.0
-    return Metric(value, total, len(hits), hits)
-
-
-def compute_metric(
-    metric: str,
-    subject: Subject,
-    window: Window,
-    events: list[Event],
-    pitch: Pitch,
-) -> Metric | None:
-    """Recompute a metric from the events in a window. None if not computable."""
-    evs = _of(in_window(events, window.start_t, window.end_t), subject)
-    shots = [e for e in evs if e.type == "shot"]
-    if metric == "goals":
-        return _count([e for e in evs if e.type == "goal"])
-    if metric == "shots":
-        return _count(shots)
-    if metric == "substitutions":
-        return _count([e for e in evs if e.type == "substitution"])
-    if metric == "cards":
-        return _count([e for e in evs if e.type == "card"])
-    if metric == "xg_sum":
-        return Metric(sum(_xg(e) for e in shots), len(shots), len(shots), [e.id for e in shots])
-    if metric == "top_shot_speed":
-        if not shots:
-            return None
-        best = max(shots, key=_speed)
-        return Metric(_speed(best), len(shots), 1, [best.id])
-    if metric == "turnovers_own_third":
-        own = pitch.own_third_x
-        return _count([e for e in evs if e.type == "possession_change" and e.x < own])
-    if metric == "pass_accuracy":
-        passes = [e for e in evs if e.type == "pass"]
-        return _share([e.id for e in passes if e.outcome == "success"], len(passes))
-    if metric.startswith("attack_share_") and subject.type == "team":
-        groups = attacks_by_lane(evs, subject.id, pitch)
-        return _share(
-            groups[metric.removeprefix("attack_share_")], sum(len(v) for v in groups.values())
-        )
-    return None
-
-
-def _xg(shot: Event) -> float:
-    if shot.xg is None:
-        raise ValueError(f"shot {shot.id} has no xg")
-    return shot.xg
-
-
-def _speed(shot: Event) -> float:
-    if shot.shot_speed is None:
-        raise ValueError(f"shot {shot.id} has no shot_speed")
-    return shot.shot_speed
-
-
-def require_metric(
-    metric: str,
-    subject: Subject,
-    window: Window,
-    events: list[Event],
-    pitch: Pitch,
-) -> Metric:
-    """compute_metric for callers that only ask for metrics that are always computable."""
-    m = compute_metric(metric, subject, window, events, pitch)
-    if m is None:
-        raise ValueError(f"{metric} is not computable for {subject} in {window}")
-    return m
 
 
 # ---- moment rules ------------------------------------------------------

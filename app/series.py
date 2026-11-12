@@ -12,7 +12,8 @@ from typing import Any
 from core.config import Pitch, Settings
 from core.events import Event
 from core.facts import Subject, Window
-from core.moments import compute_metric, require_metric, score_at
+from core.metrics import compute_metric, require_metric
+from core.moments import score_at
 from core.shares import LANES
 from core.wilson import hedge_for, wilson
 from core.winprob import win_probability

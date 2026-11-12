@@ -11,7 +11,7 @@ from app.series import TEAM_METRICS, build_series, lanes_at
 from core.config import ROOT, load
 from core.events import Match
 from core.facts import Subject, Window
-from core.moments import compute_metric
+from core.metrics import compute_metric
 from core.wilson import wilson
 from core.winprob import win_probability
 

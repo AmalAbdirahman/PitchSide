@@ -95,9 +95,10 @@ The verifier checks numbers, windows, evidence, entities, intent words and hedgi
 
 ```
 sim/      seeded match simulator
-core/     typed models (events.py, facts.py), config, xG, attack shares, Wilson intervals,
-          win probability, moment rules
-app/      agents_foundry.py (Scout), drafter.py (fallback + injected errors), verifier.py, router.py,
+core/     typed models (events.py, facts.py), config, metric registry (metrics.py), xG,
+          attack shares, Wilson intervals, win probability, moment rules
+app/      agents_foundry.py (Scout), drafter.py (fallback + injected errors), verifier.py
+          (orchestrates checks.py and corrections.py), router.py,
           renditions.py, templates_es.py, build_bundle.py
 docs/     static control room (index.html, app.js, styles.css) and data/ — published by GitHub Pages
 design/   prototype.html, the original design mockup (not published)
