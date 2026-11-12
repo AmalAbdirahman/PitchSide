@@ -9,6 +9,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
+from app.names import name_problems, named_players, roster
 from core.config import Verifier
 from core.events import Event, Match
 from core.facts import Check, Claim, Fact, TextNumber, Uncertainty
@@ -50,7 +51,7 @@ def check_evidence(fact: Fact, by_id: ById) -> Check:
     )
 
 
-def check_entities(fact: Fact, by_id: ById, match: Match) -> Check:
+def check_entities(fact: Fact, by_id: ById, match: Match, v: Verifier) -> Check:
     cited = cited_events(fact, by_id)
     teams = {e.team for e in cited}
     players = {e.player_id for e in cited} | {e.player_off for e in cited if e.player_off}
@@ -62,9 +63,13 @@ def check_entities(fact: Fact, by_id: ById, match: Match) -> Check:
     for pid in fact.evidence.players or []:
         if pid not in players:
             problems.append(f"named player {pid} does not appear in the cited events")
-    for pid, name in match.meta.names().items():
-        if name in fact.text.canonical_en and pid not in players:
-            problems.append(f"text names {name} ({pid}), who is not in the cited events")
+    text, squad = fact.text.canonical_en, roster(match.meta)
+    named = named_players(text, squad)
+    for p in squad:
+        if p.pid in named and p.pid not in players:
+            problems.append(f"text names {p.full} ({p.pid}), who is not in the cited events")
+    teams_named = {t.name for t in match.meta.teams.values()}
+    problems += name_problems(text, squad, teams_named, v.name_max_edits, v.name_min_length)
     return make_check(
         "entities", not problems, "; ".join(problems) or "teams and players match the cited events"
     )

@@ -102,7 +102,7 @@ def test_checks_and_corrections_do_not_change_the_fact(entry: SeededClaim, match
     )
     assert m is not None
     check_evidence(fact, by_id)
-    check_entities(fact, by_id, match)
+    check_entities(fact, by_id, match, v)
     check_recompute(fact.claim, m, d, v)
     check_numbers(fact, m, d, by_id, match, v)
     sample = assess_sample(fact.claim, m, d, v)

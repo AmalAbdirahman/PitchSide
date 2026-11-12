@@ -64,7 +64,7 @@ def verify(fact: Fact, match: Match, s: Settings) -> Fact:
             "intent_stripped", True, "intent words removed" if corrections else "no intent words"
         ),
         check_evidence(out, by_id),
-        check_entities(out, by_id, match),
+        check_entities(out, by_id, match, v),
     ]
     claim = out.claim
     d = REGISTRY.get(claim.metric)

@@ -89,7 +89,7 @@ Scout agent, replayed from `data/agent_cache.json`:
 
 ### What the verifier does not catch
 
-The verifier checks numbers, windows, evidence, entities, intent words and hedging, not what a sentence means. In the first `--foundry` run, the Scout wrote lines like "Northbridge had 69% of centre attacks" when the data meant 69% of Northbridge's attacks went through the centre. Every number was right, so they passed. Tighter instructions fixed this in the committed run, but a sentence-meaning check is roadmap. Goals, substitutions and cards (T0, which air with no human check) therefore use fixed template wording, such as "GOAL, Northbridge 1–0 Harlow. C. Nkemelu, 63'."; the Scout still drafts and cites the claim, and its own wording is kept in the log.
+The verifier checks numbers, windows, evidence, entities, intent words and hedging, not what a sentence means. Player names are matched against the roster as whole words, so a surname on its own counts, and a misspelt or wrongly initialled name is rejected rather than aired. In the first `--foundry` run, the Scout wrote lines like "Northbridge had 69% of centre attacks" when the data meant 69% of Northbridge's attacks went through the centre. Every number was right, so they passed. Tighter instructions fixed this in the committed run, but a sentence-meaning check is roadmap. Goals, substitutions and cards (T0, which air with no human check) therefore use fixed template wording, such as "GOAL, Northbridge 1–0 Harlow. C. Nkemelu, 63'."; the Scout still drafts and cites the claim, and its own wording is kept in the log.
 
 ## Layout
 

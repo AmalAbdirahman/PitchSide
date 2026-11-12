@@ -81,6 +81,8 @@ class Verifier(_Section):
     tol_share_pp: float
     tol_xg: float
     tol_speed: float
+    name_max_edits: int
+    name_min_length: int
     early_markers: tuple[str, ...]
     suggest_markers: tuple[str, ...]
     intent_patterns: tuple[str, ...]

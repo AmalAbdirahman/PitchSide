@@ -64,7 +64,7 @@ A fact is `verified` only if all checks pass.
 |---|---|
 | `recompute` | Recompute the metric from events in the window. Counts must match exactly; shares within 0.5 percentage points. |
 | `evidence_exists` | Every cited event exists, lies in the window, and has `t` at or before the fact's `created_t`. |
-| `entities` | Team and player appear in the cited events. |
+| `entities` | Team and player appear in the cited events. Player names in the text are matched against the roster as words (surname, with or without initial, possessives included); a wrong initial or a misspelt roster surname rejects the claim. |
 | `numbers_match` | Every number in the text appears in `text.numbers` and in the recomputed result. |
 | `intent_stripped` | Remove intent words (deliberately, tried to, wanted to); log a correction. Status becomes `corrected`. |
 | `sample_size` | If `n` is below 6, downgrade to hedge `early`, or mark `unverifiable` if it cannot be stated as a plain count. |
