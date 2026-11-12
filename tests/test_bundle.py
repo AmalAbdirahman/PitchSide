@@ -12,11 +12,14 @@ from jsonschema import Draft202012Validator
 from app.build_bundle import CUE_SCHEMA, build, write
 from app.renditions import all_preserved
 from app.verifier import validate_fact
+from core.config import load
+
+S = load()
 
 
 @pytest.fixture(scope="module")
 def bundle() -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    return build()
+    return build(S)
 
 
 def test_done_criteria(bundle: tuple[dict[str, Any], list[dict[str, Any]]]) -> None:
@@ -64,7 +67,7 @@ def test_bundle_shape(bundle: tuple[dict[str, Any], list[dict[str, Any]]]) -> No
 
 
 def test_write_produces_json_files(tmp_path: Path) -> None:
-    hero, cues = write(tmp_path)
+    hero, cues = write(S, tmp_path)
     assert (
         json.loads((tmp_path / "hero.json").read_text(encoding="utf-8"))["metrics"]
         == hero["metrics"]

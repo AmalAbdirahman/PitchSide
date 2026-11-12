@@ -13,7 +13,7 @@ from typing import Any
 
 from app.templates_es import caption_es
 from app.verifier import validate_fact
-from core.config import load
+from core.config import Settings
 
 Fact = dict[str, Any]
 Match = dict[str, Any]
@@ -187,37 +187,37 @@ def _close(a: float, b: float) -> bool:
 # ---- building renditions --------------------------------------------------------------
 
 
-def air_time(fact: Fact) -> float | None:
+def air_time(fact: Fact, veto_window_s: int) -> float | None:
     """Match time a cue airs with no producer action: T0 now, T1 after the veto window, T2 never."""
     tier = fact["risk"]["tier"]
     if tier == "T0":
         return fact["created_t"]
     if tier == "T1":
-        return fact["created_t"] + load()["router"]["veto_window_s"]
+        return fact["created_t"] + veto_window_s
     return None
 
 
-def _cue(fact: Fact, lang: str, text: str) -> dict[str, Any]:
-    r = load()["renditions"]
-    ticker = fact["claim"]["metric"] in r["ticker_metrics"]
+def _cue(fact: Fact, lang: str, text: str, s: Settings) -> dict[str, Any]:
+    r = s.renditions
+    ticker = fact["claim"]["metric"] in r.ticker_metrics
     cue: dict[str, Any] = {
         "kind": "cue",
         "lang": lang,
         "text": text,
         "layout": "ticker" if ticker else "lower_third",
-        "duration_s": r["ticker_duration_s"] if ticker else r["cue_duration_s"],
+        "duration_s": r.ticker_duration_s if ticker else r.cue_duration_s,
     }
-    start = air_time(fact)
+    start = air_time(fact, s.router.veto_window_s)
     if start is not None:
         cue["start_t"] = start
     return cue
 
 
-def build_renditions(fact: Fact, match: Match) -> list[dict[str, Any]]:
-    en, es = fact["text"]["canonical_en"], caption_es(fact, match)
+def build_renditions(fact: Fact, match: Match, s: Settings) -> list[dict[str, Any]]:
+    en, es = fact["text"]["canonical_en"], caption_es(fact, match, s.sim.half_s)
     items = [
-        _cue(fact, "en", en),
-        _cue(fact, "es", es),
+        _cue(fact, "en", en, s),
+        _cue(fact, "es", es, s),
         {"kind": "caption", "lang": "en", "text": en},
         {"kind": "caption", "lang": "es", "text": es},
         {"kind": "audio_script", "lang": "en", "text": speak(en)},
@@ -227,10 +227,10 @@ def build_renditions(fact: Fact, match: Match) -> list[dict[str, Any]]:
     return items
 
 
-def with_renditions(fact: Fact, match: Match) -> Fact:
+def with_renditions(fact: Fact, match: Match, s: Settings) -> Fact:
     """Copy of a routed fact with its renditions attached and validated."""
     out = copy.deepcopy(fact)
-    out["renditions"] = build_renditions(out, match)
+    out["renditions"] = build_renditions(out, match, s)
     validate_fact(out)
     return out
 

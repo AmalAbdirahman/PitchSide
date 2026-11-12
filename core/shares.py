@@ -13,47 +13,47 @@ from __future__ import annotations
 from collections.abc import Iterable
 from typing import Any
 
-from core.config import load
+from core.config import Pitch
 
 LANES = ("left", "centre", "right")
 Event = dict[str, Any]
 
 
-def lane_of(y: float) -> str:
+def lane_of(y: float, pitch: Pitch) -> str:
     """Lane name for a y coordinate."""
-    third = load()["pitch"]["width"] / 3
+    third = pitch.width / 3
     if y < third:
         return "left"
     return "centre" if y < 2 * third else "right"
 
 
-def is_attack(e: Event) -> bool:
+def is_attack(e: Event, pitch: Pitch) -> bool:
     """True if the event counts as an attack."""
     if e["type"] == "shot":
         return True
     if e["type"] in ("pass", "carry"):
-        return e.get("end_x", 0) > load()["pitch"]["final_third_x"]
+        return e.get("end_x", 0) > pitch.final_third_x
     return False
 
 
-def attack_lane(e: Event) -> str:
+def attack_lane(e: Event, pitch: Pitch) -> str:
     """Lane of an attack event."""
     y = e["y"] if e["type"] == "shot" else e["end_y"]
-    return lane_of(y)
+    return lane_of(y, pitch)
 
 
-def attacks_by_lane(events: Iterable[Event], team: str) -> dict[str, list[int]]:
+def attacks_by_lane(events: Iterable[Event], team: str, pitch: Pitch) -> dict[str, list[int]]:
     """Event ids of a team's attacks grouped by lane."""
     out: dict[str, list[int]] = {lane: [] for lane in LANES}
     for e in events:
-        if e["team"] == team and is_attack(e):
-            out[attack_lane(e)].append(e["id"])
+        if e["team"] == team and is_attack(e, pitch):
+            out[attack_lane(e, pitch)].append(e["id"])
     return out
 
 
-def lane_shares(events: Iterable[Event], team: str) -> tuple[dict[str, float], int]:
+def lane_shares(events: Iterable[Event], team: str, pitch: Pitch) -> tuple[dict[str, float], int]:
     """Share of attacks per lane (0..1) and the total number of attacks."""
-    groups = attacks_by_lane(events, team)
+    groups = attacks_by_lane(events, team, pitch)
     n = sum(len(ids) for ids in groups.values())
     if n == 0:
         return {lane: 0.0 for lane in LANES}, 0

@@ -19,7 +19,7 @@ The hackathon is over. The goal now is a polished, honest portfolio project: cle
 ## Current state (read before changing anything)
 - `sim/` seeded simulator, `core/` metrics and models, `app/` Scout agent, verifier, router, renditions, bundle builder, `docs/` static site (GitHub Pages), `tests/`, `scripts/`.
 - Facts are `dict[str, Any]` validated against `fact.schema.json` with jsonschema.
-- Config comes from `config.yaml` through a hand-written parser in `core/config.py`, read as a global (`load()`) deep inside functions.
+- Config comes from `config.yaml` through PyYAML into a frozen, validated Pydantic `Settings` (`core/config.py`). Entry points call `load()` once and pass `Settings` (or a section of it) down as an argument; no function reads config through a global.
 - `compute_metric` in `core/moments.py` is the single definition of every metric. Keep that property.
 - The front end re-implements the router's timing rules in `docs/app.js`. That is a known duplication.
 

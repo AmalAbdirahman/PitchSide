@@ -25,7 +25,7 @@ from typing import Any
 
 from app.drafter import player_name, render, share_hedge, team_name
 from app.verifier import validate_fact, verify
-from core.config import ROOT, load
+from core.config import ROOT, Agents, Settings, Verifier
 from core.moments import minute
 
 Fact = dict[str, Any]
@@ -75,16 +75,16 @@ Rules:
 # ---- requests and facts -----------------------------------------------------
 
 
-def scout_request(m: dict[str, Any], match: Match) -> dict[str, Any]:
+def scout_request(m: dict[str, Any], match: Match, v: Verifier) -> dict[str, Any]:
     """The JSON the Scout sees for one moment: facts computed by code, nothing else."""
-    _, nums = render(m, match)
+    _, nums = render(m, match, v)
     teams = {tid: team_name(match, tid) for tid in match["meta"]["teams"]}
     pids = set(m.get("players", [])) | (
         {m["subject"]["id"]} if m["subject"]["type"] == "player" else set()
     )
     hedge = "none"
     if m["rule"] == "overload":
-        hedge = share_hedge(m["k"], m["n"], 100 * load()["verifier"]["lane_baseline"])
+        hedge = share_hedge(m["k"], m["n"], 100 * v.lane_baseline, v)
     return {
         "moment": {k: m[k] for k in MOMENT_FIELDS if k in m},
         "minutes": {
@@ -109,7 +109,12 @@ def parse_output(text: str) -> dict[str, Any]:
 
 
 def scout_fact(
-    out: dict[str, Any], m: dict[str, Any], match: Match, fact_id: str, required: list[str]
+    out: dict[str, Any],
+    m: dict[str, Any],
+    match: Match,
+    fact_id: str,
+    required: list[str],
+    v: Verifier,
 ) -> Fact:
     """Build a draft fact from Scout output. Raises ValueError/KeyError/TypeError on malformed output."""
     claim, text = dict(out["claim"]), out["text"]
@@ -117,7 +122,7 @@ def scout_fact(
     if keys != sorted(required):
         raise ValueError(f"numbers keys {keys} differ from the input keys {sorted(required)}")
     if str(claim.get("metric", "")).startswith("attack_share_"):
-        claim["baseline"] = round(100 * load()["verifier"]["lane_baseline"], 2)
+        claim["baseline"] = round(100 * v.lane_baseline, 2)
     fact: Fact = {
         "fact_id": fact_id,
         "match_id": match["meta"]["match_id"],
@@ -144,10 +149,10 @@ def scout_fact(
     return fact
 
 
-def template_wording(draft: Fact, m: dict[str, Any], match: Match) -> Fact:
+def template_wording(draft: Fact, m: dict[str, Any], match: Match, v: Verifier) -> Fact:
     """Goals, substitutions and cards (T0) air in fixed template wording. The Scout's claim and
     evidence stand, and its own wording stays in draft_en for the log."""
-    text, nums = render(m, match)
+    text, nums = render(m, match, v)
     draft["text"].update(canonical_en=text, numbers=nums)
     validate_fact(draft)
     return draft
@@ -180,9 +185,9 @@ def with_audit(fact: Fact, steps: list[Step]) -> Fact:
     return fact
 
 
-def verify_rules(draft: Fact, match: Match, steps: list[Step] | None = None) -> Fact:
+def verify_rules(draft: Fact, match: Match, s: Settings, steps: list[Step] | None = None) -> Fact:
     """Verify a rule-based draft and record that the rules wrote it."""
-    checked = verify(draft, match)
+    checked = verify(draft, match, s)
     trail = (steps or []) + [
         step("Drafter", 1, "drafted", path="rules"),
         step("Verifier", 1, checked["verification"]["status"], path="rules"),
@@ -269,7 +274,13 @@ class Scout:
 
 
 def attempt(
-    scout: Scout, request: dict[str, Any], m: dict[str, Any], match: Match, fact_id: str, n: int
+    scout: Scout,
+    request: dict[str, Any],
+    m: dict[str, Any],
+    match: Match,
+    fact_id: str,
+    n: int,
+    s: Settings,
 ) -> tuple[Fact | None, dict[str, Any] | None, list[Step]]:
     """One Scout call. Returns (checked fact or None, parsed output or None, the steps taken)."""
     outcome, rec = scout.ask(request)
@@ -277,36 +288,37 @@ def attempt(
         return None, None, [step("Scout", n, outcome, rec)]
     try:
         out = parse_output(rec["response_text"])
-        draft = scout_fact(out, m, match, fact_id, [k["key"] for k in request["numbers"]])
+        keys = [k["key"] for k in request["numbers"]]
+        draft = scout_fact(out, m, match, fact_id, keys, s.verifier)
     except (ValueError, KeyError, TypeError) as e:
         return None, None, [step("Scout", n, f"invalid_output: {str(e)[:120]}", rec)]
     steps = [step("Scout", n, "drafted", rec)]
-    if m["metric"] in load()["router"]["t0_metrics"]:
-        draft = template_wording(draft, m, match)
+    if m["metric"] in s.router.t0_metrics:
+        draft = template_wording(draft, m, match, s.verifier)
         steps.append(step("Drafter", n, "template wording (T0)", path="rules"))
-    return verify(draft, match), out, steps
+    return verify(draft, match, s), out, steps
 
 
 def scout_moment_first(
-    scout: Scout, m: dict[str, Any], rules_draft: Fact, match: Match
+    scout: Scout, m: dict[str, Any], rules_draft: Fact, match: Match, s: Settings
 ) -> tuple[Fact, Any]:
-    request = scout_request(m, match)
-    checked, out, steps = attempt(scout, request, m, match, rules_draft["fact_id"], 1)
+    request = scout_request(m, match, s.verifier)
+    checked, out, steps = attempt(scout, request, m, match, rules_draft["fact_id"], 1, s)
     if checked is None:
-        return verify_rules(rules_draft, match, steps), None
+        return verify_rules(rules_draft, match, s, steps), None
     trail = steps + [step("Verifier", 1, checked["verification"]["status"], path="rules")]
     return with_audit(checked, trail), (request, out)
 
 
 def scout_moment_retry(
-    scout: Scout, m: dict[str, Any], first: Fact, ctx: Any, match: Match
+    scout: Scout, m: dict[str, Any], first: Fact, ctx: Any, match: Match, s: Settings
 ) -> Fact:
     """One retry for a Scout claim the verifier did not pass. Otherwise the fact is unchanged."""
     if ctx is None or first["verification"]["status"] in ROUTABLE:
         return first
     request, out = ctx
     retry_req = {**request, "previous_output": out, "feedback": feedback(first)}
-    checked, _, steps = attempt(scout, retry_req, m, match, first["fact_id"], 2)
+    checked, _, steps = attempt(scout, retry_req, m, match, first["fact_id"], 2, s)
     trail = first["audit"]["steps"] + steps
     if checked is None:
         return with_audit(first, trail)
@@ -316,14 +328,19 @@ def scout_moment_retry(
 
 
 def run_scout(
-    scout: Scout, moments: list[dict[str, Any]], rules_drafts: list[Fact], match: Match
+    scout: Scout,
+    moments: list[dict[str, Any]],
+    rules_drafts: list[Fact],
+    match: Match,
+    s: Settings,
 ) -> list[Fact]:
     """Pass 1: a Scout call per moment. Pass 2: one retry each for rejected claims, while budget lasts."""
     first = [
-        scout_moment_first(scout, m, d, match) for m, d in zip(moments, rules_drafts, strict=True)
+        scout_moment_first(scout, m, d, match, s)
+        for m, d in zip(moments, rules_drafts, strict=True)
     ]
     return [
-        scout_moment_retry(scout, m, f, ctx, match)
+        scout_moment_retry(scout, m, f, ctx, match, s)
         for m, (f, ctx) in zip(moments, first, strict=True)
     ]
 
@@ -349,29 +366,28 @@ def scout_metrics(facts: list[Fact]) -> dict[str, int]:
 class FoundryCaller:
     """Calls the Scout prompt agent; falls back to a plain responses call with the same instructions."""
 
-    def __init__(self) -> None:
+    def __init__(self, cfg: Agents) -> None:
         from azure.ai.projects import AIProjectClient
         from azure.ai.projects.models import PromptAgentDefinition
         from azure.identity import DefaultAzureCredential
         from dotenv import load_dotenv
 
         load_dotenv(ROOT / ".env")
-        cfg = load()["agents"]
         self.model = os.environ["FOUNDRY_MODEL"]
         project = AIProjectClient(
             endpoint=os.environ["FOUNDRY_PROJECT_ENDPOINT"],
             credential=DefaultAzureCredential(),
             allow_preview=True,
         )
-        opts = {"timeout": cfg["timeout_s"], "max_retries": 0}
+        opts = {"timeout": cfg.timeout_s, "max_retries": 0}
         self.plain = project.get_openai_client(**opts)
         self.agent: Any = None
         try:
             project.agents.create_version(
-                cfg["scout_name"],
+                cfg.scout_name,
                 definition=PromptAgentDefinition(model=self.model, instructions=SCOUT_INSTRUCTIONS),
             )
-            self.agent = project.get_openai_client(agent_name=cfg["scout_name"], **opts)
+            self.agent = project.get_openai_client(agent_name=cfg.scout_name, **opts)
         except Exception as e:  # noqa: BLE001
             print(
                 f"  Scout agent unavailable ({type(e).__name__}: {str(e)[:200]}); using plain responses"

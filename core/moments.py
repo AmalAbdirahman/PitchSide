@@ -9,7 +9,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
-from core.config import load
+from core.config import Pitch, Settings, Winprob
 from core.shares import attacks_by_lane
 from core.winprob import win_probability
 
@@ -58,7 +58,11 @@ def _share(hits: list[int], total: int) -> Metric:
 
 
 def compute_metric(
-    metric: str, subject: dict[str, str], window: dict[str, float], events: list[Event]
+    metric: str,
+    subject: dict[str, str],
+    window: dict[str, float],
+    events: list[Event],
+    pitch: Pitch,
 ) -> Metric | None:
     """Recompute a metric from the events in a window. None if not computable."""
     evs = _of(in_window(events, window["start_t"], window["end_t"]), subject)
@@ -79,13 +83,13 @@ def compute_metric(
         best = max(shots, key=lambda e: e["shot_speed"])
         return Metric(best["shot_speed"], len(shots), 1, [best["id"]])
     if metric == "turnovers_own_third":
-        own = load()["pitch"]["own_third_x"]
+        own = pitch.own_third_x
         return _count([e for e in evs if e["type"] == "possession_change" and e["x"] < own])
     if metric == "pass_accuracy":
         passes = [e for e in evs if e["type"] == "pass"]
         return _share([e["id"] for e in passes if e["outcome"] == "success"], len(passes))
     if metric.startswith("attack_share_") and subject["type"] == "team":
-        groups = attacks_by_lane(evs, subject["id"])
+        groups = attacks_by_lane(evs, subject["id"], pitch)
         return _share(
             groups[metric.removeprefix("attack_share_")], sum(len(v) for v in groups.values())
         )
@@ -93,10 +97,14 @@ def compute_metric(
 
 
 def require_metric(
-    metric: str, subject: dict[str, str], window: dict[str, float], events: list[Event]
+    metric: str,
+    subject: dict[str, str],
+    window: dict[str, float],
+    events: list[Event],
+    pitch: Pitch,
 ) -> Metric:
     """compute_metric for callers that only ask for metrics that are always computable."""
-    m = compute_metric(metric, subject, window, events)
+    m = compute_metric(metric, subject, window, events, pitch)
     if m is None:
         raise ValueError(f"{metric} is not computable for {subject} in {window}")
     return m
@@ -141,17 +149,27 @@ def score_at(events: list[Event], t: float, teams: tuple[str, str]) -> dict[str,
     }
 
 
-def _wp(events: list[Event], t: float, team: str, other: str, mu: float, inclusive: bool) -> float:
+def _wp(
+    events: list[Event],
+    t: float,
+    team: str,
+    other: str,
+    mu: float,
+    inclusive: bool,
+    wp: Winprob,
+) -> float:
     past = [e for e in events if (e["t"] <= t if inclusive else e["t"] < t)]
     g = {tm: sum(e["type"] == "goal" and e["team"] == tm for e in past) for tm in (team, other)}
     x = {
         tm: sum(e.get("xg", 0.0) for e in past if e["type"] == "shot" and e["team"] == tm)
         for tm in (team, other)
     }
-    return win_probability(t / 60, g[team], g[other], x[team], x[other], mu)[0]
+    return win_probability(t / 60, g[team], g[other], x[team], x[other], mu, wp)[0]
 
 
-def goal_moments(events: list[Event], teams: tuple[str, str], mu: float) -> list[dict[str, Any]]:
+def goal_moments(
+    events: list[Event], teams: tuple[str, str], mu: float, wp: Winprob
+) -> list[dict[str, Any]]:
     out = []
     for g in (e for e in events if e["type"] == "goal"):
         shot = next(
@@ -160,8 +178,8 @@ def goal_moments(events: list[Event], teams: tuple[str, str], mu: float) -> list
             if e["type"] == "shot" and e["t"] <= g["t"] and e["team"] == g["team"]
         )
         other = teams[1] if g["team"] == teams[0] else teams[0]
-        before = _wp(events, shot["t"], g["team"], other, mu, inclusive=False)
-        after = _wp(events, g["t"], g["team"], other, mu, inclusive=True)
+        before = _wp(events, shot["t"], g["team"], other, mu, False, wp)
+        after = _wp(events, g["t"], g["team"], other, mu, True, wp)
         m = Metric(1, 1, 1, [shot["id"], g["id"]])
         out.append(
             _moment(
@@ -223,44 +241,40 @@ def event_moments(events: list[Event]) -> list[dict[str, Any]]:
     return out
 
 
-def _checkpoints() -> list[float]:
-    c = load()["moments"]
-    end = 2 * load()["sim"]["half_s"]
-    return [float(t) for t in range(c["first_check_s"], end + 1, c["check_every_s"])]
+def _checkpoints(s: Settings) -> list[float]:
+    c = s.moments
+    end = 2 * s.sim.half_s
+    return [float(t) for t in range(c.first_check_s, end + 1, c.check_every_s)]
 
 
-def _overload_start(events: list[Event], team: str, cp: float) -> float:
+def _overload_start(events: list[Event], team: str, cp: float, window_s: int) -> float:
     """Window start: the team's latest substitution if recent, else a rolling window."""
-    c = load()["moments"]
     subs = [
         e["t"] for e in events if e["type"] == "substitution" and e["team"] == team and e["t"] < cp
     ]
-    if subs and cp - subs[-1] <= 2 * c["overload_window_s"]:
+    if subs and cp - subs[-1] <= 2 * window_s:
         return subs[-1]
-    return max(0.0, cp - c["overload_window_s"])
+    return max(0.0, cp - window_s)
 
 
-def overload_moments(events: list[Event], teams: tuple[str, str]) -> list[dict[str, Any]]:
-    c, n_min = load()["moments"], load()["verifier"]["n_min"]
+def overload_moments(
+    events: list[Event], teams: tuple[str, str], s: Settings
+) -> list[dict[str, Any]]:
+    c, n_min = s.moments, s.verifier.n_min
     out: list[dict[str, Any]] = []
     last: dict[str, tuple[float, str]] = {}
-    for cp in _checkpoints():
+    for cp in _checkpoints(s):
         for team in teams:
-            start = _overload_start(events, team, cp)
+            start = _overload_start(events, team, cp, c.overload_window_s)
+            w = {"start_t": start, "end_t": cp}
             shares = {
-                ln: require_metric(
-                    f"attack_share_{ln}", _team(team), {"start_t": start, "end_t": cp}, events
-                )
+                ln: require_metric(f"attack_share_{ln}", _team(team), w, events, s.pitch)
                 for ln in ("left", "centre", "right")
             }
             lane, m = max(shares.items(), key=lambda kv: kv[1].value)
-            if m.n < n_min or m.value < 100 * c["overload_min_share"]:
+            if m.n < n_min or m.value < 100 * c.overload_min_share:
                 continue
-            if (
-                team in last
-                and last[team][1] == lane
-                and cp - last[team][0] < c["overload_window_s"]
-            ):
+            if team in last and last[team][1] == lane and cp - last[team][0] < c.overload_window_s:
                 continue
             last[team] = (cp, lane)
             out.append(
@@ -278,25 +292,26 @@ def overload_moments(events: list[Event], teams: tuple[str, str]) -> list[dict[s
     return out
 
 
-def turnover_moments(events: list[Event], teams: tuple[str, str]) -> list[dict[str, Any]]:
-    c = load()["moments"]
+def turnover_moments(
+    events: list[Event], teams: tuple[str, str], s: Settings
+) -> list[dict[str, Any]]:
+    c = s.moments
     out, next_ok = [], {tm: 0.0 for tm in teams}
-    for cp in _checkpoints():
+    for cp in _checkpoints(s):
         for team in teams:
-            start = cp - c["turnover_window_s"]
-            m = compute_metric(
-                "turnovers_own_third", _team(team), {"start_t": start, "end_t": cp}, events
-            )
-            if m and m.value >= c["turnover_min_count"] and cp >= next_ok[team]:
-                next_ok[team] = cp + c["turnover_window_s"]
+            start = cp - c.turnover_window_s
+            w = {"start_t": start, "end_t": cp}
+            m = compute_metric("turnovers_own_third", _team(team), w, events, s.pitch)
+            if m and m.value >= c.turnover_min_count and cp >= next_ok[team]:
+                next_ok[team] = cp + c.turnover_window_s
                 out.append(
                     _moment("stat", "turnovers", "turnovers_own_third", _team(team), start, cp, m)
                 )
     return out
 
 
-def half_moments(events: list[Event], teams: tuple[str, str]) -> list[dict[str, Any]]:
-    half = float(load()["sim"]["half_s"])
+def half_moments(events: list[Event], teams: tuple[str, str], s: Settings) -> list[dict[str, Any]]:
+    half = float(s.sim.half_s)
     out = []
     # The simulator keeps first-half events strictly below half_s.
     for idx, (start, end) in enumerate(((0.0, half - 0.1), (half, 2 * half))):
@@ -304,9 +319,9 @@ def half_moments(events: list[Event], teams: tuple[str, str]) -> list[dict[str, 
         w = {"start_t": start, "end_t": end}
         for team in teams:
             for metric in ("xg_sum", "pass_accuracy"):
-                m = require_metric(metric, _team(team), w, events)
+                m = require_metric(metric, _team(team), w, events, s.pitch)
                 out.append(_moment("stat", metric, metric, _team(team), start, end, m, half=name))
-        top = compute_metric("top_shot_speed", {"type": "match", "id": "match"}, w, events)
+        top = compute_metric("top_shot_speed", {"type": "match", "id": "match"}, w, events, s.pitch)
         if top:
             shooter = next(e for e in events if e["id"] == top.ids[0])["player_id"]
             out.append(
@@ -322,11 +337,13 @@ def half_moments(events: list[Event], teams: tuple[str, str]) -> list[dict[str, 
                     players=[shooter],
                 )
             )
-        out += _top_shooter(events, w, name)
+        out += _top_shooter(events, w, name, s.pitch)
     return out
 
 
-def _top_shooter(events: list[Event], w: dict[str, float], name: str) -> list[dict[str, Any]]:
+def _top_shooter(
+    events: list[Event], w: dict[str, float], name: str, pitch: Pitch
+) -> list[dict[str, Any]]:
     shots = [e for e in in_window(events, w["start_t"], w["end_t"]) if e["type"] == "shot"]
     if not shots:
         return []
@@ -337,7 +354,7 @@ def _top_shooter(events: list[Event], w: dict[str, float], name: str) -> list[di
     if counts[pid] < 2:
         return []
     subj = {"type": "player", "id": pid}
-    m = require_metric("shots", subj, w, events)
+    m = require_metric("shots", subj, w, events, pitch)
     return [
         _moment(
             "stat",
@@ -353,13 +370,15 @@ def _top_shooter(events: list[Event], w: dict[str, float], name: str) -> list[di
     ]
 
 
-def detect_moments(events: list[Event], teams: tuple[str, str], mu: float) -> list[dict[str, Any]]:
+def detect_moments(
+    events: list[Event], teams: tuple[str, str], mu: float, s: Settings
+) -> list[dict[str, Any]]:
     """All moments in the match, sorted by creation time."""
     moments = (
-        goal_moments(events, teams, mu)
+        goal_moments(events, teams, mu, s.winprob)
         + event_moments(events)
-        + overload_moments(events, teams)
-        + turnover_moments(events, teams)
-        + half_moments(events, teams)
+        + overload_moments(events, teams, s)
+        + turnover_moments(events, teams, s)
+        + half_moments(events, teams, s)
     )
     return sorted(moments, key=lambda m: (m["created_t"], m["rule"]))

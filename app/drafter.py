@@ -14,7 +14,7 @@ from collections.abc import Iterator
 from typing import Any
 
 from app.verifier import validate_fact
-from core.config import load
+from core.config import Settings, Verifier
 from core.moments import Metric, compute_metric, minute, ordinal
 from core.wilson import hedge_for, wilson
 
@@ -46,10 +46,9 @@ def _num(key: str, value: float, unit: str | None = None) -> dict[str, Any]:
     return out
 
 
-def share_hedge(k: int, n: int, baseline_pct: float | None) -> str:
-    v = load()["verifier"]
-    lo, hi = wilson(k, n, v["z"])
-    return hedge_for(n, lo, hi, None if baseline_pct is None else baseline_pct / 100, v["n_min"])
+def share_hedge(k: int, n: int, baseline_pct: float | None, v: Verifier) -> str:
+    lo, hi = wilson(k, n, v.z)
+    return hedge_for(n, lo, hi, None if baseline_pct is None else baseline_pct / 100, v.n_min)
 
 
 # ---- text per moment rule ---------------------------------------------
@@ -68,15 +67,11 @@ def _text_goal(m: dict[str, Any], match: Match) -> tuple[str, list[dict[str, Any
 
 
 def _text_overload(
-    m: dict[str, Any], match: Match, force_plain: bool = False
+    m: dict[str, Any], match: Match, v: Verifier, force_plain: bool = False
 ) -> tuple[str, list[dict[str, Any]]]:
     pct, since = round(m["value"]), minute(m["window"]["start_t"])
     team, lane = team_name(match, m["subject"]["id"]), m["lane"]
-    hedge = (
-        "clear"
-        if force_plain
-        else share_hedge(m["k"], m["n"], 100 * load()["verifier"]["lane_baseline"])
-    )
+    hedge = "clear" if force_plain else share_hedge(m["k"], m["n"], 100 * v.lane_baseline, v)
     if hedge == "clear":
         text = f"Since the {ordinal(since)} minute, {pct}% of {team} attacks have gone down the {lane}."
     else:
@@ -129,14 +124,14 @@ def _text_event(m: dict[str, Any], match: Match) -> tuple[str, list[dict[str, An
 
 
 def render(
-    m: dict[str, Any], match: Match, force_plain: bool = False
+    m: dict[str, Any], match: Match, v: Verifier, force_plain: bool = False
 ) -> tuple[str, list[dict[str, Any]]]:
     if m["rule"] == "goal":
         return _text_goal(m, match)
     if m["rule"] in ("substitution", "card"):
         return _text_event(m, match)
     if m["rule"] == "overload":
-        return _text_overload(m, match, force_plain)
+        return _text_overload(m, match, v, force_plain)
     if m["rule"] == "turnovers":
         return _text_turnovers(m, match)
     return _text_half(m, match)
@@ -149,8 +144,10 @@ def _claim_value(m: dict[str, Any], nums: list[dict[str, Any]]) -> float:
     return next((n["value"] for n in nums if n["key"] == "value"), m["value"])
 
 
-def to_fact(m: dict[str, Any], match: Match, fact_id: str, force_plain: bool = False) -> Fact:
-    text, nums = render(m, match, force_plain)
+def to_fact(
+    m: dict[str, Any], match: Match, fact_id: str, v: Verifier, force_plain: bool = False
+) -> Fact:
+    text, nums = render(m, match, v, force_plain)
     claim: dict[str, Any] = {
         "subject": m["subject"],
         "metric": m["metric"],
@@ -159,7 +156,7 @@ def to_fact(m: dict[str, Any], match: Match, fact_id: str, force_plain: bool = F
         "value": _claim_value(m, nums),
     }
     if m["metric"].startswith("attack_share_"):
-        claim["baseline"] = round(100 * load()["verifier"]["lane_baseline"], 2)
+        claim["baseline"] = round(100 * v.lane_baseline, 2)
     fact: Fact = {
         "fact_id": fact_id,
         "match_id": match["meta"]["match_id"],
@@ -269,14 +266,20 @@ def inject_intent(fact: Fact, fact_id: str, style: str) -> Fact:
 
 
 def small_sample_draft(
-    team: str, lane: str, start: float, end: float, match: Match, fact_id: str, min_n: int = 1
+    team: str,
+    lane: str,
+    start: float,
+    end: float,
+    match: Match,
+    fact_id: str,
+    s: Settings,
+    min_n: int = 1,
 ) -> Fact | None:
     """A lane-share claim over a window too short to support it, worded as a plain statement."""
     metric = f"attack_share_{lane}"
-    m: Metric | None = compute_metric(
-        metric, {"type": "team", "id": team}, {"start_t": start, "end_t": end}, match["events"]
-    )
-    if m is None or not min_n <= m.n < load()["verifier"]["n_min"] or m.k == 0:
+    subject, window = {"type": "team", "id": team}, {"start_t": start, "end_t": end}
+    m: Metric | None = compute_metric(metric, subject, window, match["events"], s.pitch)
+    if m is None or not min_n <= m.n < s.verifier.n_min or m.k == 0:
         return None
     moment = {
         "kind": "tactical",
@@ -291,7 +294,7 @@ def small_sample_draft(
         "evidence_ids": m.ids,
         "lane": lane,
     }
-    out = to_fact(moment, match, fact_id, force_plain=True)
+    out = to_fact(moment, match, fact_id, s.verifier, force_plain=True)
     out["injected"] = True
     return out
 
@@ -315,9 +318,8 @@ def _first(facts: list[Fact], metric_prefix: str, **want: Any) -> Fact | None:
     return None
 
 
-def injected_drafts(good: list[Fact], match: Match, ids: Any) -> list[Fact]:
+def injected_drafts(good: list[Fact], match: Match, ids: Any, s: Settings) -> list[Fact]:
     """One injected draft per error category, built from suitable good drafts."""
-    s = load()["sim"]
     out: list[Fact] = []
     goal, over = _first(good, "goals"), _first(good, "attack_share_")
     turn = _first(good, "turnovers_own_third")
@@ -335,25 +337,25 @@ def injected_drafts(good: list[Fact], match: Match, ids: Any) -> list[Fact]:
     if turn:
         out.append(inject_wrong_window(turn, next(ids), 900))
         out.append(inject_intent(turn, next(ids), "clause"))
-    small = first_small_sample("NOR", "left", s["hero_sub_t"], match, next(ids))
+    small = first_small_sample("NOR", "left", s.sim.hero_sub_t, match, next(ids), s)
     if small:
         out.append(small)
     return out
 
 
 def first_small_sample(
-    team: str, lane: str, start: float, match: Match, fact_id: str, min_n: int = 3
+    team: str, lane: str, start: float, match: Match, fact_id: str, s: Settings, min_n: int = 3
 ) -> Fact | None:
     """Shortest window from `start` with at least `min_n` (but too few) attacks."""
     for end in range(int(start) + 60, int(start) + 1800, 30):
-        fact = small_sample_draft(team, lane, start, float(end), match, fact_id, min_n)
+        fact = small_sample_draft(team, lane, start, float(end), match, fact_id, s, min_n)
         if fact:
             return fact
     return None
 
 
-def draft_facts(moments: list[dict[str, Any]], match: Match) -> list[Fact]:
+def draft_facts(moments: list[dict[str, Any]], match: Match, s: Settings) -> list[Fact]:
     """Good drafts for every moment, followed by the injected drafts."""
     ids = _ids(1)
-    good = [to_fact(m, match, next(ids)) for m in moments]
-    return good + injected_drafts(good, match, ids)
+    good = [to_fact(m, match, next(ids), s.verifier) for m in moments]
+    return good + injected_drafts(good, match, ids, s)

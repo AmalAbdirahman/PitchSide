@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import math
 
-from core.config import load
+from core.config import Winprob
 
 
 def _pmf(lam: float, cap: int) -> list[float]:
@@ -24,13 +24,18 @@ def rate(xg: float, minutes: float, mu: float, k: float) -> float:
 
 
 def win_probability(
-    minutes: float, goals_a: int, goals_b: int, xg_a: float, xg_b: float, mu: float
+    minutes: float,
+    goals_a: int,
+    goals_b: int,
+    xg_a: float,
+    xg_b: float,
+    mu: float,
+    c: Winprob,
 ) -> tuple[float, float, float]:
     """Return (P(a wins), P(draw), P(b wins)) at the given match state."""
-    c = load()["winprob"]
-    remaining = max(0.0, c["match_minutes"] - minutes)
-    pa = _pmf(rate(xg_a, minutes, mu, c["k"]) * remaining, c["goal_cap"])
-    pb = _pmf(rate(xg_b, minutes, mu, c["k"]) * remaining, c["goal_cap"])
+    remaining = max(0.0, c.match_minutes - minutes)
+    pa = _pmf(rate(xg_a, minutes, mu, c.k) * remaining, c.goal_cap)
+    pb = _pmf(rate(xg_b, minutes, mu, c.k) * remaining, c.goal_cap)
     win = draw = loss = 0.0
     for i, p_i in enumerate(pa):
         for j, p_j in enumerate(pb):

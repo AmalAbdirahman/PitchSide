@@ -14,37 +14,36 @@ import re
 from typing import Any
 
 from app.verifier import validate_fact
-from core.config import load
+from core.config import Router
 
 Fact = dict[str, Any]
 AUTOPILOT_OK = "autopilot_ok"
 
 
-def names_player_negatively(fact: Fact) -> bool:
+def names_player_negatively(fact: Fact, r: Router) -> bool:
     """A player is named and the claim is about something going wrong."""
-    r = load()["router"]
     named = fact["claim"]["subject"]["type"] == "player" or bool(fact["evidence"].get("players"))
     if not named:
         return False
     text = fact["text"]["canonical_en"].lower()
-    words = any(re.search(rf"\b{re.escape(w)}\b", text) for w in r["negative_words"])
-    return fact["claim"]["metric"] in r["negative_metrics"] or words
+    words = any(re.search(rf"\b{re.escape(w)}\b", text) for w in r.negative_words)
+    return fact["claim"]["metric"] in r.negative_metrics or words
 
 
-def tier_for(fact: Fact) -> tuple[str, list[str]]:
+def tier_for(fact: Fact, r: Router) -> tuple[str, list[str]]:
     """Decide the tier and the reasons for it."""
-    r, v = load()["router"], fact["verification"]
+    v = fact["verification"]
     corrected = v["status"] == "corrected"
     hedge = fact.get("uncertainty", {}).get("hedge", "none")
     impact = abs(fact.get("impact", {}).get("delta", 0.0))
-    if fact["claim"]["metric"] in r["t0_metrics"] and not corrected:
+    if fact["claim"]["metric"] in r.t0_metrics and not corrected:
         return "T0", ["plain event-log fact"]
     reasons = []
     if corrected:
         reasons.append("verifier corrected the draft")
-    if impact >= r["impact_t2"]:
-        reasons.append(f"impact {impact:.2f} >= {r['impact_t2']:.2f}")
-    if names_player_negatively(fact):
+    if impact >= r.impact_t2:
+        reasons.append(f"impact {impact:.2f} >= {r.impact_t2:.2f}")
+    if names_player_negatively(fact, r):
         reasons.append("names a player negatively")
     if hedge == "early":
         reasons.append("hedge early (small sample)")
@@ -61,16 +60,15 @@ def autopilot_ok(fact: Fact) -> bool:
     )
 
 
-def route(fact: Fact) -> Fact:
+def route(fact: Fact, r: Router) -> Fact:
     """Return a copy of the fact with risk tier and initial approval state set."""
     status = fact["verification"]["status"]
     if status not in ("verified", "corrected"):
         raise ValueError(
             f"{fact['fact_id']} is {status}; only verified or corrected facts are routed"
         )
-    r = load()["router"]
     out = copy.deepcopy(fact)
-    tier, reasons = tier_for(out)
+    tier, reasons = tier_for(out, r)
     if tier == "T2" and autopilot_ok(out):
         reasons.append(AUTOPILOT_OK)
     out["risk"] = {"tier": tier, "reasons": reasons}
@@ -81,7 +79,7 @@ def route(fact: Fact) -> Fact:
     if tier == "T0":
         approval["decided_by"] = "auto"
     else:
-        approval["ttl_s"] = r["veto_window_s"] if tier == "T1" else r["t2_ttl_s"]
+        approval["ttl_s"] = r.veto_window_s if tier == "T1" else r.t2_ttl_s
     out["approval"] = approval
     validate_fact(out)
     return out

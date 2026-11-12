@@ -17,7 +17,7 @@ import math
 import random
 from typing import Any
 
-from core.config import ROOT, load
+from core.config import ROOT, Settings, load
 from core.shares import lane_of
 from core.xg import xg as shot_xg
 from sim.data_card import write_data_card
@@ -76,9 +76,9 @@ def clamp(v: float, lo: float, hi: float) -> float:
 class Match:
     """Incremental simulator state for one match."""
 
-    def __init__(self, seed: int, hero: bool) -> None:
-        self.cfg = load()
-        self.s = self.cfg["sim"]
+    def __init__(self, seed: int, hero: bool, cfg: Settings) -> None:
+        self.cfg = cfg
+        self.s = cfg.sim
         self.rng = random.Random(seed)
         self.hero = hero
         self.events: list[Event] = []
@@ -113,9 +113,9 @@ class Match:
 
     def start_possession(self, team: str, x: float, y: float) -> None:
         self.team, self.x, self.y = team, x, y
-        weights = self.s["lane_weights"]
+        weights = self.s.lane_weights
         if self.overload_active(team):
-            weights = self.s["overload_lane_weights"]
+            weights = self.s.overload_lane_weights
         lane = self.rng.choices(["left", "centre", "right"], weights=weights)[0]
         self.target_y = clamp(LANE_Y[lane] + self.rng.gauss(0, 5), 2, 66)
 
@@ -124,15 +124,15 @@ class Match:
             self.hero
             and team == "NOR"
             and "sub" in self.done
-            and self.t < self.s["hero_overload_until_t"]
+            and self.t < self.s.hero_overload_until_t
         )
 
     def pressing(self) -> bool:
         return (
             self.hero
             and self.team == "HAR"
-            and self.t >= self.s["hero_press_from_t"]
-            and self.x < self.cfg["pitch"]["own_third_x"]
+            and self.t >= self.s.hero_press_from_t
+            and self.x < self.cfg.pitch.own_third_x
         )
 
     def pick(self, team: str, x: float, y: float, shooting: bool = False) -> str:
@@ -143,7 +143,7 @@ class Match:
             role_w = {"D": 0.2, "M": 0.6, "A": 0.2}
         else:
             role_w = {"D": 0.6, "M": 0.4, "A": 0.0}
-        lane_role = {"left": "AL", "centre": "AC", "right": "AR"}[lane_of(y)]
+        lane_role = {"left": "AL", "centre": "AC", "right": "AR"}[lane_of(y, self.cfg.pitch)]
         pool, weights = [], []
         for pid in self.on_pitch[team]:
             role = self.roles[pid]
@@ -157,16 +157,16 @@ class Match:
     # ---- actions -----------------------------------------------------
     def turnover(self, player: str, x: float, y: float, dt: float) -> None:
         self.emit("possession_change", self.team, player, x, y, dt)
-        L, W = self.cfg["pitch"]["length"], self.cfg["pitch"]["width"]
+        L, W = self.cfg.pitch.length, self.cfg.pitch.width
         self.start_possession(self.other(self.team), L - x, W - y)
 
     def do_pass(self) -> None:
         s, rng = self.s, self.rng
         player = self.pick(self.team, self.x, self.y)
         pressed = self.pressing()
-        pressured = rng.random() < (s["press_pressure_prob"] if pressed else s["pressure_prob"])
+        pressured = rng.random() < (s.press_pressure_prob if pressed else s.pressure_prob)
         if pressured:
-            L, W = self.cfg["pitch"]["length"], self.cfg["pitch"]["width"]
+            L, W = self.cfg.pitch.length, self.cfg.pitch.width
             opp = self.other(self.team)
             self.emit(
                 "pressure", opp, self.pick(opp, L - self.x, W - self.y), L - self.x, W - self.y
@@ -179,11 +179,11 @@ class Match:
         )
         pd = math.hypot(ex - self.x, ey - self.y)
         logit = (
-            s["pass_logit_intercept"]
-            + s["pass_logit_dist"] * pd
-            + s["pass_logit_pressure"] * pressured
-            + s["pass_logit_final_third"] * (ex > self.cfg["pitch"]["final_third_x"])
-            + s["press_logit_boost"] * pressed
+            s.pass_logit_intercept
+            + s.pass_logit_dist * pd
+            + s.pass_logit_pressure * pressured
+            + s.pass_logit_final_third * (ex > self.cfg.pitch.final_third_x)
+            + s.press_logit_boost * pressed
         )
         difficulty = sigmoid(logit)
         ok = rng.random() > difficulty
@@ -213,7 +213,7 @@ class Match:
         theta = rng.gauss(0, 0.5)
         ex = clamp(self.x + d * math.cos(theta), 1, 104)
         ey = clamp(0.6 * (self.y + d * math.sin(theta)) + 0.4 * self.target_y, 1, 67)
-        tackled = rng.random() < s["tackle_prob"]
+        tackled = rng.random() < s.tackle_prob
         self.emit(
             "carry",
             self.team,
@@ -229,18 +229,18 @@ class Match:
         if not tackled:
             self.x, self.y = ex, ey
             return
-        L, W = self.cfg["pitch"]["length"], self.cfg["pitch"]["width"]
+        L, W = self.cfg.pitch.length, self.cfg.pitch.width
         opp = self.other(self.team)
         tackler = self.pick(opp, L - ex, W - ey)
         self.emit("tackle", opp, tackler, L - ex, W - ey, 1.0, outcome="success")
-        if rng.random() < s["card_prob"]:
+        if rng.random() < s.card_prob:
             self.emit("card", opp, tackler, L - ex, W - ey, 1.2, card="yellow")
         self.turnover(player, ex, ey, 1.5)
 
     def do_shot(self, player: str | None = None, force_goal: bool = False) -> None:
         rng = self.rng
         player = player or self.pick(self.team, self.x, self.y, shooting=True)
-        p_goal = shot_xg(self.x, self.y)
+        p_goal = shot_xg(self.x, self.y, self.cfg.pitch, self.cfg.xg)
         if force_goal:
             outcome = "goal"
         elif not self.hero and rng.random() < p_goal:
@@ -272,7 +272,7 @@ class Match:
     def step(self) -> None:
         s, rng = self.s, self.rng
         box = self.x > 88 and abs(self.y - 34) < 20
-        p_shot = s["shot_prob_box"] if box else (s["shot_prob_long"] if self.x > 75 else 0.0)
+        p_shot = s.shot_prob_box if box else (s.shot_prob_long if self.x > 75 else 0.0)
         r = rng.random()
         if r < p_shot:
             self.do_shot()
@@ -326,18 +326,18 @@ class Match:
 
     def hero_hooks(self) -> None:
         s = self.s
-        if "sub" not in self.done and self.t >= s["hero_sub_t"] - 20:
+        if "sub" not in self.done and self.t >= s.hero_sub_t - 20:
             self.done.add("sub")
-            self.substitute(HERO_SUB, s["hero_sub_t"])
-        if "goal" not in self.done and self.t >= s["hero_goal_t"] - 40:
+            self.substitute(HERO_SUB, s.hero_sub_t)
+        if "goal" not in self.done and self.t >= s.hero_goal_t - 40:
             self.done.add("goal")
-            self.scripted_goal(s["hero_goal_t"])
-        if "away_sub" not in self.done and self.t >= s["hero_away_sub_t"] - 20:
+            self.scripted_goal(s.hero_goal_t)
+        if "away_sub" not in self.done and self.t >= s.hero_away_sub_t - 20:
             self.done.add("away_sub")
-            self.substitute(HERO_AWAY_SUB, s["hero_away_sub_t"])
+            self.substitute(HERO_AWAY_SUB, s.hero_away_sub_t)
 
     def run(self) -> list[Event]:
-        half = self.s["half_s"]
+        half = self.s.half_s
         margin = 2.0  # a step emits up to 1.5 s after its start; keep halves inside [0, half) and [half, 2*half)
         while self.t < 2 * half - margin:
             if self.period == 1 and self.t >= half - margin:
@@ -346,7 +346,7 @@ class Match:
             if self.hero:
                 self.hero_hooks()
             self.step()
-            self.t += self.rng.uniform(0.3, 1.7) * self.s["mean_gap_s"]
+            self.t += self.rng.uniform(0.3, 1.7) * self.s.mean_gap_s
         return self.events
 
 
@@ -363,13 +363,12 @@ def roster_meta() -> dict[str, Any]:
     }
 
 
-def main(seed: int) -> None:
-    cfg = load()
-    hero = Match(seed, hero=True).run()
-    league = [Match(seed * 1000 + i, hero=False).run() for i in range(cfg["sim"]["league_matches"])]
-    mu = league_mu(league, cfg["winprob"]["match_minutes"])
+def main(seed: int, cfg: Settings) -> None:
+    hero = Match(seed, True, cfg).run()
+    league = [Match(seed * 1000 + i, False, cfg).run() for i in range(cfg.sim.league_matches)]
+    mu = league_mu(league, cfg.winprob.match_minutes)
     meta = {
-        "match_id": cfg["sim"]["hero_match_id"],
+        "match_id": cfg.sim.hero_match_id,
         "seed": seed,
         "home": "NOR",
         "away": "HAR",
@@ -383,11 +382,12 @@ def main(seed: int) -> None:
     )
     stats = {"seed": seed, "league_matches": len(league), "mu_xg_per_team_minute": round(mu, 6)}
     (out / "league_stats.json").write_text(json.dumps(stats, indent=1), encoding="utf-8")
-    write_data_card(hero, league, seed, mu)
+    write_data_card(hero, league, seed, mu, cfg)
     print(f"hero events: {len(hero)}  league matches: {len(league)}  mu: {mu:.5f}")
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--seed", type=int, default=load()["seed"])
-    main(ap.parse_args().seed)
+    settings = load()
+    ap.add_argument("--seed", type=int, default=settings.seed)
+    main(ap.parse_args().seed, settings)

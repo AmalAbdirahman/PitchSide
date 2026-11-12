@@ -7,34 +7,36 @@ from core.moments import minute
 from core.shares import lane_shares
 from sim.generate import Match
 
+S = load()
+
 
 def test_same_seed_reproduces_committed_events(match: dict[str, Any]) -> None:
-    assert Match(match["meta"]["seed"], hero=True).run() == match["events"]
+    assert Match(match["meta"]["seed"], True, S).run() == match["events"]
 
 
 def test_event_count_and_monotonic_ids(match: dict[str, Any]) -> None:
     events = match["events"]
-    lo, hi = load()["data_card"]["hero_events"]
+    lo, hi = S.data_card.hero_events
     assert lo <= len(events) <= hi
     assert [e["id"] for e in events] == list(range(1, len(events) + 1))
     assert all(a["t"] <= b["t"] for a, b in zip(events, events[1:], strict=False))
 
 
 def test_planted_story(match: dict[str, Any]) -> None:
-    s, events = load()["sim"], match["events"]
+    s, events = S.sim, match["events"]
     subs = [e for e in events if e["type"] == "substitution" and e["team"] == "NOR"]
     assert [minute(e["t"]) for e in subs] == [58]
     assert [(minute(e["t"]), e["team"]) for e in events if e["type"] == "goal"] == [(63, "NOR")]
-    after = [e for e in events if s["hero_sub_t"] <= e["t"] < s["hero_overload_until_t"]]
-    assert lane_shares(after, "NOR")[0]["left"] > 0.5
-    own = load()["pitch"]["own_third_x"]
+    after = [e for e in events if s.hero_sub_t <= e["t"] < s.hero_overload_until_t]
+    assert lane_shares(after, "NOR", S.pitch)[0]["left"] > 0.5
+    own = S.pitch.own_third_x
     losses = [
         e
         for e in events
         if e["type"] == "possession_change" and e["team"] == "HAR" and e["x"] < own
     ]
-    early = sum(e["t"] < s["hero_press_from_t"] for e in losses) / s["hero_press_from_t"]
-    late = sum(e["t"] >= s["hero_press_from_t"] for e in losses) / (5400 - s["hero_press_from_t"])
+    early = sum(e["t"] < s.hero_press_from_t for e in losses) / s.hero_press_from_t
+    late = sum(e["t"] >= s.hero_press_from_t for e in losses) / (5400 - s.hero_press_from_t)
     assert late > early
 
 

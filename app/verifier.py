@@ -1,6 +1,6 @@
 """Deterministic verifier (SPEC sections 7 and 8). Code decides truth.
 
-`verify(fact, match)` returns a new fact with a verification record:
+`verify(fact, match, settings)` returns a new fact with a verification record:
 verified (all checks passed untouched), corrected (passed after deterministic
 fixes), rejected (a check failed) or unverifiable (the metric cannot be recomputed).
 """
@@ -10,11 +10,12 @@ from __future__ import annotations
 import copy
 import json
 import re
+from functools import lru_cache
 from typing import Any
 
 from jsonschema import Draft202012Validator
 
-from core.config import ROOT, load
+from core.config import ROOT, Settings, Verifier
 from core.moments import Metric, compute_metric, minute, ordinal
 from core.wilson import hedge_for, wilson
 
@@ -22,18 +23,22 @@ Fact = dict[str, Any]
 Match = dict[str, Any]
 Check = dict[str, Any]
 
-_VALIDATOR = Draft202012Validator(
-    json.loads((ROOT / "fact.schema.json").read_text(encoding="utf-8"))
-)
 COUNT_METRICS = {"goals", "shots", "turnovers_own_third", "substitutions", "cards"}
 SHARE_METRICS = {"attack_share_left", "attack_share_centre", "attack_share_right", "pass_accuracy"}
 HEDGE_LEVEL = {"early": 0, "suggests": 1, "clear": 2, "none": 2}
 NUMBER = re.compile(r"\d+(?:\.\d+)?")
 
 
+@lru_cache(maxsize=1)
+def _validator() -> Draft202012Validator:
+    """fact.schema.json, read on first use rather than at import."""
+    schema = json.loads((ROOT / "fact.schema.json").read_text(encoding="utf-8"))
+    return Draft202012Validator(schema)
+
+
 def validate_fact(fact: Fact) -> None:
     """Raise ValueError if the fact does not match fact.schema.json."""
-    errors = sorted(_VALIDATOR.iter_errors(fact), key=lambda e: list(e.path))
+    errors = sorted(_validator().iter_errors(fact), key=lambda e: list(e.path))
     if errors:
         raise ValueError("; ".join(f"{list(e.path)}: {e.message}" for e in errors))
 
@@ -42,22 +47,21 @@ def _check(name: str, passed: bool, detail: str) -> Check:
     return {"name": name, "passed": passed, "detail": detail}
 
 
-def tolerance(metric: str) -> float:
-    v = load()["verifier"]
+def tolerance(metric: str, v: Verifier) -> float:
     if metric in COUNT_METRICS:
         return 0.0
     if metric in SHARE_METRICS:
-        return v["tol_share_pp"]
-    return v["tol_xg"] if metric == "xg_sum" else v["tol_speed"]
+        return v.tol_share_pp
+    return v.tol_xg if metric == "xg_sum" else v.tol_speed
 
 
 # ---- individual checks -------------------------------------------------------
 
 
-def strip_intent(text: str) -> tuple[str, list[dict[str, str]]]:
+def strip_intent(text: str, patterns: tuple[str, ...]) -> tuple[str, list[dict[str, str]]]:
     """Remove words asserting intent. Returns new text and corrections."""
     new = text
-    for pat in load()["verifier"]["intent_patterns"]:
+    for pat in patterns:
         new = re.sub(pat, "", new, flags=re.IGNORECASE)
     new = re.sub(r"\s+([.,:;])", r"\1", re.sub(r"\s{2,}", " ", new)).strip()
     if new == text:
@@ -123,10 +127,10 @@ def check_entities(fact: Fact, by_id: dict[int, dict[str, Any]], match: Match) -
     )
 
 
-def check_recompute(claim: dict[str, Any], m: Metric) -> Check:
+def check_recompute(claim: dict[str, Any], m: Metric, v: Verifier) -> Check:
     obs, val, cmp = m.value, claim["value"], claim["comparator"]
     if cmp == "eq":
-        ok = abs(obs - val) <= tolerance(claim["metric"]) + 1e-9
+        ok = abs(obs - val) <= tolerance(claim["metric"], v) + 1e-9
     elif cmp == "lt":
         ok = obs < val
     else:
@@ -137,14 +141,18 @@ def check_recompute(claim: dict[str, Any], m: Metric) -> Check:
 
 
 def _number_ok(
-    num: dict[str, Any], fact: Fact, m: Metric, by_id: dict[int, dict[str, Any]], match: Match
+    num: dict[str, Any],
+    fact: Fact,
+    m: Metric,
+    by_id: dict[int, dict[str, Any]],
+    match: Match,
+    v: Verifier,
 ) -> bool:
     key, val, claim = num["key"], num["value"], fact["claim"]
     cited = [by_id[i] for i in fact["evidence"]["event_ids"] if i in by_id]
     if key == "value":
-        return (
-            claim["comparator"] != "eq" or abs(val - m.value) <= tolerance(claim["metric"]) + 1e-9
-        )
+        tol = tolerance(claim["metric"], v)
+        return claim["comparator"] != "eq" or abs(val - m.value) <= tol + 1e-9
     if key in ("n", "k"):
         return val == getattr(m, key)
     if key == "minute":
@@ -159,13 +167,15 @@ def _number_ok(
     return False
 
 
-def check_numbers(fact: Fact, m: Metric, by_id: dict[int, dict[str, Any]], match: Match) -> Check:
+def check_numbers(
+    fact: Fact, m: Metric, by_id: dict[int, dict[str, Any]], match: Match, v: Verifier
+) -> Check:
     listed, problems = fact["text"]["numbers"], []
     for token in NUMBER.findall(fact["text"]["canonical_en"]):
         if not any(abs(float(token) - n["value"]) < 1e-9 for n in listed):
             problems.append(f"{token} in the text is not in text.numbers")
     for num in listed:
-        if not _number_ok(num, fact, m, by_id, match):
+        if not _number_ok(num, fact, m, by_id, match, v):
             problems.append(f"{num['key']}={num['value']} does not match the event log")
     return _check(
         "numbers_match", not problems, "; ".join(problems) or "every number traced to the event log"
@@ -175,11 +185,11 @@ def check_numbers(fact: Fact, m: Metric, by_id: dict[int, dict[str, Any]], match
 # ---- sample size and hedge ----------------------------------------------------
 
 
-def _strength(text: str) -> int:
-    v, low = load()["verifier"], text.lower()
-    if any(w in low for w in v["early_markers"]):
+def _strength(text: str, v: Verifier) -> int:
+    low = text.lower()
+    if any(w in low for w in v.early_markers):
         return 0
-    return 1 if any(w in low for w in v["suggest_markers"]) else 2
+    return 1 if any(w in low for w in v.suggest_markers) else 2
 
 
 def _count_text(fact: Fact, m: Metric, match: Match) -> tuple[str, list[dict[str, Any]]]:
@@ -209,15 +219,17 @@ def _soften(text: str, hedge: str, match: Match) -> str:
     return f"The numbers suggest that {text if starts_with_name else text[0].lower() + text[1:]}"
 
 
-def calibrate(fact: Fact, m: Metric, match: Match) -> tuple[Check, list[dict[str, str]]]:
+def calibrate(
+    fact: Fact, m: Metric, match: Match, v: Verifier
+) -> tuple[Check, list[dict[str, str]]]:
     """Set uncertainty and hedge; rewrite text that sounds stronger than the evidence."""
-    v, claim, text = load()["verifier"], fact["claim"], fact["text"]["canonical_en"]
+    claim, text = fact["claim"], fact["text"]["canonical_en"]
     if claim["metric"] not in SHARE_METRICS:
         fact["uncertainty"] = {"n": m.n, "ci_method": "none", "hedge": "none"}
         return _check("sample_size", True, "plain value from the event log; no inference"), []
-    lo, hi = wilson(m.k, m.n, v["z"])
+    lo, hi = wilson(m.k, m.n, v.z)
     base = claim.get("baseline")
-    hedge = hedge_for(m.n, lo, hi, None if base is None else base / 100, v["n_min"])
+    hedge = hedge_for(m.n, lo, hi, None if base is None else base / 100, v.n_min)
     fact["uncertainty"] = {
         "n": m.n,
         "ci_method": "wilson",
@@ -225,10 +237,12 @@ def calibrate(fact: Fact, m: Metric, match: Match) -> tuple[Check, list[dict[str
         "ci_high": round(hi, 4),
         "hedge": hedge,
     }
-    if m.n < v["n_min"]:
+    if m.n < v.n_min:
         new, nums = _count_text(fact, m, match)
-        reason = f"sample_size: n={m.n} is below {v['n_min']}; restated as a plain count with hedge early"
-    elif _strength(text) > HEDGE_LEVEL[hedge]:
+        reason = (
+            f"sample_size: n={m.n} is below {v.n_min}; restated as a plain count with hedge early"
+        )
+    elif _strength(text, v) > HEDGE_LEVEL[hedge]:
         new, nums = _soften(text, hedge, match), fact["text"]["numbers"]
         reason = f"hedge: wording was stronger than '{hedge}' allows"
     else:
@@ -254,13 +268,16 @@ def _status(checks: list[Check], corrections: list[dict[str, str]], computable: 
     return "corrected" if corrections else "verified"
 
 
-def verify(fact: Fact, match: Match) -> Fact:
+def verify(fact: Fact, match: Match, s: Settings) -> Fact:
     """Run every check on a copy of the fact and return it with a verification record."""
+    v = s.verifier
     out = copy.deepcopy(fact)
     by_id = {e["id"]: e for e in match["events"]}
     known = [e for e in match["events"] if e["t"] <= out["created_t"]]
     out["text"].setdefault("draft_en", out["text"]["canonical_en"])
-    out["text"]["canonical_en"], corrections = strip_intent(out["text"]["canonical_en"])
+    out["text"]["canonical_en"], corrections = strip_intent(
+        out["text"]["canonical_en"], v.intent_patterns
+    )
     checks = [
         _check(
             "intent_stripped", True, "intent words removed" if corrections else "no intent words"
@@ -269,7 +286,7 @@ def verify(fact: Fact, match: Match) -> Fact:
         check_entities(out, by_id, match),
     ]
     claim = out["claim"]
-    m = compute_metric(claim["metric"], claim["subject"], claim["window"], known)
+    m = compute_metric(claim["metric"], claim["subject"], claim["window"], known, s.pitch)
     if m is not None and claim["metric"] in SHARE_METRICS and m.n == 0:
         m = None  # a share of nothing cannot be stated
     if m is None:
@@ -281,9 +298,9 @@ def verify(fact: Fact, match: Match) -> Fact:
             )
         )
     else:
-        checks.append(check_recompute(claim, m))
-        sample, fixes = calibrate(out, m, match)
-        checks += [sample, check_numbers(out, m, by_id, match)]
+        checks.append(check_recompute(claim, m, v))
+        sample, fixes = calibrate(out, m, match, v)
+        checks += [sample, check_numbers(out, m, by_id, match, v)]
         corrections += fixes
     status = _status(checks, corrections, m is not None)
     out["verification"] = {"status": status, "checks": checks}

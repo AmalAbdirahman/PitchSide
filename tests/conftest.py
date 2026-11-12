@@ -5,7 +5,7 @@ from typing import Any
 
 import pytest
 
-from core.config import ROOT
+from core.config import ROOT, Settings, load
 
 
 @pytest.fixture(scope="session")
@@ -21,3 +21,8 @@ def seeded() -> list[dict[str, Any]]:
 def seeded_of(category: str) -> list[dict[str, Any]]:
     data = json.loads((ROOT / "tests" / "seeded_claims.json").read_text(encoding="utf-8"))
     return [c for c in data if c["category"] == category]
+
+
+@pytest.fixture(scope="session")
+def settings() -> Settings:
+    return load()

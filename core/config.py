@@ -1,79 +1,136 @@
-"""Minimal loader for config.yaml (standard library only).
+"""Typed, validated settings loaded from config.yaml.
 
-Supports the subset we use: nested mappings by indentation, scalars
-(int, float, bool, quoted or bare strings), inline lists `[a, b]`
-and block lists of scalars (`- item`). Comments start with `#`.
+Every threshold and constant lives in config.yaml (SPEC.md). `load()` reads it once at an
+entry point and the resulting frozen `Settings` is passed down as an argument; no module reads
+the file on import or looks the values up through a global.
 """
 
 from __future__ import annotations
 
-from functools import lru_cache
 from pathlib import Path
-from typing import Any
+
+import yaml
+from pydantic import BaseModel, ConfigDict
 
 ROOT = Path(__file__).resolve().parent.parent
+CONFIG_PATH = ROOT / "config.yaml"
 
 
-def _scalar(raw: str) -> Any:
-    raw = raw.strip()
-    if len(raw) >= 2 and raw[0] == raw[-1] and raw[0] in "'\"":
-        return raw[1:-1]
-    if raw in ("true", "false"):
-        return raw == "true"
-    for cast in (int, float):
-        try:
-            return cast(raw)
-        except ValueError:
-            pass
-    return raw
+class _Section(BaseModel):
+    model_config = ConfigDict(frozen=True, extra="forbid")
 
 
-def _value(raw: str) -> Any:
-    raw = raw.strip()
-    if raw.startswith("[") and raw.endswith("]"):
-        return [_scalar(p) for p in raw[1:-1].split(",") if p.strip()]
-    return _scalar(raw)
+class Pitch(_Section):
+    length: int
+    width: int
+    own_third_x: int
+    final_third_x: int
 
 
-def _strip_comment(line: str) -> str:
-    if line.lstrip().startswith("#"):
-        return ""
-    if " #" in line and "'" not in line and '"' not in line:
-        line = line.split(" #", 1)[0]
-    return line.rstrip()
+class Sim(_Section):
+    hero_match_id: str
+    league_matches: int
+    half_s: int
+    mean_gap_s: int
+    lane_weights: tuple[float, float, float]
+    overload_lane_weights: tuple[float, float, float]
+    pass_logit_intercept: float
+    pass_logit_dist: float
+    pass_logit_pressure: float
+    pass_logit_final_third: float
+    press_logit_boost: float
+    pressure_prob: float
+    press_pressure_prob: float
+    tackle_prob: float
+    card_prob: float
+    shot_prob_box: float
+    shot_prob_long: float
+    hero_sub_t: int
+    hero_goal_t: int
+    hero_overload_until_t: int
+    hero_press_from_t: int
+    hero_away_sub_t: int
 
 
-def parse(text: str) -> dict[str, Any]:
-    """Parse the config subset into nested dicts and lists."""
-    root: dict[str, Any] = {}
-    stack: list[tuple[int, Any]] = [(-1, root)]
-    pending: tuple[int, dict[str, Any], str] | None = None
-    for line in (_strip_comment(raw) for raw in text.splitlines()):
-        if not line.strip():
-            continue
-        indent = len(line) - len(line.lstrip())
-        body = line.strip()
-        while stack[-1][0] >= indent:
-            stack.pop()
-        if pending is not None:
-            p_indent, p_parent, p_key = pending
-            container: Any = [] if body.startswith("- ") else {}
-            p_parent[p_key] = container
-            stack.append((p_indent, container))
-            pending = None
-        parent = stack[-1][1]
-        if body.startswith("- "):
-            parent.append(_value(body[2:]))
-            continue
-        key, _, rest = body.partition(":")
-        if rest.strip():
-            parent[key.strip()] = _value(rest)
-        else:
-            pending = (indent, parent, key.strip())
-    return root
+class Xg(_Section):
+    intercept: float
+    dist: float
+    angle: float
+    goal_width: float
 
 
-@lru_cache(maxsize=1)
-def load() -> dict[str, Any]:
-    """Load config.yaml from the repo root (cached)."""
-    return parse((ROOT / "config.yaml").read_text(encoding="utf-8-sig"))
+class Winprob(_Section):
+    k: int
+    goal_cap: int
+    match_minutes: int
+
+
+class Moments(_Section):
+    check_every_s: int
+    first_check_s: int
+    overload_window_s: int
+    overload_min_share: float
+    turnover_window_s: int
+    turnover_min_count: int
+
+
+class Verifier(_Section):
+    n_min: int
+    z: float
+    lane_baseline: float
+    tol_share_pp: float
+    tol_xg: float
+    tol_speed: float
+    early_markers: tuple[str, ...]
+    suggest_markers: tuple[str, ...]
+    intent_patterns: tuple[str, ...]
+
+
+class Router(_Section):
+    veto_window_s: int
+    t2_ttl_s: int
+    impact_t2: float
+    t0_metrics: tuple[str, ...]
+    negative_metrics: tuple[str, ...]
+    negative_words: tuple[str, ...]
+
+
+class Renditions(_Section):
+    cue_duration_s: int
+    ticker_duration_s: int
+    ticker_metrics: tuple[str, ...]
+
+
+class DataCard(_Section):
+    goals_per_match: tuple[float, float]
+    shots_per_team: tuple[int, int]
+    xg_per_shot: tuple[float, float]
+    pass_completion: tuple[float, float]
+    hero_events: tuple[int, int]
+
+
+class Agents(_Section):
+    scout_name: str
+    max_calls: int
+    max_retries: int
+    timeout_s: int
+
+
+class Settings(_Section):
+    seed: int
+    pitch: Pitch
+    sim: Sim
+    xg: Xg
+    winprob: Winprob
+    moments: Moments
+    verifier: Verifier
+    router: Router
+    renditions: Renditions
+    data_card: DataCard
+    agents: Agents
+
+
+def load(path: Path = CONFIG_PATH) -> Settings:
+    """Read and validate a config file. Call this once, at an entry point."""
+    with path.open(encoding="utf-8-sig") as f:
+        return Settings.model_validate(yaml.safe_load(f))

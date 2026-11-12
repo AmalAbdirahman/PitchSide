@@ -9,11 +9,14 @@ import pytest
 
 from app.build_bundle import build
 from app.renditions import cardinal, numbers_preserved, ordinal_words, speak, words_to_numbers
+from core.config import load
+
+S = load()
 
 
 @pytest.fixture(scope="module")
 def facts() -> list[dict[str, Any]]:
-    return build()[0]["facts"]
+    return build(S)[0]["facts"]
 
 
 def _fact(facts: list[dict[str, Any]], metric: str) -> dict[str, Any]:

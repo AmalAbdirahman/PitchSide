@@ -32,7 +32,7 @@ from app.renditions import all_preserved, with_renditions
 from app.router import route
 from app.series import build_series
 from app.verifier import validate_fact
-from core.config import ROOT, load
+from core.config import ROOT, Settings, load
 from core.moments import detect_moments
 
 Fact = dict[str, Any]
@@ -148,24 +148,25 @@ def make_cues(facts: list[Fact]) -> list[dict[str, Any]]:
     return [{"cue_id": f"c_{i:06d}", **c} for i, c in enumerate(cues, 1)]
 
 
-def make_scout(foundry: bool) -> Scout | None:
+def make_scout(foundry: bool, s: Settings) -> Scout | None:
     """Live Scout with --foundry; otherwise replay the cache if there is one; otherwise no Scout."""
-    budget = load()["agents"]["max_calls"]
+    budget = s.agents.max_calls
     if foundry:
-        return Scout(FoundryCaller(), {}, budget, prior=load_cache())
+        return Scout(FoundryCaller(s.agents), {}, budget, prior=load_cache())
     return Scout(None, load_cache(), budget) if CACHE_PATH.exists() else None
 
 
 def checked_drafts(
-    moments: list[dict[str, Any]], match: dict[str, Any], scout: Scout | None
+    moments: list[dict[str, Any]], match: dict[str, Any], scout: Scout | None, s: Settings
 ) -> list[Fact]:
     """Verified drafts: one per moment (Scout, else rules), then the rule-based injected drafts."""
-    drafts = draft_facts(moments, match)
+    drafts = draft_facts(moments, match, s)
     good, injected = drafts[: len(moments)], drafts[len(moments) :]
-    first = (
-        run_scout(scout, moments, good, match) if scout else [verify_rules(d, match) for d in good]
-    )
-    return first + [verify_rules(d, match) for d in injected]
+    if scout:
+        first = run_scout(scout, moments, good, match, s)
+    else:
+        first = [verify_rules(d, match, s) for d in good]
+    return first + [verify_rules(d, match, s) for d in injected]
 
 
 def metrics(checked: list[Fact], facts: list[Fact]) -> dict[str, Any]:
@@ -182,16 +183,17 @@ def metrics(checked: list[Fact], facts: list[Fact]) -> dict[str, Any]:
 
 
 def build(
-    scout: Scout | None = None, use_cache: bool = True
+    s: Settings, scout: Scout | None = None, use_cache: bool = True
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     match, mu = load_match()
     teams = (match["meta"]["home"], match["meta"]["away"])
     if scout is None and use_cache:
-        scout = make_scout(foundry=False)
-    checked = checked_drafts(detect_moments(match["events"], teams, mu), match, scout)
+        scout = make_scout(False, s)
+    moments = detect_moments(match["events"], teams, mu, s)
+    checked = checked_drafts(moments, match, scout, s)
     routable = [c for c in checked if c["verification"]["status"] in ("verified", "corrected")]
     facts = sorted(
-        (with_renditions(route(c), match) for c in routable),
+        (with_renditions(route(c, s.router), match, s) for c in routable),
         key=lambda f: (f["created_t"], f["fact_id"]),
     )
     log = [c for c in checked if c not in routable]
@@ -202,7 +204,7 @@ def build(
         "win_prob_label": "model estimate",
         "win_prob_method": "poisson_v1",
         "mu": mu,
-        "pitch": load()["pitch"],
+        "pitch": s.pitch.model_dump(),
     }
     hero = {
         "meta": meta,
@@ -211,7 +213,7 @@ def build(
         "facts": facts,
         "log": log,
         "metrics": metrics(checked, facts),
-        "series": build_series(match["events"], teams, mu),
+        "series": build_series(match["events"], teams, mu, s),
     }
     cues = make_cues(facts)
     Draft202012Validator(CUE_SCHEMA).validate(cues)
@@ -219,10 +221,10 @@ def build(
 
 
 def write(
-    out_dir: Path = ROOT / "docs" / "data", foundry: bool = False
+    s: Settings, out_dir: Path = ROOT / "docs" / "data", foundry: bool = False
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    scout = make_scout(foundry)
-    hero, cues = build(scout, use_cache=False)
+    scout = make_scout(foundry, s)
+    hero, cues = build(s, scout, use_cache=False)
     if foundry and scout is not None:
         save_cache(scout.cache)
         print(f"Scout calls: {scout.calls}  cache entries written: {len(scout.cache)}")
@@ -252,7 +254,7 @@ def main() -> None:
         if CACHE_PATH.exists()
         else "rule-based drafter",
     )
-    hero, cues = write(foundry=foundry)
+    hero, cues = write(load(), foundry=foundry)
     m = hero["metrics"]
     print(
         f"facts routed: {len(hero['facts'])}  log (rejected/unverifiable): {len(hero['log'])}  cues: {len(cues)}"

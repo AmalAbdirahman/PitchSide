@@ -10,14 +10,17 @@ import pytest
 
 from app.router import AUTOPILOT_OK, resolve, route
 from app.verifier import verify
+from core.config import load
 from tests.conftest import seeded_of
 
 Fact = dict[str, Any]
 
+S = load()
+
 
 def _good(metric: str, match: dict[str, Any], hedge: str | None = None) -> Fact:
     for entry in seeded_of("good"):
-        out = verify(entry["fact"], match)
+        out = verify(entry["fact"], match, S)
         if out["claim"]["metric"].startswith(metric) and (
             hedge is None or out["uncertainty"]["hedge"] == hedge
         ):
@@ -85,7 +88,7 @@ def test_tier_routing_table(
     match: dict[str, Any],
 ) -> None:
     fact = tweak(copy.deepcopy(_good(metric, match, hedge)))
-    out = route(fact)
+    out = route(fact, S.router)
     assert out["risk"]["tier"] == tier, out["risk"]
     assert (
         out["approval"]["state"]
@@ -95,30 +98,30 @@ def test_tier_routing_table(
 
 @pytest.mark.parametrize("category", ["wrong_number", "future_event"])
 def test_rejected_never_reaches_router(category: str, match: dict[str, Any]) -> None:
-    out = verify(seeded_of(category)[0]["fact"], match)
+    out = verify(seeded_of(category)[0]["fact"], match, S)
     assert out["verification"]["status"] == "rejected"
     with pytest.raises(ValueError):
-        route(out)
+        route(out, S.router)
 
 
 def test_unverifiable_never_reaches_router(match: dict[str, Any]) -> None:
     fact = copy.deepcopy(seeded_of("good")[0]["fact"])
     fact["claim"]["metric"] = "duels_lost"
     with pytest.raises(ValueError):
-        route(verify(fact, match))
+        route(verify(fact, match, S), S.router)
 
 
 def test_autopilot_only_for_clean_clear_t2(match: dict[str, Any]) -> None:
-    clean = route(_impact(0.2)(copy.deepcopy(_good("attack_share_", match, "clear"))))
+    clean = route(_impact(0.2)(copy.deepcopy(_good("attack_share_", match, "clear"))), S.router)
     assert clean["risk"]["tier"] == "T2" and AUTOPILOT_OK in clean["risk"]["reasons"]
-    corrected = route(_corrected(copy.deepcopy(_good("attack_share_", match, "clear"))))
+    corrected = route(_corrected(copy.deepcopy(_good("attack_share_", match, "clear"))), S.router)
     assert AUTOPILOT_OK not in corrected["risk"]["reasons"]
     assert resolve(corrected, 1, autopilot=True) == ("queued", None)
     assert resolve(clean, 1, autopilot=True) == ("approved", "autopilot")
 
 
 def test_t1_airs_after_veto_window_unless_vetoed(match: dict[str, Any]) -> None:
-    f = route(copy.deepcopy(_good("attack_share_", match, "clear")))
+    f = route(copy.deepcopy(_good("attack_share_", match, "clear")), S.router)
     assert f["approval"]["ttl_s"] == 3
     assert resolve(f, 2.9) == ("veto_window", None)
     assert resolve(f, 3.0) == ("auto_approved", "auto")
@@ -127,7 +130,7 @@ def test_t1_airs_after_veto_window_unless_vetoed(match: dict[str, Any]) -> None:
 
 
 def test_ttl_expiry_drops_t2(match: dict[str, Any]) -> None:
-    f = route(_corrected(copy.deepcopy(_good("attack_share_", match, "clear"))))
+    f = route(_corrected(copy.deepcopy(_good("attack_share_", match, "clear"))), S.router)
     assert f["approval"]["ttl_s"] == 12
     assert resolve(f, 11.9) == ("queued", None)
     assert resolve(f, 12.0) == ("expired", None)

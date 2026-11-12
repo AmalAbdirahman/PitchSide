@@ -21,7 +21,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from app.agents_foundry import CACHE_PATH, load_cache  # noqa: E402
 from app.build_bundle import build  # noqa: E402
 from app.verifier import verify  # noqa: E402
-from core.config import ROOT  # noqa: E402
+from core.config import ROOT, load  # noqa: E402
 
 REJECT_CATEGORIES = {"wrong_number", "wrong_player", "wrong_window", "future_event"}
 
@@ -41,12 +41,13 @@ def caught(category: str, out: dict[str, Any]) -> bool:
 
 
 def run() -> dict[str, Any]:
+    settings = load()
     seeded = json.loads((ROOT / "tests" / "seeded_claims.json").read_text(encoding="utf-8"))
     match = json.loads((ROOT / "data" / "events.json").read_text(encoding="utf-8"))
     per: dict[str, list[int]] = defaultdict(lambda: [0, 0])
     false_rejects: list[str] = []
     for entry in seeded:
-        out = verify(entry["fact"], match)
+        out = verify(entry["fact"], match, settings)
         cat = entry["category"]
         if cat == "good":
             per[cat][1] += 1
@@ -88,7 +89,7 @@ def scout_report() -> None:
     if not CACHE_PATH.exists():
         print("no agent cache: run python -m app.build_bundle --foundry first")
         return
-    hero, _ = build()
+    hero, _ = build(load())
     s = hero["metrics"]["scout"]
     calls = [r for r in load_cache().values() if "ms" in r]
     ms = sorted(r["ms"] for r in calls)

@@ -31,13 +31,16 @@ def _ids() -> Iterator[str]:
 
 
 def build() -> list[dict[str, Any]]:
+    settings = load()
     match = json.loads((ROOT / "data" / "events.json").read_text(encoding="utf-8"))
     mu = json.loads((ROOT / "data" / "league_stats.json").read_text(encoding="utf-8"))[
         "mu_xg_per_team_minute"
     ]
     good = [
         f
-        for f in d.draft_facts(detect_moments(match["events"], ("NOR", "HAR"), mu), match)
+        for f in d.draft_facts(
+            detect_moments(match["events"], ("NOR", "HAR"), mu, settings), match, settings
+        )
         if not f["injected"]
     ]
 
@@ -109,9 +112,8 @@ def build() -> list[dict[str, Any]]:
         (acc[1], "clause"),
     ]:
         add("intent_word", "corrected", d.inject_intent(base, next(ids), style))
-    s = load()["sim"]
     for team, lane, start in [
-        ("NOR", "left", s["hero_sub_t"]),
+        ("NOR", "left", settings.sim.hero_sub_t),
         ("HAR", "left", 0.0),
         ("NOR", "right", 0.0),
         ("HAR", "centre", 2700.0),
@@ -119,7 +121,7 @@ def build() -> list[dict[str, Any]]:
         ("HAR", "right", 4200.0),
         ("NOR", "left", 3000.0),
     ]:
-        f = d.first_small_sample(team, lane, start, match, next(ids))
+        f = d.first_small_sample(team, lane, start, match, next(ids), settings)
         if f:
             add("small_sample", "hedge early or unverifiable", f)
     return out

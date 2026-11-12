@@ -5,7 +5,7 @@ from __future__ import annotations
 import statistics
 from typing import Any
 
-from core.config import ROOT, load
+from core.config import ROOT, Pitch, Settings
 from core.shares import lane_shares
 
 Event = dict[str, Any]
@@ -24,47 +24,48 @@ def _completion(passes: list[Event]) -> float:
     return sum(p["outcome"] == "success" for p in passes) / max(1, len(passes))
 
 
-def _zone(x: float) -> str:
-    p = load()["pitch"]
-    return "own" if x < p["own_third_x"] else ("final" if x > p["final_third_x"] else "middle")
+def _zone(x: float, p: Pitch) -> str:
+    return "own" if x < p.own_third_x else ("final" if x > p.final_third_x else "middle")
 
 
-def league_checks(league: list[list[Event]]) -> list[tuple[str, float, list[float]]]:
-    rng = load()["data_card"]
+def league_checks(
+    league: list[list[Event]], cfg: Settings
+) -> list[tuple[str, float, tuple[float, float]]]:
+    rng = cfg.data_card
     goals = [sum(e["type"] == "goal" for e in m) for m in league]
     shots = [e for m in league for e in m if e["type"] == "shot"]
     passes = [e for m in league for e in m if e["type"] == "pass"]
     return [
-        ("Goals per match (league mean)", statistics.mean(goals), rng["goals_per_match"]),
-        ("Shots per team per match", len(shots) / (2 * len(league)), rng["shots_per_team"]),
-        ("xG per shot (mean)", statistics.mean(e["xg"] for e in shots), rng["xg_per_shot"]),
-        ("Pass completion (all passes)", _completion(passes), rng["pass_completion"]),
+        ("Goals per match (league mean)", statistics.mean(goals), rng.goals_per_match),
+        ("Shots per team per match", len(shots) / (2 * len(league)), rng.shots_per_team),
+        ("xG per shot (mean)", statistics.mean(e["xg"] for e in shots), rng.xg_per_shot),
+        ("Pass completion (all passes)", _completion(passes), rng.pass_completion),
     ]
 
 
-def zone_table(league: list[list[Event]]) -> dict[str, float]:
+def zone_table(league: list[list[Event]], pitch: Pitch) -> dict[str, float]:
     passes = [e for m in league for e in m if e["type"] == "pass"]
     return {
-        z: _completion([p for p in passes if _zone(p["x"]) == z])
+        z: _completion([p for p in passes if _zone(p["x"], pitch) == z])
         for z in ("own", "middle", "final")
     }
 
 
-def story_checks(hero: list[Event]) -> list[tuple[str, str, bool]]:
-    s = load()["sim"]
-    own_x = load()["pitch"]["own_third_x"]
+def story_checks(hero: list[Event], cfg: Settings) -> list[tuple[str, str, bool]]:
+    s = cfg.sim
+    own_x = cfg.pitch.own_third_x
     subs = [e for e in hero if e["type"] == "substitution" and e["team"] == "NOR"]
     goals = [e for e in hero if e["type"] == "goal"]
-    before = [e for e in hero if s["hero_sub_t"] - 900 <= e["t"] < s["hero_sub_t"]]
-    after = [e for e in hero if s["hero_sub_t"] <= e["t"] < s["hero_overload_until_t"]]
-    left_b, n_b = lane_shares(before, "NOR")
-    left_a, n_a = lane_shares(after, "NOR")
+    before = [e for e in hero if s.hero_sub_t - 900 <= e["t"] < s.hero_sub_t]
+    after = [e for e in hero if s.hero_sub_t <= e["t"] < s.hero_overload_until_t]
+    left_b, n_b = lane_shares(before, "NOR", cfg.pitch)
+    left_a, n_a = lane_shares(after, "NOR", cfg.pitch)
     losses = [
         e
         for e in hero
         if e["type"] == "possession_change" and e["team"] == "HAR" and e["x"] < own_x
     ]
-    split = s["hero_press_from_t"]
+    split = s.hero_press_from_t
     rate_b = sum(e["t"] < split for e in losses) / (split / 600)
     rate_a = sum(e["t"] >= split for e in losses) / ((5400 - split) / 600)
     return [
@@ -92,9 +93,11 @@ def story_checks(hero: list[Event]) -> list[tuple[str, str, bool]]:
     ]
 
 
-def write_data_card(hero: list[Event], league: list[list[Event]], seed: int, mu: float) -> None:
+def write_data_card(
+    hero: list[Event], league: list[list[Event]], seed: int, mu: float, cfg: Settings
+) -> None:
     shots = [e["xg"] for m in league for e in m if e["type"] == "shot"]
-    hero_range = load()["data_card"]["hero_events"]
+    hero_range = cfg.data_card.hero_events
     lines = [
         "# Data card",
         "",
@@ -109,7 +112,7 @@ def write_data_card(hero: list[Event], league: list[list[Event]], seed: int, mu:
         "| check | result | plausible range | pass |",
         "|---|---|---|---|",
     ]
-    for name, val, (lo, hi) in league_checks(league):
+    for name, val, (lo, hi) in league_checks(league, cfg):
         lines.append(
             f"| {name} | {val:.3f} | {lo} to {hi} | {'PASS' if lo <= val <= hi else 'FAIL'} |"
         )
@@ -117,7 +120,7 @@ def write_data_card(hero: list[Event], league: list[list[Event]], seed: int, mu:
     lines.append(
         f"| Hero match events | {len(hero)} | {hero_range[0]} to {hero_range[1]} | {'PASS' if n_ok else 'FAIL'} |"
     )
-    zones = zone_table(league)
+    zones = zone_table(league, cfg.pitch)
     order_ok = zones["own"] > zones["middle"] > zones["final"]
     lines += [
         "",
@@ -143,5 +146,7 @@ def write_data_card(hero: list[Event], league: list[list[Event]], seed: int, mu:
         "| element | observed | pass |",
         "|---|---|---|",
     ]
-    lines += [f"| {n} | {obs} | {'PASS' if ok else 'FAIL'} |" for n, obs, ok in story_checks(hero)]
+    lines += [
+        f"| {n} | {obs} | {'PASS' if ok else 'FAIL'} |" for n, obs, ok in story_checks(hero, cfg)
+    ]
     (ROOT / "data_card.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
