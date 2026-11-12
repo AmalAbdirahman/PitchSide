@@ -1,4 +1,5 @@
 """Wilson score interval and the hedge rule from SPEC section 8."""
+
 from __future__ import annotations
 
 import math

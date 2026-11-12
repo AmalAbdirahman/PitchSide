@@ -43,7 +43,10 @@ def test_xg_falls_with_distance_and_is_plausible() -> None:
 
 
 def test_lane_shares_sum_to_one() -> None:
-    events = [{"id": i, "type": "shot", "team": "A", "x": 95, "y": y} for i, y in enumerate((5, 30, 60, 10))]
+    events = [
+        {"id": i, "type": "shot", "team": "A", "x": 95, "y": y}
+        for i, y in enumerate((5, 30, 60, 10))
+    ]
     shares, n = lane_shares(events, "A")
     assert n == 4
     assert sum(shares.values()) == pytest.approx(1.0)

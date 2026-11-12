@@ -1,4 +1,5 @@
 """Verifier acceptance tests, driven by tests/seeded_claims.json (SPEC sections 7, 8, 15)."""
+
 from __future__ import annotations
 
 import copy
@@ -10,7 +11,14 @@ from app.verifier import verify
 from core.config import load
 from tests.conftest import seeded_of
 
-CATEGORIES = ("wrong_number", "wrong_player", "wrong_window", "future_event", "intent_word", "small_sample")
+CATEGORIES = (
+    "wrong_number",
+    "wrong_player",
+    "wrong_window",
+    "future_event",
+    "intent_word",
+    "small_sample",
+)
 
 
 def _check(fact: dict[str, Any], name: str) -> bool:
@@ -92,7 +100,9 @@ def test_verify_does_not_mutate_input(seeded: list[dict[str, Any]], match: dict[
     assert fact == before
 
 
-def test_unknown_metric_is_unverifiable(seeded: list[dict[str, Any]], match: dict[str, Any]) -> None:
+def test_unknown_metric_is_unverifiable(
+    seeded: list[dict[str, Any]], match: dict[str, Any]
+) -> None:
     fact = copy.deepcopy(seeded_of("good")[0]["fact"])
     fact["claim"]["metric"] = "duels_lost"
     assert verify(fact, match)["verification"]["status"] == "unverifiable"

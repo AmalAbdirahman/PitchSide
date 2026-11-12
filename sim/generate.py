@@ -8,6 +8,7 @@ team's frame (it attacks left to right, y = 0 on its left touchline).
 A `possession_change` event is credited to the team that LOST the ball.
 In the hero match goals are scripted (only the 63' goal); random shots cannot score.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -24,18 +25,40 @@ from sim.data_card import write_data_card
 Event = dict[str, Any]
 
 ROSTERS: dict[str, dict[str, Any]] = {
-    "NOR": {"name": "Northbridge", "players": [
-        ("NOR_01", "R. Ashdown", "GK"), ("NOR_02", "L. Corrigan", "D"), ("NOR_03", "M. Dube", "D"),
-        ("NOR_04", "S. Kettering", "D"), ("NOR_05", "J. Whitlow", "D"), ("NOR_06", "P. Okonjo", "M"),
-        ("NOR_08", "E. Lindqvist", "M"), ("NOR_10", "F. Moreau-Lake", "M"), ("NOR_07", "D. Varga", "AL"),
-        ("NOR_09", "C. Nkemelu", "AC"), ("NOR_11", "K. Tamsin", "AR"), ("NOR_12", "B. Adeyemi-Ross", "AL"),
-    ]},
-    "HAR": {"name": "Harlow", "players": [
-        ("HAR_01", "G. Pell", "GK"), ("HAR_02", "N. Ostrander", "D"), ("HAR_03", "H. Quarry", "D"),
-        ("HAR_04", "V. Seddon", "D"), ("HAR_05", "I. Marchetti-Holt", "D"), ("HAR_06", "W. Abara", "M"),
-        ("HAR_08", "O. Fenwick", "M"), ("HAR_10", "Z. Halloran", "M"), ("HAR_07", "Y. Castell", "AL"),
-        ("HAR_09", "T. Brannock", "AC"), ("HAR_11", "U. Kerridge", "AR"), ("HAR_12", "A. Somerby", "M"),
-    ]},
+    "NOR": {
+        "name": "Northbridge",
+        "players": [
+            ("NOR_01", "R. Ashdown", "GK"),
+            ("NOR_02", "L. Corrigan", "D"),
+            ("NOR_03", "M. Dube", "D"),
+            ("NOR_04", "S. Kettering", "D"),
+            ("NOR_05", "J. Whitlow", "D"),
+            ("NOR_06", "P. Okonjo", "M"),
+            ("NOR_08", "E. Lindqvist", "M"),
+            ("NOR_10", "F. Moreau-Lake", "M"),
+            ("NOR_07", "D. Varga", "AL"),
+            ("NOR_09", "C. Nkemelu", "AC"),
+            ("NOR_11", "K. Tamsin", "AR"),
+            ("NOR_12", "B. Adeyemi-Ross", "AL"),
+        ],
+    },
+    "HAR": {
+        "name": "Harlow",
+        "players": [
+            ("HAR_01", "G. Pell", "GK"),
+            ("HAR_02", "N. Ostrander", "D"),
+            ("HAR_03", "H. Quarry", "D"),
+            ("HAR_04", "V. Seddon", "D"),
+            ("HAR_05", "I. Marchetti-Holt", "D"),
+            ("HAR_06", "W. Abara", "M"),
+            ("HAR_08", "O. Fenwick", "M"),
+            ("HAR_10", "Z. Halloran", "M"),
+            ("HAR_07", "Y. Castell", "AL"),
+            ("HAR_09", "T. Brannock", "AC"),
+            ("HAR_11", "U. Kerridge", "AR"),
+            ("HAR_12", "A. Somerby", "M"),
+        ],
+    },
 }
 HERO_SUB = ("NOR", "NOR_07", "NOR_12")
 HERO_AWAY_SUB = ("HAR", "HAR_10", "HAR_12")
@@ -68,9 +91,19 @@ class Match:
         self.start_possession("NOR", 52.5, 34.0)
 
     # ---- bookkeeping -------------------------------------------------
-    def emit(self, etype: str, team: str, player: str, x: float, y: float, dt: float = 0.0, **f: Any) -> Event:
-        e: Event = {"id": len(self.events) + 1, "t": round(self.t + dt, 1), "period": self.period,
-                    "type": etype, "team": team, "player_id": player, "x": round(x, 1), "y": round(y, 1)}
+    def emit(
+        self, etype: str, team: str, player: str, x: float, y: float, dt: float = 0.0, **f: Any
+    ) -> Event:
+        e: Event = {
+            "id": len(self.events) + 1,
+            "t": round(self.t + dt, 1),
+            "period": self.period,
+            "type": etype,
+            "team": team,
+            "player_id": player,
+            "x": round(x, 1),
+            "y": round(y, 1),
+        }
         e.update({k: (round(v, 3) if isinstance(v, float) else v) for k, v in f.items()})
         self.events.append(e)
         return e
@@ -87,12 +120,20 @@ class Match:
         self.target_y = clamp(LANE_Y[lane] + self.rng.gauss(0, 5), 2, 66)
 
     def overload_active(self, team: str) -> bool:
-        return (self.hero and team == "NOR" and "sub" in self.done
-                and self.t < self.s["hero_overload_until_t"])
+        return (
+            self.hero
+            and team == "NOR"
+            and "sub" in self.done
+            and self.t < self.s["hero_overload_until_t"]
+        )
 
     def pressing(self) -> bool:
-        return (self.hero and self.team == "HAR" and self.t >= self.s["hero_press_from_t"]
-                and self.x < self.cfg["pitch"]["own_third_x"])
+        return (
+            self.hero
+            and self.team == "HAR"
+            and self.t >= self.s["hero_press_from_t"]
+            and self.x < self.cfg["pitch"]["own_third_x"]
+        )
 
     def pick(self, team: str, x: float, y: float, shooting: bool = False) -> str:
         """Choose an on-pitch outfield player, weighted by zone and lane."""
@@ -127,20 +168,39 @@ class Match:
         if pressured:
             L, W = self.cfg["pitch"]["length"], self.cfg["pitch"]["width"]
             opp = self.other(self.team)
-            self.emit("pressure", opp, self.pick(opp, L - self.x, W - self.y), L - self.x, W - self.y)
+            self.emit(
+                "pressure", opp, self.pick(opp, L - self.x, W - self.y), L - self.x, W - self.y
+            )
         dist = clamp(rng.gauss(16, 7), 4, 50)
         theta = rng.gauss(0.15, 0.9)
         ex = clamp(self.x + dist * math.cos(theta), 1, 104)
-        ey = clamp(0.5 * (self.y + dist * math.sin(theta)) + 0.5 * self.target_y + rng.gauss(0, 4), 1, 67)
+        ey = clamp(
+            0.5 * (self.y + dist * math.sin(theta)) + 0.5 * self.target_y + rng.gauss(0, 4), 1, 67
+        )
         pd = math.hypot(ex - self.x, ey - self.y)
-        logit = (s["pass_logit_intercept"] + s["pass_logit_dist"] * pd + s["pass_logit_pressure"] * pressured
-                 + s["pass_logit_final_third"] * (ex > self.cfg["pitch"]["final_third_x"])
-                 + s["press_logit_boost"] * pressed)
+        logit = (
+            s["pass_logit_intercept"]
+            + s["pass_logit_dist"] * pd
+            + s["pass_logit_pressure"] * pressured
+            + s["pass_logit_final_third"] * (ex > self.cfg["pitch"]["final_third_x"])
+            + s["press_logit_boost"] * pressed
+        )
         difficulty = sigmoid(logit)
         ok = rng.random() > difficulty
-        self.emit("pass", self.team, player, self.x, self.y, 0.5, end_x=round(ex, 1), end_y=round(ey, 1),
-                  outcome="success" if ok else "fail", pass_distance=round(pd, 1),
-                  pass_difficulty=difficulty, ball_speed=round(clamp(25 + 2.2 * pd + rng.gauss(0, 5), 15, 130), 1))
+        self.emit(
+            "pass",
+            self.team,
+            player,
+            self.x,
+            self.y,
+            0.5,
+            end_x=round(ex, 1),
+            end_y=round(ey, 1),
+            outcome="success" if ok else "fail",
+            pass_distance=round(pd, 1),
+            pass_difficulty=difficulty,
+            ball_speed=round(clamp(25 + 2.2 * pd + rng.gauss(0, 5), 15, 130), 1),
+        )
         if ok:
             self.x, self.y = ex, ey
         else:
@@ -154,9 +214,18 @@ class Match:
         ex = clamp(self.x + d * math.cos(theta), 1, 104)
         ey = clamp(0.6 * (self.y + d * math.sin(theta)) + 0.4 * self.target_y, 1, 67)
         tackled = rng.random() < s["tackle_prob"]
-        self.emit("carry", self.team, player, self.x, self.y, 0.5, end_x=round(ex, 1), end_y=round(ey, 1),
-                  outcome="fail" if tackled else "success",
-                  player_speed=round(clamp(rng.gauss(20, 4), 8, 34), 1))
+        self.emit(
+            "carry",
+            self.team,
+            player,
+            self.x,
+            self.y,
+            0.5,
+            end_x=round(ex, 1),
+            end_y=round(ey, 1),
+            outcome="fail" if tackled else "success",
+            player_speed=round(clamp(rng.gauss(20, 4), 8, 34), 1),
+        )
         if not tackled:
             self.x, self.y = ex, ey
             return
@@ -177,10 +246,22 @@ class Match:
         elif not self.hero and rng.random() < p_goal:
             outcome = "goal"
         else:
-            outcome = rng.choices(["on_target", "off_target", "blocked"], weights=[0.35, 0.45, 0.2])[0]
-        self.emit("shot", self.team, player, self.x, self.y, 0.5, end_x=105.0,
-                  end_y=round(clamp(34 + rng.gauss(0, 5), 20, 48), 1), outcome=outcome, xg=round(p_goal, 3),
-                  shot_speed=round(clamp(rng.gauss(88, 12), 50, 125), 1))
+            outcome = rng.choices(
+                ["on_target", "off_target", "blocked"], weights=[0.35, 0.45, 0.2]
+            )[0]
+        self.emit(
+            "shot",
+            self.team,
+            player,
+            self.x,
+            self.y,
+            0.5,
+            end_x=105.0,
+            end_y=round(clamp(34 + rng.gauss(0, 5), 20, 48), 1),
+            outcome=outcome,
+            xg=round(p_goal, 3),
+            shot_speed=round(clamp(rng.gauss(88, 12), 50, 125), 1),
+        )
         if outcome == "goal":
             self.score[self.team] += 1
             self.emit("goal", self.team, player, self.x, self.y, 1.0)
@@ -213,10 +294,31 @@ class Match:
         _, _, winger = HERO_SUB
         self.team = "NOR"
         self.t = t_shot - 20
-        self.emit("carry", "NOR", winger, 58.0, 12.0, end_x=80.0, end_y=9.0, outcome="success", player_speed=27.4)
+        self.emit(
+            "carry",
+            "NOR",
+            winger,
+            58.0,
+            12.0,
+            end_x=80.0,
+            end_y=9.0,
+            outcome="success",
+            player_speed=27.4,
+        )
         self.t = t_shot - 12
-        self.emit("pass", "NOR", winger, 80.0, 9.0, end_x=95.0, end_y=30.0, outcome="success", pass_distance=25.3,
-                  pass_difficulty=0.31, ball_speed=71.0)
+        self.emit(
+            "pass",
+            "NOR",
+            winger,
+            80.0,
+            9.0,
+            end_x=95.0,
+            end_y=30.0,
+            outcome="success",
+            pass_distance=25.3,
+            pass_difficulty=0.31,
+            ball_speed=71.0,
+        )
         self.t = t_shot - 0.5
         self.x, self.y = 95.0, 30.0
         self.do_shot(player="NOR_09", force_goal=True)
@@ -255,8 +357,10 @@ def league_mu(matches: list[list[Event]], minutes: float) -> float:
 
 
 def roster_meta() -> dict[str, Any]:
-    return {k: {"name": v["name"], "players": {pid: name for pid, name, _ in v["players"]}}
-            for k, v in ROSTERS.items()}
+    return {
+        k: {"name": v["name"], "players": {pid: name for pid, name, _ in v["players"]}}
+        for k, v in ROSTERS.items()
+    }
 
 
 def main(seed: int) -> None:
@@ -264,11 +368,19 @@ def main(seed: int) -> None:
     hero = Match(seed, hero=True).run()
     league = [Match(seed * 1000 + i, hero=False).run() for i in range(cfg["sim"]["league_matches"])]
     mu = league_mu(league, cfg["winprob"]["match_minutes"])
-    meta = {"match_id": cfg["sim"]["hero_match_id"], "seed": seed, "home": "NOR", "away": "HAR",
-            "teams": roster_meta(), "synthetic": True}
+    meta = {
+        "match_id": cfg["sim"]["hero_match_id"],
+        "seed": seed,
+        "home": "NOR",
+        "away": "HAR",
+        "teams": roster_meta(),
+        "synthetic": True,
+    }
     out = ROOT / "data"
     out.mkdir(exist_ok=True)
-    (out / "events.json").write_text(json.dumps({"meta": meta, "events": hero}, indent=1), encoding="utf-8")
+    (out / "events.json").write_text(
+        json.dumps({"meta": meta, "events": hero}, indent=1), encoding="utf-8"
+    )
     stats = {"seed": seed, "league_matches": len(league), "mu_xg_per_team_minute": round(mu, 6)}
     (out / "league_stats.json").write_text(json.dumps(stats, indent=1), encoding="utf-8")
     write_data_card(hero, league, seed, mu)

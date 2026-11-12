@@ -1,4 +1,5 @@
 """Bundle contents (SPEC section 12) and the Task 2 done criteria."""
+
 from __future__ import annotations
 
 import json
@@ -27,7 +28,9 @@ def test_done_criteria(bundle: tuple[dict[str, Any], list[dict[str, Any]]]) -> N
     assert sum(f["risk"]["tier"] == "T1" for f in facts) >= 1
 
 
-def test_every_fact_validates_and_only_routable_are_routed(bundle: tuple[dict[str, Any], list[dict[str, Any]]]) -> None:
+def test_every_fact_validates_and_only_routable_are_routed(
+    bundle: tuple[dict[str, Any], list[dict[str, Any]]],
+) -> None:
     hero, _ = bundle
     for f in hero["facts"]:
         validate_fact(f)
@@ -62,5 +65,8 @@ def test_bundle_shape(bundle: tuple[dict[str, Any], list[dict[str, Any]]]) -> No
 
 def test_write_produces_json_files(tmp_path: Path) -> None:
     hero, cues = write(tmp_path)
-    assert json.loads((tmp_path / "hero.json").read_text(encoding="utf-8"))["metrics"] == hero["metrics"]
+    assert (
+        json.loads((tmp_path / "hero.json").read_text(encoding="utf-8"))["metrics"]
+        == hero["metrics"]
+    )
     assert len(json.loads((tmp_path / "cues.json").read_text(encoding="utf-8"))) == len(cues)

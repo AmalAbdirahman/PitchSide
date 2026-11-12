@@ -4,6 +4,7 @@ Each rendition passes a deterministic number check: every number it contains is
 in the fact's `text.numbers`, and every number in the canonical text survives.
 Audio scripts spell numbers out, so they are parsed back from words to check.
 """
+
 from __future__ import annotations
 
 import copy
@@ -17,16 +18,53 @@ from core.config import load
 Fact = dict[str, Any]
 Match = dict[str, Any]
 
-ONES = ["nought", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven",
-        "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"]
-TENS = {2: "twenty", 3: "thirty", 4: "forty", 5: "fifty", 6: "sixty", 7: "seventy", 8: "eighty", 9: "ninety"}
-ORD_IRREGULAR = {"one": "first", "two": "second", "three": "third", "five": "fifth", "eight": "eighth",
-                 "nine": "ninth", "twelve": "twelfth"}
+ONES = [
+    "nought",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+    "ten",
+    "eleven",
+    "twelve",
+    "thirteen",
+    "fourteen",
+    "fifteen",
+    "sixteen",
+    "seventeen",
+    "eighteen",
+    "nineteen",
+]
+TENS = {
+    2: "twenty",
+    3: "thirty",
+    4: "forty",
+    5: "fifty",
+    6: "sixty",
+    7: "seventy",
+    8: "eighty",
+    9: "ninety",
+}
+ORD_IRREGULAR = {
+    "one": "first",
+    "two": "second",
+    "three": "third",
+    "five": "fifth",
+    "eight": "eighth",
+    "nine": "ninth",
+    "twelve": "twelfth",
+}
 # Ordinal words that name a part of the match or pitch, not a number.
 NON_NUMERIC_PHRASES = ("first half", "second half", "own third", "middle third", "final third")
 
 
 # ---- spelling -----------------------------------------------------------------
+
 
 def cardinal(n: int) -> str:
     if n < 20:
@@ -57,7 +95,11 @@ def decimal_words(token: str) -> str:
 def speak(text: str) -> str:
     """Speakable English with every number spelled out."""
     out = re.sub(r"\d+\.\d+", lambda m: decimal_words(m.group()), text)
-    out = re.sub(r"(\d+)[-–](\d+)", lambda m: " ".join("nil" if g == "0" else cardinal(int(g)) for g in m.groups()), out)
+    out = re.sub(
+        r"(\d+)[-–](\d+)",
+        lambda m: " ".join("nil" if g == "0" else cardinal(int(g)) for g in m.groups()),
+        out,
+    )
     out = re.sub(r"(\d+)'", lambda m: f"{ordinal_words(int(m.group(1)))} minute", out)
     out = re.sub(r"(\d+)(st|nd|rd|th)\b", lambda m: ordinal_words(int(m.group(1))), out)
     out = re.sub(r"(\d+)%", lambda m: f"{cardinal(int(m.group(1)))} per cent", out)
@@ -103,7 +145,11 @@ def words_to_numbers(text: str) -> list[float]:
             found.append(0.0)
         elif tok in UNIT_VAL or tok in TENS_VAL or tok in ORD_VAL:
             val = UNIT_VAL.get(tok, TENS_VAL.get(tok, ORD_VAL.get(tok, 0)))
-            cur = cur + val if _can_extend(cur, val) else (flush() or val)
+            if cur is not None and _can_extend(cur, val):
+                cur = cur + val
+            else:
+                flush()
+                cur = val
             if tok in ORD_VAL:
                 flush()
         elif tok == "hundred" and cur is not None:
@@ -129,12 +175,17 @@ def numbers_preserved(text: str, kind: str, lang: str, fact: Fact) -> bool:
     found = words_to_numbers(text) if kind == "audio_script" else digits_in(text, lang)
     allowed = [n["value"] for n in fact["text"]["numbers"]]
     canonical = digits_in(fact["text"]["canonical_en"], "en")
-    close = lambda a, b: abs(a - b) < 1e-9  # noqa: E731
-    return (all(any(close(f, a) for a in allowed) for f in found)
-            and all(any(close(c, f) for f in found) for c in canonical))
+    return all(any(_close(f, a) for a in allowed) for f in found) and all(
+        any(_close(c, f) for f in found) for c in canonical
+    )
+
+
+def _close(a: float, b: float) -> bool:
+    return abs(a - b) < 1e-9
 
 
 # ---- building renditions --------------------------------------------------------------
+
 
 def air_time(fact: Fact) -> float | None:
     """Match time a cue airs with no producer action: T0 now, T1 after the veto window, T2 never."""
@@ -149,8 +200,13 @@ def air_time(fact: Fact) -> float | None:
 def _cue(fact: Fact, lang: str, text: str) -> dict[str, Any]:
     r = load()["renditions"]
     ticker = fact["claim"]["metric"] in r["ticker_metrics"]
-    cue: dict[str, Any] = {"kind": "cue", "lang": lang, "text": text, "layout": "ticker" if ticker else "lower_third",
-                           "duration_s": r["ticker_duration_s"] if ticker else r["cue_duration_s"]}
+    cue: dict[str, Any] = {
+        "kind": "cue",
+        "lang": lang,
+        "text": text,
+        "layout": "ticker" if ticker else "lower_third",
+        "duration_s": r["ticker_duration_s"] if ticker else r["cue_duration_s"],
+    }
     start = air_time(fact)
     if start is not None:
         cue["start_t"] = start
@@ -159,9 +215,13 @@ def _cue(fact: Fact, lang: str, text: str) -> dict[str, Any]:
 
 def build_renditions(fact: Fact, match: Match) -> list[dict[str, Any]]:
     en, es = fact["text"]["canonical_en"], caption_es(fact, match)
-    items = [_cue(fact, "en", en), _cue(fact, "es", es),
-             {"kind": "caption", "lang": "en", "text": en}, {"kind": "caption", "lang": "es", "text": es},
-             {"kind": "audio_script", "lang": "en", "text": speak(en)}]
+    items = [
+        _cue(fact, "en", en),
+        _cue(fact, "es", es),
+        {"kind": "caption", "lang": "en", "text": en},
+        {"kind": "caption", "lang": "es", "text": es},
+        {"kind": "audio_script", "lang": "en", "text": speak(en)},
+    ]
     for r in items:
         r["numbers_preserved"] = numbers_preserved(r["text"], r["kind"], r["lang"], fact)
     return items

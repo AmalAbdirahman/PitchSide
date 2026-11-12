@@ -4,6 +4,7 @@
 verified (all checks passed untouched), corrected (passed after deterministic
 fixes), rejected (a check failed) or unverifiable (the metric cannot be recomputed).
 """
+
 from __future__ import annotations
 
 import copy
@@ -21,7 +22,9 @@ Fact = dict[str, Any]
 Match = dict[str, Any]
 Check = dict[str, Any]
 
-_VALIDATOR = Draft202012Validator(json.loads((ROOT / "fact.schema.json").read_text(encoding="utf-8")))
+_VALIDATOR = Draft202012Validator(
+    json.loads((ROOT / "fact.schema.json").read_text(encoding="utf-8"))
+)
 COUNT_METRICS = {"goals", "shots", "turnovers_own_third", "substitutions", "cards"}
 SHARE_METRICS = {"attack_share_left", "attack_share_centre", "attack_share_right", "pass_accuracy"}
 HEDGE_LEVEL = {"early": 0, "suggests": 1, "clear": 2, "none": 2}
@@ -50,6 +53,7 @@ def tolerance(metric: str) -> float:
 
 # ---- individual checks -------------------------------------------------------
 
+
 def strip_intent(text: str) -> tuple[str, list[dict[str, str]]]:
     """Remove words asserting intent. Returns new text and corrections."""
     new = text
@@ -58,8 +62,14 @@ def strip_intent(text: str) -> tuple[str, list[dict[str, str]]]:
     new = re.sub(r"\s+([.,:;])", r"\1", re.sub(r"\s{2,}", " ", new)).strip()
     if new == text:
         return text, []
-    return new, [{"field": "text.canonical_en", "from": text, "to": new,
-                  "reason": "intent: words asserting intent removed; only the observable part is kept"}]
+    return new, [
+        {
+            "field": "text.canonical_en",
+            "from": text,
+            "to": new,
+            "reason": "intent: words asserting intent removed; only the observable part is kept",
+        }
+    ]
 
 
 def check_evidence(fact: Fact, by_id: dict[int, dict[str, Any]]) -> Check:
@@ -73,18 +83,30 @@ def check_evidence(fact: Fact, by_id: dict[int, dict[str, Any]]) -> Check:
         elif not w["start_t"] <= e["t"] <= w["end_t"]:
             problems.append(f"event {i} at t={e['t']} is outside the claim window")
     if w["end_t"] > created:
-        problems.append(f"claim window ends at t={w['end_t']}, after the claim was made (t={created})")
-    return _check("evidence_exists", not problems, "; ".join(problems) or "all cited events exist, in window, in the past")
+        problems.append(
+            f"claim window ends at t={w['end_t']}, after the claim was made (t={created})"
+        )
+    return _check(
+        "evidence_exists",
+        not problems,
+        "; ".join(problems) or "all cited events exist, in window, in the past",
+    )
 
 
 def _names(match: Match) -> dict[str, str]:
-    return {name: pid for team in match["meta"]["teams"].values() for pid, name in team["players"].items()}
+    return {
+        name: pid
+        for team in match["meta"]["teams"].values()
+        for pid, name in team["players"].items()
+    }
 
 
 def check_entities(fact: Fact, by_id: dict[int, dict[str, Any]], match: Match) -> Check:
     cited = [by_id[i] for i in fact["evidence"]["event_ids"] if i in by_id]
     teams = {e["team"] for e in cited}
-    players = {e["player_id"] for e in cited} | {e["player_off"] for e in cited if "player_off" in e}
+    players = {e["player_id"] for e in cited} | {
+        e["player_off"] for e in cited if "player_off" in e
+    }
     subj, problems = fact["claim"]["subject"], []
     if subj["type"] == "team" and subj["id"] not in teams:
         problems.append(f"team {subj['id']} does not appear in the cited events")
@@ -96,7 +118,9 @@ def check_entities(fact: Fact, by_id: dict[int, dict[str, Any]], match: Match) -
     for name, pid in _names(match).items():
         if name in fact["text"]["canonical_en"] and pid not in players:
             problems.append(f"text names {name} ({pid}), who is not in the cited events")
-    return _check("entities", not problems, "; ".join(problems) or "teams and players match the cited events")
+    return _check(
+        "entities", not problems, "; ".join(problems) or "teams and players match the cited events"
+    )
 
 
 def check_recompute(claim: dict[str, Any], m: Metric) -> Check:
@@ -107,14 +131,20 @@ def check_recompute(claim: dict[str, Any], m: Metric) -> Check:
         ok = obs < val
     else:
         ok = obs > val
-    return _check("recompute", ok, f"claimed {cmp} {val}, recomputed {round(obs, 3)} from {m.n} events")
+    return _check(
+        "recompute", ok, f"claimed {cmp} {val}, recomputed {round(obs, 3)} from {m.n} events"
+    )
 
 
-def _number_ok(num: dict[str, Any], fact: Fact, m: Metric, by_id: dict[int, dict[str, Any]], match: Match) -> bool:
+def _number_ok(
+    num: dict[str, Any], fact: Fact, m: Metric, by_id: dict[int, dict[str, Any]], match: Match
+) -> bool:
     key, val, claim = num["key"], num["value"], fact["claim"]
     cited = [by_id[i] for i in fact["evidence"]["event_ids"] if i in by_id]
     if key == "value":
-        return claim["comparator"] != "eq" or abs(val - m.value) <= tolerance(claim["metric"]) + 1e-9
+        return (
+            claim["comparator"] != "eq" or abs(val - m.value) <= tolerance(claim["metric"]) + 1e-9
+        )
     if key in ("n", "k"):
         return val == getattr(m, key)
     if key == "minute":
@@ -123,7 +153,9 @@ def _number_ok(num: dict[str, Any], fact: Fact, m: Metric, by_id: dict[int, dict
         return minute(claim["window"]["start_t"]) == val
     if key.startswith("score_") and cited:
         team, t = key.removeprefix("score_"), max(e["t"] for e in cited)
-        return val == sum(e["type"] == "goal" and e["team"] == team and e["t"] <= t for e in match["events"])
+        return val == sum(
+            e["type"] == "goal" and e["team"] == team and e["t"] <= t for e in match["events"]
+        )
     return False
 
 
@@ -135,10 +167,13 @@ def check_numbers(fact: Fact, m: Metric, by_id: dict[int, dict[str, Any]], match
     for num in listed:
         if not _number_ok(num, fact, m, by_id, match):
             problems.append(f"{num['key']}={num['value']} does not match the event log")
-    return _check("numbers_match", not problems, "; ".join(problems) or "every number traced to the event log")
+    return _check(
+        "numbers_match", not problems, "; ".join(problems) or "every number traced to the event log"
+    )
 
 
 # ---- sample size and hedge ----------------------------------------------------
+
 
 def _strength(text: str) -> int:
     v, low = load()["verifier"], text.lower()
@@ -152,11 +187,19 @@ def _count_text(fact: Fact, m: Metric, match: Match) -> tuple[str, list[dict[str
     team = match["meta"]["teams"][claim["subject"]["id"]]["name"]
     if claim["metric"] == "pass_accuracy":
         return f"Early sign: {team} completed {m.k} of {m.n} passes in this spell.", [
-            {"key": "k", "value": m.k}, {"key": "n", "value": m.n}]
+            {"key": "k", "value": m.k},
+            {"key": "n", "value": m.n},
+        ]
     since = minute(claim["window"]["start_t"])
     lane = claim["metric"].removeprefix("attack_share_")
-    return (f"Early sign: {m.k} of {m.n} {team} attacks have gone down the {lane} since the {ordinal(since)} minute.",
-            [{"key": "k", "value": m.k}, {"key": "n", "value": m.n}, {"key": "since_minute", "value": since}])
+    return (
+        f"Early sign: {m.k} of {m.n} {team} attacks have gone down the {lane} since the {ordinal(since)} minute.",
+        [
+            {"key": "k", "value": m.k},
+            {"key": "n", "value": m.n},
+            {"key": "since_minute", "value": since},
+        ],
+    )
 
 
 def _soften(text: str, hedge: str, match: Match) -> str:
@@ -175,8 +218,13 @@ def calibrate(fact: Fact, m: Metric, match: Match) -> tuple[Check, list[dict[str
     lo, hi = wilson(m.k, m.n, v["z"])
     base = claim.get("baseline")
     hedge = hedge_for(m.n, lo, hi, None if base is None else base / 100, v["n_min"])
-    fact["uncertainty"] = {"n": m.n, "ci_method": "wilson", "ci_low": round(lo, 4), "ci_high": round(hi, 4),
-                           "hedge": hedge}
+    fact["uncertainty"] = {
+        "n": m.n,
+        "ci_method": "wilson",
+        "ci_low": round(lo, 4),
+        "ci_high": round(hi, 4),
+        "hedge": hedge,
+    }
     if m.n < v["n_min"]:
         new, nums = _count_text(fact, m, match)
         reason = f"sample_size: n={m.n} is below {v['n_min']}; restated as a plain count with hedge early"
@@ -184,13 +232,18 @@ def calibrate(fact: Fact, m: Metric, match: Match) -> tuple[Check, list[dict[str
         new, nums = _soften(text, hedge, match), fact["text"]["numbers"]
         reason = f"hedge: wording was stronger than '{hedge}' allows"
     else:
-        return _check("sample_size", True, f"n={m.n}, Wilson [{lo:.2f}, {hi:.2f}], hedge {hedge}"), []
+        return _check(
+            "sample_size", True, f"n={m.n}, Wilson [{lo:.2f}, {hi:.2f}], hedge {hedge}"
+        ), []
     fact["text"]["canonical_en"], fact["text"]["numbers"] = new, nums
-    return (_check("sample_size", True, reason),
-            [{"field": "text.canonical_en", "from": text, "to": new, "reason": reason}])
+    return (
+        _check("sample_size", True, reason),
+        [{"field": "text.canonical_en", "from": text, "to": new, "reason": reason}],
+    )
 
 
 # ---- entry point ------------------------------------------------------------------
+
 
 def _status(checks: list[Check], corrections: list[dict[str, str]], computable: bool) -> str:
     failed = [c["name"] for c in checks if not c["passed"]]
@@ -208,14 +261,25 @@ def verify(fact: Fact, match: Match) -> Fact:
     known = [e for e in match["events"] if e["t"] <= out["created_t"]]
     out["text"].setdefault("draft_en", out["text"]["canonical_en"])
     out["text"]["canonical_en"], corrections = strip_intent(out["text"]["canonical_en"])
-    checks = [_check("intent_stripped", True, "intent words removed" if corrections else "no intent words"),
-              check_evidence(out, by_id), check_entities(out, by_id, match)]
+    checks = [
+        _check(
+            "intent_stripped", True, "intent words removed" if corrections else "no intent words"
+        ),
+        check_evidence(out, by_id),
+        check_entities(out, by_id, match),
+    ]
     claim = out["claim"]
     m = compute_metric(claim["metric"], claim["subject"], claim["window"], known)
     if m is not None and claim["metric"] in SHARE_METRICS and m.n == 0:
         m = None  # a share of nothing cannot be stated
     if m is None:
-        checks.append(_check("recompute", False, f"{claim['metric']} cannot be recomputed from the event log here"))
+        checks.append(
+            _check(
+                "recompute",
+                False,
+                f"{claim['metric']} cannot be recomputed from the event log here",
+            )
+        )
     else:
         checks.append(check_recompute(claim, m))
         sample, fixes = calibrate(out, m, match)
@@ -226,6 +290,8 @@ def verify(fact: Fact, match: Match) -> Fact:
     if corrections:
         out["verification"]["corrections"] = corrections
     if status in ("rejected", "unverifiable"):
-        out["verification"]["reject_reason"] = "; ".join(c["detail"] for c in checks if not c["passed"])
+        out["verification"]["reject_reason"] = "; ".join(
+            c["detail"] for c in checks if not c["passed"]
+        )
     validate_fact(out)
     return out

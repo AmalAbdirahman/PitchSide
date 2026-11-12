@@ -3,13 +3,14 @@
 Every value comes from core/: compute_metric, win_probability, wilson and hedge_for.
 The front end only draws these numbers; it computes none of its own.
 """
+
 from __future__ import annotations
 
 import math
 from typing import Any
 
 from core.config import load
-from core.moments import compute_metric, score_at
+from core.moments import compute_metric, require_metric, score_at
 from core.shares import LANES
 from core.wilson import hedge_for, wilson
 from core.winprob import win_probability
@@ -49,14 +50,21 @@ def lanes_at(events: list[Event], team: str, t: float) -> dict[str, Any]:
     out: dict[str, Any] = {}
     ci: dict[str, tuple[float, float]] = {}
     for lane in LANES:
-        m = compute_metric(f"attack_share_{lane}", {"type": "team", "id": team}, window, events)
+        m = require_metric(f"attack_share_{lane}", {"type": "team", "id": team}, window, events)
         ci[lane] = wilson(m.k, m.n, v["z"])
-        out[lane] = {"k": m.k, "share": _r(m.value / 100), "lo": _r(ci[lane][0]), "hi": _r(ci[lane][1])}
+        out[lane] = {
+            "k": m.k,
+            "share": _r(m.value / 100),
+            "lo": _r(ci[lane][0]),
+            "hi": _r(ci[lane][1]),
+        }
         out["n"] = m.n
     top = max(LANES, key=lambda ln: out[ln]["k"])
     hedge = hedge_for(out["n"], ci[top][0], ci[top][1], v["lane_baseline"], v["n_min"])
     out["top"], out["hedge"] = top, hedge
-    out["overload"] = top if hedge == "clear" and out[top]["share"] >= c["overload_min_share"] else None
+    out["overload"] = (
+        top if hedge == "clear" and out[top]["share"] >= c["overload_min_share"] else None
+    )
     return out
 
 
@@ -70,6 +78,8 @@ def build_series(events: list[Event], teams: tuple[str, str], mu: float) -> dict
         "lane_baseline": load()["verifier"]["lane_baseline"],
         "t": ts,
         "win_prob": [win_prob_at(events, t, teams, mu) for t in ts],
-        "teams": {tm: {m: [team_stat(events, tm, m, t) for t in ts] for m in TEAM_METRICS} for tm in teams},
+        "teams": {
+            tm: {m: [team_stat(events, tm, m, t) for t in ts] for m in TEAM_METRICS} for tm in teams
+        },
         "lanes": {tm: [lanes_at(events, tm, t) for t in ts] for tm in teams},
     }

@@ -17,7 +17,7 @@ def test_event_count_and_monotonic_ids(match: dict[str, Any]) -> None:
     lo, hi = load()["data_card"]["hero_events"]
     assert lo <= len(events) <= hi
     assert [e["id"] for e in events] == list(range(1, len(events) + 1))
-    assert all(a["t"] <= b["t"] for a, b in zip(events, events[1:]))
+    assert all(a["t"] <= b["t"] for a, b in zip(events, events[1:], strict=False))
 
 
 def test_planted_story(match: dict[str, Any]) -> None:
@@ -28,7 +28,11 @@ def test_planted_story(match: dict[str, Any]) -> None:
     after = [e for e in events if s["hero_sub_t"] <= e["t"] < s["hero_overload_until_t"]]
     assert lane_shares(after, "NOR")[0]["left"] > 0.5
     own = load()["pitch"]["own_third_x"]
-    losses = [e for e in events if e["type"] == "possession_change" and e["team"] == "HAR" and e["x"] < own]
+    losses = [
+        e
+        for e in events
+        if e["type"] == "possession_change" and e["team"] == "HAR" and e["x"] < own
+    ]
     early = sum(e["t"] < s["hero_press_from_t"] for e in losses) / s["hero_press_from_t"]
     late = sum(e["t"] >= s["hero_press_from_t"] for e in losses) / (5400 - s["hero_press_from_t"])
     assert late > early

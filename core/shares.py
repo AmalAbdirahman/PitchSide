@@ -7,9 +7,11 @@ Definitions (documented assumptions):
   into equal thirds. Coordinates are normalised so every team attacks left to
   right with y = 0 on its left touchline, so y < width / 3 is the left lane.
 """
+
 from __future__ import annotations
 
-from typing import Any, Iterable
+from collections.abc import Iterable
+from typing import Any
 
 from core.config import load
 

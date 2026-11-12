@@ -6,6 +6,7 @@ league mean `mu`, weighted by a prior of `k` pseudo-minutes:
     rate = (xg + k * mu) / (minutes_played + k)
 Outcomes are summed up to `goal_cap` further goals per side.
 """
+
 from __future__ import annotations
 
 import math

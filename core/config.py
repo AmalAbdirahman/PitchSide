@@ -4,6 +4,7 @@ Supports the subset we use: nested mappings by indentation, scalars
 (int, float, bool, quoted or bare strings), inline lists `[a, b]`
 and block lists of scalars (`- item`). Comments start with `#`.
 """
+
 from __future__ import annotations
 
 from functools import lru_cache

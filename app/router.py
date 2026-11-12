@@ -6,6 +6,7 @@ T2  corrected, |impact| >= 0.10, names a player negatively, or hedge early: queu
     dropped (never aired) when the expiry runs out.
 `resolve` is the reference for what happens over time; the static UI mirrors it.
 """
+
 from __future__ import annotations
 
 import copy
@@ -54,22 +55,29 @@ def tier_for(fact: Fact) -> tuple[str, list[str]]:
 
 def autopilot_ok(fact: Fact) -> bool:
     """Autopilot may approve a T2 fact only if verification was clean and the hedge is clear."""
-    return fact["verification"]["status"] == "verified" and fact.get("uncertainty", {}).get("hedge") == "clear"
+    return (
+        fact["verification"]["status"] == "verified"
+        and fact.get("uncertainty", {}).get("hedge") == "clear"
+    )
 
 
 def route(fact: Fact) -> Fact:
     """Return a copy of the fact with risk tier and initial approval state set."""
     status = fact["verification"]["status"]
     if status not in ("verified", "corrected"):
-        raise ValueError(f"{fact['fact_id']} is {status}; only verified or corrected facts are routed")
+        raise ValueError(
+            f"{fact['fact_id']} is {status}; only verified or corrected facts are routed"
+        )
     r = load()["router"]
     out = copy.deepcopy(fact)
     tier, reasons = tier_for(out)
     if tier == "T2" and autopilot_ok(out):
         reasons.append(AUTOPILOT_OK)
     out["risk"] = {"tier": tier, "reasons": reasons}
-    approval: dict[str, Any] = {"state": {"T0": "auto_approved", "T1": "veto_window", "T2": "queued"}[tier],
-                                "valid_from_t": out["created_t"]}
+    approval: dict[str, Any] = {
+        "state": {"T0": "auto_approved", "T1": "veto_window", "T2": "queued"}[tier],
+        "valid_from_t": out["created_t"],
+    }
     if tier == "T0":
         approval["decided_by"] = "auto"
     else:
@@ -79,14 +87,24 @@ def route(fact: Fact) -> Fact:
     return out
 
 
-def resolve(fact: Fact, elapsed_s: float, decision: str | None = None, decision_at_s: float | None = None,
-            autopilot: bool = False) -> tuple[str, str | None]:
+def resolve(
+    fact: Fact,
+    elapsed_s: float,
+    decision: str | None = None,
+    decision_at_s: float | None = None,
+    autopilot: bool = False,
+) -> tuple[str, str | None]:
     """Approval state after `elapsed_s` seconds on air-side, given an optional producer decision.
 
     Returns (state, decided_by). Decisions made after the window or expiry are ignored.
     """
     tier, ttl = fact["risk"]["tier"], fact["approval"].get("ttl_s", 0)
-    in_time = decision is not None and decision_at_s is not None and decision_at_s < ttl and decision_at_s <= elapsed_s
+    in_time = (
+        decision is not None
+        and decision_at_s is not None
+        and decision_at_s < ttl
+        and decision_at_s <= elapsed_s
+    )
     if tier == "T0":
         return "auto_approved", "auto"
     if tier == "T1":

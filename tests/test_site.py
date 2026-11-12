@@ -1,4 +1,5 @@
 """Static site checks: assets exist, no network, and the bundle carries what app.js reads."""
+
 from __future__ import annotations
 
 import json
@@ -48,7 +49,13 @@ def test_routable_facts_have_what_the_ui_reads(hero: dict[str, Any]) -> None:
         if tier in ("T1", "T2"):
             assert approval.get("ttl_s", 0) > 0, fact["fact_id"]
         kinds = {(r["kind"], r["lang"]) for r in fact["renditions"]}
-        for need in [("cue", "en"), ("cue", "es"), ("caption", "en"), ("caption", "es"), ("audio_script", "en")]:
+        for need in [
+            ("cue", "en"),
+            ("cue", "es"),
+            ("caption", "en"),
+            ("caption", "es"),
+            ("audio_script", "en"),
+        ]:
             assert need in kinds, f"{fact['fact_id']} lacks {need}"
         assert all(r["numbers_preserved"] for r in fact["renditions"]), fact["fact_id"]
 

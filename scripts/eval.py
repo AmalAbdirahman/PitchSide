@@ -7,6 +7,7 @@ The injected claims come from our own rule-based drafter. They are test cases
 for the verifier, not a measurement of how any language model behaves. The Scout
 section reads only the cache; it makes no network calls.
 """
+
 from __future__ import annotations
 
 import json
@@ -31,7 +32,9 @@ def caught(category: str, out: dict[str, Any]) -> bool:
     if category in REJECT_CATEGORIES:
         return v["status"] == "rejected"
     if category == "intent_word":
-        return v["status"] == "corrected" and any(c["reason"].startswith("intent") for c in v.get("corrections", []))
+        return v["status"] == "corrected" and any(
+            c["reason"].startswith("intent") for c in v.get("corrections", [])
+        )
     if category == "small_sample":
         return v["status"] == "unverifiable" or out.get("uncertainty", {}).get("hedge") == "early"
     raise ValueError(category)
@@ -55,8 +58,13 @@ def run() -> dict[str, Any]:
             per[cat][1] += 1
             per[cat][0] += caught(cat, out)
     injected = [v for k, v in per.items() if k != "good"]
-    return {"per": dict(per), "caught": sum(v[0] for v in injected), "injected": sum(v[1] for v in injected),
-            "good": per["good"][1], "false_rejects": false_rejects}
+    return {
+        "per": dict(per),
+        "caught": sum(v[0] for v in injected),
+        "injected": sum(v[1] for v in injected),
+        "good": per["good"][1],
+        "false_rejects": false_rejects,
+    }
 
 
 def main() -> None:
@@ -84,11 +92,15 @@ def scout_report() -> None:
     s = hero["metrics"]["scout"]
     calls = [r for r in load_cache().values() if "ms" in r]
     ms = sorted(r["ms"] for r in calls)
-    print(f"moments: {sum(s.values())}  passed first time: {s['first_pass']}  passed after retry: {s['after_retry']}  "
-          f"still rejected: {s['rejected']}  fell back to rules: {s['rules']}")
+    print(
+        f"moments: {sum(s.values())}  passed first time: {s['first_pass']}  passed after retry: {s['after_retry']}  "
+        f"still rejected: {s['rejected']}  fell back to rules: {s['rules']}"
+    )
     if ms:
-        print(f"answered calls: {len(ms)}  model: {', '.join(sorted({r['model'] for r in calls}))}  "
-              f"paths: {', '.join(sorted({r['path'] for r in calls}))}  latency median {ms[len(ms) // 2]} ms, max {ms[-1]} ms")
+        print(
+            f"answered calls: {len(ms)}  model: {', '.join(sorted({r['model'] for r in calls}))}  "
+            f"paths: {', '.join(sorted({r['path'] for r in calls}))}  latency median {ms[len(ms) // 2]} ms, max {ms[-1]} ms"
+        )
 
 
 if __name__ == "__main__":

@@ -1,8 +1,10 @@
 """Tier routing table (SPEC section 10) and expiry rules."""
+
 from __future__ import annotations
 
 import copy
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 import pytest
 
@@ -16,14 +18,18 @@ Fact = dict[str, Any]
 def _good(metric: str, match: dict[str, Any], hedge: str | None = None) -> Fact:
     for entry in seeded_of("good"):
         out = verify(entry["fact"], match)
-        if out["claim"]["metric"].startswith(metric) and (hedge is None or out["uncertainty"]["hedge"] == hedge):
+        if out["claim"]["metric"].startswith(metric) and (
+            hedge is None or out["uncertainty"]["hedge"] == hedge
+        ):
             return out
     raise LookupError(metric)
 
 
 def _corrected(f: Fact) -> Fact:
     f["verification"]["status"] = "corrected"
-    f["verification"]["corrections"] = [{"field": "text.canonical_en", "from": "a", "to": "b", "reason": "intent"}]
+    f["verification"]["corrections"] = [
+        {"field": "text.canonical_en", "from": "a", "to": "b", "reason": "intent"}
+    ]
     return f
 
 
@@ -31,6 +37,7 @@ def _impact(delta: float) -> Callable[[Fact], Fact]:
     def apply(f: Fact) -> Fact:
         f["impact"] = {"delta": delta, "method": "poisson_v1"}
         return f
+
     return apply
 
 
@@ -69,12 +76,21 @@ TABLE = [
 
 
 @pytest.mark.parametrize("case,metric,hedge,tweak,tier", TABLE, ids=[t[0] for t in TABLE])
-def test_tier_routing_table(case: str, metric: str, hedge: str | None, tweak: Callable[[Fact], Fact], tier: str,
-                            match: dict[str, Any]) -> None:
+def test_tier_routing_table(
+    case: str,
+    metric: str,
+    hedge: str | None,
+    tweak: Callable[[Fact], Fact],
+    tier: str,
+    match: dict[str, Any],
+) -> None:
     fact = tweak(copy.deepcopy(_good(metric, match, hedge)))
     out = route(fact)
     assert out["risk"]["tier"] == tier, out["risk"]
-    assert out["approval"]["state"] == {"T0": "auto_approved", "T1": "veto_window", "T2": "queued"}[tier]
+    assert (
+        out["approval"]["state"]
+        == {"T0": "auto_approved", "T1": "veto_window", "T2": "queued"}[tier]
+    )
 
 
 @pytest.mark.parametrize("category", ["wrong_number", "future_event"])

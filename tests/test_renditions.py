@@ -1,4 +1,5 @@
 """Renditions and the number-preservation check (SPEC section 11)."""
+
 from __future__ import annotations
 
 import re
@@ -22,7 +23,13 @@ def _fact(facts: list[dict[str, Any]], metric: str) -> dict[str, Any]:
 def test_number_preservation_en_es(facts: list[dict[str, Any]]) -> None:
     for f in facts:
         kinds = {(r["kind"], r["lang"]) for r in f["renditions"]}
-        assert kinds == {("cue", "en"), ("cue", "es"), ("caption", "en"), ("caption", "es"), ("audio_script", "en")}
+        assert kinds == {
+            ("cue", "en"),
+            ("cue", "es"),
+            ("caption", "en"),
+            ("caption", "es"),
+            ("audio_script", "en"),
+        }
         for r in f["renditions"]:
             assert r["numbers_preserved"], (f["fact_id"], r)
 
@@ -48,9 +55,13 @@ def test_spanish_decimal_comma(facts: list[dict[str, Any]]) -> None:
 def test_tampered_audio_fails(facts: list[dict[str, Any]]) -> None:
     f = _fact(facts, "goals")
     audio = next(r["text"] for r in f["renditions"] if r["kind"] == "audio_script")
-    assert "sixty-third" in audio and re.search(r"\bone\b", audio)  # minute 63, score 1-0 (wording varies)
+    assert "sixty-third" in audio and re.search(
+        r"\bone\b", audio
+    )  # minute 63, score 1-0 (wording varies)
     assert numbers_preserved(audio, "audio_script", "en", f)
-    assert not numbers_preserved(audio.replace("sixty-third", "sixty-fourth"), "audio_script", "en", f)
+    assert not numbers_preserved(
+        audio.replace("sixty-third", "sixty-fourth"), "audio_script", "en", f
+    )
     assert not numbers_preserved(re.sub(r"\bone\b", "two", audio, count=1), "audio_script", "en", f)
 
 
@@ -66,8 +77,10 @@ def test_ordinal_roundtrip(n: int) -> None:
 
 def test_speak_decimals_and_units() -> None:
     text = speak("Harlow generated 0.32 xG; shot at 104 km/h; 71% of attacks.")
-    assert text == ("Harlow generated nought point three two expected goals; shot at one hundred and four "
-                    "kilometres per hour; seventy-one per cent of attacks.")
+    assert text == (
+        "Harlow generated nought point three two expected goals; shot at one hundred and four "
+        "kilometres per hour; seventy-one per cent of attacks."
+    )
     assert words_to_numbers(text) == [0.32, 104, 71]
 
 
@@ -76,5 +89,7 @@ def test_match_phrases_are_not_numbers() -> None:
 
 
 def test_goal_audio_reads_score_and_minute() -> None:
-    assert speak("GOAL, Northbridge 1–0 Harlow. C. Nkemelu, 63'.") == \
-        "GOAL, Northbridge one nil Harlow. C. Nkemelu, sixty-third minute."
+    assert (
+        speak("GOAL, Northbridge 1–0 Harlow. C. Nkemelu, 63'.")
+        == "GOAL, Northbridge one nil Harlow. C. Nkemelu, sixty-third minute."
+    )
