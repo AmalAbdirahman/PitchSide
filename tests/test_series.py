@@ -11,11 +11,14 @@ from app.series import TEAM_METRICS, build_series, lanes_at
 from core.config import ROOT, MetricContext, load
 from core.events import Match
 from core.facts import Subject, Window
+from core.hedge import judge_share
 from core.metrics import compute_metric
 from core.wilson import wilson
 from core.winprob import win_probability
 
 TEAMS = ("NOR", "HAR")
+
+from tests.conftest import LEAGUE  # noqa: E402
 
 S = load()
 
@@ -27,8 +30,8 @@ def mu() -> float:
 
 
 @pytest.fixture(scope="module")
-def series(match: Match, mu: float) -> dict[str, Any]:
-    return build_series(match.events, TEAMS, mu, S)
+def series(match: Match) -> dict[str, Any]:
+    return build_series(match.events, TEAMS, LEAGUE, S)
 
 
 def test_grid_covers_the_match(series: dict[str, Any], match: Match) -> None:
@@ -78,16 +81,31 @@ def test_team_stats_equal_compute_metric(series: dict[str, Any], match: Match, m
         assert series["teams"]["NOR"][metric][i] == pytest.approx(m.value, abs=0.001)
 
 
-def test_lanes_carry_wilson_and_threshold_from_config(series: dict[str, Any], match: Match) -> None:
+def test_lanes_carry_wilson_beta_and_threshold_from_config(
+    series: dict[str, Any], match: Match
+) -> None:
     c, v = S.moments, S.verifier
     for row in series["lanes"]["NOR"]:
         assert sum(row[lane]["k"] for lane in ("left", "centre", "right")) == row["n"]
         lo, hi = wilson(row["left"]["k"], row["n"], v.z)
         assert (row["left"]["lo"], row["left"]["hi"]) == (round(lo, 3), round(hi, 3))
+        top = row["top"]
+        if top is not None:
+            j = judge_share(
+                row[top]["k"],
+                row["n"],
+                LEAGUE.lane_shares[top],
+                S.hedge,
+                v.n_min,
+                LEAGUE.attack_deff,
+            )
+            assert row[top]["p_above"] == round(j.p_above, 3) and row["hedge"] == j.hedge
         if row["overload"]:
-            assert row["hedge"] == "clear" and row[row["overload"]]["share"] >= c.overload_min_share
-            assert row["n"] >= v.n_min
-    assert lanes_at(match.events, "NOR", series["t"][75], S) == series["lanes"]["NOR"][75]
+            assert row["hedge"] in ("suggests", "clear")
+            assert row[row["overload"]]["share"] >= c.overload_min_share and row["n"] >= v.n_min
+    assert series["lane_prior"] == {k: round(p, 4) for k, p in LEAGUE.lane_shares.items()}
+    at = lanes_at(match.events, "NOR", series["t"][75], LEAGUE, S)
+    assert at == series["lanes"]["NOR"][75]
 
 
 def test_bundle_events_keep_coordinates_and_xg() -> None:

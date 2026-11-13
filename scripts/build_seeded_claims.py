@@ -33,12 +33,12 @@ def _ids() -> Iterator[str]:
 def build() -> list[dict[str, Any]]:
     settings = load()
     match, league = load_match()
-    mu = league.mu
     good = [
         f
         for f in d.draft_facts(
-            detect_moments(match.events, ("NOR", "HAR"), mu, settings, match.meta.clock),
+            detect_moments(match.events, ("NOR", "HAR"), league, settings, match.meta.clock),
             match,
+            league,
             settings,
         )
         if not f.injected
@@ -113,7 +113,7 @@ def build() -> list[dict[str, Any]]:
     ]:
         add("future_event", "rejected", d.inject_future_event(base, next(ids), match, mode))
     for base, style in [
-        (over[2], "deliberately"),
+        (acc[2], "deliberately"),
         (turn[2], "deliberately"),
         (xg[3], "deliberately"),
         (turn[0], "clause"),
@@ -130,7 +130,7 @@ def build() -> list[dict[str, Any]]:
         ("HAR", "right", 4200.0),
         ("NOR", "left", 3000.0),
     ]:
-        f = d.first_small_sample(team, lane, start, match, next(ids), settings)
+        f = d.first_small_sample(team, lane, start, match, next(ids), league, settings)
         if f:
             add("small_sample", "hedge early or unverifiable", f)
     return out

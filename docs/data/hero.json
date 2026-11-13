@@ -9118,11 +9118,11 @@
     },
     "comparator": "eq",
     "value": 71,
-    "baseline": 33.33
+    "baseline": 33.15
    },
    "text": {
-    "draft_en": "71% of Northbridge attacks have gone down the right since the 1st minute.",
-    "canonical_en": "71% of Northbridge attacks have gone down the right since the 1st minute.",
+    "draft_en": "The numbers suggest Northbridge are favouring the right: 71% of their attacks since the 1st minute.",
+    "canonical_en": "The numbers suggest Northbridge are favouring the right: 71% of their attacks since the 1st minute.",
     "numbers": [
      {
       "key": "value",
@@ -9175,7 +9175,7 @@
      {
       "name": "sample_size",
       "passed": true,
-      "detail": "n=7, Wilson [0.36, 0.92], hedge clear"
+      "detail": "n=7, P(share > league 0.33) = 0.66, Beta [0.15, 0.67], Wilson [0.36, 0.92], hedge suggests"
      },
      {
       "name": "numbers_match",
@@ -9191,20 +9191,27 @@
    },
    "uncertainty": {
     "n": 7,
-    "ci_method": "wilson",
-    "ci_low": 0.3589,
-    "ci_high": 0.9178,
-    "hedge": "clear"
+    "ci_method": "beta",
+    "ci_low": 0.1508,
+    "ci_high": 0.6713,
+    "hedge": "suggests",
+    "baseline": 0.3315,
+    "p_above": 0.6568,
+    "wilson_low": 0.3589,
+    "wilson_high": 0.9178
    },
    "audit": {
     "steps": [
      {
       "agent": "Scout",
       "attempt": 1,
+      "outcome": "not_cached"
+     },
+     {
+      "agent": "Drafter",
+      "attempt": 1,
       "outcome": "drafted",
-      "path": "foundry_agent",
-      "model": "gpt-5-mini",
-      "ms": 12534
+      "path": "rules"
      },
      {
       "agent": "Verifier",
@@ -9217,14 +9224,14 @@
    "risk": {
     "tier": "T1",
     "reasons": [
-     "verified, no corrections, impact 0.00, hedge clear"
+     "verified, no corrections, impact 0.00, hedge suggests"
     ]
    },
    "renditions": [
     {
      "kind": "cue",
      "lang": "en",
-     "text": "71% of Northbridge attacks have gone down the right since the 1st minute.",
+     "text": "The numbers suggest Northbridge are favouring the right: 71% of their attacks since the 1st minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 603.0,
@@ -9233,7 +9240,7 @@
     {
      "kind": "cue",
      "lang": "es",
-     "text": "Desde el minuto 1, el 71 % de los ataques de Northbridge han ido por la banda derecha.",
+     "text": "Los datos sugieren que Northbridge carga el juego por la banda derecha: el 71 % de sus ataques desde el minuto 1.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 603.0,
@@ -9242,19 +9249,19 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "71% of Northbridge attacks have gone down the right since the 1st minute.",
+     "text": "The numbers suggest Northbridge are favouring the right: 71% of their attacks since the 1st minute.",
      "numbers_preserved": true
     },
     {
      "kind": "caption",
      "lang": "es",
-     "text": "Desde el minuto 1, el 71 % de los ataques de Northbridge han ido por la banda derecha.",
+     "text": "Los datos sugieren que Northbridge carga el juego por la banda derecha: el 71 % de sus ataques desde el minuto 1.",
      "numbers_preserved": true
     },
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "seventy-one per cent of Northbridge attacks have gone down the right since the first minute.",
+     "text": "The numbers suggest Northbridge are favouring the right: seventy-one per cent of their attacks since the first minute.",
      "numbers_preserved": true
     }
    ]
@@ -9587,7 +9594,7 @@
     },
     "comparator": "eq",
     "value": 50,
-    "baseline": 33.33
+    "baseline": 35.62
    },
    "text": {
     "draft_en": "The numbers suggest 50% of Harlow attacks have gone down the centre since the 6th minute.",
@@ -9648,7 +9655,7 @@
      {
       "name": "sample_size",
       "passed": true,
-      "detail": "n=18, Wilson [0.29, 0.71], hedge suggests"
+      "detail": "n=18, P(share > league 0.36) = 0.64, Beta [0.18, 0.65], Wilson [0.29, 0.71], hedge suggests"
      },
      {
       "name": "numbers_match",
@@ -9664,10 +9671,14 @@
    },
    "uncertainty": {
     "n": 18,
-    "ci_method": "wilson",
-    "ci_low": 0.2903,
-    "ci_high": 0.7097,
-    "hedge": "suggests"
+    "ci_method": "beta",
+    "ci_low": 0.1804,
+    "ci_high": 0.6526,
+    "hedge": "suggests",
+    "baseline": 0.3562,
+    "p_above": 0.6358,
+    "wilson_low": 0.2903,
+    "wilson_high": 0.7097
    },
    "audit": {
     "steps": [
@@ -9750,11 +9761,11 @@
     },
     "comparator": "eq",
     "value": 69,
-    "baseline": 33.33
+    "baseline": 35.62
    },
    "text": {
-    "draft_en": "69% of Northbridge attacks have gone down the centre since the 11th minute.",
-    "canonical_en": "69% of Northbridge attacks have gone down the centre since the 11th minute.",
+    "draft_en": "The numbers suggest Northbridge are favouring the centre: 69% of their attacks since the 11th minute.",
+    "canonical_en": "The numbers suggest Northbridge are favouring the centre: 69% of their attacks since the 11th minute.",
     "numbers": [
      {
       "key": "value",
@@ -9813,7 +9824,7 @@
      {
       "name": "sample_size",
       "passed": true,
-      "detail": "n=16, Wilson [0.44, 0.86], hedge clear"
+      "detail": "n=16, P(share > league 0.36) = 0.78, Beta [0.22, 0.71], Wilson [0.44, 0.86], hedge suggests"
      },
      {
       "name": "numbers_match",
@@ -9829,20 +9840,27 @@
    },
    "uncertainty": {
     "n": 16,
-    "ci_method": "wilson",
-    "ci_low": 0.444,
-    "ci_high": 0.8584,
-    "hedge": "clear"
+    "ci_method": "beta",
+    "ci_low": 0.2202,
+    "ci_high": 0.7082,
+    "hedge": "suggests",
+    "baseline": 0.3562,
+    "p_above": 0.7805,
+    "wilson_low": 0.444,
+    "wilson_high": 0.8584
    },
    "audit": {
     "steps": [
      {
       "agent": "Scout",
       "attempt": 1,
+      "outcome": "not_cached"
+     },
+     {
+      "agent": "Drafter",
+      "attempt": 1,
       "outcome": "drafted",
-      "path": "foundry_agent",
-      "model": "gpt-5-mini",
-      "ms": 9203
+      "path": "rules"
      },
      {
       "agent": "Verifier",
@@ -9855,14 +9873,14 @@
    "risk": {
     "tier": "T1",
     "reasons": [
-     "verified, no corrections, impact 0.00, hedge clear"
+     "verified, no corrections, impact 0.00, hedge suggests"
     ]
    },
    "renditions": [
     {
      "kind": "cue",
      "lang": "en",
-     "text": "69% of Northbridge attacks have gone down the centre since the 11th minute.",
+     "text": "The numbers suggest Northbridge are favouring the centre: 69% of their attacks since the 11th minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 1503.0,
@@ -9871,7 +9889,7 @@
     {
      "kind": "cue",
      "lang": "es",
-     "text": "Desde el minuto 11, el 69 % de los ataques de Northbridge han ido por el centro.",
+     "text": "Los datos sugieren que Northbridge carga el juego por el centro: el 69 % de sus ataques desde el minuto 11.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 1503.0,
@@ -9880,19 +9898,19 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "69% of Northbridge attacks have gone down the centre since the 11th minute.",
+     "text": "The numbers suggest Northbridge are favouring the centre: 69% of their attacks since the 11th minute.",
      "numbers_preserved": true
     },
     {
      "kind": "caption",
      "lang": "es",
-     "text": "Desde el minuto 11, el 69 % de los ataques de Northbridge han ido por el centro.",
+     "text": "Los datos sugieren que Northbridge carga el juego por el centro: el 69 % de sus ataques desde el minuto 11.",
      "numbers_preserved": true
     },
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "sixty-nine per cent of Northbridge attacks have gone down the centre since the eleventh minute.",
+     "text": "The numbers suggest Northbridge are favouring the centre: sixty-nine per cent of their attacks since the eleventh minute.",
      "numbers_preserved": true
     }
    ]
@@ -9915,7 +9933,7 @@
     },
     "comparator": "eq",
     "value": 56,
-    "baseline": 33.33
+    "baseline": 31.23
    },
    "text": {
     "draft_en": "The numbers suggest 56% of Harlow attacks have gone down the left since the 11th.",
@@ -9972,7 +9990,7 @@
      {
       "name": "sample_size",
       "passed": true,
-      "detail": "n=9, Wilson [0.27, 0.81], hedge suggests"
+      "detail": "n=9, P(share > league 0.31) = 0.62, Beta [0.13, 0.63], Wilson [0.27, 0.81], hedge suggests"
      },
      {
       "name": "numbers_match",
@@ -9988,10 +10006,14 @@
    },
    "uncertainty": {
     "n": 9,
-    "ci_method": "wilson",
-    "ci_low": 0.2666,
-    "ci_high": 0.8112,
-    "hedge": "suggests"
+    "ci_method": "beta",
+    "ci_low": 0.1317,
+    "ci_high": 0.6328,
+    "hedge": "suggests",
+    "baseline": 0.3123,
+    "p_above": 0.6207,
+    "wilson_low": 0.2666,
+    "wilson_high": 0.8112
    },
    "audit": {
     "steps": [
@@ -10229,11 +10251,11 @@
     },
     "comparator": "eq",
     "value": 72,
-    "baseline": 33.33
+    "baseline": 31.23
    },
    "text": {
-    "draft_en": "Since the 26th minute, 72% of Harlow attacks have gone down the left.",
-    "canonical_en": "Since the 26th minute, 72% of Harlow attacks have gone down the left.",
+    "draft_en": "The numbers suggest Harlow are favouring the left: 72% of their attacks since the 26th minute.",
+    "canonical_en": "The numbers suggest Harlow are favouring the left: 72% of their attacks since the 26th minute.",
     "numbers": [
      {
       "key": "value",
@@ -10302,7 +10324,7 @@
      {
       "name": "sample_size",
       "passed": true,
-      "detail": "n=29, Wilson [0.54, 0.85], hedge clear"
+      "detail": "n=29, P(share > league 0.31) = 0.95, Beta [0.28, 0.72], Wilson [0.54, 0.85], hedge suggests"
      },
      {
       "name": "numbers_match",
@@ -10318,20 +10340,27 @@
    },
    "uncertainty": {
     "n": 29,
-    "ci_method": "wilson",
-    "ci_low": 0.5428,
-    "ci_high": 0.853,
-    "hedge": "clear"
+    "ci_method": "beta",
+    "ci_low": 0.2763,
+    "ci_high": 0.7185,
+    "hedge": "suggests",
+    "baseline": 0.3123,
+    "p_above": 0.9465,
+    "wilson_low": 0.5428,
+    "wilson_high": 0.853
    },
    "audit": {
     "steps": [
      {
       "agent": "Scout",
       "attempt": 1,
+      "outcome": "not_cached"
+     },
+     {
+      "agent": "Drafter",
+      "attempt": 1,
       "outcome": "drafted",
-      "path": "foundry_agent",
-      "model": "gpt-5-mini",
-      "ms": 9962
+      "path": "rules"
      },
      {
       "agent": "Verifier",
@@ -10344,14 +10373,14 @@
    "risk": {
     "tier": "T1",
     "reasons": [
-     "verified, no corrections, impact 0.00, hedge clear"
+     "verified, no corrections, impact 0.00, hedge suggests"
     ]
    },
    "renditions": [
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Since the 26th minute, 72% of Harlow attacks have gone down the left.",
+     "text": "The numbers suggest Harlow are favouring the left: 72% of their attacks since the 26th minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 2403.0,
@@ -10360,7 +10389,7 @@
     {
      "kind": "cue",
      "lang": "es",
-     "text": "Desde el minuto 26, el 72 % de los ataques de Harlow han ido por la banda izquierda.",
+     "text": "Los datos sugieren que Harlow carga el juego por la banda izquierda: el 72 % de sus ataques desde el minuto 26.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 2403.0,
@@ -10369,19 +10398,19 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Since the 26th minute, 72% of Harlow attacks have gone down the left.",
+     "text": "The numbers suggest Harlow are favouring the left: 72% of their attacks since the 26th minute.",
      "numbers_preserved": true
     },
     {
      "kind": "caption",
      "lang": "es",
-     "text": "Desde el minuto 26, el 72 % de los ataques de Harlow han ido por la banda izquierda.",
+     "text": "Los datos sugieren que Harlow carga el juego por la banda izquierda: el 72 % de sus ataques desde el minuto 26.",
      "numbers_preserved": true
     },
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Since the twenty-sixth minute, seventy-two per cent of Harlow attacks have gone down the left.",
+     "text": "The numbers suggest Harlow are favouring the left: seventy-two per cent of their attacks since the twenty-sixth minute.",
      "numbers_preserved": true
     }
    ]
@@ -11757,7 +11786,7 @@
     },
     "comparator": "eq",
     "value": 50,
-    "baseline": 33.33
+    "baseline": 33.15
    },
    "text": {
     "draft_en": "The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st.",
@@ -11814,7 +11843,7 @@
      {
       "name": "sample_size",
       "passed": true,
-      "detail": "n=10, Wilson [0.24, 0.76], hedge suggests"
+      "detail": "n=10, P(share > league 0.33) = 0.59, Beta [0.14, 0.64], Wilson [0.24, 0.76], hedge suggests"
      },
      {
       "name": "numbers_match",
@@ -11830,10 +11859,14 @@
    },
    "uncertainty": {
     "n": 10,
-    "ci_method": "wilson",
-    "ci_low": 0.2366,
-    "ci_high": 0.7634,
-    "hedge": "suggests"
+    "ci_method": "beta",
+    "ci_low": 0.1387,
+    "ci_high": 0.637,
+    "hedge": "suggests",
+    "baseline": 0.3315,
+    "p_above": 0.5876,
+    "wilson_low": 0.2366,
+    "wilson_high": 0.7634
    },
    "audit": {
     "steps": [
@@ -11916,7 +11949,7 @@
     },
     "comparator": "eq",
     "value": 57,
-    "baseline": 33.33
+    "baseline": 35.62
    },
    "text": {
     "draft_en": "The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute.",
@@ -11976,7 +12009,7 @@
      {
       "name": "sample_size",
       "passed": true,
-      "detail": "n=14, Wilson [0.33, 0.79], hedge suggests"
+      "detail": "n=14, P(share > league 0.36) = 0.67, Beta [0.18, 0.67], Wilson [0.33, 0.79], hedge suggests"
      },
      {
       "name": "numbers_match",
@@ -11992,10 +12025,14 @@
    },
    "uncertainty": {
     "n": 14,
-    "ci_method": "wilson",
-    "ci_low": 0.3259,
-    "ci_high": 0.7862,
-    "hedge": "suggests"
+    "ci_method": "beta",
+    "ci_low": 0.1826,
+    "ci_high": 0.6738,
+    "hedge": "suggests",
+    "baseline": 0.3562,
+    "p_above": 0.6661,
+    "wilson_low": 0.3259,
+    "wilson_high": 0.7862
    },
    "audit": {
     "steps": [
@@ -12234,7 +12271,7 @@
     },
     "comparator": "eq",
     "value": 67,
-    "baseline": 33.33
+    "baseline": 31.23
    },
    "text": {
     "draft_en": "Since the 58th minute, 67% of Northbridge attacks have gone down the left.",
@@ -12315,10 +12352,14 @@
    },
    "uncertainty": {
     "n": 3,
-    "ci_method": "wilson",
-    "ci_low": 0.2077,
-    "ci_high": 0.9385,
-    "hedge": "early"
+    "ci_method": "beta",
+    "ci_low": 0.1048,
+    "ci_high": 0.6304,
+    "hedge": "early",
+    "baseline": 0.3123,
+    "p_above": 0.5478,
+    "wilson_low": 0.2077,
+    "wilson_high": 0.9385
    },
    "audit": {
     "steps": [
@@ -12569,11 +12610,11 @@
     },
     "comparator": "eq",
     "value": 77,
-    "baseline": 33.33
+    "baseline": 31.23
    },
    "text": {
-    "draft_en": "77% of Harlow attacks have gone down the left since the 51st minute.",
-    "canonical_en": "77% of Harlow attacks have gone down the left since the 51st minute.",
+    "draft_en": "The numbers suggest Harlow are favouring the left: 77% of their attacks since the 51st minute.",
+    "canonical_en": "The numbers suggest Harlow are favouring the left: 77% of their attacks since the 51st minute.",
     "numbers": [
      {
       "key": "value",
@@ -12631,7 +12672,7 @@
      {
       "name": "sample_size",
       "passed": true,
-      "detail": "n=13, Wilson [0.50, 0.92], hedge clear"
+      "detail": "n=13, P(share > league 0.31) = 0.82, Beta [0.19, 0.69], Wilson [0.50, 0.92], hedge suggests"
      },
      {
       "name": "numbers_match",
@@ -12647,20 +12688,27 @@
    },
    "uncertainty": {
     "n": 13,
-    "ci_method": "wilson",
-    "ci_low": 0.4974,
-    "ci_high": 0.9182,
-    "hedge": "clear"
+    "ci_method": "beta",
+    "ci_low": 0.1943,
+    "ci_high": 0.6928,
+    "hedge": "suggests",
+    "baseline": 0.3123,
+    "p_above": 0.8173,
+    "wilson_low": 0.4974,
+    "wilson_high": 0.9182
    },
    "audit": {
     "steps": [
      {
       "agent": "Scout",
       "attempt": 1,
+      "outcome": "not_cached"
+     },
+     {
+      "agent": "Drafter",
+      "attempt": 1,
       "outcome": "drafted",
-      "path": "foundry_agent",
-      "model": "gpt-5-mini",
-      "ms": 12609
+      "path": "rules"
      },
      {
       "agent": "Verifier",
@@ -12673,14 +12721,14 @@
    "risk": {
     "tier": "T1",
     "reasons": [
-     "verified, no corrections, impact 0.00, hedge clear"
+     "verified, no corrections, impact 0.00, hedge suggests"
     ]
    },
    "renditions": [
     {
      "kind": "cue",
      "lang": "en",
-     "text": "77% of Harlow attacks have gone down the left since the 51st minute.",
+     "text": "The numbers suggest Harlow are favouring the left: 77% of their attacks since the 51st minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 3903.0,
@@ -12689,7 +12737,7 @@
     {
      "kind": "cue",
      "lang": "es",
-     "text": "Desde el minuto 51, el 77 % de los ataques de Harlow han ido por la banda izquierda.",
+     "text": "Los datos sugieren que Harlow carga el juego por la banda izquierda: el 77 % de sus ataques desde el minuto 51.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 3903.0,
@@ -12698,19 +12746,19 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "77% of Harlow attacks have gone down the left since the 51st minute.",
+     "text": "The numbers suggest Harlow are favouring the left: 77% of their attacks since the 51st minute.",
      "numbers_preserved": true
     },
     {
      "kind": "caption",
      "lang": "es",
-     "text": "Desde el minuto 51, el 77 % de los ataques de Harlow han ido por la banda izquierda.",
+     "text": "Los datos sugieren que Harlow carga el juego por la banda izquierda: el 77 % de sus ataques desde el minuto 51.",
      "numbers_preserved": true
     },
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "seventy-seven per cent of Harlow attacks have gone down the left since the fifty-first minute.",
+     "text": "The numbers suggest Harlow are favouring the left: seventy-seven per cent of their attacks since the fifty-first minute.",
      "numbers_preserved": true
     }
    ]
@@ -12733,11 +12781,11 @@
     },
     "comparator": "eq",
     "value": 71,
-    "baseline": 33.33
+    "baseline": 31.23
    },
    "text": {
-    "draft_en": "71% of Northbridge attacks have gone down the left since the 58th minute.",
-    "canonical_en": "71% of Northbridge attacks have gone down the left since the 58th minute.",
+    "draft_en": "The numbers suggest Northbridge are favouring the left: 71% of their attacks since the 58th minute.",
+    "canonical_en": "The numbers suggest Northbridge are favouring the left: 71% of their attacks since the 58th minute.",
     "numbers": [
      {
       "key": "value",
@@ -12790,7 +12838,7 @@
      {
       "name": "sample_size",
       "passed": true,
-      "detail": "n=7, Wilson [0.36, 0.92], hedge clear"
+      "detail": "n=7, P(share > league 0.31) = 0.66, Beta [0.14, 0.66], Wilson [0.36, 0.92], hedge suggests"
      },
      {
       "name": "numbers_match",
@@ -12806,20 +12854,27 @@
    },
    "uncertainty": {
     "n": 7,
-    "ci_method": "wilson",
-    "ci_low": 0.3589,
-    "ci_high": 0.9178,
-    "hedge": "clear"
+    "ci_method": "beta",
+    "ci_low": 0.1394,
+    "ci_high": 0.6556,
+    "hedge": "suggests",
+    "baseline": 0.3123,
+    "p_above": 0.6646,
+    "wilson_low": 0.3589,
+    "wilson_high": 0.9178
    },
    "audit": {
     "steps": [
      {
       "agent": "Scout",
       "attempt": 1,
+      "outcome": "not_cached"
+     },
+     {
+      "agent": "Drafter",
+      "attempt": 1,
       "outcome": "drafted",
-      "path": "foundry_agent",
-      "model": "gpt-5-mini",
-      "ms": 8840
+      "path": "rules"
      },
      {
       "agent": "Verifier",
@@ -12832,14 +12887,14 @@
    "risk": {
     "tier": "T1",
     "reasons": [
-     "verified, no corrections, impact 0.00, hedge clear"
+     "verified, no corrections, impact 0.00, hedge suggests"
     ]
    },
    "renditions": [
     {
      "kind": "cue",
      "lang": "en",
-     "text": "71% of Northbridge attacks have gone down the left since the 58th minute.",
+     "text": "The numbers suggest Northbridge are favouring the left: 71% of their attacks since the 58th minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 4203.0,
@@ -12848,7 +12903,7 @@
     {
      "kind": "cue",
      "lang": "es",
-     "text": "Desde el minuto 58, el 71 % de los ataques de Northbridge han ido por la banda izquierda.",
+     "text": "Los datos sugieren que Northbridge carga el juego por la banda izquierda: el 71 % de sus ataques desde el minuto 58.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 4203.0,
@@ -12857,19 +12912,19 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "71% of Northbridge attacks have gone down the left since the 58th minute.",
+     "text": "The numbers suggest Northbridge are favouring the left: 71% of their attacks since the 58th minute.",
      "numbers_preserved": true
     },
     {
      "kind": "caption",
      "lang": "es",
-     "text": "Desde el minuto 58, el 71 % de los ataques de Northbridge han ido por la banda izquierda.",
+     "text": "Los datos sugieren que Northbridge carga el juego por la banda izquierda: el 71 % de sus ataques desde el minuto 58.",
      "numbers_preserved": true
     },
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "seventy-one per cent of Northbridge attacks have gone down the left since the fifty-eighth minute.",
+     "text": "The numbers suggest Northbridge are favouring the left: seventy-one per cent of their attacks since the fifty-eighth minute.",
      "numbers_preserved": true
     }
    ]
@@ -13205,11 +13260,11 @@
     },
     "comparator": "eq",
     "value": 51,
-    "baseline": 33.33
+    "baseline": 31.23
    },
    "text": {
-    "draft_en": "51% of Northbridge attacks have gone down the left since the 58th minute.",
-    "canonical_en": "51% of Northbridge attacks have gone down the left since the 58th minute.",
+    "draft_en": "The numbers suggest Northbridge are favouring the left: 51% of their attacks since the 58th minute.",
+    "canonical_en": "The numbers suggest Northbridge are favouring the left: 51% of their attacks since the 58th minute.",
     "numbers": [
      {
       "key": "value",
@@ -13218,8 +13273,7 @@
      },
      {
       "key": "since_minute",
-      "value": 58,
-      "unit": "minute"
+      "value": 58
      }
     ]
    },
@@ -13278,7 +13332,7 @@
      {
       "name": "sample_size",
       "passed": true,
-      "detail": "n=39, Wilson [0.36, 0.66], hedge clear"
+      "detail": "n=39, P(share > league 0.31) = 0.83, Beta [0.22, 0.63], Wilson [0.36, 0.66], hedge suggests"
      },
      {
       "name": "numbers_match",
@@ -13294,20 +13348,27 @@
    },
    "uncertainty": {
     "n": 39,
-    "ci_method": "wilson",
-    "ci_low": 0.362,
-    "ci_high": 0.6614,
-    "hedge": "clear"
+    "ci_method": "beta",
+    "ci_low": 0.2206,
+    "ci_high": 0.6285,
+    "hedge": "suggests",
+    "baseline": 0.3123,
+    "p_above": 0.8346,
+    "wilson_low": 0.362,
+    "wilson_high": 0.6614
    },
    "audit": {
     "steps": [
      {
       "agent": "Scout",
       "attempt": 1,
+      "outcome": "not_cached"
+     },
+     {
+      "agent": "Drafter",
+      "attempt": 1,
       "outcome": "drafted",
-      "path": "foundry_agent",
-      "model": "gpt-5-mini",
-      "ms": 12284
+      "path": "rules"
      },
      {
       "agent": "Verifier",
@@ -13320,14 +13381,14 @@
    "risk": {
     "tier": "T1",
     "reasons": [
-     "verified, no corrections, impact 0.00, hedge clear"
+     "verified, no corrections, impact 0.00, hedge suggests"
     ]
    },
    "renditions": [
     {
      "kind": "cue",
      "lang": "en",
-     "text": "51% of Northbridge attacks have gone down the left since the 58th minute.",
+     "text": "The numbers suggest Northbridge are favouring the left: 51% of their attacks since the 58th minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 5103.0,
@@ -13336,7 +13397,7 @@
     {
      "kind": "cue",
      "lang": "es",
-     "text": "Desde el minuto 58, el 51 % de los ataques de Northbridge han ido por la banda izquierda.",
+     "text": "Los datos sugieren que Northbridge carga el juego por la banda izquierda: el 51 % de sus ataques desde el minuto 58.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 5103.0,
@@ -13345,19 +13406,19 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "51% of Northbridge attacks have gone down the left since the 58th minute.",
+     "text": "The numbers suggest Northbridge are favouring the left: 51% of their attacks since the 58th minute.",
      "numbers_preserved": true
     },
     {
      "kind": "caption",
      "lang": "es",
-     "text": "Desde el minuto 58, el 51 % de los ataques de Northbridge han ido por la banda izquierda.",
+     "text": "Los datos sugieren que Northbridge carga el juego por la banda izquierda: el 51 % de sus ataques desde el minuto 58.",
      "numbers_preserved": true
     },
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "fifty-one per cent of Northbridge attacks have gone down the left since the fifty-eighth minute.",
+     "text": "The numbers suggest Northbridge are favouring the left: fifty-one per cent of their attacks since the fifty-eighth minute.",
      "numbers_preserved": true
     }
    ]
@@ -13380,7 +13441,7 @@
     },
     "comparator": "eq",
     "value": 50,
-    "baseline": 33.33
+    "baseline": 35.62
    },
    "text": {
     "draft_en": "The numbers suggest 50% of Northbridge attacks have gone down the centre since the 76th minute.",
@@ -13444,7 +13505,7 @@
      {
       "name": "sample_size",
       "passed": true,
-      "detail": "n=24, Wilson [0.31, 0.69], hedge suggests"
+      "detail": "n=24, P(share > league 0.36) = 0.67, Beta [0.20, 0.65], Wilson [0.31, 0.69], hedge suggests"
      },
      {
       "name": "numbers_match",
@@ -13460,10 +13521,14 @@
    },
    "uncertainty": {
     "n": 24,
-    "ci_method": "wilson",
-    "ci_low": 0.3143,
-    "ci_high": 0.6857,
-    "hedge": "suggests"
+    "ci_method": "beta",
+    "ci_low": 0.1979,
+    "ci_high": 0.6497,
+    "hedge": "suggests",
+    "baseline": 0.3562,
+    "p_above": 0.6748,
+    "wilson_low": 0.3143,
+    "wilson_high": 0.6857
    },
    "audit": {
     "steps": [
@@ -13546,11 +13611,11 @@
     },
     "comparator": "eq",
     "value": 83,
-    "baseline": 33.33
+    "baseline": 33.15
    },
    "text": {
-    "draft_en": "Since the 71st minute, 83% of Harlow attacks have gone down the right.",
-    "canonical_en": "Since the 71st minute, 83% of Harlow attacks have gone down the right.",
+    "draft_en": "The numbers suggest Harlow are favouring the right: 83% of their attacks since the 71st minute.",
+    "canonical_en": "The numbers suggest Harlow are favouring the right: 83% of their attacks since the 71st minute.",
     "numbers": [
      {
       "key": "value",
@@ -13603,7 +13668,7 @@
      {
       "name": "sample_size",
       "passed": true,
-      "detail": "n=6, Wilson [0.44, 0.97], hedge clear"
+      "detail": "n=6, P(share > league 0.33) = 0.68, Beta [0.16, 0.68], Wilson [0.44, 0.97], hedge suggests"
      },
      {
       "name": "numbers_match",
@@ -13619,20 +13684,27 @@
    },
    "uncertainty": {
     "n": 6,
-    "ci_method": "wilson",
-    "ci_low": 0.4365,
-    "ci_high": 0.9699,
-    "hedge": "clear"
+    "ci_method": "beta",
+    "ci_low": 0.1553,
+    "ci_high": 0.6834,
+    "hedge": "suggests",
+    "baseline": 0.3315,
+    "p_above": 0.6798,
+    "wilson_low": 0.4365,
+    "wilson_high": 0.9699
    },
    "audit": {
     "steps": [
      {
       "agent": "Scout",
       "attempt": 1,
+      "outcome": "not_cached"
+     },
+     {
+      "agent": "Drafter",
+      "attempt": 1,
       "outcome": "drafted",
-      "path": "foundry_agent",
-      "model": "gpt-5-mini",
-      "ms": 10000
+      "path": "rules"
      },
      {
       "agent": "Verifier",
@@ -13645,14 +13717,14 @@
    "risk": {
     "tier": "T1",
     "reasons": [
-     "verified, no corrections, impact 0.00, hedge clear"
+     "verified, no corrections, impact 0.00, hedge suggests"
     ]
    },
    "renditions": [
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Since the 71st minute, 83% of Harlow attacks have gone down the right.",
+     "text": "The numbers suggest Harlow are favouring the right: 83% of their attacks since the 71st minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 5403.0,
@@ -13661,7 +13733,7 @@
     {
      "kind": "cue",
      "lang": "es",
-     "text": "Desde el minuto 71, el 83 % de los ataques de Harlow han ido por la banda derecha.",
+     "text": "Los datos sugieren que Harlow carga el juego por la banda derecha: el 83 % de sus ataques desde el minuto 71.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 5403.0,
@@ -13670,19 +13742,19 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Since the 71st minute, 83% of Harlow attacks have gone down the right.",
+     "text": "The numbers suggest Harlow are favouring the right: 83% of their attacks since the 71st minute.",
      "numbers_preserved": true
     },
     {
      "kind": "caption",
      "lang": "es",
-     "text": "Desde el minuto 71, el 83 % de los ataques de Harlow han ido por la banda derecha.",
+     "text": "Los datos sugieren que Harlow carga el juego por la banda derecha: el 83 % de sus ataques desde el minuto 71.",
      "numbers_preserved": true
     },
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Since the seventy-first minute, eighty-three per cent of Harlow attacks have gone down the right.",
+     "text": "The numbers suggest Harlow are favouring the right: eighty-three per cent of their attacks since the seventy-first minute.",
      "numbers_preserved": true
     }
    ]
@@ -15056,11 +15128,11 @@
     },
     "comparator": "eq",
     "value": 80,
-    "baseline": 33.33
+    "baseline": 33.15
    },
    "text": {
-    "draft_en": "Since the 1st minute, 80% of Northbridge attacks have gone down the right.",
-    "canonical_en": "Since the 1st minute, 80% of Northbridge attacks have gone down the right.",
+    "draft_en": "The numbers suggest Northbridge are favouring the right: 80% of their attacks since the 1st minute.",
+    "canonical_en": "The numbers suggest Northbridge are favouring the right: 80% of their attacks since the 1st minute.",
     "numbers": [
      {
       "key": "value",
@@ -15113,7 +15185,7 @@
      {
       "name": "sample_size",
       "passed": true,
-      "detail": "n=7, Wilson [0.36, 0.92], hedge clear"
+      "detail": "n=7, P(share > league 0.33) = 0.66, Beta [0.15, 0.67], Wilson [0.36, 0.92], hedge suggests"
      },
      {
       "name": "numbers_match",
@@ -15128,10 +15200,14 @@
    },
    "uncertainty": {
     "n": 7,
-    "ci_method": "wilson",
-    "ci_low": 0.3589,
-    "ci_high": 0.9178,
-    "hedge": "clear"
+    "ci_method": "beta",
+    "ci_low": 0.1508,
+    "ci_high": 0.6713,
+    "hedge": "suggests",
+    "baseline": 0.3315,
+    "p_above": 0.6568,
+    "wilson_low": 0.3589,
+    "wilson_high": 0.9178
    },
    "audit": {
     "steps": [
@@ -15168,11 +15244,11 @@
     },
     "comparator": "eq",
     "value": 71,
-    "baseline": 33.33
+    "baseline": 33.15
    },
    "text": {
-    "draft_en": "Since the 1st minute, 71% of Northbridge attacks have gone down the right.",
-    "canonical_en": "Since the 1st minute, 71% of Northbridge attacks have gone down the right.",
+    "draft_en": "The numbers suggest Northbridge are favouring the right: 71% of their attacks since the 1st minute.",
+    "canonical_en": "The numbers suggest Northbridge are favouring the right: 71% of their attacks since the 1st minute.",
     "numbers": [
      {
       "key": "value",
@@ -15226,7 +15302,7 @@
      {
       "name": "sample_size",
       "passed": true,
-      "detail": "n=7, Wilson [0.36, 0.92], hedge clear"
+      "detail": "n=7, P(share > league 0.33) = 0.66, Beta [0.15, 0.67], Wilson [0.36, 0.92], hedge suggests"
      },
      {
       "name": "numbers_match",
@@ -15241,10 +15317,14 @@
    },
    "uncertainty": {
     "n": 7,
-    "ci_method": "wilson",
-    "ci_low": 0.3589,
-    "ci_high": 0.9178,
-    "hedge": "clear"
+    "ci_method": "beta",
+    "ci_low": 0.1508,
+    "ci_high": 0.6713,
+    "hedge": "suggests",
+    "baseline": 0.3315,
+    "p_above": 0.6568,
+    "wilson_low": 0.3589,
+    "wilson_high": 0.9178
    },
    "audit": {
     "steps": [
@@ -15504,16 +15584,22 @@
   },
   "renditions_failed_number_check": 0,
   "scout": {
-   "first_pass": 28,
+   "first_pass": 21,
    "after_retry": 0,
    "rejected": 0,
-   "rules": 6
+   "rules": 13
   }
  },
  "series": {
   "step_s": 60,
   "lane_window_s": 900,
-  "lane_baseline": 0.3333333,
+  "lane_prior": {
+   "left": 0.3123,
+   "centre": 0.3562,
+   "right": 0.3315
+  },
+  "lane_deff": 3.564,
+  "hedge_clear_prob": 0.95,
   "t": [
    0.0,
    60.0,
@@ -17193,20 +17279,23 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.466
      },
      "n": 0,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.474
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.47
      },
      "top": "left",
      "hedge": "early",
@@ -17217,20 +17306,23 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.658
+      "hi": 0.658,
+      "p_above": 0.418
      },
      "n": 2,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.658
+      "hi": 0.658,
+      "p_above": 0.422
      },
      "right": {
       "k": 2,
       "share": 1.0,
       "lo": 0.342,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.571
      },
      "top": "right",
      "hedge": "early",
@@ -17241,20 +17333,23 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.434
+      "hi": 0.434,
+      "p_above": 0.353
      },
      "n": 5,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.434
+      "hi": 0.434,
+      "p_above": 0.35
      },
      "right": {
       "k": 5,
       "share": 1.0,
       "lo": 0.566,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.703
      },
      "top": "right",
      "hedge": "early",
@@ -17265,332 +17360,374 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.39
+      "hi": 0.39,
+      "p_above": 0.333
      },
      "n": 6,
      "centre": {
       "k": 1,
       "share": 0.167,
       "lo": 0.03,
-      "hi": 0.564
+      "hi": 0.564,
+      "p_above": 0.396
      },
      "right": {
       "k": 5,
       "share": 0.833,
       "lo": 0.436,
-      "hi": 0.97
+      "hi": 0.97,
+      "p_above": 0.68
      },
      "top": "right",
-     "hedge": "clear",
-     "overload": "right"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.39
+      "hi": 0.39,
+      "p_above": 0.333
      },
      "n": 6,
      "centre": {
       "k": 1,
       "share": 0.167,
       "lo": 0.03,
-      "hi": 0.564
+      "hi": 0.564,
+      "p_above": 0.396
      },
      "right": {
       "k": 5,
       "share": 0.833,
       "lo": 0.436,
-      "hi": 0.97
+      "hi": 0.97,
+      "p_above": 0.68
      },
      "top": "right",
-     "hedge": "clear",
-     "overload": "right"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.383
      },
      "n": 7,
      "centre": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.373
      },
      "right": {
       "k": 5,
       "share": 0.714,
       "lo": 0.359,
-      "hi": 0.918
+      "hi": 0.918,
+      "p_above": 0.657
      },
      "top": "right",
-     "hedge": "clear",
-     "overload": "right"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.383
      },
      "n": 7,
      "centre": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.373
      },
      "right": {
       "k": 5,
       "share": 0.714,
       "lo": 0.359,
-      "hi": 0.918
+      "hi": 0.918,
+      "p_above": 0.657
      },
      "top": "right",
-     "hedge": "clear",
-     "overload": "right"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.383
      },
      "n": 7,
      "centre": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.373
      },
      "right": {
       "k": 5,
       "share": 0.714,
       "lo": 0.359,
-      "hi": 0.918
+      "hi": 0.918,
+      "p_above": 0.657
      },
      "top": "right",
-     "hedge": "clear",
-     "overload": "right"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.383
      },
      "n": 7,
      "centre": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.373
      },
      "right": {
       "k": 5,
       "share": 0.714,
       "lo": 0.359,
-      "hi": 0.918
+      "hi": 0.918,
+      "p_above": 0.657
      },
      "top": "right",
-     "hedge": "clear",
-     "overload": "right"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.383
      },
      "n": 7,
      "centre": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.373
      },
      "right": {
       "k": 5,
       "share": 0.714,
       "lo": 0.359,
-      "hi": 0.918
+      "hi": 0.918,
+      "p_above": 0.657
      },
      "top": "right",
-     "hedge": "clear",
-     "overload": "right"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.383
      },
      "n": 7,
      "centre": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.373
      },
      "right": {
       "k": 5,
       "share": 0.714,
       "lo": 0.359,
-      "hi": 0.918
+      "hi": 0.918,
+      "p_above": 0.657
      },
      "top": "right",
-     "hedge": "clear",
-     "overload": "right"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.383
      },
      "n": 7,
      "centre": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.373
      },
      "right": {
       "k": 5,
       "share": 0.714,
       "lo": 0.359,
-      "hi": 0.918
+      "hi": 0.918,
+      "p_above": 0.657
      },
      "top": "right",
-     "hedge": "clear",
-     "overload": "right"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.383
      },
      "n": 7,
      "centre": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.373
      },
      "right": {
       "k": 5,
       "share": 0.714,
       "lo": 0.359,
-      "hi": 0.918
+      "hi": 0.918,
+      "p_above": 0.657
      },
      "top": "right",
-     "hedge": "clear",
-     "overload": "right"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.383
      },
      "n": 7,
      "centre": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.373
      },
      "right": {
       "k": 5,
       "share": 0.714,
       "lo": 0.359,
-      "hi": 0.918
+      "hi": 0.918,
+      "p_above": 0.657
      },
      "top": "right",
-     "hedge": "clear",
-     "overload": "right"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.383
      },
      "n": 7,
      "centre": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.373
      },
      "right": {
       "k": 5,
       "share": 0.714,
       "lo": 0.359,
-      "hi": 0.918
+      "hi": 0.918,
+      "p_above": 0.657
      },
      "top": "right",
-     "hedge": "clear",
-     "overload": "right"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.383
      },
      "n": 7,
      "centre": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.373
      },
      "right": {
       "k": 5,
       "share": 0.714,
       "lo": 0.359,
-      "hi": 0.918
+      "hi": 0.918,
+      "p_above": 0.657
      },
      "top": "right",
-     "hedge": "clear",
-     "overload": "right"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 2,
       "share": 0.333,
       "lo": 0.097,
-      "hi": 0.7
+      "hi": 0.7,
+      "p_above": 0.477
      },
      "n": 6,
      "centre": {
       "k": 1,
       "share": 0.167,
       "lo": 0.03,
-      "hi": 0.564
+      "hi": 0.564,
+      "p_above": 0.396
      },
      "right": {
       "k": 3,
       "share": 0.5,
       "lo": 0.188,
-      "hi": 0.812
+      "hi": 0.812,
+      "p_above": 0.545
      },
      "top": "right",
      "hedge": "suggests",
@@ -17601,20 +17738,23 @@
       "k": 3,
       "share": 0.6,
       "lo": 0.231,
-      "hi": 0.882
+      "hi": 0.882,
+      "p_above": 0.574
      },
      "n": 5,
      "centre": {
       "k": 2,
       "share": 0.4,
       "lo": 0.118,
-      "hi": 0.769
+      "hi": 0.769,
+      "p_above": 0.492
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.434
+      "hi": 0.434,
+      "p_above": 0.352
      },
      "top": "left",
      "hedge": "early",
@@ -17625,20 +17765,23 @@
       "k": 3,
       "share": 0.6,
       "lo": 0.231,
-      "hi": 0.882
+      "hi": 0.882,
+      "p_above": 0.574
      },
      "n": 5,
      "centre": {
       "k": 2,
       "share": 0.4,
       "lo": 0.118,
-      "hi": 0.769
+      "hi": 0.769,
+      "p_above": 0.492
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.434
+      "hi": 0.434,
+      "p_above": 0.352
      },
      "top": "left",
      "hedge": "early",
@@ -17649,20 +17792,23 @@
       "k": 3,
       "share": 0.375,
       "lo": 0.137,
-      "hi": 0.694
+      "hi": 0.694,
+      "p_above": 0.505
      },
      "n": 8,
      "centre": {
       "k": 3,
       "share": 0.375,
       "lo": 0.137,
-      "hi": 0.694
+      "hi": 0.694,
+      "p_above": 0.487
      },
      "right": {
       "k": 2,
       "share": 0.25,
       "lo": 0.071,
-      "hi": 0.591
+      "hi": 0.591,
+      "p_above": 0.427
      },
      "top": "left",
      "hedge": "suggests",
@@ -17673,20 +17819,23 @@
       "k": 2,
       "share": 0.286,
       "lo": 0.082,
-      "hi": 0.641
+      "hi": 0.641,
+      "p_above": 0.455
      },
      "n": 7,
      "centre": {
       "k": 3,
       "share": 0.429,
       "lo": 0.158,
-      "hi": 0.75
+      "hi": 0.75,
+      "p_above": 0.512
      },
      "right": {
       "k": 2,
       "share": 0.286,
       "lo": 0.082,
-      "hi": 0.641
+      "hi": 0.641,
+      "p_above": 0.449
      },
      "top": "centre",
      "hedge": "suggests",
@@ -17697,20 +17846,23 @@
       "k": 2,
       "share": 0.286,
       "lo": 0.082,
-      "hi": 0.641
+      "hi": 0.641,
+      "p_above": 0.455
      },
      "n": 7,
      "centre": {
       "k": 3,
       "share": 0.429,
       "lo": 0.158,
-      "hi": 0.75
+      "hi": 0.75,
+      "p_above": 0.512
      },
      "right": {
       "k": 2,
       "share": 0.286,
       "lo": 0.082,
-      "hi": 0.641
+      "hi": 0.641,
+      "p_above": 0.449
      },
      "top": "centre",
      "hedge": "suggests",
@@ -17721,20 +17873,23 @@
       "k": 2,
       "share": 0.2,
       "lo": 0.057,
-      "hi": 0.51
+      "hi": 0.51,
+      "p_above": 0.391
      },
      "n": 10,
      "centre": {
       "k": 6,
       "share": 0.6,
       "lo": 0.313,
-      "hi": 0.832
+      "hi": 0.832,
+      "p_above": 0.638
      },
      "right": {
       "k": 2,
       "share": 0.2,
       "lo": 0.057,
-      "hi": 0.51
+      "hi": 0.51,
+      "p_above": 0.383
      },
      "top": "centre",
      "hedge": "suggests",
@@ -17745,380 +17900,428 @@
       "k": 2,
       "share": 0.182,
       "lo": 0.051,
-      "hi": 0.477
+      "hi": 0.477,
+      "p_above": 0.371
      },
      "n": 11,
      "centre": {
       "k": 7,
       "share": 0.636,
       "lo": 0.354,
-      "hi": 0.848
+      "hi": 0.848,
+      "p_above": 0.675
      },
      "right": {
       "k": 2,
       "share": 0.182,
       "lo": 0.051,
-      "hi": 0.477
+      "hi": 0.477,
+      "p_above": 0.363
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 2,
       "share": 0.125,
       "lo": 0.035,
-      "hi": 0.36
+      "hi": 0.36,
+      "p_above": 0.282
      },
      "n": 16,
      "centre": {
       "k": 11,
       "share": 0.688,
       "lo": 0.444,
-      "hi": 0.858
+      "hi": 0.858,
+      "p_above": 0.78
      },
      "right": {
       "k": 3,
       "share": 0.188,
       "lo": 0.066,
-      "hi": 0.43
+      "hi": 0.43,
+      "p_above": 0.329
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 2,
       "share": 0.125,
       "lo": 0.035,
-      "hi": 0.36
+      "hi": 0.36,
+      "p_above": 0.282
      },
      "n": 16,
      "centre": {
       "k": 11,
       "share": 0.688,
       "lo": 0.444,
-      "hi": 0.858
+      "hi": 0.858,
+      "p_above": 0.78
      },
      "right": {
       "k": 3,
       "share": 0.188,
       "lo": 0.066,
-      "hi": 0.43
+      "hi": 0.43,
+      "p_above": 0.329
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 2,
       "share": 0.118,
       "lo": 0.033,
-      "hi": 0.343
+      "hi": 0.343,
+      "p_above": 0.266
      },
      "n": 17,
      "centre": {
       "k": 12,
       "share": 0.706,
       "lo": 0.469,
-      "hi": 0.867
+      "hi": 0.867,
+      "p_above": 0.806
      },
      "right": {
       "k": 3,
       "share": 0.176,
       "lo": 0.062,
-      "hi": 0.41
+      "hi": 0.41,
+      "p_above": 0.311
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 2,
       "share": 0.118,
       "lo": 0.033,
-      "hi": 0.343
+      "hi": 0.343,
+      "p_above": 0.266
      },
      "n": 17,
      "centre": {
       "k": 12,
       "share": 0.706,
       "lo": 0.469,
-      "hi": 0.867
+      "hi": 0.867,
+      "p_above": 0.806
      },
      "right": {
       "k": 3,
       "share": 0.176,
       "lo": 0.062,
-      "hi": 0.41
+      "hi": 0.41,
+      "p_above": 0.311
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 2,
       "share": 0.118,
       "lo": 0.033,
-      "hi": 0.343
+      "hi": 0.343,
+      "p_above": 0.266
      },
      "n": 17,
      "centre": {
       "k": 12,
       "share": 0.706,
       "lo": 0.469,
-      "hi": 0.867
+      "hi": 0.867,
+      "p_above": 0.806
      },
      "right": {
       "k": 3,
       "share": 0.176,
       "lo": 0.062,
-      "hi": 0.41
+      "hi": 0.41,
+      "p_above": 0.311
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 2,
       "share": 0.118,
       "lo": 0.033,
-      "hi": 0.343
+      "hi": 0.343,
+      "p_above": 0.266
      },
      "n": 17,
      "centre": {
       "k": 12,
       "share": 0.706,
       "lo": 0.469,
-      "hi": 0.867
+      "hi": 0.867,
+      "p_above": 0.806
      },
      "right": {
       "k": 3,
       "share": 0.176,
       "lo": 0.062,
-      "hi": 0.41
+      "hi": 0.41,
+      "p_above": 0.311
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 2,
       "share": 0.105,
       "lo": 0.029,
-      "hi": 0.314
+      "hi": 0.314,
+      "p_above": 0.237
      },
      "n": 19,
      "centre": {
       "k": 12,
       "share": 0.632,
       "lo": 0.41,
-      "hi": 0.809
+      "hi": 0.809,
+      "p_above": 0.771
      },
      "right": {
       "k": 5,
       "share": 0.263,
       "lo": 0.118,
-      "hi": 0.488
+      "hi": 0.488,
+      "p_above": 0.395
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 1,
       "share": 0.056,
       "lo": 0.01,
-      "hi": 0.258
+      "hi": 0.258,
+      "p_above": 0.2
      },
      "n": 18,
      "centre": {
       "k": 12,
       "share": 0.667,
       "lo": 0.437,
-      "hi": 0.837
+      "hi": 0.837,
+      "p_above": 0.789
      },
      "right": {
       "k": 5,
       "share": 0.278,
       "lo": 0.125,
-      "hi": 0.509
+      "hi": 0.509,
+      "p_above": 0.414
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.194
+      "hi": 0.194,
+      "p_above": 0.177
      },
      "n": 16,
      "centre": {
       "k": 11,
       "share": 0.688,
       "lo": 0.444,
-      "hi": 0.858
+      "hi": 0.858,
+      "p_above": 0.78
      },
      "right": {
       "k": 5,
       "share": 0.312,
       "lo": 0.142,
-      "hi": 0.556
+      "hi": 0.556,
+      "p_above": 0.455
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.204
+      "hi": 0.204,
+      "p_above": 0.189
      },
      "n": 15,
      "centre": {
       "k": 10,
       "share": 0.667,
       "lo": 0.417,
-      "hi": 0.848
+      "hi": 0.848,
+      "p_above": 0.752
      },
      "right": {
       "k": 5,
       "share": 0.333,
       "lo": 0.152,
-      "hi": 0.583
+      "hi": 0.583,
+      "p_above": 0.476
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.243
+      "hi": 0.243,
+      "p_above": 0.23
      },
      "n": 12,
      "centre": {
       "k": 9,
       "share": 0.75,
       "lo": 0.468,
-      "hi": 0.911
+      "hi": 0.911,
+      "p_above": 0.763
      },
      "right": {
       "k": 3,
       "share": 0.25,
       "lo": 0.089,
-      "hi": 0.532
+      "hi": 0.532,
+      "p_above": 0.408
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.243
+      "hi": 0.243,
+      "p_above": 0.23
      },
      "n": 12,
      "centre": {
       "k": 9,
       "share": 0.75,
       "lo": 0.468,
-      "hi": 0.911
+      "hi": 0.911,
+      "p_above": 0.763
      },
      "right": {
       "k": 3,
       "share": 0.25,
       "lo": 0.089,
-      "hi": 0.532
+      "hi": 0.532,
+      "p_above": 0.408
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.243
+      "hi": 0.243,
+      "p_above": 0.23
      },
      "n": 12,
      "centre": {
       "k": 9,
       "share": 0.75,
       "lo": 0.468,
-      "hi": 0.911
+      "hi": 0.911,
+      "p_above": 0.763
      },
      "right": {
       "k": 3,
       "share": 0.25,
       "lo": 0.089,
-      "hi": 0.532
+      "hi": 0.532,
+      "p_above": 0.408
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.299
+      "hi": 0.299,
+      "p_above": 0.277
      },
      "n": 9,
      "centre": {
       "k": 6,
       "share": 0.667,
       "lo": 0.354,
-      "hi": 0.879
+      "hi": 0.879,
+      "p_above": 0.662
      },
      "right": {
       "k": 3,
       "share": 0.333,
       "lo": 0.121,
-      "hi": 0.646
+      "hi": 0.646,
+      "p_above": 0.474
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.324
+      "hi": 0.324,
+      "p_above": 0.295
      },
      "n": 8,
      "centre": {
       "k": 5,
       "share": 0.625,
       "lo": 0.306,
-      "hi": 0.863
+      "hi": 0.863,
+      "p_above": 0.623
      },
      "right": {
       "k": 3,
       "share": 0.375,
       "lo": 0.137,
-      "hi": 0.694
+      "hi": 0.694,
+      "p_above": 0.497
      },
      "top": "centre",
      "hedge": "suggests",
@@ -18129,20 +18332,23 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.562
+      "hi": 0.562,
+      "p_above": 0.395
      },
      "n": 3,
      "centre": {
       "k": 1,
       "share": 0.333,
       "lo": 0.061,
-      "hi": 0.792
+      "hi": 0.792,
+      "p_above": 0.47
      },
      "right": {
       "k": 2,
       "share": 0.667,
       "lo": 0.208,
-      "hi": 0.939
+      "hi": 0.939,
+      "p_above": 0.546
      },
      "top": "right",
      "hedge": "early",
@@ -18153,20 +18359,23 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.562
+      "hi": 0.562,
+      "p_above": 0.395
      },
      "n": 3,
      "centre": {
       "k": 1,
       "share": 0.333,
       "lo": 0.061,
-      "hi": 0.792
+      "hi": 0.792,
+      "p_above": 0.47
      },
      "right": {
       "k": 2,
       "share": 0.667,
       "lo": 0.208,
-      "hi": 0.939
+      "hi": 0.939,
+      "p_above": 0.546
      },
      "top": "right",
      "hedge": "early",
@@ -18177,20 +18386,23 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.658
+      "hi": 0.658,
+      "p_above": 0.418
      },
      "n": 2,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.658
+      "hi": 0.658,
+      "p_above": 0.422
      },
      "right": {
       "k": 2,
       "share": 1.0,
       "lo": 0.342,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.571
      },
      "top": "right",
      "hedge": "early",
@@ -18201,20 +18413,23 @@
       "k": 2,
       "share": 0.5,
       "lo": 0.15,
-      "hi": 0.85
+      "hi": 0.85,
+      "p_above": 0.524
      },
      "n": 4,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.49
+      "hi": 0.49,
+      "p_above": 0.373
      },
      "right": {
       "k": 2,
       "share": 0.5,
       "lo": 0.15,
-      "hi": 0.85
+      "hi": 0.85,
+      "p_above": 0.521
      },
      "top": "left",
      "hedge": "early",
@@ -18225,20 +18440,23 @@
       "k": 2,
       "share": 0.5,
       "lo": 0.15,
-      "hi": 0.85
+      "hi": 0.85,
+      "p_above": 0.524
      },
      "n": 4,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.49
+      "hi": 0.49,
+      "p_above": 0.373
      },
      "right": {
       "k": 2,
       "share": 0.5,
       "lo": 0.15,
-      "hi": 0.85
+      "hi": 0.85,
+      "p_above": 0.521
      },
      "top": "left",
      "hedge": "early",
@@ -18249,20 +18467,23 @@
       "k": 2,
       "share": 0.4,
       "lo": 0.118,
-      "hi": 0.769
+      "hi": 0.769,
+      "p_above": 0.5
      },
      "n": 5,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.434
+      "hi": 0.434,
+      "p_above": 0.35
      },
      "right": {
       "k": 3,
       "share": 0.6,
       "lo": 0.231,
-      "hi": 0.882
+      "hi": 0.882,
+      "p_above": 0.569
      },
      "top": "right",
      "hedge": "early",
@@ -18273,20 +18494,23 @@
       "k": 2,
       "share": 0.667,
       "lo": 0.208,
-      "hi": 0.939
+      "hi": 0.939,
+      "p_above": 0.548
      },
      "n": 3,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.562
+      "hi": 0.562,
+      "p_above": 0.397
      },
      "right": {
       "k": 1,
       "share": 0.333,
       "lo": 0.061,
-      "hi": 0.792
+      "hi": 0.792,
+      "p_above": 0.471
      },
      "top": "left",
      "hedge": "early",
@@ -18297,20 +18521,23 @@
       "k": 2,
       "share": 0.667,
       "lo": 0.208,
-      "hi": 0.939
+      "hi": 0.939,
+      "p_above": 0.548
      },
      "n": 3,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.562
+      "hi": 0.562,
+      "p_above": 0.397
      },
      "right": {
       "k": 1,
       "share": 0.333,
       "lo": 0.061,
-      "hi": 0.792
+      "hi": 0.792,
+      "p_above": 0.471
      },
      "top": "left",
      "hedge": "early",
@@ -18321,20 +18548,23 @@
       "k": 2,
       "share": 0.667,
       "lo": 0.208,
-      "hi": 0.939
+      "hi": 0.939,
+      "p_above": 0.548
      },
      "n": 3,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.562
+      "hi": 0.562,
+      "p_above": 0.397
      },
      "right": {
       "k": 1,
       "share": 0.333,
       "lo": 0.061,
-      "hi": 0.792
+      "hi": 0.792,
+      "p_above": 0.471
      },
      "top": "left",
      "hedge": "early",
@@ -18345,20 +18575,23 @@
       "k": 2,
       "share": 0.5,
       "lo": 0.15,
-      "hi": 0.85
+      "hi": 0.85,
+      "p_above": 0.524
      },
      "n": 4,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.49
+      "hi": 0.49,
+      "p_above": 0.373
      },
      "right": {
       "k": 2,
       "share": 0.5,
       "lo": 0.15,
-      "hi": 0.85
+      "hi": 0.85,
+      "p_above": 0.521
      },
      "top": "left",
      "hedge": "early",
@@ -18369,20 +18602,23 @@
       "k": 2,
       "share": 0.5,
       "lo": 0.15,
-      "hi": 0.85
+      "hi": 0.85,
+      "p_above": 0.524
      },
      "n": 4,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.49
+      "hi": 0.49,
+      "p_above": 0.373
      },
      "right": {
       "k": 2,
       "share": 0.5,
       "lo": 0.15,
-      "hi": 0.85
+      "hi": 0.85,
+      "p_above": 0.521
      },
      "top": "left",
      "hedge": "early",
@@ -18393,20 +18629,23 @@
       "k": 2,
       "share": 0.5,
       "lo": 0.15,
-      "hi": 0.85
+      "hi": 0.85,
+      "p_above": 0.524
      },
      "n": 4,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.49
+      "hi": 0.49,
+      "p_above": 0.373
      },
      "right": {
       "k": 2,
       "share": 0.5,
       "lo": 0.15,
-      "hi": 0.85
+      "hi": 0.85,
+      "p_above": 0.521
      },
      "top": "left",
      "hedge": "early",
@@ -18417,20 +18656,23 @@
       "k": 2,
       "share": 0.4,
       "lo": 0.118,
-      "hi": 0.769
+      "hi": 0.769,
+      "p_above": 0.5
      },
      "n": 5,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.434
+      "hi": 0.434,
+      "p_above": 0.35
      },
      "right": {
       "k": 3,
       "share": 0.6,
       "lo": 0.231,
-      "hi": 0.882
+      "hi": 0.882,
+      "p_above": 0.569
      },
      "top": "right",
      "hedge": "early",
@@ -18441,92 +18683,104 @@
       "k": 2,
       "share": 0.286,
       "lo": 0.082,
-      "hi": 0.641
+      "hi": 0.641,
+      "p_above": 0.455
      },
      "n": 7,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.354
+      "hi": 0.354,
+      "p_above": 0.307
      },
      "right": {
       "k": 5,
       "share": 0.714,
       "lo": 0.359,
-      "hi": 0.918
+      "hi": 0.918,
+      "p_above": 0.657
      },
      "top": "right",
-     "hedge": "clear",
-     "overload": "right"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 2,
       "share": 0.286,
       "lo": 0.082,
-      "hi": 0.641
+      "hi": 0.641,
+      "p_above": 0.455
      },
      "n": 7,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.354
+      "hi": 0.354,
+      "p_above": 0.307
      },
      "right": {
       "k": 5,
       "share": 0.714,
       "lo": 0.359,
-      "hi": 0.918
+      "hi": 0.918,
+      "p_above": 0.657
      },
      "top": "right",
-     "hedge": "clear",
-     "overload": "right"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 2,
       "share": 0.286,
       "lo": 0.082,
-      "hi": 0.641
+      "hi": 0.641,
+      "p_above": 0.455
      },
      "n": 7,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.354
+      "hi": 0.354,
+      "p_above": 0.307
      },
      "right": {
       "k": 5,
       "share": 0.714,
       "lo": 0.359,
-      "hi": 0.918
+      "hi": 0.918,
+      "p_above": 0.657
      },
      "top": "right",
-     "hedge": "clear",
-     "overload": "right"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 2,
       "share": 0.2,
       "lo": 0.057,
-      "hi": 0.51
+      "hi": 0.51,
+      "p_above": 0.391
      },
      "n": 10,
      "centre": {
       "k": 3,
       "share": 0.3,
       "lo": 0.108,
-      "hi": 0.603
+      "hi": 0.603,
+      "p_above": 0.439
      },
      "right": {
       "k": 5,
       "share": 0.5,
       "lo": 0.237,
-      "hi": 0.763
+      "hi": 0.763,
+      "p_above": 0.588
      },
      "top": "right",
      "hedge": "suggests",
@@ -18537,20 +18791,23 @@
       "k": 2,
       "share": 0.167,
       "lo": 0.047,
-      "hi": 0.448
+      "hi": 0.448,
+      "p_above": 0.352
      },
      "n": 12,
      "centre": {
       "k": 5,
       "share": 0.417,
       "lo": 0.193,
-      "hi": 0.68
+      "hi": 0.68,
+      "p_above": 0.526
      },
      "right": {
       "k": 5,
       "share": 0.417,
       "lo": 0.193,
-      "hi": 0.68
+      "hi": 0.68,
+      "p_above": 0.542
      },
      "top": "centre",
      "hedge": "suggests",
@@ -18561,20 +18818,23 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.259
+      "hi": 0.259,
+      "p_above": 0.245
      },
      "n": 11,
      "centre": {
       "k": 5,
       "share": 0.455,
       "lo": 0.213,
-      "hi": 0.72
+      "hi": 0.72,
+      "p_above": 0.55
      },
      "right": {
       "k": 6,
       "share": 0.545,
       "lo": 0.28,
-      "hi": 0.787
+      "hi": 0.787,
+      "p_above": 0.63
      },
      "top": "right",
      "hedge": "suggests",
@@ -18585,20 +18845,23 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.259
+      "hi": 0.259,
+      "p_above": 0.245
      },
      "n": 11,
      "centre": {
       "k": 5,
       "share": 0.455,
       "lo": 0.213,
-      "hi": 0.72
+      "hi": 0.72,
+      "p_above": 0.55
      },
      "right": {
       "k": 6,
       "share": 0.545,
       "lo": 0.28,
-      "hi": 0.787
+      "hi": 0.787,
+      "p_above": 0.63
      },
      "top": "right",
      "hedge": "suggests",
@@ -18609,20 +18872,23 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.278
+      "hi": 0.278,
+      "p_above": 0.261
      },
      "n": 10,
      "centre": {
       "k": 5,
       "share": 0.5,
       "lo": 0.237,
-      "hi": 0.763
+      "hi": 0.763,
+      "p_above": 0.574
      },
      "right": {
       "k": 5,
       "share": 0.5,
       "lo": 0.237,
-      "hi": 0.763
+      "hi": 0.763,
+      "p_above": 0.588
      },
      "top": "centre",
      "hedge": "suggests",
@@ -18633,20 +18899,23 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.278
+      "hi": 0.278,
+      "p_above": 0.261
      },
      "n": 10,
      "centre": {
       "k": 5,
       "share": 0.5,
       "lo": 0.237,
-      "hi": 0.763
+      "hi": 0.763,
+      "p_above": 0.574
      },
      "right": {
       "k": 5,
       "share": 0.5,
       "lo": 0.237,
-      "hi": 0.763
+      "hi": 0.763,
+      "p_above": 0.588
      },
      "top": "centre",
      "hedge": "suggests",
@@ -18657,20 +18926,23 @@
       "k": 1,
       "share": 0.091,
       "lo": 0.016,
-      "hi": 0.377
+      "hi": 0.377,
+      "p_above": 0.306
      },
      "n": 11,
      "centre": {
       "k": 5,
       "share": 0.455,
       "lo": 0.213,
-      "hi": 0.72
+      "hi": 0.72,
+      "p_above": 0.55
      },
      "right": {
       "k": 5,
       "share": 0.455,
       "lo": 0.213,
-      "hi": 0.72
+      "hi": 0.72,
+      "p_above": 0.565
      },
      "top": "centre",
      "hedge": "suggests",
@@ -18681,20 +18953,23 @@
       "k": 1,
       "share": 0.091,
       "lo": 0.016,
-      "hi": 0.377
+      "hi": 0.377,
+      "p_above": 0.306
      },
      "n": 11,
      "centre": {
       "k": 5,
       "share": 0.455,
       "lo": 0.213,
-      "hi": 0.72
+      "hi": 0.72,
+      "p_above": 0.55
      },
      "right": {
       "k": 5,
       "share": 0.455,
       "lo": 0.213,
-      "hi": 0.72
+      "hi": 0.72,
+      "p_above": 0.565
      },
      "top": "centre",
      "hedge": "suggests",
@@ -18705,20 +18980,23 @@
       "k": 2,
       "share": 0.154,
       "lo": 0.043,
-      "hi": 0.422
+      "hi": 0.422,
+      "p_above": 0.334
      },
      "n": 13,
      "centre": {
       "k": 7,
       "share": 0.538,
       "lo": 0.291,
-      "hi": 0.768
+      "hi": 0.768,
+      "p_above": 0.629
      },
      "right": {
       "k": 4,
       "share": 0.308,
       "lo": 0.127,
-      "hi": 0.576
+      "hi": 0.576,
+      "p_above": 0.453
      },
      "top": "centre",
      "hedge": "suggests",
@@ -18729,20 +19007,23 @@
       "k": 2,
       "share": 0.154,
       "lo": 0.043,
-      "hi": 0.422
+      "hi": 0.422,
+      "p_above": 0.334
      },
      "n": 13,
      "centre": {
       "k": 7,
       "share": 0.538,
       "lo": 0.291,
-      "hi": 0.768
+      "hi": 0.768,
+      "p_above": 0.629
      },
      "right": {
       "k": 4,
       "share": 0.308,
       "lo": 0.127,
-      "hi": 0.576
+      "hi": 0.576,
+      "p_above": 0.453
      },
      "top": "centre",
      "hedge": "suggests",
@@ -18753,20 +19034,23 @@
       "k": 2,
       "share": 0.154,
       "lo": 0.043,
-      "hi": 0.422
+      "hi": 0.422,
+      "p_above": 0.334
      },
      "n": 13,
      "centre": {
       "k": 7,
       "share": 0.538,
       "lo": 0.291,
-      "hi": 0.768
+      "hi": 0.768,
+      "p_above": 0.629
      },
      "right": {
       "k": 4,
       "share": 0.308,
       "lo": 0.127,
-      "hi": 0.576
+      "hi": 0.576,
+      "p_above": 0.453
      },
      "top": "centre",
      "hedge": "suggests",
@@ -18777,20 +19061,23 @@
       "k": 2,
       "share": 0.167,
       "lo": 0.047,
-      "hi": 0.448
+      "hi": 0.448,
+      "p_above": 0.352
      },
      "n": 12,
      "centre": {
       "k": 7,
       "share": 0.583,
       "lo": 0.32,
-      "hi": 0.807
+      "hi": 0.807,
+      "p_above": 0.652
      },
      "right": {
       "k": 3,
       "share": 0.25,
       "lo": 0.089,
-      "hi": 0.532
+      "hi": 0.532,
+      "p_above": 0.408
      },
      "top": "centre",
      "hedge": "suggests",
@@ -18801,92 +19088,104 @@
       "k": 2,
       "share": 0.2,
       "lo": 0.057,
-      "hi": 0.51
+      "hi": 0.51,
+      "p_above": 0.391
      },
      "n": 10,
      "centre": {
       "k": 7,
       "share": 0.7,
       "lo": 0.397,
-      "hi": 0.892
+      "hi": 0.892,
+      "p_above": 0.698
      },
      "right": {
       "k": 1,
       "share": 0.1,
       "lo": 0.018,
-      "hi": 0.404
+      "hi": 0.404,
+      "p_above": 0.317
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 2,
       "share": 0.2,
       "lo": 0.057,
-      "hi": 0.51
+      "hi": 0.51,
+      "p_above": 0.391
      },
      "n": 10,
      "centre": {
       "k": 7,
       "share": 0.7,
       "lo": 0.397,
-      "hi": 0.892
+      "hi": 0.892,
+      "p_above": 0.698
      },
      "right": {
       "k": 1,
       "share": 0.1,
       "lo": 0.018,
-      "hi": 0.404
+      "hi": 0.404,
+      "p_above": 0.317
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 2,
       "share": 0.2,
       "lo": 0.057,
-      "hi": 0.51
+      "hi": 0.51,
+      "p_above": 0.391
      },
      "n": 10,
      "centre": {
       "k": 7,
       "share": 0.7,
       "lo": 0.397,
-      "hi": 0.892
+      "hi": 0.892,
+      "p_above": 0.698
      },
      "right": {
       "k": 1,
       "share": 0.1,
       "lo": 0.018,
-      "hi": 0.404
+      "hi": 0.404,
+      "p_above": 0.317
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 5,
       "share": 0.5,
       "lo": 0.237,
-      "hi": 0.763
+      "hi": 0.763,
+      "p_above": 0.599
      },
      "n": 10,
      "centre": {
       "k": 4,
       "share": 0.4,
       "lo": 0.168,
-      "hi": 0.687
+      "hi": 0.687,
+      "p_above": 0.507
      },
      "right": {
       "k": 1,
       "share": 0.1,
       "lo": 0.018,
-      "hi": 0.404
+      "hi": 0.404,
+      "p_above": 0.317
      },
      "top": "left",
      "hedge": "suggests",
@@ -18897,20 +19196,23 @@
       "k": 5,
       "share": 0.556,
       "lo": 0.267,
-      "hi": 0.811
+      "hi": 0.811,
+      "p_above": 0.621
      },
      "n": 9,
      "centre": {
       "k": 3,
       "share": 0.333,
       "lo": 0.121,
-      "hi": 0.646
+      "hi": 0.646,
+      "p_above": 0.463
      },
      "right": {
       "k": 1,
       "share": 0.111,
       "lo": 0.02,
-      "hi": 0.435
+      "hi": 0.435,
+      "p_above": 0.337
      },
      "top": "left",
      "hedge": "suggests",
@@ -18921,332 +19223,374 @@
       "k": 9,
       "share": 0.75,
       "lo": 0.468,
-      "hi": 0.911
+      "hi": 0.911,
+      "p_above": 0.789
      },
      "n": 12,
      "centre": {
       "k": 3,
       "share": 0.25,
       "lo": 0.089,
-      "hi": 0.532
+      "hi": 0.532,
+      "p_above": 0.394
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.243
+      "hi": 0.243,
+      "p_above": 0.224
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 14,
       "share": 0.824,
       "lo": 0.59,
-      "hi": 0.938
+      "hi": 0.938,
+      "p_above": 0.902
      },
      "n": 17,
      "centre": {
       "k": 3,
       "share": 0.176,
       "lo": 0.062,
-      "hi": 0.41
+      "hi": 0.41,
+      "p_above": 0.294
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.184
+      "hi": 0.184,
+      "p_above": 0.158
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 15,
       "share": 0.833,
       "lo": 0.608,
-      "hi": 0.942
+      "hi": 0.942,
+      "p_above": 0.917
      },
      "n": 18,
      "centre": {
       "k": 3,
       "share": 0.167,
       "lo": 0.058,
-      "hi": 0.392
+      "hi": 0.392,
+      "p_above": 0.277
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.176
+      "hi": 0.176,
+      "p_above": 0.147
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 17,
       "share": 0.85,
       "lo": 0.64,
-      "hi": 0.948
+      "hi": 0.948,
+      "p_above": 0.941
      },
      "n": 20,
      "centre": {
       "k": 3,
       "share": 0.15,
       "lo": 0.052,
-      "hi": 0.36
+      "hi": 0.36,
+      "p_above": 0.244
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.161
+      "hi": 0.161,
+      "p_above": 0.127
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 16,
       "share": 0.762,
       "lo": 0.549,
-      "hi": 0.894
+      "hi": 0.894,
+      "p_above": 0.912
      },
      "n": 21,
      "centre": {
       "k": 5,
       "share": 0.238,
       "lo": 0.106,
-      "hi": 0.451
+      "hi": 0.451,
+      "p_above": 0.333
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.155
+      "hi": 0.155,
+      "p_above": 0.118
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 16,
       "share": 0.696,
       "lo": 0.491,
-      "hi": 0.844
+      "hi": 0.844,
+      "p_above": 0.893
      },
      "n": 23,
      "centre": {
       "k": 6,
       "share": 0.261,
       "lo": 0.125,
-      "hi": 0.465
+      "hi": 0.465,
+      "p_above": 0.352
      },
      "right": {
       "k": 1,
       "share": 0.043,
       "lo": 0.008,
-      "hi": 0.21
+      "hi": 0.21,
+      "p_above": 0.135
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 15,
       "share": 0.652,
       "lo": 0.449,
-      "hi": 0.812
+      "hi": 0.812,
+      "p_above": 0.864
      },
      "n": 23,
      "centre": {
       "k": 7,
       "share": 0.304,
       "lo": 0.156,
-      "hi": 0.509
+      "hi": 0.509,
+      "p_above": 0.41
      },
      "right": {
       "k": 1,
       "share": 0.043,
       "lo": 0.008,
-      "hi": 0.21
+      "hi": 0.21,
+      "p_above": 0.135
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 16,
       "share": 0.667,
       "lo": 0.467,
-      "hi": 0.82
+      "hi": 0.82,
+      "p_above": 0.882
      },
      "n": 24,
      "centre": {
       "k": 7,
       "share": 0.292,
       "lo": 0.149,
-      "hi": 0.492
+      "hi": 0.492,
+      "p_above": 0.39
      },
      "right": {
       "k": 1,
       "share": 0.042,
       "lo": 0.007,
-      "hi": 0.202
+      "hi": 0.202,
+      "p_above": 0.126
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 16,
       "share": 0.667,
       "lo": 0.467,
-      "hi": 0.82
+      "hi": 0.82,
+      "p_above": 0.882
      },
      "n": 24,
      "centre": {
       "k": 7,
       "share": 0.292,
       "lo": 0.149,
-      "hi": 0.492
+      "hi": 0.492,
+      "p_above": 0.39
      },
      "right": {
       "k": 1,
       "share": 0.042,
       "lo": 0.007,
-      "hi": 0.202
+      "hi": 0.202,
+      "p_above": 0.126
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 16,
       "share": 0.667,
       "lo": 0.467,
-      "hi": 0.82
+      "hi": 0.82,
+      "p_above": 0.882
      },
      "n": 24,
      "centre": {
       "k": 7,
       "share": 0.292,
       "lo": 0.149,
-      "hi": 0.492
+      "hi": 0.492,
+      "p_above": 0.39
      },
      "right": {
       "k": 1,
       "share": 0.042,
       "lo": 0.007,
-      "hi": 0.202
+      "hi": 0.202,
+      "p_above": 0.126
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 18,
       "share": 0.692,
       "lo": 0.5,
-      "hi": 0.835
+      "hi": 0.835,
+      "p_above": 0.913
      },
      "n": 26,
      "centre": {
       "k": 7,
       "share": 0.269,
       "lo": 0.137,
-      "hi": 0.461
+      "hi": 0.461,
+      "p_above": 0.352
      },
      "right": {
       "k": 1,
       "share": 0.038,
       "lo": 0.007,
-      "hi": 0.189
+      "hi": 0.189,
+      "p_above": 0.109
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 18,
       "share": 0.6,
       "lo": 0.423,
-      "hi": 0.754
+      "hi": 0.754,
+      "p_above": 0.875
      },
      "n": 30,
      "centre": {
       "k": 8,
       "share": 0.267,
       "lo": 0.142,
-      "hi": 0.444
+      "hi": 0.444,
+      "p_above": 0.335
      },
      "right": {
       "k": 4,
       "share": 0.133,
       "lo": 0.053,
-      "hi": 0.297
+      "hi": 0.297,
+      "p_above": 0.176
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 18,
       "share": 0.562,
       "lo": 0.393,
-      "hi": 0.718
+      "hi": 0.718,
+      "p_above": 0.852
      },
      "n": 32,
      "centre": {
       "k": 10,
       "share": 0.312,
       "lo": 0.18,
-      "hi": 0.486
+      "hi": 0.486,
+      "p_above": 0.405
      },
      "right": {
       "k": 4,
       "share": 0.125,
       "lo": 0.05,
-      "hi": 0.281
+      "hi": 0.281,
+      "p_above": 0.155
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 15,
       "share": 0.469,
       "lo": 0.309,
-      "hi": 0.636
+      "hi": 0.636,
+      "p_above": 0.738
      },
      "n": 32,
      "centre": {
       "k": 11,
       "share": 0.344,
       "lo": 0.204,
-      "hi": 0.517
+      "hi": 0.517,
+      "p_above": 0.46
      },
      "right": {
       "k": 6,
       "share": 0.188,
       "lo": 0.089,
-      "hi": 0.353
+      "hi": 0.353,
+      "p_above": 0.237
      },
      "top": "left",
      "hedge": "suggests",
@@ -19257,20 +19601,23 @@
       "k": 15,
       "share": 0.455,
       "lo": 0.298,
-      "hi": 0.62
+      "hi": 0.62,
+      "p_above": 0.723
      },
      "n": 33,
      "centre": {
       "k": 12,
       "share": 0.364,
       "lo": 0.222,
-      "hi": 0.534
+      "hi": 0.534,
+      "p_above": 0.495
      },
      "right": {
       "k": 6,
       "share": 0.182,
       "lo": 0.086,
-      "hi": 0.344
+      "hi": 0.344,
+      "p_above": 0.224
      },
      "top": "left",
      "hedge": "suggests",
@@ -19281,20 +19628,23 @@
       "k": 11,
       "share": 0.379,
       "lo": 0.227,
-      "hi": 0.56
+      "hi": 0.56,
+      "p_above": 0.586
      },
      "n": 29,
      "centre": {
       "k": 12,
       "share": 0.414,
       "lo": 0.255,
-      "hi": 0.593
+      "hi": 0.593,
+      "p_above": 0.574
      },
      "right": {
       "k": 6,
       "share": 0.207,
       "lo": 0.098,
-      "hi": 0.384
+      "hi": 0.384,
+      "p_above": 0.279
      },
      "top": "centre",
      "hedge": "suggests",
@@ -19305,20 +19655,23 @@
       "k": 6,
       "share": 0.25,
       "lo": 0.12,
-      "hi": 0.449
+      "hi": 0.449,
+      "p_above": 0.383
      },
      "n": 24,
      "centre": {
       "k": 12,
       "share": 0.5,
       "lo": 0.314,
-      "hi": 0.686
+      "hi": 0.686,
+      "p_above": 0.675
      },
      "right": {
       "k": 6,
       "share": 0.25,
       "lo": 0.12,
-      "hi": 0.449
+      "hi": 0.449,
+      "p_above": 0.361
      },
      "top": "centre",
      "hedge": "suggests",
@@ -19329,20 +19682,23 @@
       "k": 5,
       "share": 0.2,
       "lo": 0.089,
-      "hi": 0.391
+      "hi": 0.391,
+      "p_above": 0.309
      },
      "n": 25,
      "centre": {
       "k": 12,
       "share": 0.48,
       "lo": 0.3,
-      "hi": 0.665
+      "hi": 0.665,
+      "p_above": 0.655
      },
      "right": {
       "k": 8,
       "share": 0.32,
       "lo": 0.172,
-      "hi": 0.516
+      "hi": 0.516,
+      "p_above": 0.46
      },
      "top": "centre",
      "hedge": "suggests",
@@ -19353,20 +19709,23 @@
       "k": 3,
       "share": 0.125,
       "lo": 0.043,
-      "hi": 0.31
+      "hi": 0.31,
+      "p_above": 0.22
      },
      "n": 24,
      "centre": {
       "k": 12,
       "share": 0.5,
       "lo": 0.314,
-      "hi": 0.686
+      "hi": 0.686,
+      "p_above": 0.675
      },
      "right": {
       "k": 9,
       "share": 0.375,
       "lo": 0.212,
-      "hi": 0.573
+      "hi": 0.573,
+      "p_above": 0.539
      },
      "top": "centre",
      "hedge": "suggests",
@@ -19379,20 +19738,23 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.466
      },
      "n": 0,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.474
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.47
      },
      "top": "left",
      "hedge": "early",
@@ -19403,20 +19765,23 @@
       "k": 1,
       "share": 1.0,
       "lo": 0.207,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.52
      },
      "n": 1,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.793
+      "hi": 0.793,
+      "p_above": 0.448
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.793
+      "hi": 0.793,
+      "p_above": 0.444
      },
      "top": "left",
      "hedge": "early",
@@ -19427,20 +19792,23 @@
       "k": 1,
       "share": 1.0,
       "lo": 0.207,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.52
      },
      "n": 1,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.793
+      "hi": 0.793,
+      "p_above": 0.448
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.793
+      "hi": 0.793,
+      "p_above": 0.444
      },
      "top": "left",
      "hedge": "early",
@@ -19451,20 +19819,23 @@
       "k": 1,
       "share": 1.0,
       "lo": 0.207,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.52
      },
      "n": 1,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.793
+      "hi": 0.793,
+      "p_above": 0.448
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.793
+      "hi": 0.793,
+      "p_above": 0.444
      },
      "top": "left",
      "hedge": "early",
@@ -19475,20 +19846,23 @@
       "k": 2,
       "share": 1.0,
       "lo": 0.342,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.572
      },
      "n": 2,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.658
+      "hi": 0.658,
+      "p_above": 0.422
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.658
+      "hi": 0.658,
+      "p_above": 0.42
      },
      "top": "left",
      "hedge": "early",
@@ -19499,20 +19873,23 @@
       "k": 2,
       "share": 1.0,
       "lo": 0.342,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.572
      },
      "n": 2,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.658
+      "hi": 0.658,
+      "p_above": 0.422
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.658
+      "hi": 0.658,
+      "p_above": 0.42
      },
      "top": "left",
      "hedge": "early",
@@ -19523,20 +19900,23 @@
       "k": 2,
       "share": 0.667,
       "lo": 0.208,
-      "hi": 0.939
+      "hi": 0.939,
+      "p_above": 0.548
      },
      "n": 3,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.562
+      "hi": 0.562,
+      "p_above": 0.397
      },
      "right": {
       "k": 1,
       "share": 0.333,
       "lo": 0.061,
-      "hi": 0.792
+      "hi": 0.792,
+      "p_above": 0.471
      },
      "top": "left",
      "hedge": "early",
@@ -19547,20 +19927,23 @@
       "k": 2,
       "share": 0.333,
       "lo": 0.097,
-      "hi": 0.7
+      "hi": 0.7,
+      "p_above": 0.477
      },
      "n": 6,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.39
+      "hi": 0.39,
+      "p_above": 0.328
      },
      "right": {
       "k": 4,
       "share": 0.667,
       "lo": 0.3,
-      "hi": 0.903
+      "hi": 0.903,
+      "p_above": 0.614
      },
      "top": "right",
      "hedge": "suggests",
@@ -19571,20 +19954,23 @@
       "k": 2,
       "share": 0.25,
       "lo": 0.071,
-      "hi": 0.591
+      "hi": 0.591,
+      "p_above": 0.433
      },
      "n": 8,
      "centre": {
       "k": 2,
       "share": 0.25,
       "lo": 0.071,
-      "hi": 0.591
+      "hi": 0.591,
+      "p_above": 0.418
      },
      "right": {
       "k": 4,
       "share": 0.5,
       "lo": 0.215,
-      "hi": 0.785
+      "hi": 0.785,
+      "p_above": 0.567
      },
      "top": "right",
      "hedge": "suggests",
@@ -19595,20 +19981,23 @@
       "k": 3,
       "share": 0.25,
       "lo": 0.089,
-      "hi": 0.532
+      "hi": 0.532,
+      "p_above": 0.419
      },
      "n": 12,
      "centre": {
       "k": 5,
       "share": 0.417,
       "lo": 0.193,
-      "hi": 0.68
+      "hi": 0.68,
+      "p_above": 0.526
      },
      "right": {
       "k": 4,
       "share": 0.333,
       "lo": 0.138,
-      "hi": 0.609
+      "hi": 0.609,
+      "p_above": 0.475
      },
      "top": "centre",
      "hedge": "suggests",
@@ -19619,20 +20008,23 @@
       "k": 4,
       "share": 0.308,
       "lo": 0.127,
-      "hi": 0.576
+      "hi": 0.576,
+      "p_above": 0.466
      },
      "n": 13,
      "centre": {
       "k": 5,
       "share": 0.385,
       "lo": 0.177,
-      "hi": 0.645
+      "hi": 0.645,
+      "p_above": 0.502
      },
      "right": {
       "k": 4,
       "share": 0.308,
       "lo": 0.127,
-      "hi": 0.576
+      "hi": 0.576,
+      "p_above": 0.453
      },
      "top": "centre",
      "hedge": "suggests",
@@ -19643,20 +20035,23 @@
       "k": 5,
       "share": 0.357,
       "lo": 0.163,
-      "hi": 0.612
+      "hi": 0.612,
+      "p_above": 0.513
      },
      "n": 14,
      "centre": {
       "k": 5,
       "share": 0.357,
       "lo": 0.163,
-      "hi": 0.612
+      "hi": 0.612,
+      "p_above": 0.479
      },
      "right": {
       "k": 4,
       "share": 0.286,
       "lo": 0.117,
-      "hi": 0.546
+      "hi": 0.546,
+      "p_above": 0.432
      },
      "top": "left",
      "hedge": "suggests",
@@ -19667,20 +20062,23 @@
       "k": 6,
       "share": 0.4,
       "lo": 0.198,
-      "hi": 0.643
+      "hi": 0.643,
+      "p_above": 0.558
      },
      "n": 15,
      "centre": {
       "k": 5,
       "share": 0.333,
       "lo": 0.152,
-      "hi": 0.583
+      "hi": 0.583,
+      "p_above": 0.457
      },
      "right": {
       "k": 4,
       "share": 0.267,
       "lo": 0.109,
-      "hi": 0.52
+      "hi": 0.52,
+      "p_above": 0.411
      },
      "top": "left",
      "hedge": "suggests",
@@ -19691,20 +20089,23 @@
       "k": 7,
       "share": 0.412,
       "lo": 0.216,
-      "hi": 0.64
+      "hi": 0.64,
+      "p_above": 0.58
      },
      "n": 17,
      "centre": {
       "k": 6,
       "share": 0.353,
       "lo": 0.173,
-      "hi": 0.587
+      "hi": 0.587,
+      "p_above": 0.476
      },
      "right": {
       "k": 4,
       "share": 0.235,
       "lo": 0.096,
-      "hi": 0.473
+      "hi": 0.473,
+      "p_above": 0.372
      },
      "top": "left",
      "hedge": "suggests",
@@ -19715,20 +20116,23 @@
       "k": 7,
       "share": 0.368,
       "lo": 0.191,
-      "hi": 0.59
+      "hi": 0.59,
+      "p_above": 0.54
      },
      "n": 19,
      "centre": {
       "k": 8,
       "share": 0.421,
       "lo": 0.231,
-      "hi": 0.637
+      "hi": 0.637,
+      "p_above": 0.555
      },
      "right": {
       "k": 4,
       "share": 0.211,
       "lo": 0.085,
-      "hi": 0.433
+      "hi": 0.433,
+      "p_above": 0.334
      },
      "top": "centre",
      "hedge": "suggests",
@@ -19739,20 +20143,23 @@
       "k": 7,
       "share": 0.35,
       "lo": 0.181,
-      "hi": 0.567
+      "hi": 0.567,
+      "p_above": 0.52
      },
      "n": 20,
      "centre": {
       "k": 9,
       "share": 0.45,
       "lo": 0.258,
-      "hi": 0.658
+      "hi": 0.658,
+      "p_above": 0.592
      },
      "right": {
       "k": 4,
       "share": 0.2,
       "lo": 0.081,
-      "hi": 0.416
+      "hi": 0.416,
+      "p_above": 0.317
      },
      "top": "centre",
      "hedge": "suggests",
@@ -19763,20 +20170,23 @@
       "k": 6,
       "share": 0.316,
       "lo": 0.154,
-      "hi": 0.54
+      "hi": 0.54,
+      "p_above": 0.476
      },
      "n": 19,
      "centre": {
       "k": 9,
       "share": 0.474,
       "lo": 0.273,
-      "hi": 0.683
+      "hi": 0.683,
+      "p_above": 0.614
      },
      "right": {
       "k": 4,
       "share": 0.211,
       "lo": 0.085,
-      "hi": 0.433
+      "hi": 0.433,
+      "p_above": 0.334
      },
      "top": "centre",
      "hedge": "suggests",
@@ -19787,20 +20197,23 @@
       "k": 6,
       "share": 0.316,
       "lo": 0.154,
-      "hi": 0.54
+      "hi": 0.54,
+      "p_above": 0.476
      },
      "n": 19,
      "centre": {
       "k": 9,
       "share": 0.474,
       "lo": 0.273,
-      "hi": 0.683
+      "hi": 0.683,
+      "p_above": 0.614
      },
      "right": {
       "k": 4,
       "share": 0.211,
       "lo": 0.085,
-      "hi": 0.433
+      "hi": 0.433,
+      "p_above": 0.334
      },
      "top": "centre",
      "hedge": "suggests",
@@ -19811,20 +20224,23 @@
       "k": 6,
       "share": 0.316,
       "lo": 0.154,
-      "hi": 0.54
+      "hi": 0.54,
+      "p_above": 0.476
      },
      "n": 19,
      "centre": {
       "k": 9,
       "share": 0.474,
       "lo": 0.273,
-      "hi": 0.683
+      "hi": 0.683,
+      "p_above": 0.614
      },
      "right": {
       "k": 4,
       "share": 0.211,
       "lo": 0.085,
-      "hi": 0.433
+      "hi": 0.433,
+      "p_above": 0.334
      },
      "top": "centre",
      "hedge": "suggests",
@@ -19835,20 +20251,23 @@
       "k": 5,
       "share": 0.278,
       "lo": 0.125,
-      "hi": 0.509
+      "hi": 0.509,
+      "p_above": 0.432
      },
      "n": 18,
      "centre": {
       "k": 9,
       "share": 0.5,
       "lo": 0.29,
-      "hi": 0.71
+      "hi": 0.71,
+      "p_above": 0.636
      },
      "right": {
       "k": 4,
       "share": 0.222,
       "lo": 0.09,
-      "hi": 0.452
+      "hi": 0.452,
+      "p_above": 0.353
      },
      "top": "centre",
      "hedge": "suggests",
@@ -19859,20 +20278,23 @@
       "k": 5,
       "share": 0.278,
       "lo": 0.125,
-      "hi": 0.509
+      "hi": 0.509,
+      "p_above": 0.432
      },
      "n": 18,
      "centre": {
       "k": 9,
       "share": 0.5,
       "lo": 0.29,
-      "hi": 0.71
+      "hi": 0.71,
+      "p_above": 0.636
      },
      "right": {
       "k": 4,
       "share": 0.222,
       "lo": 0.09,
-      "hi": 0.452
+      "hi": 0.452,
+      "p_above": 0.353
      },
      "top": "centre",
      "hedge": "suggests",
@@ -19883,20 +20305,23 @@
       "k": 7,
       "share": 0.368,
       "lo": 0.191,
-      "hi": 0.59
+      "hi": 0.59,
+      "p_above": 0.54
      },
      "n": 19,
      "centre": {
       "k": 9,
       "share": 0.474,
       "lo": 0.273,
-      "hi": 0.683
+      "hi": 0.683,
+      "p_above": 0.614
      },
      "right": {
       "k": 3,
       "share": 0.158,
       "lo": 0.055,
-      "hi": 0.376
+      "hi": 0.376,
+      "p_above": 0.278
      },
      "top": "centre",
      "hedge": "suggests",
@@ -19907,20 +20332,23 @@
       "k": 7,
       "share": 0.438,
       "lo": 0.231,
-      "hi": 0.668
+      "hi": 0.668,
+      "p_above": 0.6
      },
      "n": 16,
      "centre": {
       "k": 9,
       "share": 0.562,
       "lo": 0.332,
-      "hi": 0.769
+      "hi": 0.769,
+      "p_above": 0.679
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.194
+      "hi": 0.194,
+      "p_above": 0.17
      },
      "top": "centre",
      "hedge": "suggests",
@@ -19931,20 +20359,23 @@
       "k": 7,
       "share": 0.5,
       "lo": 0.268,
-      "hi": 0.732
+      "hi": 0.732,
+      "p_above": 0.641
      },
      "n": 14,
      "centre": {
       "k": 7,
       "share": 0.5,
       "lo": 0.268,
-      "hi": 0.732
+      "hi": 0.732,
+      "p_above": 0.606
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.215
+      "hi": 0.215,
+      "p_above": 0.195
      },
      "top": "left",
      "hedge": "suggests",
@@ -19955,20 +20386,23 @@
       "k": 6,
       "share": 0.6,
       "lo": 0.313,
-      "hi": 0.832
+      "hi": 0.832,
+      "p_above": 0.663
      },
      "n": 10,
      "centre": {
       "k": 4,
       "share": 0.4,
       "lo": 0.168,
-      "hi": 0.687
+      "hi": 0.687,
+      "p_above": 0.507
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.278
+      "hi": 0.278,
+      "p_above": 0.256
      },
      "top": "left",
      "hedge": "suggests",
@@ -19979,20 +20413,23 @@
       "k": 5,
       "share": 0.556,
       "lo": 0.267,
-      "hi": 0.811
+      "hi": 0.811,
+      "p_above": 0.621
      },
      "n": 9,
      "centre": {
       "k": 4,
       "share": 0.444,
       "lo": 0.189,
-      "hi": 0.733
+      "hi": 0.733,
+      "p_above": 0.531
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.299
+      "hi": 0.299,
+      "p_above": 0.273
      },
      "top": "left",
      "hedge": "suggests",
@@ -20003,20 +20440,23 @@
       "k": 4,
       "share": 0.5,
       "lo": 0.215,
-      "hi": 0.785
+      "hi": 0.785,
+      "p_above": 0.575
      },
      "n": 8,
      "centre": {
       "k": 4,
       "share": 0.5,
       "lo": 0.215,
-      "hi": 0.785
+      "hi": 0.785,
+      "p_above": 0.556
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.324
+      "hi": 0.324,
+      "p_above": 0.292
      },
      "top": "left",
      "hedge": "suggests",
@@ -20027,20 +20467,23 @@
       "k": 5,
       "share": 0.556,
       "lo": 0.267,
-      "hi": 0.811
+      "hi": 0.811,
+      "p_above": 0.621
      },
      "n": 9,
      "centre": {
       "k": 4,
       "share": 0.444,
       "lo": 0.189,
-      "hi": 0.733
+      "hi": 0.733,
+      "p_above": 0.531
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.299
+      "hi": 0.299,
+      "p_above": 0.273
      },
      "top": "left",
      "hedge": "suggests",
@@ -20051,20 +20494,23 @@
       "k": 4,
       "share": 0.444,
       "lo": 0.189,
-      "hi": 0.733
+      "hi": 0.733,
+      "p_above": 0.553
      },
      "n": 9,
      "centre": {
       "k": 4,
       "share": 0.444,
       "lo": 0.189,
-      "hi": 0.733
+      "hi": 0.733,
+      "p_above": 0.531
      },
      "right": {
       "k": 1,
       "share": 0.111,
       "lo": 0.02,
-      "hi": 0.435
+      "hi": 0.435,
+      "p_above": 0.337
      },
      "top": "left",
      "hedge": "suggests",
@@ -20075,20 +20521,23 @@
       "k": 4,
       "share": 0.5,
       "lo": 0.215,
-      "hi": 0.785
+      "hi": 0.785,
+      "p_above": 0.575
      },
      "n": 8,
      "centre": {
       "k": 3,
       "share": 0.375,
       "lo": 0.137,
-      "hi": 0.694
+      "hi": 0.694,
+      "p_above": 0.487
      },
      "right": {
       "k": 1,
       "share": 0.125,
       "lo": 0.022,
-      "hi": 0.471
+      "hi": 0.471,
+      "p_above": 0.357
      },
      "top": "left",
      "hedge": "suggests",
@@ -20099,20 +20548,23 @@
       "k": 4,
       "share": 0.571,
       "lo": 0.25,
-      "hi": 0.842
+      "hi": 0.842,
+      "p_above": 0.598
      },
      "n": 7,
      "centre": {
       "k": 2,
       "share": 0.286,
       "lo": 0.082,
-      "hi": 0.641
+      "hi": 0.641,
+      "p_above": 0.442
      },
      "right": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.379
      },
      "top": "left",
      "hedge": "suggests",
@@ -20123,20 +20575,23 @@
       "k": 4,
       "share": 0.571,
       "lo": 0.25,
-      "hi": 0.842
+      "hi": 0.842,
+      "p_above": 0.598
      },
      "n": 7,
      "centre": {
       "k": 2,
       "share": 0.286,
       "lo": 0.082,
-      "hi": 0.641
+      "hi": 0.641,
+      "p_above": 0.442
      },
      "right": {
       "k": 1,
       "share": 0.143,
       "lo": 0.026,
-      "hi": 0.513
+      "hi": 0.513,
+      "p_above": 0.379
      },
      "top": "left",
      "hedge": "suggests",
@@ -20147,20 +20602,23 @@
       "k": 5,
       "share": 0.625,
       "lo": 0.306,
-      "hi": 0.863
+      "hi": 0.863,
+      "p_above": 0.643
      },
      "n": 8,
      "centre": {
       "k": 2,
       "share": 0.25,
       "lo": 0.071,
-      "hi": 0.591
+      "hi": 0.591,
+      "p_above": 0.418
      },
      "right": {
       "k": 1,
       "share": 0.125,
       "lo": 0.022,
-      "hi": 0.471
+      "hi": 0.471,
+      "p_above": 0.357
      },
      "top": "left",
      "hedge": "suggests",
@@ -20171,20 +20629,23 @@
       "k": 6,
       "share": 0.545,
       "lo": 0.28,
-      "hi": 0.787
+      "hi": 0.787,
+      "p_above": 0.642
      },
      "n": 11,
      "centre": {
       "k": 4,
       "share": 0.364,
       "lo": 0.152,
-      "hi": 0.646
+      "hi": 0.646,
+      "p_above": 0.483
      },
      "right": {
       "k": 1,
       "share": 0.091,
       "lo": 0.016,
-      "hi": 0.377
+      "hi": 0.377,
+      "p_above": 0.299
      },
      "top": "left",
      "hedge": "suggests",
@@ -20195,92 +20656,104 @@
       "k": 9,
       "share": 0.643,
       "lo": 0.388,
-      "hi": 0.837
+      "hi": 0.837,
+      "p_above": 0.754
      },
      "n": 14,
      "centre": {
       "k": 4,
       "share": 0.286,
       "lo": 0.117,
-      "hi": 0.546
+      "hi": 0.546,
+      "p_above": 0.415
      },
      "right": {
       "k": 1,
       "share": 0.071,
       "lo": 0.013,
-      "hi": 0.315
+      "hi": 0.315,
+      "p_above": 0.248
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 13,
       "share": 0.722,
       "lo": 0.491,
-      "hi": 0.875
+      "hi": 0.875,
+      "p_above": 0.86
      },
      "n": 18,
      "centre": {
       "k": 4,
       "share": 0.222,
       "lo": 0.09,
-      "hi": 0.452
+      "hi": 0.452,
+      "p_above": 0.333
      },
      "right": {
       "k": 1,
       "share": 0.056,
       "lo": 0.01,
-      "hi": 0.258
+      "hi": 0.258,
+      "p_above": 0.19
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 15,
       "share": 0.75,
       "lo": 0.531,
-      "hi": 0.888
+      "hi": 0.888,
+      "p_above": 0.897
      },
      "n": 20,
      "centre": {
       "k": 4,
       "share": 0.2,
       "lo": 0.081,
-      "hi": 0.416
+      "hi": 0.416,
+      "p_above": 0.296
      },
      "right": {
       "k": 1,
       "share": 0.05,
       "lo": 0.009,
-      "hi": 0.236
+      "hi": 0.236,
+      "p_above": 0.166
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 21,
       "share": 0.808,
       "lo": 0.621,
-      "hi": 0.915
+      "hi": 0.915,
+      "p_above": 0.963
      },
      "n": 26,
      "centre": {
       "k": 4,
       "share": 0.154,
       "lo": 0.061,
-      "hi": 0.335
+      "hi": 0.335,
+      "p_above": 0.204
      },
      "right": {
       "k": 1,
       "share": 0.038,
       "lo": 0.007,
-      "hi": 0.189
+      "hi": 0.189,
+      "p_above": 0.109
      },
      "top": "left",
      "hedge": "clear",
@@ -20291,20 +20764,23 @@
       "k": 21,
       "share": 0.778,
       "lo": 0.592,
-      "hi": 0.894
+      "hi": 0.894,
+      "p_above": 0.958
      },
      "n": 27,
      "centre": {
       "k": 5,
       "share": 0.185,
       "lo": 0.082,
-      "hi": 0.367
+      "hi": 0.367,
+      "p_above": 0.234
      },
      "right": {
       "k": 1,
       "share": 0.037,
       "lo": 0.007,
-      "hi": 0.183
+      "hi": 0.183,
+      "p_above": 0.101
      },
      "top": "left",
      "hedge": "clear",
@@ -20315,284 +20791,320 @@
       "k": 21,
       "share": 0.724,
       "lo": 0.543,
-      "hi": 0.853
+      "hi": 0.853,
+      "p_above": 0.946
      },
      "n": 29,
      "centre": {
       "k": 7,
       "share": 0.241,
       "lo": 0.122,
-      "hi": 0.421
+      "hi": 0.421,
+      "p_above": 0.3
      },
      "right": {
       "k": 1,
       "share": 0.034,
       "lo": 0.006,
-      "hi": 0.172
+      "hi": 0.172,
+      "p_above": 0.087
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 21,
       "share": 0.724,
       "lo": 0.543,
-      "hi": 0.853
+      "hi": 0.853,
+      "p_above": 0.946
      },
      "n": 29,
      "centre": {
       "k": 7,
       "share": 0.241,
       "lo": 0.122,
-      "hi": 0.421
+      "hi": 0.421,
+      "p_above": 0.3
      },
      "right": {
       "k": 1,
       "share": 0.034,
       "lo": 0.006,
-      "hi": 0.172
+      "hi": 0.172,
+      "p_above": 0.087
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 21,
       "share": 0.724,
       "lo": 0.543,
-      "hi": 0.853
+      "hi": 0.853,
+      "p_above": 0.946
      },
      "n": 29,
      "centre": {
       "k": 7,
       "share": 0.241,
       "lo": 0.122,
-      "hi": 0.421
+      "hi": 0.421,
+      "p_above": 0.3
      },
      "right": {
       "k": 1,
       "share": 0.034,
       "lo": 0.006,
-      "hi": 0.172
+      "hi": 0.172,
+      "p_above": 0.087
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 19,
       "share": 0.704,
       "lo": 0.515,
-      "hi": 0.841
+      "hi": 0.841,
+      "p_above": 0.926
      },
      "n": 27,
      "centre": {
       "k": 7,
       "share": 0.259,
       "lo": 0.132,
-      "hi": 0.447
+      "hi": 0.447,
+      "p_above": 0.334
      },
      "right": {
       "k": 1,
       "share": 0.037,
       "lo": 0.007,
-      "hi": 0.183
+      "hi": 0.183,
+      "p_above": 0.101
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 19,
       "share": 0.704,
       "lo": 0.515,
-      "hi": 0.841
+      "hi": 0.841,
+      "p_above": 0.926
      },
      "n": 27,
      "centre": {
       "k": 8,
       "share": 0.296,
       "lo": 0.159,
-      "hi": 0.485
+      "hi": 0.485,
+      "p_above": 0.389
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.125
+      "hi": 0.125,
+      "p_above": 0.075
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 19,
       "share": 0.731,
       "lo": 0.539,
-      "hi": 0.863
+      "hi": 0.863,
+      "p_above": 0.933
      },
      "n": 26,
      "centre": {
       "k": 7,
       "share": 0.269,
       "lo": 0.137,
-      "hi": 0.461
+      "hi": 0.461,
+      "p_above": 0.352
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.129
+      "hi": 0.129,
+      "p_above": 0.081
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 19,
       "share": 0.704,
       "lo": 0.515,
-      "hi": 0.841
+      "hi": 0.841,
+      "p_above": 0.926
      },
      "n": 27,
      "centre": {
       "k": 7,
       "share": 0.259,
       "lo": 0.132,
-      "hi": 0.447
+      "hi": 0.447,
+      "p_above": 0.334
      },
      "right": {
       "k": 1,
       "share": 0.037,
       "lo": 0.007,
-      "hi": 0.183
+      "hi": 0.183,
+      "p_above": 0.101
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 19,
       "share": 0.613,
       "lo": 0.438,
-      "hi": 0.763
+      "hi": 0.763,
+      "p_above": 0.891
      },
      "n": 31,
      "centre": {
       "k": 11,
       "share": 0.355,
       "lo": 0.211,
-      "hi": 0.531
+      "hi": 0.531,
+      "p_above": 0.479
      },
      "right": {
       "k": 1,
       "share": 0.032,
       "lo": 0.006,
-      "hi": 0.162
+      "hi": 0.162,
+      "p_above": 0.075
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 18,
       "share": 0.562,
       "lo": 0.393,
-      "hi": 0.718
+      "hi": 0.718,
+      "p_above": 0.852
      },
      "n": 32,
      "centre": {
       "k": 13,
       "share": 0.406,
       "lo": 0.255,
-      "hi": 0.577
+      "hi": 0.577,
+      "p_above": 0.569
      },
      "right": {
       "k": 1,
       "share": 0.031,
       "lo": 0.006,
-      "hi": 0.157
+      "hi": 0.157,
+      "p_above": 0.07
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 17,
       "share": 0.586,
       "lo": 0.407,
-      "hi": 0.745
+      "hi": 0.745,
+      "p_above": 0.856
      },
      "n": 29,
      "centre": {
       "k": 11,
       "share": 0.379,
       "lo": 0.227,
-      "hi": 0.56
+      "hi": 0.56,
+      "p_above": 0.519
      },
      "right": {
       "k": 1,
       "share": 0.034,
       "lo": 0.006,
-      "hi": 0.172
+      "hi": 0.172,
+      "p_above": 0.087
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 14,
       "share": 0.519,
       "lo": 0.34,
-      "hi": 0.693
+      "hi": 0.693,
+      "p_above": 0.771
      },
      "n": 27,
      "centre": {
       "k": 11,
       "share": 0.407,
       "lo": 0.245,
-      "hi": 0.593
+      "hi": 0.593,
+      "p_above": 0.559
      },
      "right": {
       "k": 2,
       "share": 0.074,
       "lo": 0.021,
-      "hi": 0.234
+      "hi": 0.234,
+      "p_above": 0.133
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 10,
       "share": 0.417,
       "lo": 0.245,
-      "hi": 0.612
+      "hi": 0.612,
+      "p_above": 0.622
      },
      "n": 24,
      "centre": {
       "k": 11,
       "share": 0.458,
       "lo": 0.279,
-      "hi": 0.649
+      "hi": 0.649,
+      "p_above": 0.621
      },
      "right": {
       "k": 3,
       "share": 0.125,
       "lo": 0.043,
-      "hi": 0.31
+      "hi": 0.31,
+      "p_above": 0.205
      },
      "top": "centre",
      "hedge": "suggests",
@@ -20603,92 +21115,77 @@
       "k": 6,
       "share": 0.3,
       "lo": 0.145,
-      "hi": 0.519
+      "hi": 0.519,
+      "p_above": 0.457
      },
      "n": 20,
      "centre": {
       "k": 11,
       "share": 0.55,
       "lo": 0.342,
-      "hi": 0.742
+      "hi": 0.742,
+      "p_above": 0.703
      },
      "right": {
       "k": 3,
       "share": 0.15,
       "lo": 0.052,
-      "hi": 0.36
+      "hi": 0.36,
+      "p_above": 0.262
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.215
+      "hi": 0.215,
+      "p_above": 0.202
      },
      "n": 14,
      "centre": {
       "k": 11,
       "share": 0.786,
       "lo": 0.524,
-      "hi": 0.924
+      "hi": 0.924,
+      "p_above": 0.816
      },
      "right": {
       "k": 3,
       "share": 0.214,
       "lo": 0.076,
-      "hi": 0.476
+      "hi": 0.476,
+      "p_above": 0.367
      },
      "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 3,
       "share": 0.188,
       "lo": 0.066,
-      "hi": 0.43
+      "hi": 0.43,
+      "p_above": 0.343
      },
      "n": 16,
      "centre": {
       "k": 10,
       "share": 0.625,
       "lo": 0.386,
-      "hi": 0.815
+      "hi": 0.815,
+      "p_above": 0.732
      },
      "right": {
       "k": 3,
       "share": 0.188,
       "lo": 0.066,
-      "hi": 0.43
-     },
-     "top": "centre",
-     "hedge": "clear",
-     "overload": "centre"
-    },
-    {
-     "left": {
-      "k": 3,
-      "share": 0.214,
-      "lo": 0.076,
-      "hi": 0.476
-     },
-     "n": 14,
-     "centre": {
-      "k": 8,
-      "share": 0.571,
-      "lo": 0.326,
-      "hi": 0.786
-     },
-     "right": {
-      "k": 3,
-      "share": 0.214,
-      "lo": 0.076,
-      "hi": 0.476
+      "hi": 0.43,
+      "p_above": 0.329
      },
      "top": "centre",
      "hedge": "suggests",
@@ -20699,20 +21196,23 @@
       "k": 3,
       "share": 0.214,
       "lo": 0.076,
-      "hi": 0.476
+      "hi": 0.476,
+      "p_above": 0.38
      },
      "n": 14,
      "centre": {
       "k": 8,
       "share": 0.571,
       "lo": 0.326,
-      "hi": 0.786
+      "hi": 0.786,
+      "p_above": 0.666
      },
      "right": {
       "k": 3,
       "share": 0.214,
       "lo": 0.076,
-      "hi": 0.476
+      "hi": 0.476,
+      "p_above": 0.367
      },
      "top": "centre",
      "hedge": "suggests",
@@ -20723,20 +21223,23 @@
       "k": 3,
       "share": 0.214,
       "lo": 0.076,
-      "hi": 0.476
+      "hi": 0.476,
+      "p_above": 0.38
      },
      "n": 14,
      "centre": {
       "k": 8,
       "share": 0.571,
       "lo": 0.326,
-      "hi": 0.786
+      "hi": 0.786,
+      "p_above": 0.666
      },
      "right": {
       "k": 3,
       "share": 0.214,
       "lo": 0.076,
-      "hi": 0.476
+      "hi": 0.476,
+      "p_above": 0.367
      },
      "top": "centre",
      "hedge": "suggests",
@@ -20747,20 +21250,50 @@
       "k": 3,
       "share": 0.214,
       "lo": 0.076,
-      "hi": 0.476
+      "hi": 0.476,
+      "p_above": 0.38
      },
      "n": 14,
      "centre": {
       "k": 8,
       "share": 0.571,
       "lo": 0.326,
-      "hi": 0.786
+      "hi": 0.786,
+      "p_above": 0.666
      },
      "right": {
       "k": 3,
       "share": 0.214,
       "lo": 0.076,
-      "hi": 0.476
+      "hi": 0.476,
+      "p_above": 0.367
+     },
+     "top": "centre",
+     "hedge": "suggests",
+     "overload": null
+    },
+    {
+     "left": {
+      "k": 3,
+      "share": 0.214,
+      "lo": 0.076,
+      "hi": 0.476,
+      "p_above": 0.38
+     },
+     "n": 14,
+     "centre": {
+      "k": 8,
+      "share": 0.571,
+      "lo": 0.326,
+      "hi": 0.786,
+      "p_above": 0.666
+     },
+     "right": {
+      "k": 3,
+      "share": 0.214,
+      "lo": 0.076,
+      "hi": 0.476,
+      "p_above": 0.367
      },
      "top": "centre",
      "hedge": "suggests",
@@ -20771,20 +21304,23 @@
       "k": 5,
       "share": 0.357,
       "lo": 0.163,
-      "hi": 0.612
+      "hi": 0.612,
+      "p_above": 0.513
      },
      "n": 14,
      "centre": {
       "k": 6,
       "share": 0.429,
       "lo": 0.214,
-      "hi": 0.674
+      "hi": 0.674,
+      "p_above": 0.544
      },
      "right": {
       "k": 3,
       "share": 0.214,
       "lo": 0.076,
-      "hi": 0.476
+      "hi": 0.476,
+      "p_above": 0.367
      },
      "top": "centre",
      "hedge": "suggests",
@@ -20795,20 +21331,23 @@
       "k": 5,
       "share": 0.357,
       "lo": 0.163,
-      "hi": 0.612
+      "hi": 0.612,
+      "p_above": 0.513
      },
      "n": 14,
      "centre": {
       "k": 6,
       "share": 0.429,
       "lo": 0.214,
-      "hi": 0.674
+      "hi": 0.674,
+      "p_above": 0.544
      },
      "right": {
       "k": 3,
       "share": 0.214,
       "lo": 0.076,
-      "hi": 0.476
+      "hi": 0.476,
+      "p_above": 0.367
      },
      "top": "centre",
      "hedge": "suggests",
@@ -20819,20 +21358,23 @@
       "k": 5,
       "share": 0.385,
       "lo": 0.177,
-      "hi": 0.645
+      "hi": 0.645,
+      "p_above": 0.534
      },
      "n": 13,
      "centre": {
       "k": 6,
       "share": 0.462,
       "lo": 0.232,
-      "hi": 0.709
+      "hi": 0.709,
+      "p_above": 0.567
      },
      "right": {
       "k": 2,
       "share": 0.154,
       "lo": 0.043,
-      "hi": 0.422
+      "hi": 0.422,
+      "p_above": 0.324
      },
      "top": "centre",
      "hedge": "suggests",
@@ -20843,20 +21385,23 @@
       "k": 5,
       "share": 0.556,
       "lo": 0.267,
-      "hi": 0.811
+      "hi": 0.811,
+      "p_above": 0.621
      },
      "n": 9,
      "centre": {
       "k": 2,
       "share": 0.222,
       "lo": 0.063,
-      "hi": 0.547
+      "hi": 0.547,
+      "p_above": 0.395
      },
      "right": {
       "k": 2,
       "share": 0.222,
       "lo": 0.063,
-      "hi": 0.547
+      "hi": 0.547,
+      "p_above": 0.405
      },
      "top": "left",
      "hedge": "suggests",
@@ -20867,20 +21412,23 @@
       "k": 5,
       "share": 0.625,
       "lo": 0.306,
-      "hi": 0.863
+      "hi": 0.863,
+      "p_above": 0.643
      },
      "n": 8,
      "centre": {
       "k": 1,
       "share": 0.125,
       "lo": 0.022,
-      "hi": 0.471
+      "hi": 0.471,
+      "p_above": 0.351
      },
      "right": {
       "k": 2,
       "share": 0.25,
       "lo": 0.071,
-      "hi": 0.591
+      "hi": 0.591,
+      "p_above": 0.427
      },
      "top": "left",
      "hedge": "suggests",
@@ -20891,20 +21439,23 @@
       "k": 5,
       "share": 0.625,
       "lo": 0.306,
-      "hi": 0.863
+      "hi": 0.863,
+      "p_above": 0.643
      },
      "n": 8,
      "centre": {
       "k": 1,
       "share": 0.125,
       "lo": 0.022,
-      "hi": 0.471
+      "hi": 0.471,
+      "p_above": 0.351
      },
      "right": {
       "k": 2,
       "share": 0.25,
       "lo": 0.071,
-      "hi": 0.591
+      "hi": 0.591,
+      "p_above": 0.427
      },
      "top": "left",
      "hedge": "suggests",
@@ -20915,20 +21466,23 @@
       "k": 6,
       "share": 0.6,
       "lo": 0.313,
-      "hi": 0.832
+      "hi": 0.832,
+      "p_above": 0.663
      },
      "n": 10,
      "centre": {
       "k": 3,
       "share": 0.3,
       "lo": 0.108,
-      "hi": 0.603
+      "hi": 0.603,
+      "p_above": 0.439
      },
      "right": {
       "k": 1,
       "share": 0.1,
       "lo": 0.018,
-      "hi": 0.404
+      "hi": 0.404,
+      "p_above": 0.317
      },
      "top": "left",
      "hedge": "suggests",
@@ -20939,380 +21493,428 @@
       "k": 10,
       "share": 0.769,
       "lo": 0.497,
-      "hi": 0.918
+      "hi": 0.918,
+      "p_above": 0.817
      },
      "n": 13,
      "centre": {
       "k": 3,
       "share": 0.231,
       "lo": 0.082,
-      "hi": 0.503
+      "hi": 0.503,
+      "p_above": 0.373
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.228
+      "hi": 0.228,
+      "p_above": 0.209
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 15,
       "share": 0.833,
       "lo": 0.608,
-      "hi": 0.942
+      "hi": 0.942,
+      "p_above": 0.917
      },
      "n": 18,
      "centre": {
       "k": 3,
       "share": 0.167,
       "lo": 0.058,
-      "hi": 0.392
+      "hi": 0.392,
+      "p_above": 0.277
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.176
+      "hi": 0.176,
+      "p_above": 0.147
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 15,
       "share": 0.833,
       "lo": 0.608,
-      "hi": 0.942
+      "hi": 0.942,
+      "p_above": 0.917
      },
      "n": 18,
      "centre": {
       "k": 3,
       "share": 0.167,
       "lo": 0.058,
-      "hi": 0.392
+      "hi": 0.392,
+      "p_above": 0.277
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.176
+      "hi": 0.176,
+      "p_above": 0.147
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 12,
       "share": 0.8,
       "lo": 0.548,
-      "hi": 0.93
+      "hi": 0.93,
+      "p_above": 0.865
      },
      "n": 15,
      "centre": {
       "k": 3,
       "share": 0.2,
       "lo": 0.07,
-      "hi": 0.452
+      "hi": 0.452,
+      "p_above": 0.332
      },
      "right": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.204
+      "hi": 0.204,
+      "p_above": 0.182
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 12,
       "share": 0.667,
       "lo": 0.437,
-      "hi": 0.837
+      "hi": 0.837,
+      "p_above": 0.823
      },
      "n": 18,
      "centre": {
       "k": 3,
       "share": 0.167,
       "lo": 0.058,
-      "hi": 0.392
+      "hi": 0.392,
+      "p_above": 0.277
      },
      "right": {
       "k": 3,
       "share": 0.167,
       "lo": 0.058,
-      "hi": 0.392
+      "hi": 0.392,
+      "p_above": 0.294
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 12,
       "share": 0.667,
       "lo": 0.437,
-      "hi": 0.837
+      "hi": 0.837,
+      "p_above": 0.823
      },
      "n": 18,
      "centre": {
       "k": 3,
       "share": 0.167,
       "lo": 0.058,
-      "hi": 0.392
+      "hi": 0.392,
+      "p_above": 0.277
      },
      "right": {
       "k": 3,
       "share": 0.167,
       "lo": 0.058,
-      "hi": 0.392
+      "hi": 0.392,
+      "p_above": 0.294
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 12,
       "share": 0.667,
       "lo": 0.437,
-      "hi": 0.837
+      "hi": 0.837,
+      "p_above": 0.823
      },
      "n": 18,
      "centre": {
       "k": 3,
       "share": 0.167,
       "lo": 0.058,
-      "hi": 0.392
+      "hi": 0.392,
+      "p_above": 0.277
      },
      "right": {
       "k": 3,
       "share": 0.167,
       "lo": 0.058,
-      "hi": 0.392
+      "hi": 0.392,
+      "p_above": 0.294
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 12,
       "share": 0.667,
       "lo": 0.437,
-      "hi": 0.837
+      "hi": 0.837,
+      "p_above": 0.823
      },
      "n": 18,
      "centre": {
       "k": 3,
       "share": 0.167,
       "lo": 0.058,
-      "hi": 0.392
+      "hi": 0.392,
+      "p_above": 0.277
      },
      "right": {
       "k": 3,
       "share": 0.167,
       "lo": 0.058,
-      "hi": 0.392
+      "hi": 0.392,
+      "p_above": 0.294
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 10,
       "share": 0.625,
       "lo": 0.386,
-      "hi": 0.815
+      "hi": 0.815,
+      "p_above": 0.768
      },
      "n": 16,
      "centre": {
       "k": 3,
       "share": 0.188,
       "lo": 0.066,
-      "hi": 0.43
+      "hi": 0.43,
+      "p_above": 0.313
      },
      "right": {
       "k": 3,
       "share": 0.188,
       "lo": 0.066,
-      "hi": 0.43
+      "hi": 0.43,
+      "p_above": 0.329
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 10,
       "share": 0.625,
       "lo": 0.386,
-      "hi": 0.815
+      "hi": 0.815,
+      "p_above": 0.768
      },
      "n": 16,
      "centre": {
       "k": 3,
       "share": 0.188,
       "lo": 0.066,
-      "hi": 0.43
+      "hi": 0.43,
+      "p_above": 0.313
      },
      "right": {
       "k": 3,
       "share": 0.188,
       "lo": 0.066,
-      "hi": 0.43
+      "hi": 0.43,
+      "p_above": 0.329
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 10,
       "share": 0.625,
       "lo": 0.386,
-      "hi": 0.815
+      "hi": 0.815,
+      "p_above": 0.768
      },
      "n": 16,
      "centre": {
       "k": 3,
       "share": 0.188,
       "lo": 0.066,
-      "hi": 0.43
+      "hi": 0.43,
+      "p_above": 0.313
      },
      "right": {
       "k": 3,
       "share": 0.188,
       "lo": 0.066,
-      "hi": 0.43
+      "hi": 0.43,
+      "p_above": 0.329
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 10,
       "share": 0.625,
       "lo": 0.386,
-      "hi": 0.815
+      "hi": 0.815,
+      "p_above": 0.768
      },
      "n": 16,
      "centre": {
       "k": 3,
       "share": 0.188,
       "lo": 0.066,
-      "hi": 0.43
+      "hi": 0.43,
+      "p_above": 0.313
      },
      "right": {
       "k": 3,
       "share": 0.188,
       "lo": 0.066,
-      "hi": 0.43
+      "hi": 0.43,
+      "p_above": 0.329
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 10,
       "share": 0.667,
       "lo": 0.417,
-      "hi": 0.848
+      "hi": 0.848,
+      "p_above": 0.785
      },
      "n": 15,
      "centre": {
       "k": 2,
       "share": 0.133,
       "lo": 0.037,
-      "hi": 0.379
+      "hi": 0.379,
+      "p_above": 0.274
      },
      "right": {
       "k": 3,
       "share": 0.2,
       "lo": 0.07,
-      "hi": 0.452
+      "hi": 0.452,
+      "p_above": 0.348
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 10,
       "share": 0.667,
       "lo": 0.417,
-      "hi": 0.848
+      "hi": 0.848,
+      "p_above": 0.785
      },
      "n": 15,
      "centre": {
       "k": 2,
       "share": 0.133,
       "lo": 0.037,
-      "hi": 0.379
+      "hi": 0.379,
+      "p_above": 0.274
      },
      "right": {
       "k": 3,
       "share": 0.2,
       "lo": 0.07,
-      "hi": 0.452
+      "hi": 0.452,
+      "p_above": 0.348
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 9,
       "share": 0.75,
       "lo": 0.468,
-      "hi": 0.911
+      "hi": 0.911,
+      "p_above": 0.789
      },
      "n": 12,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.243
+      "hi": 0.243,
+      "p_above": 0.217
      },
      "right": {
       "k": 3,
       "share": 0.25,
       "lo": 0.089,
-      "hi": 0.532
+      "hi": 0.532,
+      "p_above": 0.408
      },
      "top": "left",
-     "hedge": "clear",
-     "overload": "left"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 5,
       "share": 0.5,
       "lo": 0.237,
-      "hi": 0.763
+      "hi": 0.763,
+      "p_above": 0.599
      },
      "n": 10,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.278
+      "hi": 0.278,
+      "p_above": 0.25
      },
      "right": {
       "k": 5,
       "share": 0.5,
       "lo": 0.237,
-      "hi": 0.763
+      "hi": 0.763,
+      "p_above": 0.588
      },
      "top": "left",
      "hedge": "suggests",
@@ -21323,20 +21925,23 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.434
+      "hi": 0.434,
+      "p_above": 0.353
      },
      "n": 5,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.434
+      "hi": 0.434,
+      "p_above": 0.35
      },
      "right": {
       "k": 5,
       "share": 1.0,
       "lo": 0.566,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.703
      },
      "top": "right",
      "hedge": "early",
@@ -21347,20 +21952,23 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.434
+      "hi": 0.434,
+      "p_above": 0.353
      },
      "n": 5,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.434
+      "hi": 0.434,
+      "p_above": 0.35
      },
      "right": {
       "k": 5,
       "share": 1.0,
       "lo": 0.566,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.703
      },
      "top": "right",
      "hedge": "early",
@@ -21371,20 +21979,23 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.434
+      "hi": 0.434,
+      "p_above": 0.353
      },
      "n": 5,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.434
+      "hi": 0.434,
+      "p_above": 0.35
      },
      "right": {
       "k": 5,
       "share": 1.0,
       "lo": 0.566,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.703
      },
      "top": "right",
      "hedge": "early",
@@ -21395,20 +22006,23 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.658
+      "hi": 0.658,
+      "p_above": 0.418
      },
      "n": 2,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.658
+      "hi": 0.658,
+      "p_above": 0.422
      },
      "right": {
       "k": 2,
       "share": 1.0,
       "lo": 0.342,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.571
      },
      "top": "right",
      "hedge": "early",
@@ -21419,20 +22033,23 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.658
+      "hi": 0.658,
+      "p_above": 0.418
      },
      "n": 2,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.658
+      "hi": 0.658,
+      "p_above": 0.422
      },
      "right": {
       "k": 2,
       "share": 1.0,
       "lo": 0.342,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.571
      },
      "top": "right",
      "hedge": "early",
@@ -21443,20 +22060,23 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.658
+      "hi": 0.658,
+      "p_above": 0.418
      },
      "n": 2,
      "centre": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.658
+      "hi": 0.658,
+      "p_above": 0.422
      },
      "right": {
       "k": 2,
       "share": 1.0,
       "lo": 0.342,
-      "hi": 1.0
+      "hi": 1.0,
+      "p_above": 0.571
      },
      "top": "right",
      "hedge": "early",
@@ -21467,20 +22087,23 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.562
+      "hi": 0.562,
+      "p_above": 0.395
      },
      "n": 3,
      "centre": {
       "k": 1,
       "share": 0.333,
       "lo": 0.061,
-      "hi": 0.792
+      "hi": 0.792,
+      "p_above": 0.47
      },
      "right": {
       "k": 2,
       "share": 0.667,
       "lo": 0.208,
-      "hi": 0.939
+      "hi": 0.939,
+      "p_above": 0.546
      },
      "top": "right",
      "hedge": "early",
@@ -21491,72 +22114,81 @@
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.39
+      "hi": 0.39,
+      "p_above": 0.333
      },
      "n": 6,
      "centre": {
       "k": 1,
       "share": 0.167,
       "lo": 0.03,
-      "hi": 0.564
+      "hi": 0.564,
+      "p_above": 0.396
      },
      "right": {
       "k": 5,
       "share": 0.833,
       "lo": 0.436,
-      "hi": 0.97
+      "hi": 0.97,
+      "p_above": 0.68
      },
      "top": "right",
-     "hedge": "clear",
-     "overload": "right"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.39
+      "hi": 0.39,
+      "p_above": 0.333
      },
      "n": 6,
      "centre": {
       "k": 1,
       "share": 0.167,
       "lo": 0.03,
-      "hi": 0.564
+      "hi": 0.564,
+      "p_above": 0.396
      },
      "right": {
       "k": 5,
       "share": 0.833,
       "lo": 0.436,
-      "hi": 0.97
+      "hi": 0.97,
+      "p_above": 0.68
      },
      "top": "right",
-     "hedge": "clear",
-     "overload": "right"
+     "hedge": "suggests",
+     "overload": null
     },
     {
      "left": {
       "k": 0,
       "share": 0.0,
       "lo": 0.0,
-      "hi": 0.39
+      "hi": 0.39,
+      "p_above": 0.333
      },
      "n": 6,
      "centre": {
       "k": 1,
       "share": 0.167,
       "lo": 0.03,
-      "hi": 0.564
+      "hi": 0.564,
+      "p_above": 0.396
      },
      "right": {
       "k": 5,
       "share": 0.833,
       "lo": 0.436,
-      "hi": 0.97
+      "hi": 0.97,
+      "p_above": 0.68
      },
      "top": "right",
-     "hedge": "clear",
-     "overload": "right"
+     "hedge": "suggests",
+     "overload": null
     }
    ]
   },

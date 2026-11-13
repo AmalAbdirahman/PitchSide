@@ -16,6 +16,7 @@ A producer-first control room for a replayed, synthetic football match. Python b
 - **Spanish is unreviewed.** It comes from templates and a small glossary and has not been checked by a native speaker.
 - **xG is a fitted model estimate.** A logistic regression fitted on StatsBomb Open Data shots from four men's international tournaments and validated on held-out matches: log loss 0.2655 against 0.2442 for StatsBomb's own xG and 0.3200 for a constant (`docs/methods/xg.md`). The simulator uses it. Real StatsBomb shots carry StatsBomb's own xG by default, since it scored better (`statsbomb.shot_xg` in `config.yaml`).
 - **xT is a fitted model estimate.** Expected threat is a Markov model on a 16 x 12 grid, fitted on the same StatsBomb Open Data matches and validated on the held-out ones (log loss 0.0765 against 0.0794 for a constant; it runs low in the lower bins, `docs/methods/xt.md`). It ignores defenders and everything off the ball. The site uses it for the `xt_added` metric (net xT gained by completed passes and carries), one half-time moment, and a threat map in the Analysis view.
+- **Lane-share hedges come from a Beta-Binomial model, tuned on synthetic matches.** "Clear" needs P(share > league share) of at least 95%, after allowing for attacks in one possession sharing a lane. In a study of 300 simulated matches with no planted overload, the old rule (Wilson interval against 1/3) called a non-existent overload "clear" 6.3 times per match; the new one 0.11. The price: the replay's planted overload now airs as "the numbers suggest…", not as a plain statement (`docs/methods/hedging.md`). Its false-alarm rate on real matches is not measured.
 - **Win probability is a simple Poisson model** with stated assumptions, labelled "model estimate", not a prediction about real football.
 
 ## Architecture
@@ -86,7 +87,7 @@ Limits: 45 s per call, at most 40 calls per build (`config.yaml`). A `--foundry`
 
 ## Results (from real runs)
 
-`python scripts/eval.py`, run on 2026-11-13 (after P8 added xT):
+`python scripts/eval.py`, run on 2026-11-13 (after P9 switched lane shares to the Beta-Binomial hedge):
 
 | Verifier over `tests/seeded_claims.json` | |
 |---|---|
@@ -100,10 +101,10 @@ Scout agent, replayed from `data/agent_cache.json`:
 | | |
 |---|---|
 | Moments | 34 |
-| Passed the verifier first time | 28 |
+| Passed the verifier first time | 21 |
 | Passed after one retry | 0 |
 | Still rejected | 0 |
-| Fell back to rules | 6 (the four half-time xG moments, whose numbers the P7 refit changed, and the two xT moments added in P8: none of them is in the cached run; a new `--foundry` run would cover them) |
+| Fell back to rules | 13 (the four half-time xG moments, whose numbers the P7 refit changed; the two xT moments added in P8; and seven overload moments whose hedge P9 changed from "clear" to "suggests", which changes the request. None of them is in the cached run; a new `--foundry` run would cover them) |
 | Calls / latency (the cached `--foundry` run of 2026-10-27) | 33 calls, median 10.2 s, max 19.2 s |
 
 In that earlier run one draft passed only on retry: attempt 1 wrote "since the 46th minute", a number not in its input, and `numbers_match` rejected it.
@@ -118,7 +119,8 @@ The verifier checks numbers, windows, evidence, entities, intent words and hedgi
 sim/      seeded match simulator
 core/     typed models (events.py, facts.py), config, metric registry (metrics.py), event sources
           (sources.py, statsbomb.py), fitted xG (xg.py, xg_fit.py), xT (xt.py),
-          attack shares, Wilson intervals, win probability, moment rules
+          attack shares, Beta-Binomial hedge (hedge.py), Wilson intervals, win probability,
+          moment rules
 app/      agents_foundry.py (Scout), drafter.py (fallback + injected errors), verifier.py
           (orchestrates checks.py and corrections.py), router.py,
           renditions.py, templates_es.py, build_bundle.py

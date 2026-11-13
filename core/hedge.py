@@ -46,7 +46,10 @@ def _betacf(a: float, b: float, x: float) -> float:
 
 
 def beta_cdf(x: float, a: float, b: float) -> float:
-    """P(X <= x) for X ~ Beta(a, b)."""
+    """P(X <= x) for X ~ Beta(a, b). a = 0 or b = 0 (a lane the league never used, and no
+    attacks down it yet, or the reverse) is the limit: all mass at 0 or at 1."""
+    if a <= 0 or b <= 0:
+        return float(a <= 0)
     if x <= 0:
         return 0.0
     if x >= 1:
@@ -87,12 +90,28 @@ def posterior(k: float, n: float, prior_share: float, strength: float) -> Poster
     return Posterior(prior_share * strength + k, (1 - prior_share) * strength + n - k)
 
 
-def beta_hedge(k: int, n: int, prior_share: float, h: HedgeConfig, n_min: int, deff: float) -> str:
-    """early / suggests / clear for a claim that a share is above the league share. With
-    h.clustered, k and n are divided by deff (the league's variance inflation) first."""
-    if n < n_min:
-        return "early"
+@dataclass(frozen=True)
+class ShareJudgement:
+    hedge: str  # early, suggests or clear
+    p_above: float  # P(share > prior_share + min_effect) under the posterior
+    lo: float  # 95% posterior interval for the share
+    hi: float
+
+
+def judge_share(
+    k: int, n: int, prior_share: float, h: HedgeConfig, n_min: int, deff: float
+) -> ShareJudgement:
+    """The hedge for a claim that a share is above the league share. With h.clustered, k and n
+    are divided by deff (the league's variance inflation) before the update. n_min applies to the
+    raw count of attacks."""
     d = deff if h.clustered else 1.0
     post = posterior(k / d, n / d, prior_share, h.prior_strength)
     p = post.prob_above(prior_share + h.min_effect)
-    return "clear" if p >= h.clear_prob else "suggests"
+    lo, hi = post.interval(0.95)
+    hedge = "early" if n < n_min else "clear" if p >= h.clear_prob else "suggests"
+    return ShareJudgement(hedge, p, lo, hi)
+
+
+def beta_hedge(k: int, n: int, prior_share: float, h: HedgeConfig, n_min: int, deff: float) -> str:
+    """early / suggests / clear (judge_share without the numbers)."""
+    return judge_share(k, n, prior_share, h, n_min, deff).hedge

@@ -423,6 +423,7 @@
     },
     "Uncertainty": {
       "additionalProperties": false,
+      "description": "For a share: the Beta posterior's 95% interval and P(share > league share), which set the\nhedge, and the Wilson interval on the raw counts for comparison (docs/methods/hedging.md).",
       "properties": {
         "n": {
           "minimum": 0,
@@ -430,6 +431,7 @@
         },
         "ci_method": {
           "enum": [
+            "beta",
             "wilson",
             "none"
           ],
@@ -449,6 +451,18 @@
             "clear"
           ],
           "type": "string"
+        },
+        "baseline": {
+          "type": "number"
+        },
+        "p_above": {
+          "type": "number"
+        },
+        "wilson_low": {
+          "type": "number"
+        },
+        "wilson_high": {
+          "type": "number"
         }
       },
       "required": [

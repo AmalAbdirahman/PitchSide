@@ -45,11 +45,11 @@ def caught(category: str, out: Fact) -> bool:
 def run() -> dict[str, Any]:
     settings = load()
     seeded = json.loads((ROOT / "tests" / "seeded_claims.json").read_text(encoding="utf-8"))
-    match, _ = load_match()
+    match, league = load_match()
     per: dict[str, list[int]] = defaultdict(lambda: [0, 0])
     false_rejects: list[str] = []
     for entry in seeded:
-        out = verify(Fact.model_validate(entry["fact"], strict=True), match, settings)
+        out = verify(Fact.model_validate(entry["fact"], strict=True), match, league, settings)
         cat = entry["category"]
         if cat == "good":
             per[cat][1] += 1

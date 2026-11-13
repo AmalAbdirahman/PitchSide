@@ -1,6 +1,6 @@
 """Deterministic verifier (SPEC sections 7 and 8). Code decides truth.
 
-`verify(fact, match, settings)` returns a new fact with a verification record:
+`verify(fact, match, league, settings)` returns a new fact with a verification record:
 verified (all checks passed untouched), corrected (passed after deterministic
 fixes), rejected (a check failed) or unverifiable (the metric cannot be recomputed).
 
@@ -24,6 +24,7 @@ from core.config import MetricContext, Settings
 from core.events import Match
 from core.facts import Check, Correction, Fact, Verification, validate_fact
 from core.metrics import REGISTRY, compute_metric
+from core.sources import League
 
 __all__ = ["validate_fact", "verify"]
 
@@ -50,7 +51,7 @@ def _record(checks: list[Check], corrections: list[Correction], computable: bool
     )
 
 
-def verify(fact: Fact, match: Match, s: Settings) -> Fact:
+def verify(fact: Fact, match: Match, league: League, s: Settings) -> Fact:
     """Run every check on a copy of the fact and return it with a verification record."""
     v = s.verifier
     out = fact.model_copy(deep=True)
@@ -76,7 +77,7 @@ def verify(fact: Fact, match: Match, s: Settings) -> Fact:
         checks.append(make_check("recompute", False, detail))
     else:
         checks.append(check_recompute(claim, m, d, v))
-        sample = assess_sample(claim, m, d, v)
+        sample = assess_sample(claim, m, d, league, s.hedge, v)
         out.uncertainty = sample.uncertainty()
         fix = hedge_text(out, m, sample, match, v)
         if fix is not None:

@@ -6,7 +6,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "71% of Northbridge attacks have gone down the right since the 1st minute.",
+  "text": "The numbers suggest Northbridge are favouring the right: 71% of their attacks since the 1st minute.",
   "evidence_ids": [
    10,
    11,
@@ -24,7 +24,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "es",
-  "text": "Desde el minuto 1, el 71 % de los ataques de Northbridge han ido por la banda derecha.",
+  "text": "Los datos sugieren que Northbridge carga el juego por la banda derecha: el 71 % de sus ataques desde el minuto 1.",
   "evidence_ids": [
    10,
    11,
@@ -118,7 +118,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "69% of Northbridge attacks have gone down the centre since the 11th minute.",
+  "text": "The numbers suggest Northbridge are favouring the centre: 69% of their attacks since the 11th minute.",
   "evidence_ids": [
    114,
    121,
@@ -142,7 +142,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "es",
-  "text": "Desde el minuto 11, el 69 % de los ataques de Northbridge han ido por el centro.",
+  "text": "Los datos sugieren que Northbridge carga el juego por el centro: el 69 % de sus ataques desde el minuto 11.",
   "evidence_ids": [
    114,
    121,
@@ -234,7 +234,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "Since the 26th minute, 72% of Harlow attacks have gone down the left.",
+  "text": "The numbers suggest Harlow are favouring the left: 72% of their attacks since the 26th minute.",
   "evidence_ids": [
    181,
    182,
@@ -268,7 +268,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "es",
-  "text": "Desde el minuto 26, el 72 % de los ataques de Harlow han ido por la banda izquierda.",
+  "text": "Los datos sugieren que Harlow carga el juego por la banda izquierda: el 72 % de sus ataques desde el minuto 26.",
   "evidence_ids": [
    181,
    182,
@@ -936,7 +936,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "77% of Harlow attacks have gone down the left since the 51st minute.",
+  "text": "The numbers suggest Harlow are favouring the left: 77% of their attacks since the 51st minute.",
   "evidence_ids": [
    348,
    349,
@@ -959,7 +959,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "es",
-  "text": "Desde el minuto 51, el 77 % de los ataques de Harlow han ido por la banda izquierda.",
+  "text": "Los datos sugieren que Harlow carga el juego por la banda izquierda: el 77 % de sus ataques desde el minuto 51.",
   "evidence_ids": [
    348,
    349,
@@ -982,7 +982,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "71% of Northbridge attacks have gone down the left since the 58th minute.",
+  "text": "The numbers suggest Northbridge are favouring the left: 71% of their attacks since the 58th minute.",
   "evidence_ids": [
    404,
    416,
@@ -1000,7 +1000,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "es",
-  "text": "Desde el minuto 58, el 71 % de los ataques de Northbridge han ido por la banda izquierda.",
+  "text": "Los datos sugieren que Northbridge carga el juego por la banda izquierda: el 71 % de sus ataques desde el minuto 58.",
   "evidence_ids": [
    404,
    416,
@@ -1086,7 +1086,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "51% of Northbridge attacks have gone down the left since the 58th minute.",
+  "text": "The numbers suggest Northbridge are favouring the left: 51% of their attacks since the 58th minute.",
   "evidence_ids": [
    404,
    416,
@@ -1119,7 +1119,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "es",
-  "text": "Desde el minuto 58, el 51 % de los ataques de Northbridge han ido por la banda izquierda.",
+  "text": "Los datos sugieren que Northbridge carga el juego por la banda izquierda: el 51 % de sus ataques desde el minuto 58.",
   "evidence_ids": [
    404,
    416,
@@ -1202,7 +1202,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "Since the 71st minute, 83% of Harlow attacks have gone down the right.",
+  "text": "The numbers suggest Harlow are favouring the right: 83% of their attacks since the 71st minute.",
   "evidence_ids": [
    537,
    539,
@@ -1220,7 +1220,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "es",
-  "text": "Desde el minuto 71, el 83 % de los ataques de Harlow han ido por la banda derecha.",
+  "text": "Los datos sugieren que Harlow carga el juego por la banda derecha: el 83 % de sus ataques desde el minuto 71.",
   "evidence_ids": [
    537,
    539,

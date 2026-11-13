@@ -10,10 +10,12 @@ import re
 from dataclasses import dataclass
 
 from app.names import name_problems, named_players, roster
-from core.config import Verifier
+from core.config import Hedge, Verifier
 from core.events import Event, Match
 from core.facts import Check, Claim, Fact, TextNumber, Uncertainty
+from core.hedge import ShareJudgement, judge_share
 from core.metrics import Metric, MetricDef
+from core.sources import League
 from core.wilson import hedge_for, wilson
 
 NUMBER = re.compile(r"\d+(?:\.\d+)?")
@@ -129,44 +131,79 @@ def check_numbers(
 
 @dataclass(frozen=True)
 class Sample:
-    """What the evidence supports: a plain value, or a share with a Wilson interval and hedge."""
+    """What the evidence supports: a plain value; a rate with a Wilson interval and no baseline
+    (pass accuracy); or a lane share judged against the league share with the Beta-Binomial hedge
+    (core/hedge.py), with Wilson on the raw counts for comparison."""
 
     n: int
     hedge: str
-    lo: float | None = None
-    hi: float | None = None
+    share: ShareJudgement | None = None
+    baseline: float | None = None
+    wilson_lo: float | None = None
+    wilson_hi: float | None = None
 
     def uncertainty(self) -> Uncertainty:
-        if self.lo is None or self.hi is None:
+        if self.wilson_lo is None or self.wilson_hi is None:
             return Uncertainty(n=self.n, ci_method="none", hedge="none")
+        if self.share is None:
+            return Uncertainty.model_validate(
+                {
+                    "n": self.n,
+                    "ci_method": "wilson",
+                    "ci_low": round(self.wilson_lo, 4),
+                    "ci_high": round(self.wilson_hi, 4),
+                    "hedge": self.hedge,
+                }
+            )
         return Uncertainty.model_validate(
             {
                 "n": self.n,
-                "ci_method": "wilson",
-                "ci_low": round(self.lo, 4),
-                "ci_high": round(self.hi, 4),
+                "ci_method": "beta",
+                "ci_low": round(self.share.lo, 4),
+                "ci_high": round(self.share.hi, 4),
                 "hedge": self.hedge,
+                "baseline": self.baseline,
+                "p_above": round(self.share.p_above, 4),
+                "wilson_low": None if self.wilson_lo is None else round(self.wilson_lo, 4),
+                "wilson_high": None if self.wilson_hi is None else round(self.wilson_hi, 4),
             }
         )
 
 
-def assess_sample(claim: Claim, m: Metric, d: MetricDef, v: Verifier) -> Sample:
+def assess_sample(
+    claim: Claim, m: Metric, d: MetricDef, league: League, h: Hedge, v: Verifier
+) -> Sample:
+    """The hedge the evidence allows. The baseline is the league share of the claim's lane, taken
+    from the league, not from the claim."""
     if not d.checks_sample:
         return Sample(n=m.n, hedge="none")
+    if not claim.metric.startswith("attack_share_"):
+        lo, hi = wilson(m.k, m.n, v.z)
+        return Sample(m.n, hedge_for(m.n, lo, hi, None, v.n_min), wilson_lo=lo, wilson_hi=hi)
+    base = league.lane_shares[claim.metric.removeprefix("attack_share_")]
+    share = judge_share(m.k, m.n, base, h, v.n_min, league.attack_deff)
     lo, hi = wilson(m.k, m.n, v.z)
-    base = claim.baseline
-    hedge = hedge_for(m.n, lo, hi, None if base is None else base / 100, v.n_min)
-    return Sample(n=m.n, hedge=hedge, lo=lo, hi=hi)
+    return Sample(m.n, share.hedge, share, round(base, 4), lo, hi)
 
 
 def check_sample(sample: Sample, correction_reason: str | None) -> Check:
     """Always passes: a weak sample is corrected (hedged or restated), not rejected."""
     if correction_reason is not None:
         return make_check("sample_size", True, correction_reason)
-    if sample.lo is None or sample.hi is None:
+    if sample.wilson_lo is None or sample.wilson_hi is None:
         return make_check("sample_size", True, "plain value from the event log; no inference")
+    if sample.share is None:
+        return make_check(
+            "sample_size",
+            True,
+            f"n={sample.n}, Wilson [{sample.wilson_lo:.2f}, {sample.wilson_hi:.2f}], "
+            f"hedge {sample.hedge}",
+        )
+    sh = sample.share
     return make_check(
         "sample_size",
         True,
-        f"n={sample.n}, Wilson [{sample.lo:.2f}, {sample.hi:.2f}], hedge {sample.hedge}",
+        f"n={sample.n}, P(share > league {sample.baseline:.2f}) = {sh.p_above:.2f}, "
+        f"Beta [{sh.lo:.2f}, {sh.hi:.2f}], Wilson [{sample.wilson_lo:.2f}, "
+        f"{sample.wilson_hi:.2f}], hedge {sample.hedge}",
     )

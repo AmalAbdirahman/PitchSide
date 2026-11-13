@@ -8,7 +8,7 @@ from app.verifier import verify
 from core.config import load
 from core.events import Match
 from core.facts import Fact
-from tests.conftest import SeededClaim, seeded_of
+from tests.conftest import LEAGUE, SeededClaim, seeded_of
 
 CATEGORIES = (
     "wrong_number",
@@ -39,35 +39,35 @@ def test_seeded_set_has_enough_per_category(seeded: list[SeededClaim]) -> None:
 
 @pytest.mark.parametrize("entry", seeded_of("wrong_number"), ids=_ids(seeded_of("wrong_number")))
 def test_verifier_rejects_wrong_number(entry: SeededClaim, match: Match) -> None:
-    out = verify(entry.fact, match, S)
+    out = verify(entry.fact, match, LEAGUE, S)
     assert out.verification.status == "rejected"
     assert not _check(out, "recompute") or not _check(out, "numbers_match")
 
 
 @pytest.mark.parametrize("entry", seeded_of("future_event"), ids=_ids(seeded_of("future_event")))
 def test_verifier_rejects_future_event(entry: SeededClaim, match: Match) -> None:
-    out = verify(entry.fact, match, S)
+    out = verify(entry.fact, match, LEAGUE, S)
     assert out.verification.status == "rejected"
     assert not _check(out, "evidence_exists")
 
 
 @pytest.mark.parametrize("entry", seeded_of("wrong_player"), ids=_ids(seeded_of("wrong_player")))
 def test_verifier_rejects_wrong_player(entry: SeededClaim, match: Match) -> None:
-    out = verify(entry.fact, match, S)
+    out = verify(entry.fact, match, LEAGUE, S)
     assert out.verification.status == "rejected"
     assert not _check(out, "entities")
 
 
 @pytest.mark.parametrize("entry", seeded_of("wrong_window"), ids=_ids(seeded_of("wrong_window")))
 def test_verifier_rejects_wrong_window(entry: SeededClaim, match: Match) -> None:
-    out = verify(entry.fact, match, S)
+    out = verify(entry.fact, match, LEAGUE, S)
     assert out.verification.status == "rejected"
     assert not _check(out, "evidence_exists")
 
 
 @pytest.mark.parametrize("entry", seeded_of("intent_word"), ids=_ids(seeded_of("intent_word")))
 def test_intent_words_stripped_and_logged(entry: SeededClaim, match: Match) -> None:
-    out = verify(entry.fact, match, S)
+    out = verify(entry.fact, match, LEAGUE, S)
     v = out.verification
     assert v.status == "corrected"
     assert any(c.reason.startswith("intent") for c in v.corrections or [])
@@ -79,7 +79,7 @@ def test_intent_words_stripped_and_logged(entry: SeededClaim, match: Match) -> N
 
 @pytest.mark.parametrize("entry", seeded_of("small_sample"), ids=_ids(seeded_of("small_sample")))
 def test_small_sample_downgrades_hedge(entry: SeededClaim, match: Match) -> None:
-    out = verify(entry.fact, match, S)
+    out = verify(entry.fact, match, LEAGUE, S)
     if out.verification.status == "unverifiable":
         return
     assert out.uncertainty is not None
@@ -90,7 +90,7 @@ def test_small_sample_downgrades_hedge(entry: SeededClaim, match: Match) -> None
 
 @pytest.mark.parametrize("entry", seeded_of("good"), ids=_ids(seeded_of("good")))
 def test_good_claims_verify(entry: SeededClaim, match: Match) -> None:
-    out = verify(entry.fact, match, S)
+    out = verify(entry.fact, match, LEAGUE, S)
     assert out.verification.status == "verified", out.verification
     assert all(c.passed for c in out.verification.checks)
 
@@ -98,11 +98,11 @@ def test_good_claims_verify(entry: SeededClaim, match: Match) -> None:
 def test_verify_does_not_mutate_input(seeded: list[SeededClaim], match: Match) -> None:
     fact = seeded[0].fact
     before = fact.model_copy(deep=True)
-    verify(fact, match, S)
+    verify(fact, match, LEAGUE, S)
     assert fact == before
 
 
 def test_unknown_metric_is_unverifiable(match: Match) -> None:
     fact = seeded_of("good")[0].fact
     fact.claim.metric = "duels_lost"
-    assert verify(fact, match, S).verification.status == "unverifiable"
+    assert verify(fact, match, LEAGUE, S).verification.status == "unverifiable"

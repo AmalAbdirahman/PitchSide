@@ -114,11 +114,18 @@ class Impact(_Strict):
 
 
 class Uncertainty(_Strict):
+    """For a share: the Beta posterior's 95% interval and P(share > league share), which set the
+    hedge, and the Wilson interval on the raw counts for comparison (docs/methods/hedging.md)."""
+
     n: Annotated[int, Field(ge=0)]
-    ci_method: Literal["wilson", "none"]
+    ci_method: Literal["beta", "wilson", "none"]
     ci_low: Number | None = None
     ci_high: Number | None = None
     hedge: Hedge
+    baseline: Number | None = None  # league share of the lane, 0..1
+    p_above: Number | None = None  # posterior P(share > baseline + min_effect)
+    wilson_low: Number | None = None
+    wilson_high: Number | None = None
 
 
 # ---- verification, routing, output -------------------------------------------------

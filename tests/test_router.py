@@ -11,15 +11,22 @@ from app.verifier import verify
 from core.config import load
 from core.events import Match
 from core.facts import Correction, Fact, Impact
-from tests.conftest import seeded_of
+from tests.conftest import LEAGUE, seeded_of
 
 S = load()
 RULES = routing_rules(S.router)
 
 
 def _good(metric: str, match: Match, hedge: str | None = None) -> Fact:
+    """A verified good fact. Under the clustered hedge no seeded share is "clear", so a clear fact
+    is a "suggests" share with its hedge set to clear: routing reads only the hedge."""
+    if hedge == "clear":
+        f = _good(metric, match, "suggests")
+        assert f.uncertainty is not None
+        f.uncertainty.hedge = "clear"
+        return f
     for entry in seeded_of("good"):
-        out = verify(entry.fact, match, S)
+        out = verify(entry.fact, match, LEAGUE, S)
         out_hedge = out.uncertainty.hedge if out.uncertainty else None
         if out.claim.metric.startswith(metric) and (hedge is None or out_hedge == hedge):
             return out
@@ -95,7 +102,7 @@ def test_tier_routing_table(
 
 @pytest.mark.parametrize("category", ["wrong_number", "future_event"])
 def test_rejected_never_reaches_router(category: str, match: Match) -> None:
-    out = verify(seeded_of(category)[0].fact, match, S)
+    out = verify(seeded_of(category)[0].fact, match, LEAGUE, S)
     assert out.verification.status == "rejected"
     with pytest.raises(ValueError):
         route(out, S.router)
@@ -105,7 +112,7 @@ def test_unverifiable_never_reaches_router(match: Match) -> None:
     fact = seeded_of("good")[0].fact
     fact.claim.metric = "duels_lost"
     with pytest.raises(ValueError):
-        route(verify(fact, match, S), S.router)
+        route(verify(fact, match, LEAGUE, S), S.router)
 
 
 def _reasons(f: Fact) -> list[str]:

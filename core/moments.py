@@ -11,7 +11,9 @@ from typing import Any
 from core.config import MetricContext, Settings, Winprob
 from core.events import Clock, Event
 from core.facts import Subject, Window
+from core.hedge import judge_share
 from core.metrics import Metric, compute_metric, in_window, require_metric
+from core.sources import League
 from core.winprob import win_probability
 from core.xt import completed_move
 
@@ -169,7 +171,7 @@ def _overload_start(events: list[Event], team: str, cp: float, window_s: int) ->
 
 
 def overload_moments(
-    events: list[Event], teams: tuple[str, str], s: Settings, clock: Clock
+    events: list[Event], teams: tuple[str, str], league: League, s: Settings, clock: Clock
 ) -> list[dict[str, Any]]:
     c, n_min = s.moments, s.verifier.n_min
     out: list[dict[str, Any]] = []
@@ -190,6 +192,8 @@ def overload_moments(
             if team in last and last[team][1] == lane and cp - last[team][0] < c.overload_window_s:
                 continue
             last[team] = (cp, lane)
+            base = league.lane_shares[lane]
+            j = judge_share(m.k, m.n, base, s.hedge, n_min, league.attack_deff)
             out.append(
                 _moment(
                     "tactical",
@@ -200,6 +204,8 @@ def overload_moments(
                     cp,
                     m,
                     lane=lane,
+                    baseline=round(100 * base, 2),
+                    hedge=j.hedge,
                 )
             )
     return out
@@ -314,13 +320,13 @@ def _xt_leader(
 
 
 def detect_moments(
-    events: list[Event], teams: tuple[str, str], mu: float, s: Settings, clock: Clock
+    events: list[Event], teams: tuple[str, str], league: League, s: Settings, clock: Clock
 ) -> list[dict[str, Any]]:
     """All moments in the match, sorted by creation time."""
     moments = (
-        goal_moments(events, teams, mu, s.winprob)
+        goal_moments(events, teams, league.mu, s.winprob)
         + event_moments(events)
-        + overload_moments(events, teams, s, clock)
+        + overload_moments(events, teams, league, s, clock)
         + turnover_moments(events, teams, s, clock)
         + half_moments(events, teams, s, clock)
     )

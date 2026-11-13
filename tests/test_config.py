@@ -14,6 +14,7 @@ from core.events import Match
 from core.moments import overload_moments
 from core.shares import lane_of
 from core.xg import xg
+from tests.conftest import LEAGUE
 
 
 def _raw() -> dict[str, Any]:
@@ -81,11 +82,11 @@ def test_overload_moments_use_the_threshold_they_are_given(
     match: Match, settings: Settings
 ) -> None:
     teams = (match.meta.home, match.meta.away)
-    assert overload_moments(match.events, teams, settings, match.meta.clock)
+    assert overload_moments(match.events, teams, LEAGUE, settings, match.meta.clock)
     impossible = settings.model_copy(
         update={"moments": settings.moments.model_copy(update={"overload_min_share": 1.01})}
     )
-    assert overload_moments(match.events, teams, impossible, match.meta.clock) == []
+    assert overload_moments(match.events, teams, LEAGUE, impossible, match.meta.clock) == []
 
 
 def test_importing_the_pipeline_reads_no_project_file() -> None:

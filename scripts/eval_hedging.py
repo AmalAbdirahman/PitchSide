@@ -45,7 +45,7 @@ def rules(s: Settings, league: League) -> dict[str, Rule]:
 
     def wilson_rule(k: int, n: int, _lane: str) -> bool:
         lo, hi = wilson(k, n, v.z)
-        return hedge_for(n, lo, hi, v.lane_baseline, v.n_min) == "clear"
+        return hedge_for(n, lo, hi, s.hedge_eval.wilson_baseline, v.n_min) == "clear"
 
     def beta_rule(h: Hedge) -> Rule:
         return lambda k, n, lane: (
@@ -58,17 +58,17 @@ def rules(s: Settings, league: League) -> dict[str, Rule]:
     return out
 
 
-def overloads(seed: int, hero: bool, s: Settings) -> list[dict[str, Any]]:
+def overloads(seed: int, hero: bool, league: League, s: Settings) -> list[dict[str, Any]]:
     events = [Event.model_validate(e) for e in SimMatch(seed, hero, s).run()]
     clock = Clock(period_starts=[0, s.sim.half_s], end_t=2 * s.sim.half_s)
-    return overload_moments(events, TEAMS, s, clock)
+    return overload_moments(events, TEAMS, league, s, clock)
 
 
-def null_study(s: Settings, judge: dict[str, Rule]) -> dict[str, Any]:
+def null_study(s: Settings, league: League, judge: dict[str, Rule]) -> dict[str, Any]:
     per_match: dict[str, list[int]] = {name: [] for name in judge}
     raised = 0
     for i in range(s.hedge_eval.null_matches):
-        found = overloads(s.hedge_eval.null_seed + i, False, s)
+        found = overloads(s.hedge_eval.null_seed + i, False, league, s)
         raised += len(found)
         for name, rule in judge.items():
             per_match[name].append(sum(rule(m["k"], m["n"], m["lane"]) for m in found))
@@ -97,14 +97,14 @@ def strong(s: Settings) -> Settings:
     return s.model_copy(update={"sim": sim})
 
 
-def planted_study(s: Settings, judge: dict[str, Rule]) -> dict[str, Any]:
+def planted_study(s: Settings, league: League, judge: dict[str, Rule]) -> dict[str, Any]:
     start, until = s.sim.hero_sub_t, s.sim.hero_overload_until_t
     last = until + s.moments.check_every_s  # the first look after it ends still sees it
     delays: dict[str, list[float]] = {name: [] for name in judge}
     for i in range(s.hedge_eval.planted_matches):
         found = [
             m
-            for m in overloads(s.hedge_eval.planted_seed + i, True, s)
+            for m in overloads(s.hedge_eval.planted_seed + i, True, league, s)
             if m["subject"]["id"] == "NOR"
             and m["lane"] == "left"
             and start <= m["created_t"] <= last
@@ -145,9 +145,9 @@ def main() -> None:
         "lane_shares": league.lane_shares,
         "attack_deff": league.attack_deff,
         "candidates": [c.model_dump() for c in s.hedge_eval.candidates],
-        "null": null_study(s, judge),
-        "planted": planted_study(s, judge),
-        "planted_strong": planted_study(strong(s), judge),
+        "null": null_study(s, league, judge),
+        "planted": planted_study(s, league, judge),
+        "planted_strong": planted_study(strong(s), league, judge),
     }
     OUT.write_text(json.dumps(result, indent=1) + "\n", encoding="utf-8")
     print(

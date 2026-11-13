@@ -67,7 +67,6 @@ moments:
 verifier:
   n_min: 6
   z: 1.96
-  lane_baseline: 0.3333333
   tol_share_pp: 0.5
   tol_xg: 0.01
   tol_speed: 0.5
@@ -91,13 +90,15 @@ verifier:
     - '\b(tried|wanted|decided) to\s+'
 
 # Beta-Binomial hedge for lane-share claims (P9, core/hedge.py). Prior: Beta centred on the league's
-# share for the lane, worth prior_strength attacks. "clear" needs P(share > league share +
-# min_effect) >= clear_prob. Starting values chosen by hand; P9's false-alarm study sets them.
+# share for the lane, worth prior_strength attacks; counts are divided by the league's variance
+# inflation (clustered). "clear" needs P(share > league share + min_effect) >= clear_prob.
+# Chosen from the false-alarm study (scripts/eval_hedging.py, run 2026-11-13 at da95a22;
+# docs/methods/hedging.md): 0.11 false "clear" calls per null match, against 6.3 for the old rule.
 hedge:
   prior_strength: 10
   clear_prob: 0.95
   min_effect: 0.0
-  clustered: false
+  clustered: true
 
 # P9 false-alarm study (scripts/eval_hedging.py): simulated matches with no planted overload, and
 # with the hero script's overload (seeds far from the league's 7000-7049). Candidate Beta rules,
@@ -108,6 +109,8 @@ hedge_eval:
   planted_matches: 300
   null_seed: 100000
   planted_seed: 200000
+  # The rule before P9, kept for the study: a 95% Wilson interval against a fixed 1/3 baseline.
+  wilson_baseline: 0.3333333
   # A second, stronger planted overload (chosen by hand): 90% of the home side's possessions
   # aim down the left from its substitution to full time, instead of the hero script's
   # sim.overload_lane_weights until sim.hero_overload_until_t.

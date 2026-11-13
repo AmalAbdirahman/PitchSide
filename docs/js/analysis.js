@@ -87,8 +87,8 @@ function renderCompare() {
 
 const HEDGE_TEXT = {
   early: ['EARLY', 'c-amber', 'Too few attacks to say much. Any caption must say "early sign".'],
-  suggests: ['SUGGESTS', 'c-cyan', 'The interval overlaps the baseline. A caption must say "suggests".'],
-  clear: ['CLEAR', 'c-green', 'The interval excludes the baseline. A plain statement is allowed.'],
+  suggests: ['SUGGESTS', 'c-cyan', 'Not yet clear of the league share once clustered attacks are allowed for. A caption must say "suggests".'],
+  clear: ['CLEAR', 'c-green', 'Clearly above the league share once clustered attacks are allowed for. A plain statement is allowed.'],
 };
 
 function laneRow(name, lane, base, col) {
@@ -99,22 +99,24 @@ function laneRow(name, lane, base, col) {
     <svg viewBox="0 0 ${W} 22" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="6" width="${W}" height="10" fill="rgba(255,255,255,.06)" rx="5"/>
       <rect x="0" y="6" width="${X(lane.share)}" height="10" fill="${col}" rx="5"/>${bracket}
       <line x1="${X(base)}" x2="${X(base)}" y1="0" y2="22" stroke="#ffd23f" stroke-dasharray="3 2" stroke-width="1.5"/></svg>
-    <span class="val">${lane.k} · ${Math.round(lane.share * 100)}% <span class="c-muted">[${Math.round(lane.lo * 100)}–${Math.round(lane.hi * 100)}]</span></span></div>`;
+    <span class="val">${lane.k} · ${Math.round(lane.share * 100)}% <span class="c-muted">[${Math.round(lane.lo * 100)}–${Math.round(lane.hi * 100)}] · P ${Math.round(lane.p_above * 100)}%</span></span></div>`;
 }
 
 function lanePanel(team, i) {
-  const L = D.series.lanes[team][i], base = D.series.lane_baseline;
+  const L = D.series.lanes[team][i], prior = D.series.lane_prior;
   let h = `<h3 style="color:${teamCol(team)}">${esc(D.meta.teams[team].name)} · ${L.n} attacks</h3>`;
   if (!L.n) return h + '<p class="note">No attacks in the window yet.</p>';
-  h += LANES.map(ln => laneRow(ln[0].toUpperCase() + ln.slice(1), L[ln], base, ln === L.top ? teamCol(team) : '#7d6c94')).join('');
+  h += LANES.map(ln => laneRow(ln[0].toUpperCase() + ln.slice(1), L[ln], prior[ln], ln === L.top ? teamCol(team) : '#7d6c94')).join('');
   const [word, cls, why] = HEDGE_TEXT[L.hedge];
   const over = L.overload ? ` Flagged as a ${L.overload}-lane overload.` : '';
-  return h + `<div class="hedge"><span class="tag ${cls}">${word}</span><span>Most attacks go ${L.top === 'centre' ? 'through the centre' : 'down the ' + L.top} (${Math.round(L[L.top].share * 100)}%). ${why}${over}</span></div>`;
+  const top = L[L.top], p = Math.round(top.p_above * 100), lg = Math.round(prior[L.top] * 100);
+  return h + `<div class="hedge"><span class="tag ${cls}">${word}</span><span>Most attacks go ${L.top === 'centre' ? 'through the centre' : 'down the ' + L.top} (${Math.round(top.share * 100)}%; league ${lg}%; P(above league) ${p}%). ${why}${over}</span></div>`;
 }
 
 function renderLanes() {
   const i = idxAt(S.t), mins = D.series.lane_window_s / 60;
-  $('#lanes-t').textContent = `Last ${mins} min of play · 95% Wilson interval · dashed line = ${Math.round(D.series.lane_baseline * 100)}% baseline`;
+  const clear = Math.round(D.series.hedge_clear_prob * 100);
+  $('#lanes-t').textContent = `Last ${mins} min of play · bracket = 95% Wilson (raw counts, for comparison) · P = Beta-Binomial P(share > league), clear at ${clear}% · dashed line = league share`;
   $('#lanes-h').innerHTML = lanePanel(D.meta.home, i);
   $('#lanes-a').innerHTML = lanePanel(D.meta.away, i);
 }

@@ -161,16 +161,16 @@ def make_scout(foundry: bool, s: Settings) -> Scout | None:
 
 
 def checked_drafts(
-    moments: list[Moment], match: Match, scout: Scout | None, s: Settings
+    moments: list[Moment], match: Match, league: League, scout: Scout | None, s: Settings
 ) -> list[Fact]:
     """Verified drafts: one per moment (Scout, else rules), then the rule-based injected drafts."""
-    drafts = draft_facts(moments, match, s)
+    drafts = draft_facts(moments, match, league, s)
     good, injected = drafts[: len(moments)], drafts[len(moments) :]
     if scout:
-        first = run_scout(scout, moments, good, match, s)
+        first = run_scout(scout, moments, good, match, league, s)
     else:
-        first = [verify_rules(d, match, s) for d in good]
-    return first + [verify_rules(d, match, s) for d in injected]
+        first = [verify_rules(d, match, league, s) for d in good]
+    return first + [verify_rules(d, match, league, s) for d in injected]
 
 
 def metrics(checked: list[Fact], facts: list[Fact]) -> dict[str, Any]:
@@ -194,12 +194,11 @@ def build(
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     source = source or SyntheticSource()
     match, league = source.load()
-    mu = league.mu
     teams = (match.meta.home, match.meta.away)
     if scout is None and use_cache:
         scout = make_scout(False, s)
-    moments = detect_moments(match.events, teams, mu, s, match.meta.clock)
-    checked = checked_drafts(moments, match, scout, s)
+    moments = detect_moments(match.events, teams, league, s, match.meta.clock)
+    checked = checked_drafts(moments, match, league, scout, s)
     routable = [c for c in checked if c.verification.status in ROUTABLE]
     facts = sorted(
         (with_renditions(route(c, s.router), match, s) for c in routable),
@@ -212,7 +211,7 @@ def build(
         **match.meta.model_dump(),
         "win_prob_label": "model estimate",
         "win_prob_method": "poisson_v1",
-        "mu": mu,
+        "mu": league.mu,
         "pitch": s.pitch.model_dump(),
         "routing": routing_rules(s.router).model_dump(mode="json"),
     }
@@ -225,7 +224,7 @@ def build(
         "facts": [f.to_dict() for f in facts],
         "log": [f.to_dict() for f in log],
         "metrics": metrics(checked, facts),
-        "series": build_series(match.events, teams, mu, s),
+        "series": build_series(match.events, teams, league, s),
     }
     cues = make_cues(facts)
     Draft202012Validator(CUE_SCHEMA).validate(cues)

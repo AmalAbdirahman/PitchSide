@@ -19,7 +19,7 @@ from core.config import MetricContext, load
 from core.events import Match
 from core.facts import MetricName, Subject, Window
 from core.metrics import REGISTRY, compute_metric
-from tests.conftest import SeededClaim, seeded_of
+from tests.conftest import LEAGUE, SeededClaim, seeded_of
 
 S = load()
 CTX = MetricContext.of(S)
@@ -106,7 +106,7 @@ def test_checks_and_corrections_do_not_change_the_fact(entry: SeededClaim, match
     check_entities(fact, by_id, match, v)
     check_recompute(fact.claim, m, d, v)
     check_numbers(fact, m, d, by_id, match, v)
-    sample = assess_sample(fact.claim, m, d, v)
+    sample = assess_sample(fact.claim, m, d, LEAGUE, S.hedge, v)
     check_sample(sample, None)
     hedge_text(fact, m, sample, match, v)
     strip_intent(fact.text.canonical_en, v.intent_patterns)
@@ -118,7 +118,9 @@ def test_small_sample_is_restated_by_a_correction(match: Match) -> None:
     d = REGISTRY[fact.claim.metric]
     m = compute_metric(fact.claim.metric, fact.claim.subject, fact.claim.window, match.events, CTX)
     assert m is not None
-    fix = hedge_text(fact, m, assess_sample(fact.claim, m, d, S.verifier), match, S.verifier)
+    fix = hedge_text(
+        fact, m, assess_sample(fact.claim, m, d, LEAGUE, S.hedge, S.verifier), match, S.verifier
+    )
     assert fix is not None and fix.text.startswith("Early sign:")
     assert fix.correction.from_ == fact.text.canonical_en and fix.correction.to == fix.text
 
@@ -127,3 +129,18 @@ def test_strip_intent_reports_what_it_removed() -> None:
     text, fixes = strip_intent("They deliberately went left.", S.verifier.intent_patterns)
     assert "deliberately" not in text and len(fixes) == 1
     assert strip_intent("They went left.", S.verifier.intent_patterns) == ("They went left.", [])
+
+
+def test_pass_accuracy_keeps_its_wilson_small_sample_hedge(match: Match) -> None:
+    # Not a share against a league baseline: Wilson with no baseline, early below n_min.
+    d = REGISTRY["pass_accuracy"]
+    claim = next(e.fact.claim for e in seeded_of("good") if e.fact.claim.metric == "pass_accuracy")
+    v = S.verifier
+    for end in (claim.window.end_t, claim.window.start_t + 20):
+        w = Window(start_t=claim.window.start_t, end_t=end)
+        m = compute_metric("pass_accuracy", claim.subject, w, match.events, CTX)
+        assert m is not None
+        sample = assess_sample(claim, m, d, LEAGUE, S.hedge, v)
+        u = sample.uncertainty()
+        assert u.ci_method == "wilson" and u.p_above is None
+        assert sample.hedge == ("early" if m.n < v.n_min else "clear")

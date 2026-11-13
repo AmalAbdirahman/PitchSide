@@ -85,7 +85,7 @@ function draftedBy(f) {
 function rowAnalyst(it) {
   const f = it.f, u = f.uncertainty;
   let m = `<span>${esc(it.id)}</span><span>${f.evidence.event_ids.length} ev</span><span>${esc(draftedBy(f))}</span>`;
-  if (u && u.ci_method === 'wilson') m += `<span>n=${u.n} · CI ${Math.round(u.ci_low * 100)}–${Math.round(u.ci_high * 100)}%</span>`;
+  if (u && u.ci_method === 'beta') m += `<span>n=${u.n} · P(above league ${Math.round(u.baseline * 100)}%) ${Math.round(u.p_above * 100)}% · Wilson ${Math.round(u.wilson_low * 100)}–${Math.round(u.wilson_high * 100)}%</span>`;
   if (f.impact) m += `<span>Δwp ${f.impact.delta >= 0 ? '+' : ''}${f.impact.delta.toFixed(2)} (model)</span>`;
   let h = `<div class="meta">${m}</div><div class="chk">` + f.verification.checks
     .map(c => `<span class="${c.passed ? '' : 'f'}" title="${esc(c.detail)}">${c.passed ? '✓' : '✗'} ${esc(c.name)}</span>`).join('') + '</div>';

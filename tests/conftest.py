@@ -6,6 +6,7 @@ from pydantic import BaseModel, ConfigDict, TypeAdapter
 from core.config import ROOT, Settings, load
 from core.events import Match
 from core.facts import Fact
+from core.sources import League, SyntheticSource
 
 SEEDED_PATH = ROOT / "tests" / "seeded_claims.json"
 
@@ -25,6 +26,14 @@ _SEEDED = TypeAdapter(list[SeededClaim])
 
 def load_match() -> Match:
     return Match.model_validate_json((ROOT / "data" / "events.json").read_text(encoding="utf-8"))
+
+
+def load_league() -> League:
+    """The synthetic league's priors, as the build loads them."""
+    return SyntheticSource().load()[1]
+
+
+LEAGUE = load_league()
 
 
 def load_seeded() -> list[SeededClaim]:

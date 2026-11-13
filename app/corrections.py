@@ -75,7 +75,7 @@ def _soften(text: str, hedge: str, match: Match) -> str:
 
 def hedge_text(fact: Fact, m: Metric, sample: Sample, match: Match, v: Verifier) -> TextFix | None:
     """Restate a too-small sample as a plain count, or soften wording stronger than the hedge."""
-    if sample.lo is None:
+    if sample.hedge == "none":
         return None
     text = fact.text.canonical_en
     if m.n < v.n_min:

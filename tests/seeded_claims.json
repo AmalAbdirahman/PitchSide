@@ -21,11 +21,11 @@
     },
     "comparator": "eq",
     "value": 71,
-    "baseline": 33.33
+    "baseline": 33.15
    },
    "text": {
-    "draft_en": "Since the 1st minute, 71% of Northbridge attacks have gone down the right.",
-    "canonical_en": "Since the 1st minute, 71% of Northbridge attacks have gone down the right.",
+    "draft_en": "The numbers suggest Northbridge are favouring the right: 71% of their attacks since the 1st minute.",
+    "canonical_en": "The numbers suggest Northbridge are favouring the right: 71% of their attacks since the 1st minute.",
     "numbers": [
      {
       "key": "value",
@@ -141,7 +141,7 @@
     },
     "comparator": "eq",
     "value": 50,
-    "baseline": 33.33
+    "baseline": 35.62
    },
    "text": {
     "draft_en": "The numbers suggest Harlow are favouring the centre: 50% of their attacks since the 6th minute.",
@@ -207,11 +207,11 @@
     },
     "comparator": "eq",
     "value": 69,
-    "baseline": 33.33
+    "baseline": 35.62
    },
    "text": {
-    "draft_en": "Since the 11th minute, 69% of Northbridge attacks have gone down the centre.",
-    "canonical_en": "Since the 11th minute, 69% of Northbridge attacks have gone down the centre.",
+    "draft_en": "The numbers suggest Northbridge are favouring the centre: 69% of their attacks since the 11th minute.",
+    "canonical_en": "The numbers suggest Northbridge are favouring the centre: 69% of their attacks since the 11th minute.",
     "numbers": [
      {
       "key": "value",
@@ -275,7 +275,7 @@
     },
     "comparator": "eq",
     "value": 56,
-    "baseline": 33.33
+    "baseline": 31.23
    },
    "text": {
     "draft_en": "The numbers suggest Harlow are favouring the left: 56% of their attacks since the 11th minute.",
@@ -395,11 +395,11 @@
     },
     "comparator": "eq",
     "value": 72,
-    "baseline": 33.33
+    "baseline": 31.23
    },
    "text": {
-    "draft_en": "Since the 26th minute, 72% of Harlow attacks have gone down the left.",
-    "canonical_en": "Since the 26th minute, 72% of Harlow attacks have gone down the left.",
+    "draft_en": "The numbers suggest Harlow are favouring the left: 72% of their attacks since the 26th minute.",
+    "canonical_en": "The numbers suggest Harlow are favouring the left: 72% of their attacks since the 26th minute.",
     "numbers": [
      {
       "key": "value",
@@ -1040,7 +1040,7 @@
     },
     "comparator": "eq",
     "value": 50,
-    "baseline": 33.33
+    "baseline": 33.15
    },
    "text": {
     "draft_en": "The numbers suggest Northbridge are favouring the right: 50% of their attacks since the 41st minute.",
@@ -1102,7 +1102,7 @@
     },
     "comparator": "eq",
     "value": 57,
-    "baseline": 33.33
+    "baseline": 35.62
    },
    "text": {
     "draft_en": "The numbers suggest Harlow are favouring the centre: 57% of their attacks since the 41st minute.",
@@ -1292,11 +1292,11 @@
     },
     "comparator": "eq",
     "value": 77,
-    "baseline": 33.33
+    "baseline": 31.23
    },
    "text": {
-    "draft_en": "Since the 51st minute, 77% of Harlow attacks have gone down the left.",
-    "canonical_en": "Since the 51st minute, 77% of Harlow attacks have gone down the left.",
+    "draft_en": "The numbers suggest Harlow are favouring the left: 77% of their attacks since the 51st minute.",
+    "canonical_en": "The numbers suggest Harlow are favouring the left: 77% of their attacks since the 51st minute.",
     "numbers": [
      {
       "key": "value",
@@ -1359,11 +1359,11 @@
     },
     "comparator": "eq",
     "value": 71,
-    "baseline": 33.33
+    "baseline": 31.23
    },
    "text": {
-    "draft_en": "Since the 58th minute, 71% of Northbridge attacks have gone down the left.",
-    "canonical_en": "Since the 58th minute, 71% of Northbridge attacks have gone down the left.",
+    "draft_en": "The numbers suggest Northbridge are favouring the left: 71% of their attacks since the 58th minute.",
+    "canonical_en": "The numbers suggest Northbridge are favouring the left: 71% of their attacks since the 58th minute.",
     "numbers": [
      {
       "key": "value",
@@ -1538,11 +1538,11 @@
     },
     "comparator": "eq",
     "value": 51,
-    "baseline": 33.33
+    "baseline": 31.23
    },
    "text": {
-    "draft_en": "Since the 58th minute, 51% of Northbridge attacks have gone down the left.",
-    "canonical_en": "Since the 58th minute, 51% of Northbridge attacks have gone down the left.",
+    "draft_en": "The numbers suggest Northbridge are favouring the left: 51% of their attacks since the 58th minute.",
+    "canonical_en": "The numbers suggest Northbridge are favouring the left: 51% of their attacks since the 58th minute.",
     "numbers": [
      {
       "key": "value",
@@ -1615,7 +1615,7 @@
     },
     "comparator": "eq",
     "value": 50,
-    "baseline": 33.33
+    "baseline": 35.62
    },
    "text": {
     "draft_en": "The numbers suggest Northbridge are favouring the centre: 50% of their attacks since the 76th minute.",
@@ -1684,11 +1684,11 @@
     },
     "comparator": "eq",
     "value": 83,
-    "baseline": 33.33
+    "baseline": 33.15
    },
    "text": {
-    "draft_en": "Since the 71st minute, 83% of Harlow attacks have gone down the right.",
-    "canonical_en": "Since the 71st minute, 83% of Harlow attacks have gone down the right.",
+    "draft_en": "The numbers suggest Harlow are favouring the right: 83% of their attacks since the 71st minute.",
+    "canonical_en": "The numbers suggest Harlow are favouring the right: 83% of their attacks since the 71st minute.",
     "numbers": [
      {
       "key": "value",
@@ -2319,11 +2319,11 @@
     },
     "comparator": "eq",
     "value": 80,
-    "baseline": 33.33
+    "baseline": 33.15
    },
    "text": {
-    "draft_en": "Since the 1st minute, 80% of Northbridge attacks have gone down the right.",
-    "canonical_en": "Since the 1st minute, 80% of Northbridge attacks have gone down the right.",
+    "draft_en": "The numbers suggest Northbridge are favouring the right: 80% of their attacks since the 1st minute.",
+    "canonical_en": "The numbers suggest Northbridge are favouring the right: 80% of their attacks since the 1st minute.",
     "numbers": [
      {
       "key": "value",
@@ -2381,7 +2381,7 @@
     },
     "comparator": "eq",
     "value": 50,
-    "baseline": 33.33
+    "baseline": 31.23
    },
    "text": {
     "draft_en": "The numbers suggest Harlow are favouring the left: 50% of their attacks since the 11th minute.",
@@ -3456,11 +3456,11 @@
     },
     "comparator": "eq",
     "value": 69,
-    "baseline": 33.33
+    "baseline": 35.62
    },
    "text": {
-    "draft_en": "Since the 11th minute, 69% of Northbridge attacks have gone down the centre.",
-    "canonical_en": "Since the 11th minute, 69% of Northbridge attacks have gone down the centre.",
+    "draft_en": "The numbers suggest Northbridge are favouring the centre: 69% of their attacks since the 11th minute.",
+    "canonical_en": "The numbers suggest Northbridge are favouring the centre: 69% of their attacks since the 11th minute.",
     "numbers": [
      {
       "key": "value",
@@ -3893,11 +3893,11 @@
     },
     "comparator": "eq",
     "value": 71,
-    "baseline": 33.33
+    "baseline": 33.15
    },
    "text": {
-    "draft_en": "Since the 1st minute, 71% of Northbridge attacks have gone down the right.",
-    "canonical_en": "Since the 1st minute, 71% of Northbridge attacks have gone down the right.",
+    "draft_en": "The numbers suggest Northbridge are favouring the right: 71% of their attacks since the 1st minute.",
+    "canonical_en": "The numbers suggest Northbridge are favouring the right: 71% of their attacks since the 1st minute.",
     "numbers": [
      {
       "key": "value",
@@ -4156,11 +4156,11 @@
     },
     "comparator": "eq",
     "value": 72,
-    "baseline": 33.33
+    "baseline": 31.23
    },
    "text": {
-    "draft_en": "Since the 26th minute, 72% of Harlow attacks have gone down the left.",
-    "canonical_en": "Since the 26th minute, 72% of Harlow attacks have gone down the left.",
+    "draft_en": "The numbers suggest Harlow are favouring the left: 72% of their attacks since the 26th minute.",
+    "canonical_en": "The numbers suggest Harlow are favouring the left: 72% of their attacks since the 26th minute.",
     "numbers": [
      {
       "key": "value",
@@ -4273,56 +4273,104 @@
   "fact": {
    "fact_id": "f_900031",
    "match_id": "nb_v_hr_hero",
-   "kind": "tactical",
-   "created_t": 1500.0,
+   "kind": "stat",
+   "created_t": 5400.0,
    "injected": true,
    "claim": {
     "subject": {
      "type": "team",
      "id": "NOR"
     },
-    "metric": "attack_share_centre",
+    "metric": "pass_accuracy",
     "window": {
-     "start_t": 600.0,
-     "end_t": 1500.0
+     "start_t": 2700.0,
+     "end_t": 5400.0
     },
     "comparator": "eq",
-    "value": 69,
-    "baseline": 33.33
+    "value": 81
    },
    "text": {
-    "draft_en": "Since the 11th minute, 69% of Northbridge attacks have deliberately gone down the centre.",
-    "canonical_en": "Since the 11th minute, 69% of Northbridge attacks have deliberately gone down the centre.",
+    "draft_en": "Northbridge deliberately completed 81% of their passes in the second half.",
+    "canonical_en": "Northbridge deliberately completed 81% of their passes in the second half.",
     "numbers": [
      {
       "key": "value",
-      "value": 69,
+      "value": 81,
       "unit": "%"
-     },
-     {
-      "key": "since_minute",
-      "value": 11
      }
     ]
    },
    "evidence": {
     "event_ids": [
-     114,
-     121,
-     126,
-     143,
-     147,
-     148,
-     151,
-     161,
-     164,
-     165,
-     166
+     315,
+     316,
+     317,
+     318,
+     331,
+     332,
+     333,
+     334,
+     336,
+     337,
+     338,
+     340,
+     353,
+     354,
+     356,
+     358,
+     360,
+     362,
+     363,
+     364,
+     365,
+     389,
+     392,
+     400,
+     401,
+     417,
+     438,
+     439,
+     440,
+     442,
+     443,
+     455,
+     457,
+     461,
+     463,
+     478,
+     479,
+     480,
+     482,
+     483,
+     485,
+     488,
+     489,
+     498,
+     499,
+     513,
+     521,
+     542,
+     544,
+     545,
+     546,
+     547,
+     559,
+     560,
+     561,
+     569,
+     571,
+     593,
+     594,
+     595,
+     596,
+     597,
+     598,
+     599
     ],
     "players": [],
     "window": {
-     "start_t": 600.0,
-     "end_t": 1500.0
+     "start_t": 2700.0,
+     "end_t": 5400.0
     }
    },
    "verification": {
@@ -4707,7 +4755,7 @@
     },
     "comparator": "eq",
     "value": 67,
-    "baseline": 33.33
+    "baseline": 31.23
    },
    "text": {
     "draft_en": "Since the 58th minute, 67% of Northbridge attacks have gone down the left.",
@@ -4766,7 +4814,7 @@
     },
     "comparator": "eq",
     "value": 67,
-    "baseline": 33.33
+    "baseline": 31.23
    },
    "text": {
     "draft_en": "Since the 1st minute, 67% of Harlow attacks have gone down the left.",
@@ -4825,7 +4873,7 @@
     },
     "comparator": "eq",
     "value": 100,
-    "baseline": 33.33
+    "baseline": 33.15
    },
    "text": {
     "draft_en": "Since the 1st minute, 100% of Northbridge attacks have gone down the right.",
@@ -4886,7 +4934,7 @@
     },
     "comparator": "eq",
     "value": 100,
-    "baseline": 33.33
+    "baseline": 35.62
    },
    "text": {
     "draft_en": "Since the 46th minute, 100% of Harlow attacks have gone down the centre.",
@@ -4947,7 +4995,7 @@
     },
     "comparator": "eq",
     "value": 67,
-    "baseline": 33.33
+    "baseline": 33.15
    },
    "text": {
     "draft_en": "Since the 71st minute, 67% of Harlow attacks have gone down the right.",

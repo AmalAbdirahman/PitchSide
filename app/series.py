@@ -1,6 +1,6 @@
 """Per-minute series for the replay's charts (win probability, team stats, attack lanes).
 
-Every value comes from core/: compute_metric, win_probability, wilson and hedge_for.
+Every value comes from core/: compute_metric, win_probability, wilson and judge_share.
 The front end only draws these numbers; it computes none of its own.
 """
 
@@ -12,10 +12,12 @@ from typing import Any
 from core.config import MetricContext, Settings
 from core.events import Event
 from core.facts import Subject, Window
+from core.hedge import ShareJudgement, judge_share
 from core.metrics import compute_metric, require_metric
 from core.moments import score_at
 from core.shares import LANES
-from core.wilson import hedge_for, wilson
+from core.sources import League
+from core.wilson import wilson
 from core.winprob import win_probability
 from core.xt import completed_move, gain
 
@@ -60,26 +62,32 @@ def win_prob_at(
     return [_r(home), _r(draw), _r(away)]
 
 
-def lanes_at(events: list[Event], team: str, t: float, s: Settings) -> dict[str, Any]:
-    """Attack share by lane over the trailing window, with Wilson intervals and the hedge."""
+def lanes_at(
+    events: list[Event], team: str, t: float, league: League, s: Settings
+) -> dict[str, Any]:
+    """Attack share by lane over the trailing window: Wilson intervals on the raw counts, and
+    P(share > league share) under the Beta-Binomial hedge, which sets the hedge for the top lane."""
     c, v = s.moments, s.verifier
     window = Window(start_t=max(0.0, t - c.overload_window_s), end_t=t)
     out: dict[str, Any] = {}
-    ci: dict[str, tuple[float, float]] = {}
+    judged: dict[str, ShareJudgement] = {}
     ctx = MetricContext.of(s)
     for lane in LANES:
         subject = Subject(type="team", id=team)
         m = require_metric(f"attack_share_{lane}", subject, window, events, ctx)
-        ci[lane] = wilson(m.k, m.n, v.z)
+        lo, hi = wilson(m.k, m.n, v.z)
+        base = league.lane_shares[lane]
+        judged[lane] = judge_share(m.k, m.n, base, s.hedge, v.n_min, league.attack_deff)
         out[lane] = {
             "k": m.k,
             "share": _r(m.value / 100),
-            "lo": _r(ci[lane][0]),
-            "hi": _r(ci[lane][1]),
+            "lo": _r(lo),
+            "hi": _r(hi),
+            "p_above": _r(judged[lane].p_above),
         }
         out["n"] = m.n
     top = max(LANES, key=lambda ln: out[ln]["k"])
-    hedge = hedge_for(out["n"], ci[top][0], ci[top][1], v.lane_baseline, v.n_min)
+    hedge = judged[top].hedge
     out["top"], out["hedge"] = top, hedge
     out["overload"] = (
         top if hedge == "clear" and out[top]["share"] >= c.overload_min_share else None
@@ -105,7 +113,7 @@ def xt_panel(events: list[Event], teams: tuple[str, str], ctx: MetricContext) ->
 
 
 def build_series(
-    events: list[Event], teams: tuple[str, str], mu: float, s: Settings
+    events: list[Event], teams: tuple[str, str], league: League, s: Settings
 ) -> dict[str, Any]:
     """Column-oriented series sampled every minute."""
     step, ctx = 60, MetricContext.of(s)
@@ -113,13 +121,15 @@ def build_series(
     return {
         "step_s": step,
         "lane_window_s": s.moments.overload_window_s,
-        "lane_baseline": s.verifier.lane_baseline,
+        "lane_prior": {k: round(v, 4) for k, v in league.lane_shares.items()},
+        "lane_deff": round(league.attack_deff, 3),
+        "hedge_clear_prob": s.hedge.clear_prob,
         "t": ts,
-        "win_prob": [win_prob_at(events, t, teams, mu, s) for t in ts],
+        "win_prob": [win_prob_at(events, t, teams, league.mu, s) for t in ts],
         "teams": {
             tm: {m: [team_stat(events, tm, m, t, ctx) for t in ts] for m in TEAM_METRICS}
             for tm in teams
         },
-        "lanes": {tm: [lanes_at(events, tm, t, s) for t in ts] for tm in teams},
+        "lanes": {tm: [lanes_at(events, tm, t, league, s) for t in ts] for tm in teams},
         "xt": xt_panel(events, teams, ctx),
     }

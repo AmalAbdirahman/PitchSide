@@ -77,7 +77,11 @@ clear_prob 0.997 is a Bonferroni split of 5% over the 17 looks (alpha spending i
 
 The product uses **clustered** (`config.yaml` hedge: prior_strength 10, clear_prob 0.95, min_effect 0, clustered true). Reasoning: a missed "clear" costs little, because the overload still airs as "the numbers suggest…"; a false "clear" is a wrong plain statement on air. Among rules with false "clear" calls near or below 0.1 per match, it detects the most. The 0.1 level was chosen by hand while reading this table, not set in advance. Stricter rules (`clustered_effect`, `clustered_light_prior_bonferroni`) are one config change away if fewer false calls matter more than ever upgrading to "clear".
 
-Wilson is still computed for every share claim and shown in the Analysis view next to the Beta result, so the two can be compared on the replay.
+Wilson is still computed for every share claim and shown next to the Beta result: in the Analysis view's attack-lanes panel (bracket = Wilson, P = posterior P(share > league share)) and in each share fact's uncertainty record (`p_above`, `wilson_low`, `wilson_high`). Pass accuracy is not a share against a baseline and keeps its Wilson interval, worded "early" below 6 passes.
+
+## Effect on the replay
+
+On the published synthetic replay, all 12 lane-overload facts are now "suggests"; before, seven were "clear". (The injected small-sample claim is still "early".) The highest P(share > league share) among them is 0.95 to two places, for the planted left overload, just short of the threshold. This matches the study: the hero overload is too weak to call clear in most matches. Routing is unchanged: suggests and clear are both T1.
 
 ## Limits
 

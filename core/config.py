@@ -85,7 +85,6 @@ class Moments(_Section):
 class Verifier(_Section):
     n_min: int
     z: float
-    lane_baseline: float
     tol_share_pp: float
     tol_xg: float
     tol_speed: float
@@ -119,6 +118,7 @@ class HedgeEval(_Section):
     planted_matches: int
     null_seed: int
     planted_seed: int
+    wilson_baseline: float
     strong_lane_weights: tuple[float, float, float]
     strong_until_t: int
     candidates: tuple[HedgeRule, ...]

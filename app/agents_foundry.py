@@ -23,7 +23,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-from app.drafter import Moment, claim_value, player_name, render, share_hedge, team_name
+from app.drafter import Moment, claim_value, player_name, render, team_name
 from app.verifier import verify
 from core.config import ROOT, Agents, Settings, Verifier
 from core.events import Match
@@ -38,6 +38,7 @@ from core.facts import (
     TextNumber,
     validate_fact,
 )
+from core.sources import League
 
 Record = dict[str, Any]  # one cache entry: the request and the raw response, as JSON
 Step = AuditStep
@@ -92,9 +93,7 @@ def scout_request(m: Moment, match: Match, v: Verifier) -> dict[str, Any]:
     pids = set(m.get("players", [])) | (
         {m["subject"]["id"]} if m["subject"]["type"] == "player" else set()
     )
-    hedge = "none"
-    if m["rule"] == "overload":
-        hedge = share_hedge(m["k"], m["n"], 100 * v.lane_baseline, v)
+    hedge = str(m["hedge"]) if m["rule"] == "overload" else "none"
     return {
         "moment": {k: m[k] for k in MOMENT_FIELDS if k in m},
         "minutes": {
@@ -137,7 +136,7 @@ def scout_fact(
     if keys != sorted(required):
         raise ValueError(f"numbers keys {keys} differ from the input keys {sorted(required)}")
     if claim.metric.startswith("attack_share_"):
-        claim.baseline = round(100 * v.lane_baseline, 2)
+        claim.baseline = float(m["baseline"])  # set by code, never by the model
     fact = Fact.model_validate(
         {
             "fact_id": fact_id,
@@ -201,9 +200,11 @@ def with_audit(fact: Fact, steps: list[Step]) -> Fact:
     return fact
 
 
-def verify_rules(draft: Fact, match: Match, s: Settings, steps: list[Step] | None = None) -> Fact:
+def verify_rules(
+    draft: Fact, match: Match, league: League, s: Settings, steps: list[Step] | None = None
+) -> Fact:
     """Verify a rule-based draft and record that the rules wrote it."""
-    checked = verify(draft, match, s)
+    checked = verify(draft, match, league, s)
     trail = (steps or []) + [
         step("Drafter", 1, "drafted", path="rules"),
         step("Verifier", 1, checked.verification.status, path="rules"),
@@ -294,6 +295,7 @@ def attempt(
     request: dict[str, Any],
     m: Moment,
     match: Match,
+    league: League,
     fact_id: str,
     n: int,
     s: Settings,
@@ -312,29 +314,35 @@ def attempt(
     if m["metric"] in s.router.t0_metrics:
         draft = template_wording(draft, m, match, s.verifier)
         steps.append(step("Drafter", n, "template wording (T0)", path="rules"))
-    return verify(draft, match, s), out, steps
+    return verify(draft, match, league, s), out, steps
 
 
 def scout_moment_first(
-    scout: Scout, m: Moment, rules_draft: Fact, match: Match, s: Settings
+    scout: Scout, m: Moment, rules_draft: Fact, match: Match, league: League, s: Settings
 ) -> tuple[Fact, Any]:
     request = scout_request(m, match, s.verifier)
-    checked, out, steps = attempt(scout, request, m, match, rules_draft.fact_id, 1, s)
+    checked, out, steps = attempt(scout, request, m, match, league, rules_draft.fact_id, 1, s)
     if checked is None:
-        return verify_rules(rules_draft, match, s, steps), None
+        return verify_rules(rules_draft, match, league, s, steps), None
     trail = steps + [step("Verifier", 1, checked.verification.status, path="rules")]
     return with_audit(checked, trail), (request, out)
 
 
 def scout_moment_retry(
-    scout: Scout, m: Moment, first: Fact, ctx: Any, match: Match, s: Settings
+    scout: Scout,
+    m: Moment,
+    first: Fact,
+    ctx: Any,
+    match: Match,
+    league: League,
+    s: Settings,
 ) -> Fact:
     """One retry for a Scout claim the verifier did not pass. Otherwise the fact is unchanged."""
     if ctx is None or first.verification.status in ROUTABLE:
         return first
     request, out = ctx
     retry_req = {**request, "previous_output": out, "feedback": feedback(first)}
-    checked, _, steps = attempt(scout, retry_req, m, match, first.fact_id, 2, s)
+    checked, _, steps = attempt(scout, retry_req, m, match, league, first.fact_id, 2, s)
     trail = (first.audit.steps if first.audit else []) + steps
     if checked is None:
         return with_audit(first, trail)
@@ -348,15 +356,16 @@ def run_scout(
     moments: list[Moment],
     rules_drafts: list[Fact],
     match: Match,
+    league: League,
     s: Settings,
 ) -> list[Fact]:
     """Pass 1: a Scout call per moment. Pass 2: one retry each for rejected claims, while budget lasts."""
     first = [
-        scout_moment_first(scout, m, d, match, s)
+        scout_moment_first(scout, m, d, match, league, s)
         for m, d in zip(moments, rules_drafts, strict=True)
     ]
     return [
-        scout_moment_retry(scout, m, f, ctx, match, s)
+        scout_moment_retry(scout, m, f, ctx, match, league, s)
         for m, (f, ctx) in zip(moments, first, strict=True)
     ]
 

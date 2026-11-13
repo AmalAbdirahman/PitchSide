@@ -85,17 +85,26 @@ def test_hedge_config_is_loaded() -> None:
     assert 0 < S.hedge.clear_prob < 1 and S.hedge.prior_strength > 0
 
 
-def test_study_judges_with_the_product_wilson_rule_and_every_candidate() -> None:
-    from app.drafter import share_hedge
+def test_degenerate_prior_shares_give_limits_not_errors() -> None:
+    # A league share of 0 or 1 (possible with few league matches) makes a or b zero.
+    assert beta_cdf(0.3, 0.0, 5.0) == 1.0
+    assert beta_cdf(0.3, 5.0, 0.0) == 0.0
+    assert posterior(0, 4, 0.0, 10).prob_above(0.0) == 0.0
+    assert posterior(4, 4, 1.0, 10).prob_above(0.5) == 1.0
+
+
+def test_study_judges_with_the_old_wilson_rule_and_every_candidate() -> None:
     from core.sources import League
+    from core.wilson import hedge_for, wilson
     from scripts.eval_hedging import rules, strong
 
     league = League(0.014, {"left": 0.31, "centre": 0.36, "right": 0.33}, 3.5)
     judge = rules(S, league)
     assert set(judge) == {"wilson"} | {c.name for c in S.hedge_eval.candidates}
     for k, n in [(4, 6), (5, 6), (9, 14), (12, 20), (15, 20)]:
-        product = share_hedge(k, n, 100 * S.verifier.lane_baseline, S.verifier) == "clear"
-        assert judge["wilson"](k, n, "left") is product
+        lo, hi = wilson(k, n, S.verifier.z)
+        before = hedge_for(n, lo, hi, S.hedge_eval.wilson_baseline, S.verifier.n_min) == "clear"
+        assert judge["wilson"](k, n, "left") is before
     s = strong(S)
     assert s.sim.overload_lane_weights == S.hedge_eval.strong_lane_weights
     assert S.sim.overload_lane_weights != s.sim.overload_lane_weights, "settings are not mutated"
