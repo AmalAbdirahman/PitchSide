@@ -24,6 +24,8 @@ The hackathon is over. The goal now is a polished, honest portfolio project: cle
 - xT (`core/xt.py`) is fitted by `scripts/fit_xt.py` on the xG training matches; the surface lives in `config.yaml` (`xt.surface`) and a test keeps it equal to `data/xt_fit.json`. `scripts/plot_xt.py` draws the figures in `docs/methods/`. Metric compute functions take a `MetricContext` (pitch and xT surface, built with `MetricContext.of(settings)`), not a bare pitch.
 - Config comes from `config.yaml` through PyYAML into a frozen, validated Pydantic `Settings` (`core/config.py`). Entry points call `load()` once and pass `Settings` (or a section of it) down as an argument; no function reads config through a global.
 - `REGISTRY` in `core/metrics.py` is the single definition of every metric (kind, subjects, tolerance, compute). The moment rules, the chart series and the verifier all compute through it. Keep that property: a metric with no registry entry is unverifiable and never airs.
+- Win probability (P10): the product uses poisson_v1; `core/winprob.outcome_probs` with `PoissonParams` also runs the fitted poisson_v2, which only `scripts/eval_winprob.py` uses (record `data/winprob_eval.json`, note `docs/methods/winprob.md`).
+- Win probability (P10): the product uses poisson_v1. `core/winprob.outcome_probs` with `PoissonParams` also runs the fitted poisson_v2, which only `scripts/eval_winprob.py` uses (record `data/winprob_eval.json`, note `docs/methods/winprob.md`).
 - Lane-share hedges (P9): `EventSource.load()` returns a `League` (mu, per-lane league shares, `attack_deff`, the variance inflation of lane counts). `core/hedge.judge_share` is the single hedge for lane shares, used by moments, verifier and series; Wilson stays only for comparison and for pass accuracy (no baseline). `scripts/eval_hedging.py` is the false-alarm study behind `config.yaml` `hedge`; `docs/methods/hedging.md` has the results.
 - The verifier is split: pure checks in `app/checks.py`, wording corrections in `app/corrections.py`, and `app/verifier.py` orchestrates and records both.
 - Routing over time is data: `routing_rules` in `app/router.py` builds the table from config and hero.json carries it as `meta.routing`. `app/router.resolve` and `docs/js/routing.js` both interpret it, and `tests/routing_cases.json` runs against both (pytest and `node --test`). The front end is plain ES modules in `docs/js/` with no build step; `state.js` asks `routing.js` for each fact's state rather than keeping its own timers.
@@ -66,6 +68,7 @@ python -m sim.generate --seed 7
 python -m app.build_bundle                    # offline, replays data/agent_cache.json
 python -m app.build_bundle --foundry          # live Scout; needs .env
 python scripts/eval.py
+python scripts/eval_winprob.py                # P10 study; needs fetch_statsbomb.py --xg
 python -m http.server 8000 --directory docs
 ```
 

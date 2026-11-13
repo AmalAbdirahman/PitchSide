@@ -17,7 +17,7 @@ A producer-first control room for a replayed, synthetic football match. Python b
 - **xG is a fitted model estimate.** A logistic regression fitted on StatsBomb Open Data shots from four men's international tournaments and validated on held-out matches: log loss 0.2655 against 0.2442 for StatsBomb's own xG and 0.3200 for a constant (`docs/methods/xg.md`). The simulator uses it. Real StatsBomb shots carry StatsBomb's own xG by default, since it scored better (`statsbomb.shot_xg` in `config.yaml`).
 - **xT is a fitted model estimate.** Expected threat is a Markov model on a 16 x 12 grid, fitted on the same StatsBomb Open Data matches and validated on the held-out ones (log loss 0.0765 against 0.0794 for a constant; it runs low in the lower bins, `docs/methods/xt.md`). It ignores defenders and everything off the ball. The site uses it for the `xt_added` metric (net xT gained by completed passes and carries), one half-time moment, and a threat map in the Analysis view.
 - **Lane-share hedges come from a Beta-Binomial model, tuned on synthetic matches.** "Clear" needs P(share > league share) of at least 95%, after allowing for attacks in one possession sharing a lane. In a study of 300 simulated matches with no planted overload, the old rule (Wilson interval against 1/3) called a non-existent overload "clear" 6.3 times per match; the new one 0.11. The price: the replay's planted overload now airs as "the numbers suggest…", not as a plain statement (`docs/methods/hedging.md`). Its false-alarm rate on real matches is not measured.
-- **Win probability is a simple Poisson model** with stated assumptions, labelled "model estimate", not a prediction about real football.
+- **Win probability is a simple Poisson model** with stated assumptions, labelled "model estimate", not a prediction about real football. Validated on 300 simulated and 58 held-out StatsBomb Open Data matches: far better than a pre-match constant (Brier 0.490 against 0.672 on real matches) but overconfident, because it weights early xG too heavily and assumes 90 minutes when real regulation averaged 98. A fitted variant (poisson_v2) does better (0.463) and is documented, but the site still uses the original (`docs/methods/winprob.md`).
 
 ## Architecture
 
@@ -141,6 +141,7 @@ See `SPEC.md` for the full contract, `data_card.md` for the simulator's realism 
 
 - **Real match on the site and a match selector.** Not done. Publishing a StatsBomb replay needs a decision on what the licence allows (the bundle holds the full event log) and the StatsBomb logo on the page. The front end also assumes simulator-only fields (speeds, pass difficulty) in its analyst labels.
 - **Scout on real data.** The agent's instructions and cache describe the synthetic match; real matches use the rule-based drafter.
+- **Switch win probability to poisson_v2.** Fitted and validated (`docs/methods/winprob.md`), not used: it would change every impact value and possibly which facts need a producer.
 - The rest of the planned work, in order, is in `ROADMAP_PROMPTS.md`.
 
 ## How this was built
