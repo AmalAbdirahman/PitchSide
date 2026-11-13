@@ -1,6 +1,6 @@
 # The Scout: structured output, tools and memory
 
-The Scout is the project's one LLM agent: a prompt agent on Microsoft Foundry that drafts a claim and a broadcast sentence for each moment the rules detect. It runs at build time only; its answers, including every tool call, are cached in `data/agent_cache.json` and replayed with no network. Whatever it writes, the deterministic verifier recomputes from the event log before anything can air.
+The Scout is the project's drafting agent: a prompt agent on Microsoft Foundry that drafts a claim and a broadcast sentence for each moment the rules detect. It runs at build time only; its answers, including every tool call, are cached in `data/agent_cache.json` and replayed with no network. Whatever it writes, the deterministic verifier recomputes from the event log before anything can air. Since P12 a second agent, the Reader, reads each of its sentences back for the verifier's meaning check (`docs/methods/meaning.md`); the results below are from before the Reader and from `scripts/eval_scout.py`, which runs without it.
 
 ## Two modes
 

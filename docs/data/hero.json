@@ -9181,6 +9181,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -9210,6 +9215,26 @@
       "model": "gpt-5-mini",
       "ms": 12162,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 4697,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "NOR"
+       },
+       "metric": "attack_share_right",
+       "window": {
+        "kind": "since_minute",
+        "minute": 1
+       },
+       "value": 71.0
+      }
      },
      {
       "agent": "Verifier",
@@ -9342,6 +9367,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -9365,6 +9395,26 @@
       "model": "gpt-5-mini",
       "ms": 10676,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 2541,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "NOR"
+       },
+       "metric": "turnovers_own_third",
+       "window": {
+        "kind": "since_minute",
+        "minute": 1
+       },
+       "value": 3.0
+      }
      },
      {
       "agent": "Verifier",
@@ -9664,6 +9714,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -9693,6 +9748,26 @@
       "model": "gpt-5-mini",
       "ms": 13723,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 3354,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "HAR"
+       },
+       "metric": "attack_share_centre",
+       "window": {
+        "kind": "since_minute",
+        "minute": 6
+       },
+       "value": 50.0
+      }
      },
      {
       "agent": "Verifier",
@@ -9838,6 +9913,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -9867,6 +9947,26 @@
       "model": "gpt-5-mini",
       "ms": 12977,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 2561,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "NOR"
+       },
+       "metric": "attack_share_centre",
+       "window": {
+        "kind": "since_minute",
+        "minute": 11
+       },
+       "value": 69.0
+      }
      },
      {
       "agent": "Verifier",
@@ -10007,6 +10107,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -10036,6 +10141,26 @@
       "model": "gpt-5-mini",
       "ms": 9951,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 3208,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "HAR"
+       },
+       "metric": "attack_share_left",
+       "window": {
+        "kind": "since_minute",
+        "minute": 11
+       },
+       "value": 56.0
+      }
      },
      {
       "agent": "Verifier",
@@ -10173,6 +10298,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -10196,6 +10326,26 @@
       "model": "gpt-5-mini",
       "ms": 14853,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 2537,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "NOR"
+       },
+       "metric": "turnovers_own_third",
+       "window": {
+        "kind": "since_minute",
+        "minute": 26
+       },
+       "value": 3.0
+      }
      },
      {
       "agent": "Verifier",
@@ -10354,6 +10504,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -10383,6 +10538,26 @@
       "model": "gpt-5-mini",
       "ms": 10202,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 3968,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "HAR"
+       },
+       "metric": "attack_share_left",
+       "window": {
+        "kind": "since_minute",
+        "minute": 26
+       },
+       "value": 72.0
+      }
      },
      {
       "agent": "Verifier",
@@ -10731,6 +10906,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -10756,6 +10936,25 @@
       "model": "gpt-5-mini",
       "ms": 10799,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 3088,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "NOR"
+       },
+       "metric": "pass_accuracy",
+       "window": {
+        "kind": "unstated"
+       },
+       "value": 67.0
+      }
      },
      {
       "agent": "Verifier",
@@ -10958,6 +11157,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -10983,6 +11187,25 @@
       "model": "gpt-5-mini",
       "ms": 13051,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 3102,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "HAR"
+       },
+       "metric": "pass_accuracy",
+       "window": {
+        "kind": "first_half"
+       },
+       "value": 77.0
+      }
      },
      {
       "agent": "Verifier",
@@ -11132,6 +11355,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -11155,6 +11383,25 @@
       "model": "gpt-5-mini",
       "ms": 10481,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 4566,
+      "reading": {
+       "subject": {
+        "type": "player",
+        "id": "NOR_08"
+       },
+       "metric": "most_central_player",
+       "window": {
+        "kind": "unstated"
+       },
+       "value": 1.0
+      }
      },
      {
       "agent": "Verifier",
@@ -11311,6 +11558,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -11334,6 +11586,25 @@
       "model": "gpt-5-mini",
       "ms": 14070,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 3540,
+      "reading": {
+       "subject": {
+        "type": "player",
+        "id": "HAR_06"
+       },
+       "metric": "most_central_player",
+       "window": {
+        "kind": "first_half"
+       },
+       "value": 1.0
+      }
      },
      {
       "agent": "Verifier",
@@ -11471,6 +11742,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -11494,6 +11770,25 @@
       "model": "gpt-5-mini",
       "ms": 8445,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 3339,
+      "reading": {
+       "subject": {
+        "type": "player",
+        "id": "HAR_09"
+       },
+       "metric": "shots",
+       "window": {
+        "kind": "unstated"
+       },
+       "value": 3.0
+      }
      },
      {
       "agent": "Verifier",
@@ -11576,8 +11871,8 @@
     "value": 109.0
    },
    "text": {
-    "draft_en": "Y. Castell produced the match's fastest shot, at 109 km/h.",
-    "canonical_en": "Y. Castell produced the match's fastest shot, at 109 km/h.",
+    "draft_en": "The match's fastest shot was 109 km/h.",
+    "canonical_en": "The match's fastest shot was 109 km/h.",
     "numbers": [
      {
       "key": "value",
@@ -11630,6 +11925,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -11655,8 +11955,61 @@
       "mode": "handed"
      },
      {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 4558,
+      "reading": {
+       "subject": {
+        "type": "player",
+        "id": "HAR_07"
+       },
+       "metric": "top_shot_speed",
+       "window": {
+        "kind": "unstated"
+       },
+       "value": 109.0
+      }
+     },
+     {
       "agent": "Verifier",
       "attempt": 1,
+      "outcome": "rejected",
+      "path": "rules"
+     },
+     {
+      "agent": "Scout",
+      "attempt": 2,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 10410,
+      "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 2,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 3457,
+      "reading": {
+       "subject": {
+        "type": "match",
+        "id": "match"
+       },
+       "metric": "top_shot_speed",
+       "window": {
+        "kind": "unstated"
+       },
+       "value": 109.0
+      }
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 2,
       "outcome": "verified",
       "path": "rules"
      }
@@ -11680,7 +12033,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Y. Castell produced the match's fastest shot, at 109 km/h.",
+     "text": "The match's fastest shot was 109 km/h.",
      "layout": "ticker",
      "duration_s": 8,
      "start_t": 2702.9,
@@ -11698,7 +12051,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Y. Castell produced the match's fastest shot, at 109 km/h.",
+     "text": "The match's fastest shot was 109 km/h.",
      "numbers_preserved": true
     },
     {
@@ -11710,7 +12063,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Y. Castell produced the match's fastest shot, at one hundred and nine kilometres per hour.",
+     "text": "The match's fastest shot was one hundred and nine kilometres per hour.",
      "numbers_preserved": true
     }
    ]
@@ -11735,8 +12088,8 @@
     "value": 0.27
    },
    "text": {
-    "draft_en": "Northbridge had 0.27 xG in the first half.",
-    "canonical_en": "Northbridge had 0.27 xG in the first half.",
+    "draft_en": "Northbridge have 0.27 xG.",
+    "canonical_en": "Northbridge have 0.27 xG.",
     "numbers": [
      {
       "key": "value",
@@ -11788,6 +12141,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -11806,26 +12164,54 @@
      {
       "agent": "Scout",
       "attempt": 1,
-      "outcome": "drafted",
+      "outcome": "invalid_output: numbers keys ['since_minute', 'value'] differ from the input keys ['value']",
       "path": "foundry_agent",
       "model": "gpt-5-mini",
-      "ms": 9330,
+      "ms": 13849,
       "mode": "handed"
      },
      {
+      "agent": "Scout",
+      "attempt": 2,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 6913,
+      "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 2,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 3785,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "NOR"
+       },
+       "metric": "xg_sum",
+       "window": {
+        "kind": "unstated"
+       },
+       "value": 0.27
+      }
+     },
+     {
       "agent": "Verifier",
-      "attempt": 1,
+      "attempt": 2,
       "outcome": "verified",
       "path": "rules"
      }
     ],
     "memory": [
+     "f_000008",
      "f_000009",
      "f_000010",
      "f_000011",
      "f_000012",
-     "f_000013",
-     "f_000014"
+     "f_000013"
     ]
    },
    "risk": {
@@ -11838,7 +12224,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Northbridge had 0.27 xG in the first half.",
+     "text": "Northbridge have 0.27 xG.",
      "layout": "ticker",
      "duration_s": 8,
      "start_t": 2702.9,
@@ -11856,7 +12242,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Northbridge had 0.27 xG in the first half.",
+     "text": "Northbridge have 0.27 xG.",
      "numbers_preserved": true
     },
     {
@@ -11868,7 +12254,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Northbridge had nought point two seven expected goals in the first half.",
+     "text": "Northbridge have nought point two seven expected goals.",
      "numbers_preserved": true
     }
    ]
@@ -11893,8 +12279,8 @@
     "value": 0.86
    },
    "text": {
-    "draft_en": "Harlow had 0.86 xG.",
-    "canonical_en": "Harlow had 0.86 xG.",
+    "draft_en": "Harlow generated 0.86 xG in the first half.",
+    "canonical_en": "Harlow generated 0.86 xG in the first half.",
     "numbers": [
      {
       "key": "value",
@@ -11950,6 +12336,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -11968,25 +12359,53 @@
      {
       "agent": "Scout",
       "attempt": 1,
-      "outcome": "drafted",
+      "outcome": "invalid_output: numbers keys ['k', 'n', 'since_minute', 'value'] differ from the input keys ['value']",
       "path": "foundry_agent",
       "model": "gpt-5-mini",
-      "ms": 16973,
+      "ms": 16718,
       "mode": "handed"
      },
      {
+      "agent": "Scout",
+      "attempt": 2,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 9204,
+      "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 2,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 3642,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "HAR"
+       },
+       "metric": "xg_sum",
+       "window": {
+        "kind": "first_half"
+       },
+       "value": 0.86
+      }
+     },
+     {
       "agent": "Verifier",
-      "attempt": 1,
+      "attempt": 2,
       "outcome": "verified",
       "path": "rules"
      }
     ],
     "memory": [
+     "f_000009",
      "f_000010",
      "f_000011",
      "f_000012",
      "f_000013",
-     "f_000014",
      "f_000015"
     ]
    },
@@ -12000,7 +12419,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Harlow had 0.86 xG.",
+     "text": "Harlow generated 0.86 xG in the first half.",
      "layout": "ticker",
      "duration_s": 8,
      "start_t": 2702.9,
@@ -12018,7 +12437,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Harlow had 0.86 xG.",
+     "text": "Harlow generated 0.86 xG in the first half.",
      "numbers_preserved": true
     },
     {
@@ -12030,7 +12449,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Harlow had nought point eight six expected goals.",
+     "text": "Harlow generated nought point eight six expected goals in the first half.",
      "numbers_preserved": true
     }
    ]
@@ -12055,8 +12474,8 @@
     "value": 0.3
    },
    "text": {
-    "draft_en": "U. Kerridge has added 0.30 xT in the first half.",
-    "canonical_en": "U. Kerridge has added 0.30 xT in the first half.",
+    "draft_en": "U. Kerridge added 0.30 xT in the first half.",
+    "canonical_en": "U. Kerridge added 0.30 xT in the first half.",
     "numbers": [
      {
       "key": "value",
@@ -12120,6 +12539,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -12141,8 +12565,27 @@
       "outcome": "drafted",
       "path": "foundry_agent",
       "model": "gpt-5-mini",
-      "ms": 12385,
+      "ms": 10968,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 5805,
+      "reading": {
+       "subject": {
+        "type": "player",
+        "id": "HAR_11"
+       },
+       "metric": "xt_added",
+       "window": {
+        "kind": "first_half"
+       },
+       "value": 0.3
+      }
      },
      {
       "agent": "Verifier",
@@ -12152,10 +12595,10 @@
      }
     ],
     "memory": [
+     "f_000010",
      "f_000011",
      "f_000012",
      "f_000013",
-     "f_000014",
      "f_000015",
      "f_000016"
     ]
@@ -12170,7 +12613,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "U. Kerridge has added 0.30 xT in the first half.",
+     "text": "U. Kerridge added 0.30 xT in the first half.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 2702.9,
@@ -12188,7 +12631,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "U. Kerridge has added 0.30 xT in the first half.",
+     "text": "U. Kerridge added 0.30 xT in the first half.",
      "numbers_preserved": true
     },
     {
@@ -12200,7 +12643,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "U. Kerridge has added nought point three nought xT in the first half.",
+     "text": "U. Kerridge added nought point three nought xT in the first half.",
      "numbers_preserved": true
     }
    ]
@@ -12286,6 +12729,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -12313,8 +12761,28 @@
       "outcome": "drafted",
       "path": "foundry_agent",
       "model": "gpt-5-mini",
-      "ms": 11974,
+      "ms": 11359,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 3075,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "NOR"
+       },
+       "metric": "attack_share_right",
+       "window": {
+        "kind": "since_minute",
+        "minute": 41
+       },
+       "value": 50.0
+      }
      },
      {
       "agent": "Verifier",
@@ -12324,9 +12792,9 @@
      }
     ],
     "memory": [
+     "f_000011",
      "f_000012",
      "f_000013",
-     "f_000014",
      "f_000015",
      "f_000016",
      "f_000017"
@@ -12461,6 +12929,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -12488,8 +12961,28 @@
       "outcome": "drafted",
       "path": "foundry_agent",
       "model": "gpt-5-mini",
-      "ms": 10777,
+      "ms": 8816,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 3271,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "HAR"
+       },
+       "metric": "attack_share_centre",
+       "window": {
+        "kind": "since_minute",
+        "minute": 41
+       },
+       "value": 57.0
+      }
      },
      {
       "agent": "Verifier",
@@ -12499,8 +12992,8 @@
      }
     ],
     "memory": [
+     "f_000012",
      "f_000013",
-     "f_000014",
      "f_000015",
      "f_000016",
      "f_000017",
@@ -12572,7 +13065,7 @@
     "value": 1.0
    },
    "text": {
-    "draft_en": "D. Varga was replaced by B. Adeyemi-Ross in the 58th minute.",
+    "draft_en": "58th minute: Northbridge substituted D. Varga for B. Adeyemi-Ross.",
     "canonical_en": "Substitution for Northbridge in the 58th minute: B. Adeyemi-Ross on, D. Varga off.",
     "numbers": [
      {
@@ -12647,7 +13140,7 @@
       "outcome": "drafted",
       "path": "foundry_agent",
       "model": "gpt-5-mini",
-      "ms": 13893,
+      "ms": 9511,
       "mode": "handed"
      },
      {
@@ -12664,7 +13157,7 @@
      }
     ],
     "memory": [
-     "f_000014",
+     "f_000013",
      "f_000015",
      "f_000016",
      "f_000017",
@@ -12905,7 +13398,7 @@
     "value": 1.0
    },
    "text": {
-    "draft_en": "C. Nkemelu scored in the 63rd minute, making it 1-0 to Northbridge.",
+    "draft_en": "C. Nkemelu scored in the 63rd minute — Northbridge 1, Harlow 0.",
     "canonical_en": "GOAL, Northbridge 1–0 Harlow. C. Nkemelu, 63'.",
     "numbers": [
      {
@@ -12995,7 +13488,7 @@
       "outcome": "drafted",
       "path": "foundry_agent",
       "model": "gpt-5-mini",
-      "ms": 11087,
+      "ms": 9807,
       "mode": "handed"
      },
      {
@@ -13151,6 +13644,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -13178,8 +13676,28 @@
       "outcome": "drafted",
       "path": "foundry_agent",
       "model": "gpt-5-mini",
-      "ms": 19372,
+      "ms": 9938,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 2577,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "HAR"
+       },
+       "metric": "attack_share_left",
+       "window": {
+        "kind": "since_minute",
+        "minute": 51
+       },
+       "value": 77.0
+      }
      },
      {
       "agent": "Verifier",
@@ -13323,6 +13841,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -13350,8 +13873,28 @@
       "outcome": "drafted",
       "path": "foundry_agent",
       "model": "gpt-5-mini",
-      "ms": 6692,
+      "ms": 6984,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 2966,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "NOR"
+       },
+       "metric": "attack_share_left",
+       "window": {
+        "kind": "since_minute",
+        "minute": 58
+       },
+       "value": 71.0
+      }
      },
      {
       "agent": "Verifier",
@@ -13660,6 +14203,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -13683,6 +14231,26 @@
       "model": "gpt-5-mini",
       "ms": 10100,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 2649,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "HAR"
+       },
+       "metric": "turnovers_own_third",
+       "window": {
+        "kind": "since_minute",
+        "minute": 71
+       },
+       "value": 7.0
+      }
      },
      {
       "agent": "Verifier",
@@ -13841,6 +14409,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -13870,6 +14443,26 @@
       "model": "gpt-5-mini",
       "ms": 8593,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 2458,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "NOR"
+       },
+       "metric": "attack_share_left",
+       "window": {
+        "kind": "since_minute",
+        "minute": 58
+       },
+       "value": 51.0
+      }
      },
      {
       "agent": "Verifier",
@@ -14020,6 +14613,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -14049,6 +14647,26 @@
       "model": "gpt-5-mini",
       "ms": 22037,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 4990,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "NOR"
+       },
+       "metric": "attack_share_centre",
+       "window": {
+        "kind": "since_minute",
+        "minute": 76
+       },
+       "value": 50.0
+      }
      },
      {
       "agent": "Verifier",
@@ -14192,6 +14810,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -14221,6 +14844,26 @@
       "model": "gpt-5-mini",
       "ms": 8549,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 3422,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "HAR"
+       },
+       "metric": "attack_share_right",
+       "window": {
+        "kind": "since_minute",
+        "minute": 71
+       },
+       "value": 83.0
+      }
      },
      {
       "agent": "Verifier",
@@ -14418,6 +15061,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -14452,6 +15100,25 @@
       "model": "gpt-5-mini",
       "ms": 6543,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 2,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 3159,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "NOR"
+       },
+       "metric": "pass_accuracy",
+       "window": {
+        "kind": "unstated"
+       },
+       "value": 81.0
+      }
      },
      {
       "agent": "Verifier",
@@ -14638,6 +15305,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -14663,6 +15335,25 @@
       "model": "gpt-5-mini",
       "ms": 11279,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 3325,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "HAR"
+       },
+       "metric": "pass_accuracy",
+       "window": {
+        "kind": "second_half"
+       },
+       "value": 70.0
+      }
      },
      {
       "agent": "Verifier",
@@ -14819,6 +15510,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -14851,6 +15547,25 @@
       "model": "gpt-5-mini",
       "ms": 9218,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 2,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 6150,
+      "reading": {
+       "subject": {
+        "type": "player",
+        "id": "NOR_08"
+       },
+       "metric": "most_central_player",
+       "window": {
+        "kind": "second_half"
+       },
+       "value": 1.0
+      }
      },
      {
       "agent": "Verifier",
@@ -14999,6 +15714,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -15022,6 +15742,25 @@
       "model": "gpt-5-mini",
       "ms": 10380,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 4085,
+      "reading": {
+       "subject": {
+        "type": "player",
+        "id": "HAR_08"
+       },
+       "metric": "most_central_player",
+       "window": {
+        "kind": "second_half"
+       },
+       "value": 1.0
+      }
      },
      {
       "agent": "Verifier",
@@ -15160,6 +15899,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -15183,6 +15927,25 @@
       "model": "gpt-5-mini",
       "ms": 11656,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 2731,
+      "reading": {
+       "subject": {
+        "type": "player",
+        "id": "NOR_09"
+       },
+       "metric": "shots",
+       "window": {
+        "kind": "second_half"
+       },
+       "value": 4.0
+      }
      },
      {
       "agent": "Verifier",
@@ -15265,8 +16028,8 @@
     "value": 109.0
    },
    "text": {
-    "draft_en": "D. Varga hit a 109 km/h shot in the second half.",
-    "canonical_en": "D. Varga hit a 109 km/h shot in the second half.",
+    "draft_en": "The fastest shot in the second half was 109 km/h.",
+    "canonical_en": "The fastest shot in the second half was 109 km/h.",
     "numbers": [
      {
       "key": "value",
@@ -15319,6 +16082,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -15344,8 +16112,61 @@
       "mode": "handed"
      },
      {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 3107,
+      "reading": {
+       "subject": {
+        "type": "player",
+        "id": "NOR_07"
+       },
+       "metric": "top_shot_speed",
+       "window": {
+        "kind": "second_half"
+       },
+       "value": 109.0
+      }
+     },
+     {
       "agent": "Verifier",
       "attempt": 1,
+      "outcome": "rejected",
+      "path": "rules"
+     },
+     {
+      "agent": "Scout",
+      "attempt": 2,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 8826,
+      "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 2,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 3879,
+      "reading": {
+       "subject": {
+        "type": "match",
+        "id": "match"
+       },
+       "metric": "top_shot_speed",
+       "window": {
+        "kind": "second_half"
+       },
+       "value": 109.0
+      }
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 2,
       "outcome": "verified",
       "path": "rules"
      }
@@ -15369,7 +16190,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "D. Varga hit a 109 km/h shot in the second half.",
+     "text": "The fastest shot in the second half was 109 km/h.",
      "layout": "ticker",
      "duration_s": 8,
      "start_t": 5403.0,
@@ -15387,7 +16208,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "D. Varga hit a 109 km/h shot in the second half.",
+     "text": "The fastest shot in the second half was 109 km/h.",
      "numbers_preserved": true
     },
     {
@@ -15399,7 +16220,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "D. Varga hit a one hundred and nine kilometres per hour shot in the second half.",
+     "text": "The fastest shot in the second half was one hundred and nine kilometres per hour.",
      "numbers_preserved": true
     }
    ]
@@ -15424,8 +16245,8 @@
     "value": 3.0
    },
    "text": {
-    "draft_en": "Harlow had 3 turnovers in their own third since the 81st minute.",
-    "canonical_en": "Harlow had 3 turnovers in their own third since the 81st minute.",
+    "draft_en": "Harlow have had 3 turnovers in their own third since the 81st minute.",
+    "canonical_en": "Harlow have had 3 turnovers in their own third since the 81st minute.",
     "numbers": [
      {
       "key": "value",
@@ -15481,6 +16302,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -15502,8 +16328,28 @@
       "outcome": "drafted",
       "path": "foundry_agent",
       "model": "gpt-5-mini",
-      "ms": 8902,
+      "ms": 8022,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 3768,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "HAR"
+       },
+       "metric": "turnovers_own_third",
+       "window": {
+        "kind": "since_minute",
+        "minute": 81
+       },
+       "value": 3.0
+      }
      },
      {
       "agent": "Verifier",
@@ -15513,12 +16359,12 @@
      }
     ],
     "memory": [
+     "f_000028",
      "f_000029",
      "f_000030",
      "f_000031",
      "f_000032",
-     "f_000033",
-     "f_000034"
+     "f_000033"
     ]
    },
    "risk": {
@@ -15531,7 +16377,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Harlow had 3 turnovers in their own third since the 81st minute.",
+     "text": "Harlow have had 3 turnovers in their own third since the 81st minute.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 5403.0,
@@ -15549,7 +16395,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Harlow had 3 turnovers in their own third since the 81st minute.",
+     "text": "Harlow have had 3 turnovers in their own third since the 81st minute.",
      "numbers_preserved": true
     },
     {
@@ -15561,7 +16407,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Harlow had three turnovers in their own third since the eighty-first minute.",
+     "text": "Harlow have had three turnovers in their own third since the eighty-first minute.",
      "numbers_preserved": true
     }
    ]
@@ -15586,8 +16432,8 @@
     "value": 2.11
    },
    "text": {
-    "draft_en": "Northbridge had 2.11 xG in the second half.",
-    "canonical_en": "Northbridge had 2.11 xG in the second half.",
+    "draft_en": "Northbridge generated 2.11 xG in the second half.",
+    "canonical_en": "Northbridge generated 2.11 xG in the second half.",
     "numbers": [
      {
       "key": "value",
@@ -15645,6 +16491,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -15663,25 +16514,53 @@
      {
       "agent": "Scout",
       "attempt": 1,
-      "outcome": "drafted",
+      "outcome": "invalid_output: numbers keys ['k', 'since_minute', 'value'] differ from the input keys ['value']",
       "path": "foundry_agent",
       "model": "gpt-5-mini",
-      "ms": 10101,
+      "ms": 14437,
       "mode": "handed"
      },
      {
+      "agent": "Scout",
+      "attempt": 2,
+      "outcome": "drafted",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 8305,
+      "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 2,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 3405,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "NOR"
+       },
+       "metric": "xg_sum",
+       "window": {
+        "kind": "second_half"
+       },
+       "value": 2.11
+      }
+     },
+     {
       "agent": "Verifier",
-      "attempt": 1,
+      "attempt": 2,
       "outcome": "verified",
       "path": "rules"
      }
     ],
     "memory": [
+     "f_000029",
      "f_000030",
      "f_000031",
      "f_000032",
      "f_000033",
-     "f_000034",
      "f_000035"
     ]
    },
@@ -15695,7 +16574,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Northbridge had 2.11 xG in the second half.",
+     "text": "Northbridge generated 2.11 xG in the second half.",
      "layout": "ticker",
      "duration_s": 8,
      "start_t": 5403.0,
@@ -15713,7 +16592,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Northbridge had 2.11 xG in the second half.",
+     "text": "Northbridge generated 2.11 xG in the second half.",
      "numbers_preserved": true
     },
     {
@@ -15725,7 +16604,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Northbridge had two point one one expected goals in the second half.",
+     "text": "Northbridge generated two point one one expected goals in the second half.",
      "numbers_preserved": true
     }
    ]
@@ -15750,8 +16629,8 @@
     "value": 0.22
    },
    "text": {
-    "draft_en": "Harlow had 0.22 xG in the second half.",
-    "canonical_en": "Harlow had 0.22 xG in the second half.",
+    "draft_en": "Harlow generated 0.22 xG in the second half.",
+    "canonical_en": "Harlow generated 0.22 xG in the second half.",
     "numbers": [
      {
       "key": "value",
@@ -15803,6 +16682,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -15824,8 +16708,27 @@
       "outcome": "drafted",
       "path": "foundry_agent",
       "model": "gpt-5-mini",
-      "ms": 11225,
+      "ms": 9751,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 4566,
+      "reading": {
+       "subject": {
+        "type": "team",
+        "id": "HAR"
+       },
+       "metric": "xg_sum",
+       "window": {
+        "kind": "second_half"
+       },
+       "value": 0.22
+      }
      },
      {
       "agent": "Verifier",
@@ -15835,10 +16738,10 @@
      }
     ],
     "memory": [
+     "f_000030",
      "f_000031",
      "f_000032",
      "f_000033",
-     "f_000034",
      "f_000035",
      "f_000036"
     ]
@@ -15853,7 +16756,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "Harlow had 0.22 xG in the second half.",
+     "text": "Harlow generated 0.22 xG in the second half.",
      "layout": "ticker",
      "duration_s": 8,
      "start_t": 5403.0,
@@ -15871,7 +16774,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "Harlow had 0.22 xG in the second half.",
+     "text": "Harlow generated 0.22 xG in the second half.",
      "numbers_preserved": true
     },
     {
@@ -15883,7 +16786,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "Harlow had nought point two two expected goals in the second half.",
+     "text": "Harlow generated nought point two two expected goals in the second half.",
      "numbers_preserved": true
     }
    ]
@@ -15908,8 +16811,8 @@
     "value": 0.28
    },
    "text": {
-    "draft_en": "E. Lindqvist added 0.28 xT in the second half.",
-    "canonical_en": "E. Lindqvist added 0.28 xT in the second half.",
+    "draft_en": "E. Lindqvist has added 0.28 xT in the second half.",
+    "canonical_en": "E. Lindqvist has added 0.28 xT in the second half.",
     "numbers": [
      {
       "key": "value",
@@ -15975,6 +16878,11 @@
       "name": "numbers_match",
       "passed": true,
       "detail": "every number traced to the event log"
+     },
+     {
+      "name": "meaning_matches",
+      "passed": true,
+      "detail": "meaning: the Reader read the claim back"
      }
     ]
    },
@@ -15996,8 +16904,27 @@
       "outcome": "drafted",
       "path": "foundry_agent",
       "model": "gpt-5-mini",
-      "ms": 12763,
+      "ms": 10526,
       "mode": "handed"
+     },
+     {
+      "agent": "Reader",
+      "attempt": 1,
+      "outcome": "read",
+      "path": "foundry_agent",
+      "model": "gpt-5-mini",
+      "ms": 2676,
+      "reading": {
+       "subject": {
+        "type": "player",
+        "id": "NOR_08"
+       },
+       "metric": "xt_added",
+       "window": {
+        "kind": "second_half"
+       },
+       "value": 0.28
+      }
      },
      {
       "agent": "Verifier",
@@ -16007,9 +16934,9 @@
      }
     ],
     "memory": [
+     "f_000031",
      "f_000032",
      "f_000033",
-     "f_000034",
      "f_000035",
      "f_000036",
      "f_000037"
@@ -16025,7 +16952,7 @@
     {
      "kind": "cue",
      "lang": "en",
-     "text": "E. Lindqvist added 0.28 xT in the second half.",
+     "text": "E. Lindqvist has added 0.28 xT in the second half.",
      "layout": "lower_third",
      "duration_s": 6,
      "start_t": 5403.0,
@@ -16043,7 +16970,7 @@
     {
      "kind": "caption",
      "lang": "en",
-     "text": "E. Lindqvist added 0.28 xT in the second half.",
+     "text": "E. Lindqvist has added 0.28 xT in the second half.",
      "numbers_preserved": true
     },
     {
@@ -16055,7 +16982,7 @@
     {
      "kind": "audio_script",
      "lang": "en",
-     "text": "E. Lindqvist added nought point two eight xT in the second half.",
+     "text": "E. Lindqvist has added nought point two eight xT in the second half.",
      "numbers_preserved": true
     }
    ]
@@ -16536,8 +17463,8 @@
   },
   "renditions_failed_number_check": 0,
   "scout": {
-   "first_pass": 36,
-   "after_retry": 2,
+   "first_pass": 31,
+   "after_retry": 7,
    "rejected": 0,
    "rules": 0
   }

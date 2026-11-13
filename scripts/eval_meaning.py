@@ -1,6 +1,7 @@
 """P12 eval: precision and recall of the meaning_matches check on a hand-labelled sentence set.
 
-Run: python scripts/eval_meaning.py             (replays data/reader_cache.json; no network)
+Run: python scripts/eval_meaning.py             (replays data/reader_cache.json, no network, and
+                                                 checks the result against data/meaning_eval.json)
      python scripts/eval_meaning.py --foundry   (live Reader on Microsoft Foundry; needs .env;
                                                  adds its reads to data/reader_cache.json)
 
@@ -87,11 +88,15 @@ def main(live: bool) -> None:
         "scores": scores(rows),
         "cases": rows,
     }
+    print(json.dumps(record["scores"]))
+    if not live and OUT.exists():  # a replay checks the live record rather than replacing it
+        same = json.loads(OUT.read_text(encoding="utf-8"))["scores"] == record["scores"]
+        print(f"replay {'matches' if same else 'DIFFERS FROM'} {OUT.relative_to(ROOT)}")
+        return
     if live:
         save_cache({**cached, **reader.cache})
         print(f"Reader calls: {reader.calls}")
     OUT.write_text(json.dumps(record, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(json.dumps(record["scores"]))
     print(f"wrote {OUT.relative_to(ROOT)}")
 
 

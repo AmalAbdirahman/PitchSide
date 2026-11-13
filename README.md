@@ -2,7 +2,7 @@
 
 [![tests](https://github.com/AmalAbdirahman/PitchSide/actions/workflows/test.yml/badge.svg)](https://github.com/AmalAbdirahman/PitchSide/actions/workflows/test.yml)
 
-A producer-first control room for a replayed, synthetic football match. Python builds a replay bundle offline; a static web page in `docs/` replays it. An LLM agent drafts claims at build time, deterministic code verifies every one, risk tiers decide what airs on its own and what a human must approve, and each approved fact becomes a lower-third cue, English and Spanish captions, and an audio script.
+A producer-first control room for a replayed, synthetic football match. Python builds a replay bundle offline; a static web page in `docs/` replays it. An LLM agent drafts claims at build time, a second agent reads each sentence back, deterministic code verifies every one, risk tiers decide what airs on its own and what a human must approve, and each approved fact becomes a lower-third cue, English and Spanish captions, and an audio script.
 
 ## Honesty first
 
@@ -10,7 +10,8 @@ A producer-first control room for a replayed, synthetic football match. Python b
 - **Real open data, locally only.** The pipeline also runs on a real match from StatsBomb Open Data (rule-based drafter, no agent). Raw files and the built bundle stay in git-ignored folders and are not published, because StatsBomb's user agreement does not allow redistributing the data. See `data_sources.md` for the licence, every mapping decision and the dropped event types.
 - **Replay, not live.** The page replays a pre-built bundle. It has no server and makes no network calls.
 - **The model runs at build time only.** Drafts for each moment come from the Scout, a prompt agent on Microsoft Foundry, called by `python -m app.build_bundle --foundry`. Its answers are cached in `data/agent_cache.json`, so the normal build and the site never call a model.
-- **The Scout uses structured output, and tools in explore mode.** Its reply must follow a JSON Schema generated from Pydantic models. In explore mode it gets no numbers, only the match state and a flagged moment, and finds numbers and evidence with three read-only tools backed by the metric registry (`list_metrics`, `compute_metric`, `list_events`), which cannot see past the moment. Measured in a live run on 2026-11-13: handed mode 36/38 claims passed first time and none was rejected; explore mode 24/38 first time and 7/38 still rejected after a retry, all for wrongly written numbers that the verifier caught (`docs/methods/scout.md`). The site uses handed mode. It is still one agent.
+- **The Scout uses structured output, and tools in explore mode.** Its reply must follow a JSON Schema generated from Pydantic models. In explore mode it gets no numbers, only the match state and a flagged moment, and finds numbers and evidence with three read-only tools backed by the metric registry (`list_metrics`, `compute_metric`, `list_events`), which cannot see past the moment. Measured in a live run on 2026-11-13: handed mode 36/38 claims passed first time and none was rejected; explore mode 24/38 first time and 7/38 still rejected after a retry, all for wrongly written numbers that the verifier caught (`docs/methods/scout.md`). The site uses handed mode.
+- **A two-agent pipeline, with code as the judge.** A second agent, the Reader, sees only each Scout sentence and the roster and writes down the claim it understood; code compares that with the Scout's claim, and a mismatch fails the verifier's `meaning_matches` check and sends the Scout back once. On 75 hand-labelled sentences (34 with the right numbers but the wrong meaning) the check flagged 27 of the 34 (recall 0.79) and 4 of the 41 correct ones (precision 0.87), in one live run on 2026-11-13 (`docs/methods/meaning.md`). It misses qualifiers such as "on target" or "conceded". Neither agent decides what airs.
 - **Template wording for T0.** Goals, substitutions and cards air at once, so they use fixed templates; agent wording is used only for facts that pass through a veto window or a producer (T1/T2).
 - **Code decides truth.** A deterministic verifier recomputes every claim from the event log before it can air. The Scout's words are not trusted.
 - **Injected errors are test cases.** Six drafts with planted errors (wrong number, player, window, a future event, an intent word, a small-sample overclaim) come from a rule-based drafter, not from the model. They exist so the verifier has something to catch; they say nothing about how any model behaves.
@@ -30,7 +31,9 @@ A producer-first control room for a replayed, synthetic football match. Python b
                       ┌──────────── Scout (Microsoft Foundry prompt agent, build time) ◄──┐
                       │  claim + English wording + cited event ids                          │ failed checks,
                       ▼                                                                     │ once
-               Verifier (deterministic Python) ── rejected? ────────────────────────────────┘
+               Reader (second Foundry agent: sentence + roster only ──► the claim it read)   │
+                      ▼                                                                     │
+               Verifier (deterministic Python, incl. meaning_matches) ── rejected? ─────────┘
                       │  verified / corrected            still rejected ──► log (never airs)
                       ▼
                Router  T0 air now · T1 air after 3 s veto · T2 producer approves or it expires
@@ -40,7 +43,8 @@ A producer-first control room for a replayed, synthetic football match. Python b
                docs/data/hero.json + cues.json ──► static page ──► Producer (approve / reject / veto)
 
  Call failure or timeout ──► rule-based drafter for that moment (the build always completes)
- Every Scout request/response ──► data/agent_cache.json (committed; offline builds replay it)
+ Every Scout request/response ──► data/agent_cache.json, every Reader one ──► data/reader_cache.json
+ (both committed; offline builds replay them)
 ```
 
 ## Run it
@@ -52,6 +56,7 @@ pytest -q                                          # no network needed
 ruff check . && ruff format --check . && mypy core app
 node --test "tests/js/*.test.mjs"                 # routing cases against docs/js/routing.js (Node 22, no npm)
 python scripts/eval.py                             # verifier eval + Scout numbers from the cache
+python scripts/eval_meaning.py                     # meaning check: precision and recall, replayed
 python -m app.build_bundle                         # offline rebuild, replays data/agent_cache.json
 ```
 
@@ -103,17 +108,18 @@ Scout agent in handed mode (the site's), replayed from `data/agent_cache.json`; 
 | | |
 |---|---|
 | Moments | 38 |
-| Passed the verifier first time | 36 |
-| Passed after one retry | 2 |
+| Passed the verifier first time | 31 |
+| Passed after one retry | 7 |
 | Still rejected | 0 |
 | Fell back to rules | 0 |
-| Calls / latency (the cached `--foundry` run of 2026-11-13, gpt-5-mini) | 40 calls, median 11.1 s, max 22.0 s |
+| Scout calls / latency (the cached `--foundry` run of 2026-11-13 with the Reader, gpt-5-mini) | 45 calls, median 10.4 s, max 22.0 s |
+| Sentences the Reader read back | 36 |
 
-In that earlier run one draft passed only on retry: attempt 1 wrote "since the 46th minute", a number not in its input, and `numbers_match` rejected it.
+Of the 7 retries, 2 came from `meaning_matches`: in both, the Reader took the named shooter as the subject of a "fastest shot" claim about the match (a false flag), and the reworded retry passed. The other 5 were replies that broke the number-key rule. Before the Reader (P11 run), the same build had 36 first-pass drafts and 2 retries; `docs/methods/meaning.md` explains the difference.
 
 ### What the verifier does not catch
 
-The verifier checks numbers, windows, evidence, entities, intent words and hedging, not what a sentence means. Player names are matched against the roster as whole words, so a surname on its own counts, and a misspelt or wrongly initialled name is rejected rather than aired. In the first `--foundry` run, the Scout wrote lines like "Northbridge had 69% of centre attacks" when the data meant 69% of Northbridge's attacks went through the centre. Every number was right, so they passed. Tighter instructions fixed this in the committed run, but a sentence-meaning check is roadmap. Goals, substitutions and cards (T0, which air with no human check) therefore use fixed template wording, such as "GOAL, Northbridge 1–0 Harlow. C. Nkemelu, 63'."; the Scout still drafts and cites the claim, and its own wording is kept in the log.
+The verifier checks numbers, windows, evidence, entities, intent words and hedging, and, through the Reader, five fields of what a sentence means (metric, subject, window, value, and whether any listed metric fits). Player names are matched against the roster as whole words, so a surname on its own counts, and a misspelt or wrongly initialled name is rejected rather than aired. In the first `--foundry` run, the Scout wrote lines like "Northbridge had 69% of centre attacks" when the data meant 69% of Northbridge's attacks went through the centre. Every number was right, so they passed. Tighter instructions fixed this, and the Reader's `meaning_matches` check now catches that kind of error (all three such sentences in the labelled set). It still misses a qualifier the metrics do not measure ("3 shots on target", "0.86 xG from set pieces") and a flipped role ("Northbridge conceded 0.27 xG"), and it does not judge tone or implied causes. Goals, substitutions and cards (T0, which air with no human check) therefore use fixed template wording, such as "GOAL, Northbridge 1–0 Harlow. C. Nkemelu, 63'."; the Scout still drafts and cites the claim, and its own wording is kept in the log.
 
 ## Layout
 
@@ -124,16 +130,17 @@ core/     typed models (events.py, facts.py), config, metric registry (metrics.p
           attack shares, Beta-Binomial hedge (hedge.py), Wilson intervals, win probability
           and its validation (winprob.py, winprob_eval.py), pass networks (network.py),
           moment rules
-app/      agents_foundry.py (Scout), drafter.py (fallback + injected errors), verifier.py
+app/      agents_foundry.py (Scout loop) and scout_*.py, reader.py (Reader), meaning.py (meaning
+          check), drafter.py (fallback + injected errors), verifier.py
           (orchestrates checks.py and corrections.py), router.py,
           renditions.py, templates_es.py, build_bundle.py
 docs/     static control room (index.html, styles.css, js/ ES modules), data/ and methods/ — published by GitHub Pages
           js/: data, routing (pure; reads meta.routing), state, pitch, queue, analysis, audit, main
 design/   prototype.html, the original design mockup (not published)
-data/     events.json, league_stats.json, agent_cache.json, xg_fit.json, xt_fit.json; external/ (git-ignored) for StatsBomb files
-tests/    seeded_claims.json and pytest suites
+data/     events.json, league_stats.json, agent_cache.json, reader_cache.json, xg_fit.json, xt_fit.json; external/ (git-ignored) for StatsBomb files
+tests/    seeded_claims.json, meaning_cases.json and pytest suites
 scripts/  eval.py, build_seeded_claims.py, write_schema.py, foundry_smoke.py, fetch_statsbomb.py, fit_xg.py,
-          fit_xt.py, plot_xt.py
+          fit_xt.py, plot_xt.py, eval_scout.py, eval_meaning.py
 ```
 
 Facts and events are Pydantic models (`core/facts.py`, `core/events.py`). `fact.schema.json` is generated from the fact models by `python scripts/write_schema.py`, and a test fails if the committed file and the models disagree.

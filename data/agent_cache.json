@@ -2794,6 +2794,132 @@
    "rounds": 1,
    "tool_calls": []
   },
+  "2549cd416cce352717e977b24ce2d77240923e3533a6cc9ddb61ecdbf9bfa640": {
+   "mode": "handed",
+   "model": "gpt-5-mini",
+   "ms": 9807,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 1,
+    "evidence_ids": [
+     418,
+     419
+    ],
+    "hedge": "none",
+    "memory": {
+     "aired": [
+      {
+       "fact_id": "f_000015",
+       "metric": "xg_sum",
+       "minute": 45,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Northbridge generated 0.27 xG in the first half."
+      },
+      {
+       "fact_id": "f_000016",
+       "metric": "xg_sum",
+       "minute": 45,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow generated 0.86 xG in the first half."
+      },
+      {
+       "fact_id": "f_000017",
+       "metric": "xt_added",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_11",
+        "type": "player"
+       },
+       "text": "U. Kerridge added 0.30 xT in the first half."
+      },
+      {
+       "fact_id": "f_000018",
+       "metric": "attack_share_right",
+       "minute": 56,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st minute."
+      },
+      {
+       "fact_id": "f_000019",
+       "metric": "attack_share_centre",
+       "minute": 56,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute."
+      },
+      {
+       "fact_id": "f_000020",
+       "metric": "substitutions",
+       "minute": 58,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Substitution for Northbridge in the 58th minute: B. Adeyemi-Ross on, D. Varga off."
+      }
+     ],
+     "last_by_team": {
+      "HAR": "The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute.",
+      "NOR": "Substitution for Northbridge in the 58th minute: B. Adeyemi-Ross on, D. Varga off."
+     }
+    },
+    "minutes": {
+     "window_end": 63,
+     "window_start": 63
+    },
+    "moment": {
+     "k": 1,
+     "kind": "score_event",
+     "metric": "goals",
+     "n": 1,
+     "rule": "goal",
+     "subject": {
+      "id": "NOR_09",
+      "type": "player"
+     },
+     "team": "NOR",
+     "window": {
+      "end_t": 3748.5,
+      "start_t": 3748.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "minute",
+      "value": 63
+     },
+     {
+      "key": "score_NOR",
+      "value": 1
+     },
+     {
+      "key": "score_HAR",
+      "value": 0
+     }
+    ],
+    "players": {
+     "NOR_09": "C. Nkemelu"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\":{\"subject\":{\"type\":\"player\",\"id\":\"NOR_09\"},\"metric\":\"goals\",\"window\":{\"start_t\":3748.0,\"end_t\":3748.5},\"comparator\":\"eq\",\"value\":1},\"text\":{\"canonical_en\":\"C. Nkemelu scored in the 63rd minute — Northbridge 1, Harlow 0.\",\"numbers\":[{\"key\":\"minute\",\"value\":63,\"unit\":null},{\"key\":\"score_NOR\",\"value\":1,\"unit\":null},{\"key\":\"score_HAR\",\"value\":0,\"unit\":null}]},\"evidence_ids\":[418,419]}",
+   "rounds": 1,
+   "tool_calls": []
+  },
   "2b32b65ae6a62c325e8afd5b9ceaaae3ae7f745bf2f9b45afe9b74c9edb49f4f": {
    "mode": "explore",
    "model": "gpt-5-mini",
@@ -2939,6 +3065,129 @@
      "output": "{\"events\": [{\"id\": 419, \"minute\": 63, \"player_id\": \"NOR_09\", \"t\": 3748.5, \"team\": \"NOR\", \"type\": \"goal\"}], \"shown\": 1, \"total\": 1}"
     }
    ]
+  },
+  "2b93fdb8b9dc87401ec3bb526fa7052e4c0030cf7c00688a83850058acfb2778": {
+   "mode": "handed",
+   "model": "gpt-5-mini",
+   "ms": 9204,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 0.86,
+    "evidence_ids": [
+     99,
+     188,
+     193,
+     225,
+     248,
+     255
+    ],
+    "feedback": "Your reply was invalid: numbers keys ['k', 'n', 'since_minute', 'value'] differ from the input keys ['value']. Reply again following the schema and the rules.",
+    "hedge": "none",
+    "memory": {
+     "aired": [
+      {
+       "fact_id": "f_000009",
+       "metric": "pass_accuracy",
+       "minute": 45,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Northbridge completed 67% of their passes."
+      },
+      {
+       "fact_id": "f_000010",
+       "metric": "pass_accuracy",
+       "minute": 45,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow completed 77% of their passes in the first half."
+      },
+      {
+       "fact_id": "f_000011",
+       "metric": "most_central_player",
+       "minute": 45,
+       "subject": {
+        "id": "NOR_08",
+        "type": "player"
+       },
+       "text": "E. Lindqvist is Northbridge's most central passer, with 11 of 38 linked passes."
+      },
+      {
+       "fact_id": "f_000012",
+       "metric": "most_central_player",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_06",
+        "type": "player"
+       },
+       "text": "W. Abara is Harlow's most central passer, with 18 of 57 linked passes in the first half."
+      },
+      {
+       "fact_id": "f_000013",
+       "metric": "shots",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_09",
+        "type": "player"
+       },
+       "text": "T. Brannock has taken 3 shots."
+      },
+      {
+       "fact_id": "f_000015",
+       "metric": "xg_sum",
+       "minute": 45,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Northbridge generated 0.27 xG in the first half."
+      }
+     ],
+     "last_by_team": {
+      "HAR": "T. Brannock has taken 3 shots.",
+      "NOR": "Northbridge generated 0.27 xG in the first half."
+     }
+    },
+    "minutes": {
+     "window_end": 45,
+     "window_start": 1
+    },
+    "moment": {
+     "half": "first",
+     "k": 6,
+     "kind": "stat",
+     "metric": "xg_sum",
+     "n": 6,
+     "rule": "xg_sum",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 2699.9,
+      "start_t": 0.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "xG",
+      "value": 0.86
+     }
+    ],
+    "players": {},
+    "previous_output": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"team\",\n      \"id\": \"HAR\"\n    },\n    \"metric\": \"xg_sum\",\n    \"window\": {\n      \"start_t\": 0,\n      \"end_t\": 2699.9\n    },\n    \"comparator\": \"eq\",\n    \"value\": 0.86\n  },\n  \"text\": {\n    \"canonical_en\": \"Harlow generated 0.86 xG from 6 of 6 attempts since the 1st minute.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 0.86,\n        \"unit\": \"xG\"\n      },\n      {\n        \"key\": \"n\",\n        \"value\": 6,\n        \"unit\": null\n      },\n      {\n        \"key\": \"k\",\n        \"value\": 6,\n        \"unit\": null\n      },\n      {\n        \"key\": \"since_minute\",\n        \"value\": 1,\n        \"unit\": null\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    99,\n    188,\n    193,\n    225,\n    248,\n    255\n  ]\n}",
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"team\",\n      \"id\": \"HAR\"\n    },\n    \"metric\": \"xg_sum\",\n    \"window\": {\n      \"start_t\": 0.0,\n      \"end_t\": 2699.9\n    },\n    \"comparator\": \"eq\",\n    \"value\": 0.86\n  },\n  \"text\": {\n    \"canonical_en\": \"Harlow generated 0.86 xG in the first half.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 0.86,\n        \"unit\": \"xG\"\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    99,\n    188,\n    193,\n    225,\n    248,\n    255\n  ]\n}",
+   "rounds": 1,
+   "tool_calls": []
   },
   "2cfc5ec6409ccadd64ec7a480745831fa172a689b31ac50a13f33a92765792a4": {
    "mode": "explore",
@@ -4484,6 +4733,153 @@
    "rounds": 1,
    "tool_calls": []
   },
+  "4b8e759b0a1dbf1ef0b31f401fb208f9a1e3aa2e5a01beb21f65d0581b4379d1": {
+   "mode": "handed",
+   "model": "gpt-5-mini",
+   "ms": 8826,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 109,
+    "evidence_ids": [
+     366
+    ],
+    "feedback": "Your claim failed the verifier. meaning_matches: meaning: subject player NOR_07, claim match match. Revise using only the input.",
+    "hedge": "none",
+    "memory": {
+     "aired": [
+      {
+       "fact_id": "f_000028",
+       "metric": "attack_share_right",
+       "minute": 91,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "The numbers suggest 83% of Harlow attacks have gone down the right since the 71st minute."
+      },
+      {
+       "fact_id": "f_000029",
+       "metric": "pass_accuracy",
+       "minute": 91,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Northbridge completed 81% of their passes in the second half."
+      },
+      {
+       "fact_id": "f_000030",
+       "metric": "pass_accuracy",
+       "minute": 91,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow completed 70% of their passes in the second half."
+      },
+      {
+       "fact_id": "f_000031",
+       "metric": "most_central_player",
+       "minute": 91,
+       "subject": {
+        "id": "NOR_08",
+        "type": "player"
+       },
+       "text": "E. Lindqvist was the most central player in Northbridge's passing in the second half: involved in 18 of 53 linked passes."
+      },
+      {
+       "fact_id": "f_000032",
+       "metric": "most_central_player",
+       "minute": 91,
+       "subject": {
+        "id": "HAR_08",
+        "type": "player"
+       },
+       "text": "O. Fenwick was the most central player in Harlow's passing in the second half: involved in 10 of 44 linked passes."
+      },
+      {
+       "fact_id": "f_000033",
+       "metric": "shots",
+       "minute": 91,
+       "subject": {
+        "id": "NOR_09",
+        "type": "player"
+       },
+       "text": "C. Nkemelu had 4 shots in the second half."
+      }
+     ],
+     "last_by_team": {
+      "HAR": "O. Fenwick was the most central player in Harlow's passing in the second half: involved in 10 of 44 linked passes.",
+      "NOR": "C. Nkemelu had 4 shots in the second half."
+     }
+    },
+    "minutes": {
+     "window_end": 91,
+     "window_start": 46
+    },
+    "moment": {
+     "half": "second",
+     "k": 1,
+     "kind": "milestone",
+     "metric": "top_shot_speed",
+     "n": 10,
+     "rule": "top_speed",
+     "subject": {
+      "id": "match",
+      "type": "match"
+     },
+     "window": {
+      "end_t": 5400.0,
+      "start_t": 2700.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "km/h",
+      "value": 109
+     }
+    ],
+    "players": {
+     "NOR_07": "D. Varga"
+    },
+    "previous_output": {
+     "claim": {
+      "comparator": "eq",
+      "metric": "top_shot_speed",
+      "subject": {
+       "id": "match",
+       "type": "match"
+      },
+      "value": 109.0,
+      "window": {
+       "end_t": 5400.0,
+       "start_t": 2700.0
+      }
+     },
+     "evidence_ids": [
+      366
+     ],
+     "text": {
+      "canonical_en": "D. Varga hit a 109 km/h shot in the second half.",
+      "numbers": [
+       {
+        "key": "value",
+        "unit": "km/h",
+        "value": 109.0
+       }
+      ]
+     }
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"match\",\n      \"id\": \"match\"\n    },\n    \"metric\": \"top_shot_speed\",\n    \"window\": {\n      \"start_t\": 2700.0,\n      \"end_t\": 5400.0\n    },\n    \"comparator\": \"eq\",\n    \"value\": 109\n  },\n  \"text\": {\n    \"canonical_en\": \"The fastest shot in the second half was 109 km/h.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 109,\n        \"unit\": \"km/h\"\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    366\n  ]\n}",
+   "rounds": 1,
+   "tool_calls": []
+  },
   "4d09eb0a5ea05d01da20fdaf855e1b19c01b6b4fe900d96a49e8725a1b118b2d": {
    "mode": "explore",
    "model": "gpt-5-mini",
@@ -4800,6 +5196,126 @@
     }
    },
    "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"match\",\n      \"id\": \"match\"\n    },\n    \"metric\": \"top_shot_speed\",\n    \"window\": {\n      \"start_t\": 2700,\n      \"end_t\": 5400\n    },\n    \"comparator\": \"eq\",\n    \"value\": 109\n  },\n  \"text\": {\n    \"canonical_en\": \"D. Varga hit a 109 km/h shot in the second half.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 109,\n        \"unit\": \"km/h\"\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    366\n  ]\n}",
+   "rounds": 1,
+   "tool_calls": []
+  },
+  "55fe6f8e24569085f7aeeba172d371bd19dc54b0380a195cfd594101ce77dde6": {
+   "mode": "handed",
+   "model": "gpt-5-mini",
+   "ms": 8022,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 3,
+    "evidence_ids": [
+     558,
+     568,
+     579
+    ],
+    "hedge": "none",
+    "memory": {
+     "aired": [
+      {
+       "fact_id": "f_000028",
+       "metric": "attack_share_right",
+       "minute": 91,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "The numbers suggest 83% of Harlow attacks have gone down the right since the 71st minute."
+      },
+      {
+       "fact_id": "f_000029",
+       "metric": "pass_accuracy",
+       "minute": 91,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Northbridge completed 81% of their passes in the second half."
+      },
+      {
+       "fact_id": "f_000030",
+       "metric": "pass_accuracy",
+       "minute": 91,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow completed 70% of their passes in the second half."
+      },
+      {
+       "fact_id": "f_000031",
+       "metric": "most_central_player",
+       "minute": 91,
+       "subject": {
+        "id": "NOR_08",
+        "type": "player"
+       },
+       "text": "E. Lindqvist was the most central player in Northbridge's passing in the second half: involved in 18 of 53 linked passes."
+      },
+      {
+       "fact_id": "f_000032",
+       "metric": "most_central_player",
+       "minute": 91,
+       "subject": {
+        "id": "HAR_08",
+        "type": "player"
+       },
+       "text": "O. Fenwick was the most central player in Harlow's passing in the second half: involved in 10 of 44 linked passes."
+      },
+      {
+       "fact_id": "f_000033",
+       "metric": "shots",
+       "minute": 91,
+       "subject": {
+        "id": "NOR_09",
+        "type": "player"
+       },
+       "text": "C. Nkemelu had 4 shots in the second half."
+      }
+     ],
+     "last_by_team": {
+      "HAR": "O. Fenwick was the most central player in Harlow's passing in the second half: involved in 10 of 44 linked passes.",
+      "NOR": "C. Nkemelu had 4 shots in the second half."
+     }
+    },
+    "minutes": {
+     "window_end": 91,
+     "window_start": 81
+    },
+    "moment": {
+     "k": 3,
+     "kind": "stat",
+     "metric": "turnovers_own_third",
+     "n": 3,
+     "rule": "turnovers",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 5400.0,
+      "start_t": 4800.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "value": 3
+     },
+     {
+      "key": "since_minute",
+      "value": 81
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"team\",\n      \"id\": \"HAR\"\n    },\n    \"metric\": \"turnovers_own_third\",\n    \"window\": {\n      \"start_t\": 4800,\n      \"end_t\": 5400\n    },\n    \"comparator\": \"eq\",\n    \"value\": 3\n  },\n  \"text\": {\n    \"canonical_en\": \"Harlow have had 3 turnovers in their own third since the 81st minute.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 3,\n        \"unit\": null\n      },\n      {\n        \"key\": \"since_minute\",\n        \"value\": 81,\n        \"unit\": null\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    558,\n    568,\n    579\n  ]\n}",
    "rounds": 1,
    "tool_calls": []
   },
@@ -6537,6 +7053,258 @@
     }
    ]
   },
+  "6b22fe5ebac320d1baca6e7d9857ba48c124dc8d4e04fe4f46805d38d6a4a342": {
+   "mode": "handed",
+   "model": "gpt-5-mini",
+   "ms": 14437,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 2.11,
+    "evidence_ids": [
+     341,
+     366,
+     370,
+     418,
+     490,
+     510,
+     562,
+     581
+    ],
+    "hedge": "none",
+    "memory": {
+     "aired": [
+      {
+       "fact_id": "f_000029",
+       "metric": "pass_accuracy",
+       "minute": 91,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Northbridge completed 81% of their passes in the second half."
+      },
+      {
+       "fact_id": "f_000030",
+       "metric": "pass_accuracy",
+       "minute": 91,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow completed 70% of their passes in the second half."
+      },
+      {
+       "fact_id": "f_000031",
+       "metric": "most_central_player",
+       "minute": 91,
+       "subject": {
+        "id": "NOR_08",
+        "type": "player"
+       },
+       "text": "E. Lindqvist was the most central player in Northbridge's passing in the second half: involved in 18 of 53 linked passes."
+      },
+      {
+       "fact_id": "f_000032",
+       "metric": "most_central_player",
+       "minute": 91,
+       "subject": {
+        "id": "HAR_08",
+        "type": "player"
+       },
+       "text": "O. Fenwick was the most central player in Harlow's passing in the second half: involved in 10 of 44 linked passes."
+      },
+      {
+       "fact_id": "f_000033",
+       "metric": "shots",
+       "minute": 91,
+       "subject": {
+        "id": "NOR_09",
+        "type": "player"
+       },
+       "text": "C. Nkemelu had 4 shots in the second half."
+      },
+      {
+       "fact_id": "f_000035",
+       "metric": "turnovers_own_third",
+       "minute": 91,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow have had 3 turnovers in their own third since the 81st minute."
+      }
+     ],
+     "last_by_team": {
+      "HAR": "Harlow have had 3 turnovers in their own third since the 81st minute.",
+      "NOR": "C. Nkemelu had 4 shots in the second half."
+     }
+    },
+    "minutes": {
+     "window_end": 91,
+     "window_start": 46
+    },
+    "moment": {
+     "half": "second",
+     "k": 8,
+     "kind": "stat",
+     "metric": "xg_sum",
+     "n": 8,
+     "rule": "xg_sum",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 5400.0,
+      "start_t": 2700.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "xG",
+      "value": 2.11
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"team\",\n      \"id\": \"NOR\"\n    },\n    \"metric\": \"xg_sum\",\n    \"window\": {\n      \"start_t\": 2700.0,\n      \"end_t\": 5400.0\n    },\n    \"comparator\": \"eq\",\n    \"value\": 2.11\n  },\n  \"text\": {\n    \"canonical_en\": \"Northbridge generated 2.11 xG from 8 shots since the 46th minute.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 2.11,\n        \"unit\": \"xG\"\n      },\n      {\n        \"key\": \"k\",\n        \"value\": 8,\n        \"unit\": null\n      },\n      {\n        \"key\": \"since_minute\",\n        \"value\": 46,\n        \"unit\": \"46th\"\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    341,\n    366,\n    370,\n    418,\n    490,\n    510,\n    562,\n    581\n  ]\n}",
+   "rounds": 1,
+   "tool_calls": []
+  },
+  "6b5b5c4ed291391d1f985bb80fe231d8033dcd403191e55fe9e2d9954fce0f99": {
+   "mode": "handed",
+   "model": "gpt-5-mini",
+   "ms": 10968,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 0.3,
+    "evidence_ids": [
+     37,
+     39,
+     42,
+     43,
+     87,
+     97,
+     192,
+     229,
+     235,
+     238,
+     241,
+     254
+    ],
+    "hedge": "none",
+    "memory": {
+     "aired": [
+      {
+       "fact_id": "f_000010",
+       "metric": "pass_accuracy",
+       "minute": 45,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow completed 77% of their passes in the first half."
+      },
+      {
+       "fact_id": "f_000011",
+       "metric": "most_central_player",
+       "minute": 45,
+       "subject": {
+        "id": "NOR_08",
+        "type": "player"
+       },
+       "text": "E. Lindqvist is Northbridge's most central passer, with 11 of 38 linked passes."
+      },
+      {
+       "fact_id": "f_000012",
+       "metric": "most_central_player",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_06",
+        "type": "player"
+       },
+       "text": "W. Abara is Harlow's most central passer, with 18 of 57 linked passes in the first half."
+      },
+      {
+       "fact_id": "f_000013",
+       "metric": "shots",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_09",
+        "type": "player"
+       },
+       "text": "T. Brannock has taken 3 shots."
+      },
+      {
+       "fact_id": "f_000015",
+       "metric": "xg_sum",
+       "minute": 45,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Northbridge generated 0.27 xG in the first half."
+      },
+      {
+       "fact_id": "f_000016",
+       "metric": "xg_sum",
+       "minute": 45,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow generated 0.86 xG in the first half."
+      }
+     ],
+     "last_by_team": {
+      "HAR": "Harlow generated 0.86 xG in the first half.",
+      "NOR": "Northbridge generated 0.27 xG in the first half."
+     }
+    },
+    "minutes": {
+     "window_end": 45,
+     "window_start": 1
+    },
+    "moment": {
+     "half": "first",
+     "k": 12,
+     "kind": "stat",
+     "metric": "xt_added",
+     "n": 12,
+     "rule": "xt_leader",
+     "subject": {
+      "id": "HAR_11",
+      "type": "player"
+     },
+     "window": {
+      "end_t": 2699.9,
+      "start_t": 0.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "xT",
+      "value": 0.3
+     }
+    ],
+    "players": {
+     "HAR_11": "U. Kerridge"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"player\",\n      \"id\": \"HAR_11\"\n    },\n    \"metric\": \"xt_added\",\n    \"window\": {\n      \"start_t\": 0,\n      \"end_t\": 2699.9\n    },\n    \"comparator\": \"eq\",\n    \"value\": 0.3\n  },\n  \"text\": {\n    \"canonical_en\": \"U. Kerridge added 0.30 xT in the first half.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 0.3,\n        \"unit\": \"xT\"\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    37,\n    39,\n    42,\n    43,\n    87,\n    97,\n    192,\n    229,\n    235,\n    238,\n    241,\n    254\n  ]\n}",
+   "rounds": 1,
+   "tool_calls": []
+  },
   "6e294db4cb9b6324eb08a354809728bb0d03525da49952361ed2c843a660c1f2": {
    "mode": "handed",
    "model": "gpt-5-mini",
@@ -8201,6 +8969,240 @@
     }
    ]
   },
+  "80657d6adc205fa0ba570df9748f48127f9029a76e7098190f2ec944587f507e": {
+   "mode": "handed",
+   "model": "gpt-5-mini",
+   "ms": 13849,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 0.27,
+    "evidence_ids": [
+     128,
+     166
+    ],
+    "hedge": "none",
+    "memory": {
+     "aired": [
+      {
+       "fact_id": "f_000008",
+       "metric": "cards",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_05",
+        "type": "player"
+       },
+       "text": "Yellow card for I. Marchetti-Holt of Harlow in the 45th minute."
+      },
+      {
+       "fact_id": "f_000009",
+       "metric": "pass_accuracy",
+       "minute": 45,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Northbridge completed 67% of their passes."
+      },
+      {
+       "fact_id": "f_000010",
+       "metric": "pass_accuracy",
+       "minute": 45,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow completed 77% of their passes in the first half."
+      },
+      {
+       "fact_id": "f_000011",
+       "metric": "most_central_player",
+       "minute": 45,
+       "subject": {
+        "id": "NOR_08",
+        "type": "player"
+       },
+       "text": "E. Lindqvist is Northbridge's most central passer, with 11 of 38 linked passes."
+      },
+      {
+       "fact_id": "f_000012",
+       "metric": "most_central_player",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_06",
+        "type": "player"
+       },
+       "text": "W. Abara is Harlow's most central passer, with 18 of 57 linked passes in the first half."
+      },
+      {
+       "fact_id": "f_000013",
+       "metric": "shots",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_09",
+        "type": "player"
+       },
+       "text": "T. Brannock has taken 3 shots."
+      }
+     ],
+     "last_by_team": {
+      "HAR": "T. Brannock has taken 3 shots.",
+      "NOR": "E. Lindqvist is Northbridge's most central passer, with 11 of 38 linked passes."
+     }
+    },
+    "minutes": {
+     "window_end": 45,
+     "window_start": 1
+    },
+    "moment": {
+     "half": "first",
+     "k": 2,
+     "kind": "stat",
+     "metric": "xg_sum",
+     "n": 2,
+     "rule": "xg_sum",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 2699.9,
+      "start_t": 0.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "xG",
+      "value": 0.27
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\":{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"xg_sum\",\"window\":{\"start_t\":0.0,\"end_t\":2699.9},\"comparator\":\"eq\",\"value\":0.27},\"text\":{\"canonical_en\":\"Northbridge have 0.27 xG since the 1st minute.\",\"numbers\":[{\"key\":\"value\",\"value\":0.27,\"unit\":\"xG\"},{\"key\":\"since_minute\",\"value\":1,\"unit\":null}]},\"evidence_ids\":[128,166]}",
+   "rounds": 1,
+   "tool_calls": []
+  },
+  "80a713b5b95243dfff22c91384a218b024e4cb2b46e94e69798dd7fbd1eac591": {
+   "mode": "handed",
+   "model": "gpt-5-mini",
+   "ms": 9751,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 0.22,
+    "evidence_ids": [
+     314,
+     437
+    ],
+    "hedge": "none",
+    "memory": {
+     "aired": [
+      {
+       "fact_id": "f_000030",
+       "metric": "pass_accuracy",
+       "minute": 91,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow completed 70% of their passes in the second half."
+      },
+      {
+       "fact_id": "f_000031",
+       "metric": "most_central_player",
+       "minute": 91,
+       "subject": {
+        "id": "NOR_08",
+        "type": "player"
+       },
+       "text": "E. Lindqvist was the most central player in Northbridge's passing in the second half: involved in 18 of 53 linked passes."
+      },
+      {
+       "fact_id": "f_000032",
+       "metric": "most_central_player",
+       "minute": 91,
+       "subject": {
+        "id": "HAR_08",
+        "type": "player"
+       },
+       "text": "O. Fenwick was the most central player in Harlow's passing in the second half: involved in 10 of 44 linked passes."
+      },
+      {
+       "fact_id": "f_000033",
+       "metric": "shots",
+       "minute": 91,
+       "subject": {
+        "id": "NOR_09",
+        "type": "player"
+       },
+       "text": "C. Nkemelu had 4 shots in the second half."
+      },
+      {
+       "fact_id": "f_000035",
+       "metric": "turnovers_own_third",
+       "minute": 91,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow have had 3 turnovers in their own third since the 81st minute."
+      },
+      {
+       "fact_id": "f_000036",
+       "metric": "xg_sum",
+       "minute": 91,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Northbridge generated 2.11 xG in the second half."
+      }
+     ],
+     "last_by_team": {
+      "HAR": "Harlow have had 3 turnovers in their own third since the 81st minute.",
+      "NOR": "Northbridge generated 2.11 xG in the second half."
+     }
+    },
+    "minutes": {
+     "window_end": 91,
+     "window_start": 46
+    },
+    "moment": {
+     "half": "second",
+     "k": 2,
+     "kind": "stat",
+     "metric": "xg_sum",
+     "n": 2,
+     "rule": "xg_sum",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 5400.0,
+      "start_t": 2700.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "xG",
+      "value": 0.22
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"team\",\n      \"id\": \"HAR\"\n    },\n    \"metric\": \"xg_sum\",\n    \"window\": {\n      \"start_t\": 2700.0,\n      \"end_t\": 5400.0\n    },\n    \"comparator\": \"eq\",\n    \"value\": 0.22\n  },\n  \"text\": {\n    \"canonical_en\": \"Harlow generated 0.22 xG in the second half.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 0.22,\n        \"unit\": \"xG\"\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    314,\n    437\n  ]\n}",
+   "rounds": 1,
+   "tool_calls": []
+  },
   "834c73f5f3609bfb2ab4d31bc9da2c834ebc63c7a00cdfe7a135860307b7bce9": {
    "mode": "handed",
    "model": "gpt-5-mini",
@@ -8925,6 +9927,256 @@
     }
    ]
   },
+  "a152a717cfac9b04d168e2e0911a0f58035d1a8e80289b0ee1e8f92d7061f3c2": {
+   "mode": "handed",
+   "model": "gpt-5-mini",
+   "ms": 9938,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 77,
+    "evidence_ids": [
+     348,
+     349,
+     351,
+     384,
+     385,
+     422,
+     429,
+     430,
+     431,
+     432
+    ],
+    "hedge": "suggests",
+    "memory": {
+     "aired": [
+      {
+       "fact_id": "f_000016",
+       "metric": "xg_sum",
+       "minute": 45,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow generated 0.86 xG in the first half."
+      },
+      {
+       "fact_id": "f_000017",
+       "metric": "xt_added",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_11",
+        "type": "player"
+       },
+       "text": "U. Kerridge added 0.30 xT in the first half."
+      },
+      {
+       "fact_id": "f_000018",
+       "metric": "attack_share_right",
+       "minute": 56,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st minute."
+      },
+      {
+       "fact_id": "f_000019",
+       "metric": "attack_share_centre",
+       "minute": 56,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute."
+      },
+      {
+       "fact_id": "f_000020",
+       "metric": "substitutions",
+       "minute": 58,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Substitution for Northbridge in the 58th minute: B. Adeyemi-Ross on, D. Varga off."
+      },
+      {
+       "fact_id": "f_000021",
+       "metric": "goals",
+       "minute": 63,
+       "subject": {
+        "id": "NOR_09",
+        "type": "player"
+       },
+       "text": "GOAL, Northbridge 1–0 Harlow. C. Nkemelu, 63'."
+      }
+     ],
+     "last_by_team": {
+      "HAR": "The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute.",
+      "NOR": "GOAL, Northbridge 1–0 Harlow. C. Nkemelu, 63'."
+     }
+    },
+    "minutes": {
+     "window_end": 66,
+     "window_start": 51
+    },
+    "moment": {
+     "k": 10,
+     "kind": "tactical",
+     "lane": "left",
+     "metric": "attack_share_left",
+     "n": 13,
+     "rule": "overload",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 3900.0,
+      "start_t": 3000.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 77
+     },
+     {
+      "key": "since_minute",
+      "value": 51
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\":{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"attack_share_left\",\"window\":{\"start_t\":3000.0,\"end_t\":3900.0},\"comparator\":\"eq\",\"value\":77},\"text\":{\"canonical_en\":\"The numbers suggest 77% of Harlow attacks have gone down the left since the 51st minute.\",\"numbers\":[{\"key\":\"value\",\"value\":77,\"unit\":\"%\"},{\"key\":\"since_minute\",\"value\":51,\"unit\":null}]},\"evidence_ids\":[348,349,351,384,385,422,429,430,431,432]}",
+   "rounds": 1,
+   "tool_calls": []
+  },
+  "a87e988644200585ec7eb46b3493a23df8b34735c52e6f2e9554b4506359aa17": {
+   "mode": "handed",
+   "model": "gpt-5-mini",
+   "ms": 16718,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 0.86,
+    "evidence_ids": [
+     99,
+     188,
+     193,
+     225,
+     248,
+     255
+    ],
+    "hedge": "none",
+    "memory": {
+     "aired": [
+      {
+       "fact_id": "f_000009",
+       "metric": "pass_accuracy",
+       "minute": 45,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Northbridge completed 67% of their passes."
+      },
+      {
+       "fact_id": "f_000010",
+       "metric": "pass_accuracy",
+       "minute": 45,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow completed 77% of their passes in the first half."
+      },
+      {
+       "fact_id": "f_000011",
+       "metric": "most_central_player",
+       "minute": 45,
+       "subject": {
+        "id": "NOR_08",
+        "type": "player"
+       },
+       "text": "E. Lindqvist is Northbridge's most central passer, with 11 of 38 linked passes."
+      },
+      {
+       "fact_id": "f_000012",
+       "metric": "most_central_player",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_06",
+        "type": "player"
+       },
+       "text": "W. Abara is Harlow's most central passer, with 18 of 57 linked passes in the first half."
+      },
+      {
+       "fact_id": "f_000013",
+       "metric": "shots",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_09",
+        "type": "player"
+       },
+       "text": "T. Brannock has taken 3 shots."
+      },
+      {
+       "fact_id": "f_000015",
+       "metric": "xg_sum",
+       "minute": 45,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Northbridge generated 0.27 xG in the first half."
+      }
+     ],
+     "last_by_team": {
+      "HAR": "T. Brannock has taken 3 shots.",
+      "NOR": "Northbridge generated 0.27 xG in the first half."
+     }
+    },
+    "minutes": {
+     "window_end": 45,
+     "window_start": 1
+    },
+    "moment": {
+     "half": "first",
+     "k": 6,
+     "kind": "stat",
+     "metric": "xg_sum",
+     "n": 6,
+     "rule": "xg_sum",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 2699.9,
+      "start_t": 0.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "xG",
+      "value": 0.86
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"team\",\n      \"id\": \"HAR\"\n    },\n    \"metric\": \"xg_sum\",\n    \"window\": {\n      \"start_t\": 0,\n      \"end_t\": 2699.9\n    },\n    \"comparator\": \"eq\",\n    \"value\": 0.86\n  },\n  \"text\": {\n    \"canonical_en\": \"Harlow generated 0.86 xG from 6 of 6 attempts since the 1st minute.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 0.86,\n        \"unit\": \"xG\"\n      },\n      {\n        \"key\": \"n\",\n        \"value\": 6,\n        \"unit\": null\n      },\n      {\n        \"key\": \"k\",\n        \"value\": 6,\n        \"unit\": null\n      },\n      {\n        \"key\": \"since_minute\",\n        \"value\": 1,\n        \"unit\": null\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    99,\n    188,\n    193,\n    225,\n    248,\n    255\n  ]\n}",
+   "rounds": 1,
+   "tool_calls": []
+  },
   "a9a3fbea2b3567cac85f2a88dda1ee0f8bfd86294b43aeb22d3970d16175c274": {
    "mode": "explore",
    "model": "gpt-5-mini",
@@ -9041,6 +10293,137 @@
     }
    ]
   },
+  "aa08738f33c8091c5f9d88b2b89002d572611db088fafb7cad8fc4d2b5b2121d": {
+   "mode": "handed",
+   "model": "gpt-5-mini",
+   "ms": 10526,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 0.28,
+    "evidence_ids": [
+     336,
+     337,
+     358,
+     392,
+     400,
+     403,
+     455,
+     489,
+     544,
+     545,
+     560,
+     561,
+     594,
+     597
+    ],
+    "hedge": "none",
+    "memory": {
+     "aired": [
+      {
+       "fact_id": "f_000031",
+       "metric": "most_central_player",
+       "minute": 91,
+       "subject": {
+        "id": "NOR_08",
+        "type": "player"
+       },
+       "text": "E. Lindqvist was the most central player in Northbridge's passing in the second half: involved in 18 of 53 linked passes."
+      },
+      {
+       "fact_id": "f_000032",
+       "metric": "most_central_player",
+       "minute": 91,
+       "subject": {
+        "id": "HAR_08",
+        "type": "player"
+       },
+       "text": "O. Fenwick was the most central player in Harlow's passing in the second half: involved in 10 of 44 linked passes."
+      },
+      {
+       "fact_id": "f_000033",
+       "metric": "shots",
+       "minute": 91,
+       "subject": {
+        "id": "NOR_09",
+        "type": "player"
+       },
+       "text": "C. Nkemelu had 4 shots in the second half."
+      },
+      {
+       "fact_id": "f_000035",
+       "metric": "turnovers_own_third",
+       "minute": 91,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow have had 3 turnovers in their own third since the 81st minute."
+      },
+      {
+       "fact_id": "f_000036",
+       "metric": "xg_sum",
+       "minute": 91,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Northbridge generated 2.11 xG in the second half."
+      },
+      {
+       "fact_id": "f_000037",
+       "metric": "xg_sum",
+       "minute": 91,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow generated 0.22 xG in the second half."
+      }
+     ],
+     "last_by_team": {
+      "HAR": "Harlow generated 0.22 xG in the second half.",
+      "NOR": "Northbridge generated 2.11 xG in the second half."
+     }
+    },
+    "minutes": {
+     "window_end": 91,
+     "window_start": 46
+    },
+    "moment": {
+     "half": "second",
+     "k": 14,
+     "kind": "stat",
+     "metric": "xt_added",
+     "n": 14,
+     "rule": "xt_leader",
+     "subject": {
+      "id": "NOR_08",
+      "type": "player"
+     },
+     "window": {
+      "end_t": 5400.0,
+      "start_t": 2700.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "xT",
+      "value": 0.28
+     }
+    ],
+    "players": {
+     "NOR_08": "E. Lindqvist"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"player\",\n      \"id\": \"NOR_08\"\n    },\n    \"metric\": \"xt_added\",\n    \"window\": {\n      \"start_t\": 2700.0,\n      \"end_t\": 5400.0\n    },\n    \"comparator\": \"eq\",\n    \"value\": 0.28\n  },\n  \"text\": {\n    \"canonical_en\": \"E. Lindqvist has added 0.28 xT in the second half.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 0.28,\n        \"unit\": \"xT\"\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    336,\n    337,\n    358,\n    392,\n    400,\n    403,\n    455,\n    489,\n    544,\n    545,\n    560,\n    561,\n    594,\n    597\n  ]\n}",
+   "rounds": 1,
+   "tool_calls": []
+  },
   "ac2d6848c0c5afbe9a3b25d5d448880f87609b94c469dcd9ef2920455ad033b7": {
    "mode": "explore",
    "model": "gpt-5-mini",
@@ -9129,6 +10512,125 @@
      "output": "{\"evidence_ids\": [50, 56, 61], \"k\": 3, \"n\": 3, \"value\": 3}"
     }
    ]
+  },
+  "ac673c79dcb063b734b3af3297f98c5c461049b4f31323c237053ef893ebacf4": {
+   "mode": "handed",
+   "model": "gpt-5-mini",
+   "ms": 6913,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 0.27,
+    "evidence_ids": [
+     128,
+     166
+    ],
+    "feedback": "Your reply was invalid: numbers keys ['since_minute', 'value'] differ from the input keys ['value']. Reply again following the schema and the rules.",
+    "hedge": "none",
+    "memory": {
+     "aired": [
+      {
+       "fact_id": "f_000008",
+       "metric": "cards",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_05",
+        "type": "player"
+       },
+       "text": "Yellow card for I. Marchetti-Holt of Harlow in the 45th minute."
+      },
+      {
+       "fact_id": "f_000009",
+       "metric": "pass_accuracy",
+       "minute": 45,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Northbridge completed 67% of their passes."
+      },
+      {
+       "fact_id": "f_000010",
+       "metric": "pass_accuracy",
+       "minute": 45,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow completed 77% of their passes in the first half."
+      },
+      {
+       "fact_id": "f_000011",
+       "metric": "most_central_player",
+       "minute": 45,
+       "subject": {
+        "id": "NOR_08",
+        "type": "player"
+       },
+       "text": "E. Lindqvist is Northbridge's most central passer, with 11 of 38 linked passes."
+      },
+      {
+       "fact_id": "f_000012",
+       "metric": "most_central_player",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_06",
+        "type": "player"
+       },
+       "text": "W. Abara is Harlow's most central passer, with 18 of 57 linked passes in the first half."
+      },
+      {
+       "fact_id": "f_000013",
+       "metric": "shots",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_09",
+        "type": "player"
+       },
+       "text": "T. Brannock has taken 3 shots."
+      }
+     ],
+     "last_by_team": {
+      "HAR": "T. Brannock has taken 3 shots.",
+      "NOR": "E. Lindqvist is Northbridge's most central passer, with 11 of 38 linked passes."
+     }
+    },
+    "minutes": {
+     "window_end": 45,
+     "window_start": 1
+    },
+    "moment": {
+     "half": "first",
+     "k": 2,
+     "kind": "stat",
+     "metric": "xg_sum",
+     "n": 2,
+     "rule": "xg_sum",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 2699.9,
+      "start_t": 0.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "xG",
+      "value": 0.27
+     }
+    ],
+    "players": {},
+    "previous_output": "{\"claim\":{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"xg_sum\",\"window\":{\"start_t\":0.0,\"end_t\":2699.9},\"comparator\":\"eq\",\"value\":0.27},\"text\":{\"canonical_en\":\"Northbridge have 0.27 xG since the 1st minute.\",\"numbers\":[{\"key\":\"value\",\"value\":0.27,\"unit\":\"xG\"},{\"key\":\"since_minute\",\"value\":1,\"unit\":null}]},\"evidence_ids\":[128,166]}",
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"team\",\n      \"id\": \"NOR\"\n    },\n    \"metric\": \"xg_sum\",\n    \"window\": {\n      \"start_t\": 0.0,\n      \"end_t\": 2699.9\n    },\n    \"comparator\": \"eq\",\n    \"value\": 0.27\n  },\n  \"text\": {\n    \"canonical_en\": \"Northbridge have 0.27 xG.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 0.27,\n        \"unit\": \"xG\"\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    128,\n    166\n  ]\n}",
+   "rounds": 1,
+   "tool_calls": []
   },
   "ac77eee70948822ddcfb99887b642cce5627e1197acd0e45bc80b0bbb54c437c": {
    "mode": "handed",
@@ -9495,6 +10997,130 @@
     }
    },
    "response_text": "{\"claim\":{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"attack_share_centre\",\"window\":{\"start_t\":2400.0,\"end_t\":3300.0},\"comparator\":\"eq\",\"value\":57},\"text\":{\"canonical_en\":\"The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute.\",\"numbers\":[{\"key\":\"value\",\"value\":57,\"unit\":\"%\"},{\"key\":\"since_minute\",\"value\":41,\"unit\":null}]},\"evidence_ids\":[274,276,306,307,308,312,313,314]}",
+   "rounds": 1,
+   "tool_calls": []
+  },
+  "b484dab0970c1e5b9c8db82d870d43a0581cec8138af22674e401b3851f5541f": {
+   "mode": "handed",
+   "model": "gpt-5-mini",
+   "ms": 11359,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 50,
+    "evidence_ids": [
+     281,
+     320,
+     338,
+     340,
+     341
+    ],
+    "hedge": "suggests",
+    "memory": {
+     "aired": [
+      {
+       "fact_id": "f_000011",
+       "metric": "most_central_player",
+       "minute": 45,
+       "subject": {
+        "id": "NOR_08",
+        "type": "player"
+       },
+       "text": "E. Lindqvist is Northbridge's most central passer, with 11 of 38 linked passes."
+      },
+      {
+       "fact_id": "f_000012",
+       "metric": "most_central_player",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_06",
+        "type": "player"
+       },
+       "text": "W. Abara is Harlow's most central passer, with 18 of 57 linked passes in the first half."
+      },
+      {
+       "fact_id": "f_000013",
+       "metric": "shots",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_09",
+        "type": "player"
+       },
+       "text": "T. Brannock has taken 3 shots."
+      },
+      {
+       "fact_id": "f_000015",
+       "metric": "xg_sum",
+       "minute": 45,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Northbridge generated 0.27 xG in the first half."
+      },
+      {
+       "fact_id": "f_000016",
+       "metric": "xg_sum",
+       "minute": 45,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow generated 0.86 xG in the first half."
+      },
+      {
+       "fact_id": "f_000017",
+       "metric": "xt_added",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_11",
+        "type": "player"
+       },
+       "text": "U. Kerridge added 0.30 xT in the first half."
+      }
+     ],
+     "last_by_team": {
+      "HAR": "U. Kerridge added 0.30 xT in the first half.",
+      "NOR": "Northbridge generated 0.27 xG in the first half."
+     }
+    },
+    "minutes": {
+     "window_end": 56,
+     "window_start": 41
+    },
+    "moment": {
+     "k": 5,
+     "kind": "tactical",
+     "lane": "right",
+     "metric": "attack_share_right",
+     "n": 10,
+     "rule": "overload",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 3300.0,
+      "start_t": 2400.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 50
+     },
+     {
+      "key": "since_minute",
+      "value": 41
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\":{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"attack_share_right\",\"window\":{\"start_t\":2400.0,\"end_t\":3300.0},\"comparator\":\"eq\",\"value\":50},\"text\":{\"canonical_en\":\"The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st minute.\",\"numbers\":[{\"key\":\"value\",\"value\":50,\"unit\":\"%\"},{\"key\":\"since_minute\",\"value\":41,\"unit\":null}]},\"evidence_ids\":[281,320,338,340,341]}",
    "rounds": 1,
    "tool_calls": []
   },
@@ -10055,6 +11681,133 @@
     }
    ]
   },
+  "c88fdf5b800b77b1340acb9616a2ad1d04fef561c50e0aeea8af0aec91b65a90": {
+   "mode": "handed",
+   "model": "gpt-5-mini",
+   "ms": 8816,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 57,
+    "evidence_ids": [
+     274,
+     276,
+     306,
+     307,
+     308,
+     312,
+     313,
+     314
+    ],
+    "hedge": "suggests",
+    "memory": {
+     "aired": [
+      {
+       "fact_id": "f_000012",
+       "metric": "most_central_player",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_06",
+        "type": "player"
+       },
+       "text": "W. Abara is Harlow's most central passer, with 18 of 57 linked passes in the first half."
+      },
+      {
+       "fact_id": "f_000013",
+       "metric": "shots",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_09",
+        "type": "player"
+       },
+       "text": "T. Brannock has taken 3 shots."
+      },
+      {
+       "fact_id": "f_000015",
+       "metric": "xg_sum",
+       "minute": 45,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Northbridge generated 0.27 xG in the first half."
+      },
+      {
+       "fact_id": "f_000016",
+       "metric": "xg_sum",
+       "minute": 45,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow generated 0.86 xG in the first half."
+      },
+      {
+       "fact_id": "f_000017",
+       "metric": "xt_added",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_11",
+        "type": "player"
+       },
+       "text": "U. Kerridge added 0.30 xT in the first half."
+      },
+      {
+       "fact_id": "f_000018",
+       "metric": "attack_share_right",
+       "minute": 56,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st minute."
+      }
+     ],
+     "last_by_team": {
+      "HAR": "U. Kerridge added 0.30 xT in the first half.",
+      "NOR": "The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st minute."
+     }
+    },
+    "minutes": {
+     "window_end": 56,
+     "window_start": 41
+    },
+    "moment": {
+     "k": 8,
+     "kind": "tactical",
+     "lane": "centre",
+     "metric": "attack_share_centre",
+     "n": 14,
+     "rule": "overload",
+     "subject": {
+      "id": "HAR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 3300.0,
+      "start_t": 2400.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 57
+     },
+     {
+      "key": "since_minute",
+      "value": 41
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"team\",\n      \"id\": \"HAR\"\n    },\n    \"metric\": \"attack_share_centre\",\n    \"window\": {\n      \"start_t\": 2400,\n      \"end_t\": 3300\n    },\n    \"comparator\": \"eq\",\n    \"value\": 57\n  },\n  \"text\": {\n    \"canonical_en\": \"The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 57,\n        \"unit\": \"%\"\n      },\n      {\n        \"key\": \"since_minute\",\n        \"value\": 41,\n        \"unit\": null\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    274,\n    276,\n    306,\n    307,\n    308,\n    312,\n    313,\n    314\n  ]\n}",
+   "rounds": 1,
+   "tool_calls": []
+  },
   "ca49a081f99ebe5a17aa7e669ebcbe38ae2899b52d775a4256a8d5b1cc03813a": {
    "mode": "explore",
    "model": "gpt-5-mini",
@@ -10136,6 +11889,123 @@
      "output": "{\"events\": [{\"id\": 1, \"minute\": 1, \"outcome\": \"fail\", \"player_id\": \"NOR_08\", \"t\": 0.5, \"team\": \"NOR\", \"type\": \"carry\"}, {\"id\": 3, \"minute\": 1, \"player_id\": \"NOR_08\", \"t\": 1.5, \"team\": \"NOR\", \"type\": \"possession_change\"}, {\"id\": 4, \"minute\": 1, \"player_id\": \"NOR_10\", \"t\": 11.6, \"team\": \"NOR\", \"type\": \"pressure\"}, {\"id\": 8, \"minute\": 1, \"outcome\": \"success\", \"player_id\": \"NOR_08\", \"t\": 18.2, \"team\": \"NOR\", \"type\": \"pass\"}, {\"id\": 9, \"minute\": 1, \"outcome\": \"success\", \"player_id\": \"NOR_08\", \"t\": 25.8, \"team\": \"NOR\", \"type\": \"pass\"}, {\"id\": 10, \"minute\": 1, \"outcome\": \"success\", \"player_id\": \"NOR_08\", \"t\": 34.2, \"team\": \"NOR\", \"type\": \"pass\"}, {\"id\": 11, \"minute\": 1, \"outcome\": \"success\", \"player_id\": \"NOR_09\", \"t\": 51.8, \"team\": \"NOR\", \"type\": \"carry\"}, {\"id\": 12, \"minute\": 2, \"outcome\": \"success\", \"player_id\": \"NOR_11\", \"t\": 71.7, \"team\": \"NOR\", \"type\": \"pass\"}, {\"id\": 13, \"minute\": 2, \"outcome\": \"success\", \"player_id\": \"NOR_11\", \"t\": 87.7, \"team\": \"NOR\", \"type\": \"carry\"}, {\"id\": 14, \"minute\": 2, \"outcome\": \"fail\", \"player_id\": \"NOR_06\", \"t\": 98.6, \"team\": \"NOR\", \"type\": \"pass\"}, {\"id\": 15, \"minute\": 2, \"player_id\": \"NOR_06\", \"t\": 99.1, \"team\": \"NOR\", \"type\": \"possession_change\"}, {\"id\": 20, \"minute\": 3, \"player_id\": \"NOR_10\", \"t\": 156.1, \"team\": \"NOR\", \"type\": \"pressure\"}, {\"id\": 23, \"minute\": 3, \"outcome\": \"fail\", \"player_id\": \"NOR_04\", \"t\": 176.4, \"team\": \"NOR\", \"type\": \"pass\"}, {\"id\": 24, \"minute\": 3, \"player_id\": \"NOR_04\", \"t\": 176.9, \"team\": \"NOR\", \"type\": \"possession_change\"}, {\"id\": 26, \"minute\": 4, \"player_id\": \"NOR_09\", \"t\": 192.9, \"team\": \"NOR\", \"type\": \"pressure\"}, {\"id\": 31, \"minute\": 5, \"outcome\": \"success\", \"player_id\": \"NOR_04\", \"t\": 240.4, \"team\": \"NOR\", \"type\": \"pass\"}, {\"id\": 32, \"minute\": 5, \"outcome\": \"success\", \"player_id\": \"NOR_05\", \"t\": 247.9, \"team\": \"NOR\", \"type\": \"pass\"}, {\"id\": 33, \"minute\": 5, \"outcome\": \"success\", \"player_id\": \"NOR_08\", \"t\": 263.8, \"team\": \"NOR\", \"type\": \"pass\"}, {\"id\": 34, \"minute\": 5, \"outcome\": \"fail\", \"player_id\": \"NOR_08\", \"t\": 285.4, \"team\": \"NOR\", \"type\": \"pass\"}, {\"id\": 35, \"minute\": 5, \"player_id\": \"NOR_08\", \"t\": 285.9, \"team\": \"NOR\", \"type\": \"possession_change\"}, {\"id\": 45, \"minute\": 7, \"outcome\": \"success\", \"player_id\": \"NOR_06\", \"t\": 405.9, \"team\": \"NOR\", \"type\": \"tackle\"}, {\"id\": 47, \"minute\": 8, \"outcome\": \"success\", \"player_id\": \"NOR_08\", \"t\": 421.3, \"team\": \"NOR\", \"type\": \"carry\"}, {\"id\": 49, \"minute\": 8, \"outcome\": \"fail\", \"player_id\": \"NOR_08\", \"t\": 434.1, \"team\": \"NOR\", \"type\": \"pass\"}, {\"id\": 50, \"minute\": 8, \"player_id\": \"NOR_08\", \"t\": 434.6, \"team\": \"NOR\", \"type\": \"possession_change\"}, {\"id\": 55, \"minute\": 9, \"outcome\": \"fail\", \"player_id\": \"NOR_05\", \"t\": 486.5, \"team\": \"NOR\", \"type\": \"pass\"}, {\"id\": 56, \"minute\": 9, \"player_id\": \"NOR_05\", \"t\": 487.0, \"team\": \"NOR\", \"type\": \"possession_change\"}, {\"id\": 57, \"minute\": 9, \"player_id\": \"NOR_05\", \"t\": 499.9, \"team\": \"NOR\", \"type\": \"pressure\"}, {\"id\": 60, \"minute\": 9, \"outcome\": \"fail\", \"player_id\": \"NOR_03\", \"t\": 509.6, \"team\": \"NOR\", \"type\": \"pass\"}, {\"id\": 61, \"minute\": 9, \"player_id\": \"NOR_03\", \"t\": 510.1, \"team\": \"NOR\", \"type\": \"possession_change\"}, {\"id\": 65, \"minute\": 10, \"outcome\": \"success\", \"player_id\": \"NOR_02\", \"t\": 547.1, \"team\": \"NOR\", \"type\": \"carry\"}, {\"id\": 67, \"minute\": 10, \"outcome\": \"success\", \"player_id\": \"NOR_04\", \"t\": 555.4, \"team\": \"NOR\", \"type\": \"pass\"}, {\"id\": 69, \"minute\": 10, \"outcome\": \"fail\", \"player_id\": \"NOR_06\", \"t\": 576.9, \"team\": \"NOR\", \"type\": \"pass\"}, {\"id\": 70, \"minute\": 10, \"player_id\": \"NOR_06\", \"t\": 577.4, \"team\": \"NOR\", \"type\": \"possession_change\"}, {\"id\": 71, \"minute\": 10, \"player_id\": \"NOR_06\", \"t\": 581.9, \"team\": \"NOR\", \"type\": \"pressure\"}], \"shown\": 34, \"total\": 34}"
     }
    ]
+  },
+  "d0127cc5c807b969c1ce32759a338059816f1ed99e3fd4d23eafd60058240e4d": {
+   "mode": "handed",
+   "model": "gpt-5-mini",
+   "ms": 9511,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 1,
+    "evidence_ids": [
+     383
+    ],
+    "hedge": "none",
+    "memory": {
+     "aired": [
+      {
+       "fact_id": "f_000013",
+       "metric": "shots",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_09",
+        "type": "player"
+       },
+       "text": "T. Brannock has taken 3 shots."
+      },
+      {
+       "fact_id": "f_000015",
+       "metric": "xg_sum",
+       "minute": 45,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Northbridge generated 0.27 xG in the first half."
+      },
+      {
+       "fact_id": "f_000016",
+       "metric": "xg_sum",
+       "minute": 45,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow generated 0.86 xG in the first half."
+      },
+      {
+       "fact_id": "f_000017",
+       "metric": "xt_added",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_11",
+        "type": "player"
+       },
+       "text": "U. Kerridge added 0.30 xT in the first half."
+      },
+      {
+       "fact_id": "f_000018",
+       "metric": "attack_share_right",
+       "minute": 56,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st minute."
+      },
+      {
+       "fact_id": "f_000019",
+       "metric": "attack_share_centre",
+       "minute": 56,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute."
+      }
+     ],
+     "last_by_team": {
+      "HAR": "The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute.",
+      "NOR": "The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st minute."
+     }
+    },
+    "minutes": {
+     "window_end": 58,
+     "window_start": 58
+    },
+    "moment": {
+     "k": 1,
+     "kind": "moment",
+     "metric": "substitutions",
+     "n": 1,
+     "rule": "substitution",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 3445.0,
+      "start_t": 3445.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "minute",
+      "value": 58
+     }
+    ],
+    "players": {
+     "NOR_07": "D. Varga",
+     "NOR_12": "B. Adeyemi-Ross"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"team\",\n      \"id\": \"NOR\"\n    },\n    \"metric\": \"substitutions\",\n    \"window\": {\n      \"start_t\": 3445,\n      \"end_t\": 3445\n    },\n    \"comparator\": \"eq\",\n    \"value\": 1\n  },\n  \"text\": {\n    \"canonical_en\": \"58th minute: Northbridge substituted D. Varga for B. Adeyemi-Ross.\",\n    \"numbers\": [\n      {\n        \"key\": \"minute\",\n        \"value\": 58,\n        \"unit\": null\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    383\n  ]\n}",
+   "rounds": 1,
+   "tool_calls": []
   },
   "d076982016c8c742db1ac7919d9422ebb3438e1830c8d08a7bcf71ab8de3e91a": {
    "mode": "explore",
@@ -11588,6 +13458,277 @@
    "rounds": 1,
    "tool_calls": []
   },
+  "e933a53115c1b70797fcd8034f319ae133c8735adcb9022af0c1c09ed1e76f18": {
+   "mode": "handed",
+   "model": "gpt-5-mini",
+   "ms": 6984,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 71,
+    "evidence_ids": [
+     404,
+     416,
+     462,
+     463,
+     465
+    ],
+    "hedge": "suggests",
+    "memory": {
+     "aired": [
+      {
+       "fact_id": "f_000017",
+       "metric": "xt_added",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_11",
+        "type": "player"
+       },
+       "text": "U. Kerridge added 0.30 xT in the first half."
+      },
+      {
+       "fact_id": "f_000018",
+       "metric": "attack_share_right",
+       "minute": 56,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st minute."
+      },
+      {
+       "fact_id": "f_000019",
+       "metric": "attack_share_centre",
+       "minute": 56,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute."
+      },
+      {
+       "fact_id": "f_000020",
+       "metric": "substitutions",
+       "minute": 58,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Substitution for Northbridge in the 58th minute: B. Adeyemi-Ross on, D. Varga off."
+      },
+      {
+       "fact_id": "f_000021",
+       "metric": "goals",
+       "minute": 63,
+       "subject": {
+        "id": "NOR_09",
+        "type": "player"
+       },
+       "text": "GOAL, Northbridge 1–0 Harlow. C. Nkemelu, 63'."
+      },
+      {
+       "fact_id": "f_000022",
+       "metric": "attack_share_left",
+       "minute": 66,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "The numbers suggest 77% of Harlow attacks have gone down the left since the 51st minute."
+      }
+     ],
+     "last_by_team": {
+      "HAR": "The numbers suggest 77% of Harlow attacks have gone down the left since the 51st minute.",
+      "NOR": "GOAL, Northbridge 1–0 Harlow. C. Nkemelu, 63'."
+     }
+    },
+    "minutes": {
+     "window_end": 71,
+     "window_start": 58
+    },
+    "moment": {
+     "k": 5,
+     "kind": "tactical",
+     "lane": "left",
+     "metric": "attack_share_left",
+     "n": 7,
+     "rule": "overload",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 4200.0,
+      "start_t": 3445.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "%",
+      "value": 71
+     },
+     {
+      "key": "since_minute",
+      "value": 58
+     }
+    ],
+    "players": {},
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"claim\":{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"attack_share_left\",\"window\":{\"start_t\":3445.0,\"end_t\":4200.0},\"comparator\":\"eq\",\"value\":71},\"text\":{\"canonical_en\":\"The numbers suggest 71% of Northbridge attacks have gone down the left since the 58th minute.\",\"numbers\":[{\"key\":\"value\",\"value\":71,\"unit\":\"%\"},{\"key\":\"since_minute\",\"value\":58,\"unit\":null}]},\"evidence_ids\":[404,416,462,463,465]}",
+   "rounds": 1,
+   "tool_calls": []
+  },
+  "e9bab1765e76d8c4439896a808da3f4dd8b0df40b5fe9252d41dd6c9ab1a2fd3": {
+   "mode": "handed",
+   "model": "gpt-5-mini",
+   "ms": 10410,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 109,
+    "evidence_ids": [
+     225
+    ],
+    "feedback": "Your claim failed the verifier. meaning_matches: meaning: subject player HAR_07, claim match match. Revise using only the input.",
+    "hedge": "none",
+    "memory": {
+     "aired": [
+      {
+       "fact_id": "f_000008",
+       "metric": "cards",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_05",
+        "type": "player"
+       },
+       "text": "Yellow card for I. Marchetti-Holt of Harlow in the 45th minute."
+      },
+      {
+       "fact_id": "f_000009",
+       "metric": "pass_accuracy",
+       "minute": 45,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Northbridge completed 67% of their passes."
+      },
+      {
+       "fact_id": "f_000010",
+       "metric": "pass_accuracy",
+       "minute": 45,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow completed 77% of their passes in the first half."
+      },
+      {
+       "fact_id": "f_000011",
+       "metric": "most_central_player",
+       "minute": 45,
+       "subject": {
+        "id": "NOR_08",
+        "type": "player"
+       },
+       "text": "E. Lindqvist is Northbridge's most central passer, with 11 of 38 linked passes."
+      },
+      {
+       "fact_id": "f_000012",
+       "metric": "most_central_player",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_06",
+        "type": "player"
+       },
+       "text": "W. Abara is Harlow's most central passer, with 18 of 57 linked passes in the first half."
+      },
+      {
+       "fact_id": "f_000013",
+       "metric": "shots",
+       "minute": 45,
+       "subject": {
+        "id": "HAR_09",
+        "type": "player"
+       },
+       "text": "T. Brannock has taken 3 shots."
+      }
+     ],
+     "last_by_team": {
+      "HAR": "T. Brannock has taken 3 shots.",
+      "NOR": "E. Lindqvist is Northbridge's most central passer, with 11 of 38 linked passes."
+     }
+    },
+    "minutes": {
+     "window_end": 45,
+     "window_start": 1
+    },
+    "moment": {
+     "half": "first",
+     "k": 1,
+     "kind": "milestone",
+     "metric": "top_shot_speed",
+     "n": 8,
+     "rule": "top_speed",
+     "subject": {
+      "id": "match",
+      "type": "match"
+     },
+     "window": {
+      "end_t": 2699.9,
+      "start_t": 0.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "km/h",
+      "value": 109
+     }
+    ],
+    "players": {
+     "HAR_07": "Y. Castell"
+    },
+    "previous_output": {
+     "claim": {
+      "comparator": "eq",
+      "metric": "top_shot_speed",
+      "subject": {
+       "id": "match",
+       "type": "match"
+      },
+      "value": 109.0,
+      "window": {
+       "end_t": 2699.9,
+       "start_t": 0.0
+      }
+     },
+     "evidence_ids": [
+      225
+     ],
+     "text": {
+      "canonical_en": "Y. Castell produced the match's fastest shot, at 109 km/h.",
+      "numbers": [
+       {
+        "key": "value",
+        "unit": "km/h",
+        "value": 109.0
+       }
+      ]
+     }
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"match\",\n      \"id\": \"match\"\n    },\n    \"metric\": \"top_shot_speed\",\n    \"window\": {\n      \"start_t\": 0.0,\n      \"end_t\": 2699.9\n    },\n    \"comparator\": \"eq\",\n    \"value\": 109\n  },\n  \"text\": {\n    \"canonical_en\": \"The match's fastest shot was 109 km/h.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 109,\n        \"unit\": \"km/h\"\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    225\n  ]\n}",
+   "rounds": 1,
+   "tool_calls": []
+  },
   "ebab63d173cc1f6e9ccbaf0ade7596ee5c44f18c61858a5620657c175f7a5867": {
    "mode": "handed",
    "model": "gpt-5-mini",
@@ -11703,6 +13844,131 @@
     }
    },
    "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"match\",\n      \"id\": \"match\"\n    },\n    \"metric\": \"top_shot_speed\",\n    \"window\": {\n      \"start_t\": 0,\n      \"end_t\": 2699.9\n    },\n    \"comparator\": \"eq\",\n    \"value\": 109\n  },\n  \"text\": {\n    \"canonical_en\": \"Y. Castell produced the match's fastest shot, at 109 km/h.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 109,\n        \"unit\": \"km/h\"\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    225\n  ]\n}",
+   "rounds": 1,
+   "tool_calls": []
+  },
+  "ee19d4059792bda79dbaa79426805ffb6c3da057fb8c7572efe2080d4cc1e22b": {
+   "mode": "handed",
+   "model": "gpt-5-mini",
+   "ms": 8305,
+   "path": "foundry_agent",
+   "request": {
+    "claim_value": 2.11,
+    "evidence_ids": [
+     341,
+     366,
+     370,
+     418,
+     490,
+     510,
+     562,
+     581
+    ],
+    "feedback": "Your reply was invalid: numbers keys ['k', 'since_minute', 'value'] differ from the input keys ['value']. Reply again following the schema and the rules.",
+    "hedge": "none",
+    "memory": {
+     "aired": [
+      {
+       "fact_id": "f_000029",
+       "metric": "pass_accuracy",
+       "minute": 91,
+       "subject": {
+        "id": "NOR",
+        "type": "team"
+       },
+       "text": "Northbridge completed 81% of their passes in the second half."
+      },
+      {
+       "fact_id": "f_000030",
+       "metric": "pass_accuracy",
+       "minute": 91,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow completed 70% of their passes in the second half."
+      },
+      {
+       "fact_id": "f_000031",
+       "metric": "most_central_player",
+       "minute": 91,
+       "subject": {
+        "id": "NOR_08",
+        "type": "player"
+       },
+       "text": "E. Lindqvist was the most central player in Northbridge's passing in the second half: involved in 18 of 53 linked passes."
+      },
+      {
+       "fact_id": "f_000032",
+       "metric": "most_central_player",
+       "minute": 91,
+       "subject": {
+        "id": "HAR_08",
+        "type": "player"
+       },
+       "text": "O. Fenwick was the most central player in Harlow's passing in the second half: involved in 10 of 44 linked passes."
+      },
+      {
+       "fact_id": "f_000033",
+       "metric": "shots",
+       "minute": 91,
+       "subject": {
+        "id": "NOR_09",
+        "type": "player"
+       },
+       "text": "C. Nkemelu had 4 shots in the second half."
+      },
+      {
+       "fact_id": "f_000035",
+       "metric": "turnovers_own_third",
+       "minute": 91,
+       "subject": {
+        "id": "HAR",
+        "type": "team"
+       },
+       "text": "Harlow have had 3 turnovers in their own third since the 81st minute."
+      }
+     ],
+     "last_by_team": {
+      "HAR": "Harlow have had 3 turnovers in their own third since the 81st minute.",
+      "NOR": "C. Nkemelu had 4 shots in the second half."
+     }
+    },
+    "minutes": {
+     "window_end": 91,
+     "window_start": 46
+    },
+    "moment": {
+     "half": "second",
+     "k": 8,
+     "kind": "stat",
+     "metric": "xg_sum",
+     "n": 8,
+     "rule": "xg_sum",
+     "subject": {
+      "id": "NOR",
+      "type": "team"
+     },
+     "window": {
+      "end_t": 5400.0,
+      "start_t": 2700.0
+     }
+    },
+    "numbers": [
+     {
+      "key": "value",
+      "unit": "xG",
+      "value": 2.11
+     }
+    ],
+    "players": {},
+    "previous_output": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"team\",\n      \"id\": \"NOR\"\n    },\n    \"metric\": \"xg_sum\",\n    \"window\": {\n      \"start_t\": 2700.0,\n      \"end_t\": 5400.0\n    },\n    \"comparator\": \"eq\",\n    \"value\": 2.11\n  },\n  \"text\": {\n    \"canonical_en\": \"Northbridge generated 2.11 xG from 8 shots since the 46th minute.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 2.11,\n        \"unit\": \"xG\"\n      },\n      {\n        \"key\": \"k\",\n        \"value\": 8,\n        \"unit\": null\n      },\n      {\n        \"key\": \"since_minute\",\n        \"value\": 46,\n        \"unit\": \"46th\"\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    341,\n    366,\n    370,\n    418,\n    490,\n    510,\n    562,\n    581\n  ]\n}",
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\n  \"claim\": {\n    \"subject\": {\n      \"type\": \"team\",\n      \"id\": \"NOR\"\n    },\n    \"metric\": \"xg_sum\",\n    \"window\": {\n      \"start_t\": 2700,\n      \"end_t\": 5400\n    },\n    \"comparator\": \"eq\",\n    \"value\": 2.11\n  },\n  \"text\": {\n    \"canonical_en\": \"Northbridge generated 2.11 xG in the second half.\",\n    \"numbers\": [\n      {\n        \"key\": \"value\",\n        \"value\": 2.11,\n        \"unit\": \"xG\"\n      }\n    ]\n  },\n  \"evidence_ids\": [\n    341,\n    366,\n    370,\n    418,\n    490,\n    510,\n    562,\n    581\n  ]\n}",
    "rounds": 1,
    "tool_calls": []
   },

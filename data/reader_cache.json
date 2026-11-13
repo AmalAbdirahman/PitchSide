@@ -1,0 +1,3785 @@
+{
+ "entries": {
+  "022b261c0dffefd864a0e86d000bb5371138e857de861b1370b0140852b35150": {
+   "model": "gpt-5-mini",
+   "ms": 3102,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Harlow completed 77% of their passes in the first half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"pass_accuracy\",\"window\":{\"kind\":\"first_half\",\"minute\":null},\"value\":77}"
+  },
+  "02511d8bab9c172d89ca95bc4ef1857326cef270484fa4d51721822b3d46d8c1": {
+   "model": "gpt-5-mini",
+   "ms": 3339,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "T. Brannock has taken 3 shots."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"HAR_09\"},\"metric\":\"shots\",\"window\":{\"kind\":\"unstated\",\"minute\":null},\"value\":3}"
+  },
+  "02d01c565c45934c75d0a68d67671c90855def93ac9deb7a36bbc30f62383c59": {
+   "model": "gpt-5-mini",
+   "ms": 3624,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "C. Nkemelu scored 4 goals in the second half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"NOR_09\"},\"metric\":\"goals\",\"window\":{\"kind\":\"second_half\",\"minute\":null},\"value\":4}"
+  },
+  "0371639475341240513b008316b0b304c5bc1bffc1e3c80bcee2e8b0f5f7729b": {
+   "model": "gpt-5-mini",
+   "ms": 3785,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Northbridge have 0.27 xG."
+   },
+   "response_text": "{\n  \"subject\": {\n    \"type\": \"team\",\n    \"id\": \"NOR\"\n  },\n  \"metric\": \"xg_sum\",\n  \"window\": {\n    \"kind\": \"unstated\",\n    \"minute\": null\n  },\n  \"value\": 0.27\n}"
+  },
+  "06e17b63c4696df48622538301ab1ac1e9b8152ada5aaa7e14c8547ee7345f15": {
+   "model": "gpt-5-mini",
+   "ms": 3325,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Harlow completed 70% of their passes in the second half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"pass_accuracy\",\"window\":{\"kind\":\"second_half\",\"minute\":null},\"value\":70}"
+  },
+  "0e697f08a2be394d089e7ccd9296fd0ec18c352ec9a075d098eaec72379237c9": {
+   "model": "gpt-5-mini",
+   "ms": 3047,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Harlow have taken 3 shots."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"shots\",\"window\":{\"kind\":\"unstated\",\"minute\":null},\"value\":3}"
+  },
+  "110bfb74a87c8cc0bff39082cfeea375df50db18c3cd8770c8bf916d8954c358": {
+   "model": "gpt-5-mini",
+   "ms": 2777,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Northbridge allowed 2.11 xG in the second half."
+   },
+   "response_text": "{\n  \"subject\": {\n    \"type\": \"team\",\n    \"id\": \"NOR\"\n  },\n  \"metric\": \"xg_sum\",\n  \"window\": {\n    \"kind\": \"second_half\",\n    \"minute\": null\n  },\n  \"value\": 2.11\n}"
+  },
+  "1937292a9816874304a58e1172b96a2d1f4bc06317479811842529b23b9a626c": {
+   "model": "gpt-5-mini",
+   "ms": 3056,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Y. Castell produced Harlow's fastest shot, at 109 km/h."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"HAR_07\"},\"metric\":\"top_shot_speed\",\"window\":{\"kind\":\"unstated\",\"minute\":null},\"value\":109}"
+  },
+  "1a974c8c1532b5df5734b0a7847c95a4bf7eb5eae54fd7d0b69519f78baab56f": {
+   "model": "gpt-5-mini",
+   "ms": 2732,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Harlow had 0.22 xG in the second half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"xg_sum\",\"window\":{\"kind\":\"second_half\",\"minute\":null},\"value\":0.22}"
+  },
+  "1c1228115c62a28b6efd1d4cdb9f20d7e70bdd42242cfec80532b9fae29f126a": {
+   "model": "gpt-5-mini",
+   "ms": 3642,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Harlow generated 0.86 xG in the first half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"xg_sum\",\"window\":{\"kind\":\"first_half\",\"minute\":null},\"value\":0.86}"
+  },
+  "222c5e170731e3fb050fe392cb61f6b9e70bffe199c14c6bdc2590bc4c8d6569": {
+   "model": "gpt-5-mini",
+   "ms": 4760,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Harlow have lost the ball 3 times in Northbridge's third since the 81st minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":null,\"window\":{\"kind\":\"since_minute\",\"minute\":81},\"value\":3}"
+  },
+  "24ba863883b651ceb83936dd810a40b8fbdf2f53091a591eac8c167b867c705d": {
+   "model": "gpt-5-mini",
+   "ms": 3067,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 83% of Harlow attacks down the right have ended in a shot since the 71st minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":null,\"window\":{\"kind\":\"since_minute\",\"minute\":71},\"value\":83}"
+  },
+  "26be89f53eca010a0015339bcc4693c469115b703fedd4b60c40426813d13d09": {
+   "model": "gpt-5-mini",
+   "ms": 3761,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Northbridge built up 2.11 expected goals after the break."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"xg_sum\",\"window\":{\"kind\":\"second_half\",\"minute\":null},\"value\":2.11}"
+  },
+  "2df7f7001f3fa91338899b59a5cfe2e2508e29e81ade68978c8bf85dcf0a2801": {
+   "model": "gpt-5-mini",
+   "ms": 4047,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "In the first half Harlow found a teammate with 77% of their passes."
+   },
+   "response_text": "{\n  \"subject\": {\n    \"type\": \"team\",\n    \"id\": \"HAR\"\n  },\n  \"metric\": \"pass_accuracy\",\n  \"window\": {\n    \"kind\": \"first_half\",\n    \"minute\": null\n  },\n  \"value\": 77\n}"
+  },
+  "32ad813b9e23404d6b56e92b7cac1cca1209fb32f523bac2c2d4d9754831dd7d": {
+   "model": "gpt-5-mini",
+   "ms": 5354,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "W. Abara is the match's most central passer, with 18 of 57 linked passes in the first half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"HAR_06\"},\"metric\":\"most_central_player\",\"window\":{\"kind\":\"first_half\",\"minute\":null},\"value\":1}"
+  },
+  "32ede0dd567f99d707263d5390b5bb7cdee0ce52b7439893ee158829527550d9": {
+   "model": "gpt-5-mini",
+   "ms": 4551,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 77% of the attacks down the left since the 51st minute have been Harlow's."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":null,\"window\":{\"kind\":\"since_minute\",\"minute\":51},\"value\":77}"
+  },
+  "3309cf4c1764471a7103488dc81d0d04a784f02c6395dab06d8358b390f63842": {
+   "model": "gpt-5-mini",
+   "ms": 4055,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "O. Fenwick was the most central player in Harlow's passing in the first half: involved in 10 of 44 linked passes."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"HAR_08\"},\"metric\":\"most_central_player\",\"window\":{\"kind\":\"first_half\",\"minute\":null},\"value\":1}"
+  },
+  "3567ce3c810f569e29604d498f11684dd4a843a917150e12dec0a0b48e345157": {
+   "model": "gpt-5-mini",
+   "ms": 2842,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "U. Kerridge has added 0.30 xT in the first half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"HAR_11\"},\"metric\":\"xt_added\",\"window\":{\"kind\":\"first_half\",\"minute\":null},\"value\":0.3}"
+  },
+  "3b3bd74107b91440dc4d6ae058a4dc0f2e29587eecc3e010b9244b3020bbb087": {
+   "model": "gpt-5-mini",
+   "ms": 2390,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "E. Lindqvist added 0.28 xG in the second half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"NOR_08\"},\"metric\":\"xg_sum\",\"window\":{\"kind\":\"second_half\",\"minute\":null},\"value\":0.28}"
+  },
+  "3f6ea5fee9c91c42d3f4930072be2fbdf19ffe4889dcc6aa3db27608e0b63714": {
+   "model": "gpt-5-mini",
+   "ms": 3879,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The fastest shot in the second half was 109 km/h."
+   },
+   "response_text": "{\"subject\":{\"type\":\"match\",\"id\":\"match\"},\"metric\":\"top_shot_speed\",\"window\":{\"kind\":\"second_half\",\"minute\":null},\"value\":109}"
+  },
+  "427828704355d6324182d6464e0d8f0a7d843ba72e82184ca9dccd276b269817": {
+   "model": "gpt-5-mini",
+   "ms": 3680,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Northbridge conceded 0.27 xG in the first half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"xg_sum\",\"window\":{\"kind\":\"first_half\",\"minute\":null},\"value\":0.27}"
+  },
+  "4863557aeed549540b797eecdfcdf78d98f1ca060b132fb40b35c4b3ffd3816b": {
+   "model": "gpt-5-mini",
+   "ms": 4085,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "O. Fenwick was the most central player in Harlow's passing in the second half: involved in 10 of 44 linked passes."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"HAR_08\"},\"metric\":\"most_central_player\",\"window\":{\"kind\":\"second_half\",\"minute\":null},\"value\":1}"
+  },
+  "48a03201fceb0b1b11a82005d61672606075dbbcf1353e158b38eddea468cb19": {
+   "model": "gpt-5-mini",
+   "ms": 3422,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 83% of Harlow attacks have gone down the right since the 71st minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"attack_share_right\",\"window\":{\"kind\":\"since_minute\",\"minute\":71},\"value\":83}"
+  },
+  "49a4f844d14cd5d43719b00782db344543f0ea63c4abf0ee613308876c634700": {
+   "model": "gpt-5-mini",
+   "ms": 2537,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Northbridge have had 3 turnovers in their own third since the 26th minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"turnovers_own_third\",\"window\":{\"kind\":\"since_minute\",\"minute\":26},\"value\":3}"
+  },
+  "4ad501511d7cc04ef47b8de933b879a92204190d3de562eb5a200620d62c4b50": {
+   "model": "gpt-5-mini",
+   "ms": 2215,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 71% of Northbridge attacks have gone down the right since the 58th minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"attack_share_right\",\"window\":{\"kind\":\"since_minute\",\"minute\":58},\"value\":71}"
+  },
+  "4b61be0117790c006b0a5af9f2ceb7457329af7ba8ae314d8248c567265f170e": {
+   "model": "gpt-5-mini",
+   "ms": 8735,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "No Harlow player linked more of the first-half passing than W. Abara: 18 of 57 linked passes."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"HAR_06\"},\"metric\":null,\"window\":{\"kind\":\"first_half\",\"minute\":null},\"value\":32}"
+  },
+  "4d9f13bf6d7cfb35b71033a70408f7b85ddfe636ed9fbc9ffa85e6a910b8a20e": {
+   "model": "gpt-5-mini",
+   "ms": 2676,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "E. Lindqvist has added 0.28 xT in the second half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"NOR_08\"},\"metric\":\"xt_added\",\"window\":{\"kind\":\"second_half\",\"minute\":null},\"value\":0.28}"
+  },
+  "4efe722f216b7d8fffefaba30f3da4c3768577dfd0b8def105cc5d8f52455260": {
+   "model": "gpt-5-mini",
+   "ms": 3737,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Northbridge misplaced 67% of their passes."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":null,\"window\":{\"kind\":\"unstated\",\"minute\":null},\"value\":67}"
+  },
+  "59ec352266497ed6dcffc1448c3921f220b38a2576d9e15cb9b27a1198fa805c": {
+   "model": "gpt-5-mini",
+   "ms": 4566,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "E. Lindqvist is Northbridge's most central passer, with 11 of 38 linked passes."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"NOR_08\"},\"metric\":\"most_central_player\",\"window\":{\"kind\":\"unstated\",\"minute\":null},\"value\":1}"
+  },
+  "5a9eaf7287925f6515a161443c4ee80daacd77ee27bc4f8ddf573afadacf0c24": {
+   "model": "gpt-5-mini",
+   "ms": 2579,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 69% of Northbridge attacks have gone down the left since the 11th minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"attack_share_left\",\"window\":{\"kind\":\"since_minute\",\"minute\":11},\"value\":69}"
+  },
+  "60100eae0f4215e46da8e7f61083019e0186d30adcf49d536011a9dce13aa0a9": {
+   "model": "gpt-5-mini",
+   "ms": 5805,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "U. Kerridge added 0.30 xT in the first half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"HAR_11\"},\"metric\":\"xt_added\",\"window\":{\"kind\":\"first_half\",\"minute\":null},\"value\":0.30}"
+  },
+  "6088f7b934459f16ffb0dca4d970540e6720b62ba7c4a8425d5b0f6366cd782f": {
+   "model": "gpt-5-mini",
+   "ms": 3778,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Harlow had 0.22 xG in the first half."
+   },
+   "response_text": "{\n  \"subject\": {\n    \"type\": \"team\",\n    \"id\": \"HAR\"\n  },\n  \"metric\": \"xg_sum\",\n  \"window\": {\n    \"kind\": \"first_half\",\n    \"minute\": null\n  },\n  \"value\": 0.22\n}"
+  },
+  "63f58750f439d0ef52b9b650b7379e682c15a7aee0c1161c5ce484d27e01bcad": {
+   "model": "gpt-5-mini",
+   "ms": 2577,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 77% of Harlow attacks have gone down the left since the 51st minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"attack_share_left\",\"window\":{\"kind\":\"since_minute\",\"minute\":51},\"value\":77}"
+  },
+  "65e3df10be4f0677fbf0f2207b33ba44f821a9ebcd39d911a2c4b867e3059a91": {
+   "model": "gpt-5-mini",
+   "ms": 3075,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"attack_share_right\",\"window\":{\"kind\":\"since_minute\",\"minute\":41},\"value\":50}"
+  },
+  "6d5a6021b7e0cb30d64d5364efa61b4a2db09880dfe319c9b3fae5212c02c1de": {
+   "model": "gpt-5-mini",
+   "ms": 2561,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 69% of Northbridge attacks have gone down the centre since the 11th minute."
+   },
+   "response_text": "{\n  \"subject\": {\n    \"type\": \"team\",\n    \"id\": \"NOR\"\n  },\n  \"metric\": \"attack_share_centre\",\n  \"window\": {\n    \"kind\": \"since_minute\",\n    \"minute\": 11\n  },\n  \"value\": 69\n}"
+  },
+  "6ed74e78783eebecec42caec7941ddf7dace9e096e4e9571132c8510d4141939": {
+   "model": "gpt-5-mini",
+   "ms": 2628,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Northbridge had 2.11 xG in the second half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"xg_sum\",\"window\":{\"kind\":\"second_half\",\"minute\":null},\"value\":2.11}"
+  },
+  "6f6bbc63f7a1f953271a632fd7bce9c87b89136fef1219c1347fb148609a752f": {
+   "model": "gpt-5-mini",
+   "ms": 4701,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "E. Lindqvist was Harlow's most central passer in the second half, with 18 of 53 linked passes."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"NOR_08\"},\"metric\":\"most_central_player\",\"window\":{\"kind\":\"second_half\",\"minute\":null},\"value\":1}"
+  },
+  "786f11146371bef8d5161b7f7272eb04cc22e09d80e41b055e4634aa14152596": {
+   "model": "gpt-5-mini",
+   "ms": 3159,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Northbridge have completed 81% of their passes."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"pass_accuracy\",\"window\":{\"kind\":\"unstated\",\"minute\":null},\"value\":81}"
+  },
+  "7a625a899d5080597e80a26ebede149836870e4531af57fb02559bff287f0080": {
+   "model": "gpt-5-mini",
+   "ms": 3768,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Harlow have had 3 turnovers in their own third since the 81st minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"turnovers_own_third\",\"window\":{\"kind\":\"since_minute\",\"minute\":81},\"value\":3}"
+  },
+  "7f5344fb45f13632eaf78638a68319fa3d42afdedf675d3ab631cca989acd10c": {
+   "model": "gpt-5-mini",
+   "ms": 4419,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "D. Varga hit the slowest shot of the second half, at 109 km/h."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"NOR_07\"},\"metric\":null,\"window\":{\"kind\":\"second_half\",\"minute\":null},\"value\":109}"
+  },
+  "8104f62d7f585d71186608e686e5f82927e5cd010491a21e1a0e16d5f969c57b": {
+   "model": "gpt-5-mini",
+   "ms": 3968,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 72% of Harlow attacks have gone down the left since the 26th minute."
+   },
+   "response_text": "{\n  \"subject\": {\n    \"type\": \"team\",\n    \"id\": \"HAR\"\n  },\n  \"metric\": \"attack_share_left\",\n  \"window\": {\n    \"kind\": \"since_minute\",\n    \"minute\": 26\n  },\n  \"value\": 72\n}"
+  },
+  "818bedac84dec75688dcf55458e711caf53f072b7179ca3d96cfb7d2ffe75c8c": {
+   "model": "gpt-5-mini",
+   "ms": 3123,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Northbridge had 0.27 xG in the first half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"xg_sum\",\"window\":{\"kind\":\"first_half\",\"minute\":null},\"value\":0.27}"
+  },
+  "81f6affbfcf72143c7faa30bbbd13ae520e1bd28048db05e41b9f7a1169b7ecf": {
+   "model": "gpt-5-mini",
+   "ms": 3088,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Northbridge completed 67% of their passes."
+   },
+   "response_text": "{\n  \"subject\": {\n    \"type\": \"team\",\n    \"id\": \"NOR\"\n  },\n  \"metric\": \"pass_accuracy\",\n  \"window\": {\n    \"kind\": \"unstated\",\n    \"minute\": null\n  },\n  \"value\": 67\n}"
+  },
+  "84d38ba1655c10205a0c17437a9ec56defba08288915434ad3846c154f7b88bb": {
+   "model": "gpt-5-mini",
+   "ms": 4697,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 71% of Northbridge attacks have gone down the right since the 1st minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"attack_share_right\",\"window\":{\"kind\":\"since_minute\",\"minute\":1},\"value\":71}"
+  },
+  "85e427b9d3f25b57d6d7b3e629a70f74f7773844a3736c96a355565f9eb45f7f": {
+   "model": "gpt-5-mini",
+   "ms": 3540,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "W. Abara is Harlow's most central passer, with 18 of 57 linked passes in the first half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"HAR_06\"},\"metric\":\"most_central_player\",\"window\":{\"kind\":\"first_half\",\"minute\":null},\"value\":1}"
+  },
+  "87faca1b3c5bcb145d4b37f6ec65fc49e569527ace88eb89867369262d03bee2": {
+   "model": "gpt-5-mini",
+   "ms": 2649,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Harlow have 7 turnovers in their own third since the 71st minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"turnovers_own_third\",\"window\":{\"kind\":\"since_minute\",\"minute\":71},\"value\":7}"
+  },
+  "8e4c0e7c679d38a723a3107ce333cd1971dda84b1fa2b93f3b531170eb48769f": {
+   "model": "gpt-5-mini",
+   "ms": 2512,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Harlow completed 77% of their passes in the second half."
+   },
+   "response_text": "{\n  \"subject\": {\n    \"type\": \"team\",\n    \"id\": \"HAR\"\n  },\n  \"metric\": \"pass_accuracy\",\n  \"window\": {\n    \"kind\": \"second_half\",\n    \"minute\": null\n  },\n  \"value\": 77\n}"
+  },
+  "910c1e212dfd1090e930f70651150f0d2bac1985d8e8444a743cefb022782b87": {
+   "model": "gpt-5-mini",
+   "ms": 3484,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 51% of Northbridge attacks have broken down on the left since the 58th minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"attack_share_left\",\"window\":{\"kind\":\"since_minute\",\"minute\":58},\"value\":51}"
+  },
+  "939e772428fb7d3959a8f250e123626009e2c268aa2bcbe91e8e28b8c21a82b3": {
+   "model": "gpt-5-mini",
+   "ms": 4566,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Harlow generated 0.22 xG in the second half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"xg_sum\",\"window\":{\"kind\":\"second_half\",\"minute\":null},\"value\":0.22}"
+  },
+  "94de2e26c388c2c8cb4172e9a06a2a75102a57b43f3e27eeb80a431211ef4957": {
+   "model": "gpt-5-mini",
+   "ms": 3757,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "U. Kerridge has added 0.30 xG in the first half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"HAR_11\"},\"metric\":\"xg_sum\",\"window\":{\"kind\":\"first_half\",\"minute\":null},\"value\":0.3}"
+  },
+  "951b36c9320f647220f474465a18140ebaeadd1d3b34382b139968b164197350": {
+   "model": "gpt-5-mini",
+   "ms": 2458,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 51% of Northbridge attacks have gone down the left since the 58th minute."
+   },
+   "response_text": "{\n  \"subject\": {\n    \"type\": \"team\",\n    \"id\": \"NOR\"\n  },\n  \"metric\": \"attack_share_left\",\n  \"window\": {\n    \"kind\": \"since_minute\",\n    \"minute\": 58\n  },\n  \"value\": 51\n}"
+  },
+  "9634366d58c71ff38d8e91e816a98fcc2b9eb567ad8017654160b1c1f18756fd": {
+   "model": "gpt-5-mini",
+   "ms": 2541,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Northbridge have had 3 turnovers in their own third since the 1st minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"turnovers_own_third\",\"window\":{\"kind\":\"since_minute\",\"minute\":1},\"value\":3}"
+  },
+  "97781be18e0a51bd30fc272ca8172d4d7a1de8d4e93672813aece531912d27ee": {
+   "model": "gpt-5-mini",
+   "ms": 3343,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Harlow had 0.86 xG."
+   },
+   "response_text": "{\n  \"subject\": {\n    \"type\": \"team\",\n    \"id\": \"HAR\"\n  },\n  \"metric\": \"xg_sum\",\n  \"window\": {\n    \"kind\": \"unstated\",\n    \"minute\": null\n  },\n  \"value\": 0.86\n}"
+  },
+  "985e53c9993ec7fb50957ed85387b4172db1f8bdba2a0cb926cd6a969b9cd831": {
+   "model": "gpt-5-mini",
+   "ms": 5128,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 50% of Northbridge shots have come from the centre since the 76th minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":null,\"window\":{\"kind\":\"since_minute\",\"minute\":76},\"value\":50}"
+  },
+  "99e8e30fcd079418fb640f79caf0dfd3eec4b11a84be60291f989ee1a053ec58": {
+   "model": "gpt-5-mini",
+   "ms": 3354,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 50% of Harlow attacks have gone down the centre since the 6th minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"attack_share_centre\",\"window\":{\"kind\":\"since_minute\",\"minute\":6},\"value\":50}"
+  },
+  "9b4d44ad34a86381b767e5a980843b05806c67a45debb13c7cf27cc67c5684fd": {
+   "model": "gpt-5-mini",
+   "ms": 2675,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 72% of Harlow attacks have gone down the right since the 26th minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"attack_share_right\",\"window\":{\"kind\":\"since_minute\",\"minute\":26},\"value\":72}"
+  },
+  "9cc6236a61d120e1043b204a79516c836a654337a15280547ea2fcdcea88d8f9": {
+   "model": "gpt-5-mini",
+   "ms": 3271,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"attack_share_centre\",\"window\":{\"kind\":\"since_minute\",\"minute\":41},\"value\":57}"
+  },
+  "a3a6ebb1ce3b3b32d6b5678a9158041155eaafda8b417c8a25e1fe2f16570a6e": {
+   "model": "gpt-5-mini",
+   "ms": 3213,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest Harlow have sent 77% of their attacks down the left flank since the 51st minute."
+   },
+   "response_text": "{\n  \"subject\": {\n    \"type\": \"team\",\n    \"id\": \"HAR\"\n  },\n  \"metric\": \"attack_share_left\",\n  \"window\": {\n    \"kind\": \"since_minute\",\n    \"minute\": 51\n  },\n  \"value\": 77\n}"
+  },
+  "a53f8fcd9fddf0a64d100af8565b65be60c1f01f5c7e6e11872f258801d73213": {
+   "model": "gpt-5-mini",
+   "ms": 3208,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 56% of Harlow attacks have gone down the left since the 11th minute."
+   },
+   "response_text": "{\n  \"subject\": {\n    \"type\": \"team\",\n    \"id\": \"HAR\"\n  },\n  \"metric\": \"attack_share_left\",\n  \"window\": {\n    \"kind\": \"since_minute\",\n    \"minute\": 11\n  },\n  \"value\": 56\n}"
+  },
+  "a5f0b53bb3edd89c45e7f9b2ae1cb7b54f7010640d2b22c40c718e2995a67815": {
+   "model": "gpt-5-mini",
+   "ms": 2491,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Since the 11th minute, the numbers suggest 69% of Northbridge's attacks have come through the middle."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"attack_share_centre\",\"window\":{\"kind\":\"since_minute\",\"minute\":11},\"value\":69}"
+  },
+  "b019ab48407dd04f94291258dc0cd6ef2b2abcd4baf2f0c583269bd022f23ba5": {
+   "model": "gpt-5-mini",
+   "ms": 2966,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 71% of Northbridge attacks have gone down the left since the 58th minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"attack_share_left\",\"window\":{\"kind\":\"since_minute\",\"minute\":58},\"value\":71}"
+  },
+  "b4acfcf05b317d3ed866707d4b1d9d5215b77582ac3c6519f85f27baa19c911f": {
+   "model": "gpt-5-mini",
+   "ms": 3457,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The match's fastest shot was 109 km/h."
+   },
+   "response_text": "{\n  \"subject\": {\n    \"type\": \"match\",\n    \"id\": \"match\"\n  },\n  \"metric\": \"top_shot_speed\",\n  \"window\": {\n    \"kind\": \"unstated\",\n    \"minute\": null\n  },\n  \"value\": 109\n}"
+  },
+  "ba8ac826a0e1a863c972421532c45515dcbc3a4502c417636ae0db1e53628b0f": {
+   "model": "gpt-5-mini",
+   "ms": 6014,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "After half-time C. Nkemelu tried his luck 4 times."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"NOR_09\"},\"metric\":null,\"window\":{\"kind\":\"second_half\",\"minute\":null},\"value\":4}"
+  },
+  "bb45e81157c48fcb217fc1c0730653a18c8f8f4ed3d9647897349d18869dc982": {
+   "model": "gpt-5-mini",
+   "ms": 7387,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "E. Lindqvist is Northbridge's least central passer, with 11 of 38 linked passes."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"NOR_08\"},\"metric\":null,\"window\":{\"kind\":\"unstated\",\"minute\":null},\"value\":29}"
+  },
+  "bb53e7d501b4c9f65494d166a623d313d81a0170b069a465ed85a4a8bd7d2aa3": {
+   "model": "gpt-5-mini",
+   "ms": 5151,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 69% of centre attacks have been Northbridge's since the 11th minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":null,\"window\":{\"kind\":\"since_minute\",\"minute\":11},\"value\":69}"
+  },
+  "bb83491d49a4bf5a86b532d6d69e0437bbabf5ead4716082d569521c091ae393": {
+   "model": "gpt-5-mini",
+   "ms": 2959,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Northbridge have lost the ball 3 times in their own third since the 1st minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"turnovers_own_third\",\"window\":{\"kind\":\"since_minute\",\"minute\":1},\"value\":3}"
+  },
+  "bcb2110f14c444a56f07f7f4ba74f6726d193529c5bf2363d11635d08a2f4acc": {
+   "model": "gpt-5-mini",
+   "ms": 3727,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 71% of right-side attacks have been Northbridge's since the 1st minute."
+   },
+   "response_text": "{\n  \"subject\": {\n    \"type\": \"team\",\n    \"id\": \"NOR\"\n  },\n  \"metric\": null,\n  \"window\": {\n    \"kind\": \"since_minute\",\n    \"minute\": 1\n  },\n  \"value\": 71\n}"
+  },
+  "be3adcae3e2681841b873f8aa4e004aae23fe501da8052e0f978543fe19791f3": {
+   "model": "gpt-5-mini",
+   "ms": 3107,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "D. Varga hit a 109 km/h shot in the second half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"NOR_07\"},\"metric\":\"top_shot_speed\",\"window\":{\"kind\":\"second_half\",\"minute\":null},\"value\":109}"
+  },
+  "cbcb7249905f474a26f2c0433c47cfb74698a1f0d026e55d076534097c3f542e": {
+   "model": "gpt-5-mini",
+   "ms": 2731,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "C. Nkemelu had 4 shots in the second half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"NOR_09\"},\"metric\":\"shots\",\"window\":{\"kind\":\"second_half\",\"minute\":null},\"value\":4}"
+  },
+  "cdf1b5c2e3eb08c93513c38be29811dcb6211ebb24dbc9fbb5b9cf69a910faa2": {
+   "model": "gpt-5-mini",
+   "ms": 3816,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Harlow's opponents completed 70% of their passes in the second half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"pass_accuracy\",\"window\":{\"kind\":\"second_half\",\"minute\":null},\"value\":70}"
+  },
+  "d0475c3c6d1fb11f91aced86d88682ebb11401e95c9d4864b746c1048688d132": {
+   "model": "gpt-5-mini",
+   "ms": 2847,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Harlow have had 3 turnovers in their own third since the 1st minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"turnovers_own_third\",\"window\":{\"kind\":\"since_minute\",\"minute\":1},\"value\":3}"
+  },
+  "d0d00def78e4c31ae594ad772a169c92419628ec47de02598d604185af2b0157": {
+   "model": "gpt-5-mini",
+   "ms": 3447,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Northbridge had 0.27 xG in the second half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"xg_sum\",\"window\":{\"kind\":\"second_half\",\"minute\":null},\"value\":0.27}"
+  },
+  "d117e3c9ee45a2f2ccb42a56d1e65f2cac3dc99114fb6d02f95647babc037afc": {
+   "model": "gpt-5-mini",
+   "ms": 3994,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Northbridge have won the ball back 3 times in Harlow's third since the 26th minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":null,\"window\":{\"kind\":\"since_minute\",\"minute\":26},\"value\":3}"
+  },
+  "d179ac475345fb648bcc7d3a912d9859d746e6ff27448bb8c71e20cc948cd148": {
+   "model": "gpt-5-mini",
+   "ms": 3244,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Harlow had 0.86 xG from set pieces."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"xg_sum\",\"window\":{\"kind\":\"unstated\",\"minute\":null},\"value\":0.86}"
+  },
+  "d1dbf63e4cd9c4114f93b4bdf2f051b2ecc870b5ef5bafeff4d2f55314b2ec90": {
+   "model": "gpt-5-mini",
+   "ms": 3405,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Northbridge generated 2.11 xG in the second half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"xg_sum\",\"window\":{\"kind\":\"second_half\",\"minute\":null},\"value\":2.11}"
+  },
+  "d33825325cba295245e98a29d27e2d7ff8a8592f17e130f81689e441e63423bd": {
+   "model": "gpt-5-mini",
+   "ms": 6150,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "E. Lindqvist was Northbridge's most central passer in the second half, with 18 of 53 linked passes."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"NOR_08\"},\"metric\":\"most_central_player\",\"window\":{\"kind\":\"second_half\",\"minute\":null},\"value\":1}"
+  },
+  "dc419ab2322c0a97edf0891ba7ae10e158f8d1c39c55650b19ebeb0fb5355d36": {
+   "model": "gpt-5-mini",
+   "ms": 3259,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 50% of Northbridge attacks have gone down the centre since the 6th minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"attack_share_centre\",\"window\":{\"kind\":\"since_minute\",\"minute\":6},\"value\":50}"
+  },
+  "df7fb595023d5fdce79635399435b140837f01aab587d11760afea1619171823": {
+   "model": "gpt-5-mini",
+   "ms": 3249,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Northbridge completed 81% of their passes in the first half."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"NOR\"},\"metric\":\"pass_accuracy\",\"window\":{\"kind\":\"first_half\",\"minute\":null},\"value\":81}"
+  },
+  "e63c3be7b8fa4132c716dd6cd2cc69e7e3d95897989b5f1ba968926995294664": {
+   "model": "gpt-5-mini",
+   "ms": 3943,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Harlow have forced 7 turnovers in Northbridge's third since the 71st minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":null,\"window\":{\"kind\":\"since_minute\",\"minute\":71},\"value\":7}"
+  },
+  "ef42a82235e3aa2b7df24cf852a75ea52bce949852351321c9220c3373189c3a": {
+   "model": "gpt-5-mini",
+   "ms": 4949,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "E. Lindqvist added 0.28 xT in the second half."
+   },
+   "response_text": "{\n  \"subject\": {\n    \"type\": \"player\",\n    \"id\": \"NOR_08\"\n  },\n  \"metric\": \"xt_added\",\n  \"window\": {\n    \"kind\": \"second_half\",\n    \"minute\": null\n  },\n  \"value\": 0.28\n}"
+  },
+  "f195d3c1b5d6fcd554ee666a97efefb088fa1ab99881e665af16dafca5a88e37": {
+   "model": "gpt-5-mini",
+   "ms": 3649,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "T. Brannock has had 3 shots on target."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"HAR_09\"},\"metric\":\"shots\",\"window\":{\"kind\":\"unstated\",\"minute\":null},\"value\":3}"
+  },
+  "f4a4cc4edbbc4ab8ab603c01a6a6d0a57f8f44ddea4ed5ad77d433b5f949a782": {
+   "model": "gpt-5-mini",
+   "ms": 4990,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "The numbers suggest 50% of Northbridge attacks have gone down the centre since the 76th minute."
+   },
+   "response_text": "{\n  \"subject\": {\n    \"type\": \"team\",\n    \"id\": \"NOR\"\n  },\n  \"metric\": \"attack_share_centre\",\n  \"window\": {\n    \"kind\": \"since_minute\",\n    \"minute\": 76\n  },\n  \"value\": 50\n}"
+  },
+  "f62b9329fe5d4e58ff27bbfbdb95a6f653fb3b76232bfc1d0d43d145f0202c8d": {
+   "model": "gpt-5-mini",
+   "ms": 2232,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Harlow had 3 turnovers in their own third since the 81st minute."
+   },
+   "response_text": "{\"subject\":{\"type\":\"team\",\"id\":\"HAR\"},\"metric\":\"turnovers_own_third\",\"window\":{\"kind\":\"since_minute\",\"minute\":81},\"value\":3}"
+  },
+  "f73aaa2076a2d43c3845f9fc5e9c946d52bd334236c3dd208987c82ff0e3dcda": {
+   "model": "gpt-5-mini",
+   "ms": 4558,
+   "path": "foundry_agent",
+   "request": {
+    "roster": {
+     "HAR": {
+      "name": "Harlow",
+      "players": {
+       "HAR_01": "G. Pell",
+       "HAR_02": "N. Ostrander",
+       "HAR_03": "H. Quarry",
+       "HAR_04": "V. Seddon",
+       "HAR_05": "I. Marchetti-Holt",
+       "HAR_06": "W. Abara",
+       "HAR_07": "Y. Castell",
+       "HAR_08": "O. Fenwick",
+       "HAR_09": "T. Brannock",
+       "HAR_10": "Z. Halloran",
+       "HAR_11": "U. Kerridge",
+       "HAR_12": "A. Somerby"
+      }
+     },
+     "NOR": {
+      "name": "Northbridge",
+      "players": {
+       "NOR_01": "R. Ashdown",
+       "NOR_02": "L. Corrigan",
+       "NOR_03": "M. Dube",
+       "NOR_04": "S. Kettering",
+       "NOR_05": "J. Whitlow",
+       "NOR_06": "P. Okonjo",
+       "NOR_07": "D. Varga",
+       "NOR_08": "E. Lindqvist",
+       "NOR_09": "C. Nkemelu",
+       "NOR_10": "F. Moreau-Lake",
+       "NOR_11": "K. Tamsin",
+       "NOR_12": "B. Adeyemi-Ross"
+      }
+     }
+    },
+    "sentence": "Y. Castell produced the match's fastest shot, at 109 km/h."
+   },
+   "response_text": "{\"subject\":{\"type\":\"player\",\"id\":\"HAR_07\"},\"metric\":\"top_shot_speed\",\"window\":{\"kind\":\"unstated\",\"minute\":null},\"value\":109}"
+  }
+ },
+ "note": "Reader requests and replies from a --foundry run. Synthetic match."
+}

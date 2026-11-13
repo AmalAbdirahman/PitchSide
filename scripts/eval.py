@@ -18,7 +18,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from app.agents_foundry import CACHE_PATH, load_cache  # noqa: E402
+from app.agents_foundry import CACHE_PATH  # noqa: E402
 from app.build_bundle import build, load_match  # noqa: E402
 from app.verifier import verify  # noqa: E402
 from core.config import ROOT, load  # noqa: E402
@@ -96,16 +96,29 @@ def scout_report() -> None:
         return
     hero, _ = build(load())
     s = hero["metrics"]["scout"]
-    calls = [r for r in load_cache().values() if "ms" in r and r.get("mode", "handed") == mode]
-    ms = sorted(r["ms"] for r in calls)
+    # From the audit trails of the facts this build uses (the cache also keeps other runs' entries).
+    steps = [st for f in hero["facts"] for st in f.get("audit", {}).get("steps", [])]
+    calls = [st for st in steps if st["agent"] == "Scout" and "ms" in st]
+    ms = sorted(st["ms"] for st in calls)
     print(
         f"moments: {sum(s.values())}  passed first time: {s['first_pass']}  passed after retry: {s['after_retry']}  "
         f"still rejected: {s['rejected']}  fell back to rules: {s['rules']}"
     )
     if ms:
         print(
-            f"answered calls: {len(ms)}  model: {', '.join(sorted({r['model'] for r in calls}))}  "
-            f"paths: {', '.join(sorted({r['path'] for r in calls}))}  latency median {ms[len(ms) // 2]} ms, max {ms[-1]} ms"
+            f"answered calls: {len(ms)}  model: {', '.join(sorted({st['model'] for st in calls}))}  "
+            f"paths: {', '.join(sorted({st['path'] for st in calls}))}  latency median {ms[len(ms) // 2]} ms, max {ms[-1]} ms"
+        )
+    reads = [st for st in steps if st["agent"] == "Reader"]
+    # A draft the Reader read and the verifier then rejected was sent back (meaning or another check).
+    sent_back = sum(
+        a["agent"] == "Reader" and b["outcome"] == "rejected"
+        for a, b in zip(steps, steps[1:], strict=False)
+    )
+    if reads:
+        print(
+            f"Reader: {len(reads)} sentences read back; {sent_back} read drafts rejected and retried "
+            "(precision and recall of the meaning check: scripts/eval_meaning.py)"
         )
 
 

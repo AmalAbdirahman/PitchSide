@@ -256,9 +256,9 @@ def write(
     scout = make_scout(foundry, s) if source is None else None
     hero, cues = build(s, scout, use_cache=False, source=source)
     if foundry and scout is not None:
-        # Keep the other mode's entries (scripts/eval_scout.py records both modes).
-        other = {k: r for k, r in load_cache().items() if r.get("mode", "handed") != s.agents.mode}
-        save_cache({**other, **scout.cache})
+        # Add to the cache, never drop from it: scripts/eval_scout.py replays both modes from
+        # entries this build may no longer ask for (a changed memory changes the request).
+        save_cache({**load_cache(), **scout.cache})
         print(f"Scout calls: {scout.calls}  cache entries written: {len(scout.cache)}")
         if scout.reader is not None:  # keep the labelled set's reads (scripts/eval_meaning.py)
             save_reads({**load_reads(), **scout.reader.cache})

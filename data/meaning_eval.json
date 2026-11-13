@@ -1,0 +1,1509 @@
+{
+ "run_date": "2026-11-13",
+ "commit": "11d4358",
+ "live": true,
+ "models": [
+  "gpt-5-mini"
+ ],
+ "scores": {
+  "cases": 75,
+  "different": 34,
+  "same": 41,
+  "unread": 0,
+  "tp": 27,
+  "fp": 4,
+  "fn": 7,
+  "tn": 37,
+  "precision": 0.871,
+  "recall": 0.794
+ },
+ "cases": [
+  {
+   "id": "m001",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_right",
+    "window": {
+     "kind": "since_minute",
+     "minute": 1
+    },
+    "value": 71.0
+   }
+  },
+  {
+   "id": "m002",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "kind": "since_minute",
+     "minute": 1
+    },
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m003",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "kind": "since_minute",
+     "minute": 6
+    },
+    "value": 50.0
+   }
+  },
+  {
+   "id": "m004",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "kind": "since_minute",
+     "minute": 11
+    },
+    "value": 69.0
+   }
+  },
+  {
+   "id": "m005",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "kind": "since_minute",
+     "minute": 11
+    },
+    "value": 56.0
+   }
+  },
+  {
+   "id": "m006",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "kind": "since_minute",
+     "minute": 26
+    },
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m007",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "kind": "since_minute",
+     "minute": 26
+    },
+    "value": 72.0
+   }
+  },
+  {
+   "id": "m008",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "kind": "unstated",
+     "minute": null
+    },
+    "value": 67.0
+   }
+  },
+  {
+   "id": "m009",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "kind": "first_half",
+     "minute": null
+    },
+    "value": 77.0
+   }
+  },
+  {
+   "id": "m010",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_08"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "kind": "unstated",
+     "minute": null
+    },
+    "value": 1.0
+   }
+  },
+  {
+   "id": "m011",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_06"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "kind": "first_half",
+     "minute": null
+    },
+    "value": 1.0
+   }
+  },
+  {
+   "id": "m012",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_09"
+    },
+    "metric": "shots",
+    "window": {
+     "kind": "unstated",
+     "minute": null
+    },
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m013",
+   "label": "same",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "subject player HAR_07, claim match match"
+   ],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_07"
+    },
+    "metric": "top_shot_speed",
+    "window": {
+     "kind": "unstated",
+     "minute": null
+    },
+    "value": 109.0
+   }
+  },
+  {
+   "id": "m014",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "kind": "first_half",
+     "minute": null
+    },
+    "value": 0.27
+   }
+  },
+  {
+   "id": "m015",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "kind": "unstated",
+     "minute": null
+    },
+    "value": 0.86
+   }
+  },
+  {
+   "id": "m016",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_11"
+    },
+    "metric": "xt_added",
+    "window": {
+     "kind": "first_half",
+     "minute": null
+    },
+    "value": 0.3
+   }
+  },
+  {
+   "id": "m017",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_right",
+    "window": {
+     "kind": "since_minute",
+     "minute": 41
+    },
+    "value": 50.0
+   }
+  },
+  {
+   "id": "m018",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "kind": "since_minute",
+     "minute": 41
+    },
+    "value": 57.0
+   }
+  },
+  {
+   "id": "m019",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "kind": "since_minute",
+     "minute": 51
+    },
+    "value": 77.0
+   }
+  },
+  {
+   "id": "m020",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "kind": "since_minute",
+     "minute": 58
+    },
+    "value": 71.0
+   }
+  },
+  {
+   "id": "m021",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "kind": "since_minute",
+     "minute": 71
+    },
+    "value": 7.0
+   }
+  },
+  {
+   "id": "m022",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "kind": "since_minute",
+     "minute": 58
+    },
+    "value": 51.0
+   }
+  },
+  {
+   "id": "m023",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "kind": "since_minute",
+     "minute": 76
+    },
+    "value": 50.0
+   }
+  },
+  {
+   "id": "m024",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_right",
+    "window": {
+     "kind": "since_minute",
+     "minute": 71
+    },
+    "value": 83.0
+   }
+  },
+  {
+   "id": "m025",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "kind": "unstated",
+     "minute": null
+    },
+    "value": 81.0
+   }
+  },
+  {
+   "id": "m026",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "kind": "second_half",
+     "minute": null
+    },
+    "value": 70.0
+   }
+  },
+  {
+   "id": "m027",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_08"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "kind": "second_half",
+     "minute": null
+    },
+    "value": 1.0
+   }
+  },
+  {
+   "id": "m028",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_08"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "kind": "second_half",
+     "minute": null
+    },
+    "value": 1.0
+   }
+  },
+  {
+   "id": "m029",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_09"
+    },
+    "metric": "shots",
+    "window": {
+     "kind": "second_half",
+     "minute": null
+    },
+    "value": 4.0
+   }
+  },
+  {
+   "id": "m030",
+   "label": "same",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "subject player NOR_07, claim match match"
+   ],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_07"
+    },
+    "metric": "top_shot_speed",
+    "window": {
+     "kind": "second_half",
+     "minute": null
+    },
+    "value": 109.0
+   }
+  },
+  {
+   "id": "m031",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "kind": "since_minute",
+     "minute": 81
+    },
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m032",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "kind": "second_half",
+     "minute": null
+    },
+    "value": 2.11
+   }
+  },
+  {
+   "id": "m033",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "kind": "second_half",
+     "minute": null
+    },
+    "value": 0.22
+   }
+  },
+  {
+   "id": "m034",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_08"
+    },
+    "metric": "xt_added",
+    "window": {
+     "kind": "second_half",
+     "minute": null
+    },
+    "value": 0.28
+   }
+  },
+  {
+   "id": "m035",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "kind": "since_minute",
+     "minute": 1
+    },
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m036",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "kind": "since_minute",
+     "minute": 11
+    },
+    "value": 69.0
+   }
+  },
+  {
+   "id": "m037",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "kind": "first_half",
+     "minute": null
+    },
+    "value": 77.0
+   }
+  },
+  {
+   "id": "m038",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "kind": "second_half",
+     "minute": null
+    },
+    "value": 2.11
+   }
+  },
+  {
+   "id": "m039",
+   "label": "same",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "kind": "since_minute",
+     "minute": 51
+    },
+    "value": 77.0
+   }
+  },
+  {
+   "id": "m040",
+   "label": "same",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "the sentence states no listed metric"
+   ],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_09"
+    },
+    "metric": null,
+    "window": {
+     "kind": "second_half",
+     "minute": null
+    },
+    "value": 4.0
+   }
+  },
+  {
+   "id": "m041",
+   "label": "same",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "the sentence states no listed metric"
+   ],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_06"
+    },
+    "metric": null,
+    "window": {
+     "kind": "first_half",
+     "minute": null
+    },
+    "value": 32.0
+   }
+  },
+  {
+   "id": "m042",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "the sentence states no listed metric"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": null,
+    "window": {
+     "kind": "since_minute",
+     "minute": 1
+    },
+    "value": 71.0
+   }
+  },
+  {
+   "id": "m043",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "the sentence states no listed metric"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": null,
+    "window": {
+     "kind": "since_minute",
+     "minute": 11
+    },
+    "value": 69.0
+   }
+  },
+  {
+   "id": "m044",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "the sentence states no listed metric"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": null,
+    "window": {
+     "kind": "since_minute",
+     "minute": 51
+    },
+    "value": 77.0
+   }
+  },
+  {
+   "id": "m045",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "metric attack_share_left, claim attack_share_centre"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "kind": "since_minute",
+     "minute": 11
+    },
+    "value": 69.0
+   }
+  },
+  {
+   "id": "m046",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "metric attack_share_right, claim attack_share_left"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_right",
+    "window": {
+     "kind": "since_minute",
+     "minute": 26
+    },
+    "value": 72.0
+   }
+  },
+  {
+   "id": "m047",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "metric attack_share_right, claim attack_share_left"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_right",
+    "window": {
+     "kind": "since_minute",
+     "minute": 58
+    },
+    "value": 71.0
+   }
+  },
+  {
+   "id": "m048",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "subject team NOR, claim team HAR"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "kind": "since_minute",
+     "minute": 6
+    },
+    "value": 50.0
+   }
+  },
+  {
+   "id": "m049",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "subject team HAR, claim team NOR"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "kind": "since_minute",
+     "minute": 1
+    },
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m050",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "the sentence states no listed metric"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": null,
+    "window": {
+     "kind": "since_minute",
+     "minute": 26
+    },
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m051",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "the sentence states no listed metric"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": null,
+    "window": {
+     "kind": "since_minute",
+     "minute": 71
+    },
+    "value": 7.0
+   }
+  },
+  {
+   "id": "m052",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "the sentence states no listed metric"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": null,
+    "window": {
+     "kind": "since_minute",
+     "minute": 81
+    },
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m053",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "the sentence states no listed metric"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": null,
+    "window": {
+     "kind": "since_minute",
+     "minute": 71
+    },
+    "value": 83.0
+   }
+  },
+  {
+   "id": "m054",
+   "label": "different",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "kind": "since_minute",
+     "minute": 58
+    },
+    "value": 51.0
+   }
+  },
+  {
+   "id": "m055",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "the sentence states no listed metric"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": null,
+    "window": {
+     "kind": "since_minute",
+     "minute": 76
+    },
+    "value": 50.0
+   }
+  },
+  {
+   "id": "m056",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "the sentence states no listed metric"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": null,
+    "window": {
+     "kind": "unstated",
+     "minute": null
+    },
+    "value": 67.0
+   }
+  },
+  {
+   "id": "m057",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "window 'second half', claim from minute 1 to 45"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "kind": "second_half",
+     "minute": null
+    },
+    "value": 77.0
+   }
+  },
+  {
+   "id": "m058",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "window 'first half', claim from minute 46 to 91"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "kind": "first_half",
+     "minute": null
+    },
+    "value": 81.0
+   }
+  },
+  {
+   "id": "m059",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "subject team NOR, claim team HAR"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "kind": "second_half",
+     "minute": null
+    },
+    "value": 70.0
+   }
+  },
+  {
+   "id": "m060",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "the sentence states no listed metric"
+   ],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_08"
+    },
+    "metric": null,
+    "window": {
+     "kind": "unstated",
+     "minute": null
+    },
+    "value": 29.0
+   }
+  },
+  {
+   "id": "m061",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "window 'first half', claim from minute 46 to 91"
+   ],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_08"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "kind": "first_half",
+     "minute": null
+    },
+    "value": 1.0
+   }
+  },
+  {
+   "id": "m062",
+   "label": "different",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_06"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "kind": "first_half",
+     "minute": null
+    },
+    "value": 1.0
+   }
+  },
+  {
+   "id": "m063",
+   "label": "different",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_09"
+    },
+    "metric": "shots",
+    "window": {
+     "kind": "unstated",
+     "minute": null
+    },
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m064",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "subject team HAR, claim player HAR_09"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "shots",
+    "window": {
+     "kind": "unstated",
+     "minute": null
+    },
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m065",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "metric goals, claim shots"
+   ],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_09"
+    },
+    "metric": "goals",
+    "window": {
+     "kind": "second_half",
+     "minute": null
+    },
+    "value": 4.0
+   }
+  },
+  {
+   "id": "m066",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "subject player HAR_07, claim match match"
+   ],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_07"
+    },
+    "metric": "top_shot_speed",
+    "window": {
+     "kind": "unstated",
+     "minute": null
+    },
+    "value": 109.0
+   }
+  },
+  {
+   "id": "m067",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "the sentence states no listed metric"
+   ],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_07"
+    },
+    "metric": null,
+    "window": {
+     "kind": "second_half",
+     "minute": null
+    },
+    "value": 109.0
+   }
+  },
+  {
+   "id": "m068",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "window 'second half', claim from minute 1 to 45"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "kind": "second_half",
+     "minute": null
+    },
+    "value": 0.27
+   }
+  },
+  {
+   "id": "m069",
+   "label": "different",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "kind": "first_half",
+     "minute": null
+    },
+    "value": 0.27
+   }
+  },
+  {
+   "id": "m070",
+   "label": "different",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "kind": "second_half",
+     "minute": null
+    },
+    "value": 2.11
+   }
+  },
+  {
+   "id": "m071",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "window 'first half', claim from minute 46 to 91"
+   ],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "kind": "first_half",
+     "minute": null
+    },
+    "value": 0.22
+   }
+  },
+  {
+   "id": "m072",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "metric xg_sum, claim xt_added"
+   ],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_11"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "kind": "first_half",
+     "minute": null
+    },
+    "value": 0.3
+   }
+  },
+  {
+   "id": "m073",
+   "label": "different",
+   "read": "read",
+   "flagged": true,
+   "problems": [
+    "metric xg_sum, claim xt_added"
+   ],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_08"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "kind": "second_half",
+     "minute": null
+    },
+    "value": 0.28
+   }
+  },
+  {
+   "id": "m074",
+   "label": "different",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "kind": "unstated",
+     "minute": null
+    },
+    "value": 0.86
+   }
+  },
+  {
+   "id": "m075",
+   "label": "different",
+   "read": "read",
+   "flagged": false,
+   "problems": [],
+   "reading": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_08"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "kind": "second_half",
+     "minute": null
+    },
+    "value": 1.0
+   }
+  }
+ ]
+}

@@ -764,7 +764,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Y. Castell produced the match's fastest shot, at 109 km/h.",
+  "text": "The match's fastest shot was 109 km/h.",
   "evidence_ids": [
    225
   ],
@@ -792,7 +792,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Northbridge had 0.27 xG in the first half.",
+  "text": "Northbridge have 0.27 xG.",
   "evidence_ids": [
    128,
    166
@@ -822,7 +822,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Harlow had 0.86 xG.",
+  "text": "Harlow generated 0.86 xG in the first half.",
   "evidence_ids": [
    99,
    188,
@@ -860,7 +860,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "U. Kerridge has added 0.30 xT in the first half.",
+  "text": "U. Kerridge added 0.30 xT in the first half.",
   "evidence_ids": [
    37,
    39,
@@ -1776,7 +1776,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "D. Varga hit a 109 km/h shot in the second half.",
+  "text": "The fastest shot in the second half was 109 km/h.",
   "evidence_ids": [
    366
   ],
@@ -1804,7 +1804,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "Harlow had 3 turnovers in their own third since the 81st minute.",
+  "text": "Harlow have had 3 turnovers in their own third since the 81st minute.",
   "evidence_ids": [
    558,
    568,
@@ -1836,7 +1836,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Northbridge had 2.11 xG in the second half.",
+  "text": "Northbridge generated 2.11 xG in the second half.",
   "evidence_ids": [
    341,
    366,
@@ -1878,7 +1878,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Harlow had 0.22 xG in the second half.",
+  "text": "Harlow generated 0.22 xG in the second half.",
   "evidence_ids": [
    314,
    437
@@ -1908,7 +1908,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "E. Lindqvist added 0.28 xT in the second half.",
+  "text": "E. Lindqvist has added 0.28 xT in the second half.",
   "evidence_ids": [
    336,
    337,
