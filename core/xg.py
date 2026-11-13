@@ -8,6 +8,7 @@
 - No keeper or defender positions, no assist type, no shot height: StatsBomb's own xG knows more.
 - Coordinates: metres on a 105 x 68 pitch, the shooting team attacks left to right, so the goal is
   at x = 105, y = 34. The simulator's shots are open-play shots with the foot, not under pressure.
+- Real StatsBomb shots use StatsBomb's xG unless config says statsbomb.shot_xg: ours.
 """
 
 from __future__ import annotations

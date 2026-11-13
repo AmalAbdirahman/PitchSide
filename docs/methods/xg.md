@@ -18,7 +18,7 @@ A logistic regression on seven features of a shot, with penalties handled apart 
 
 xG = 1 / (1 + exp(-(sum of coefficient x feature))). A penalty gets the penalty conversion rate of the training matches instead. Shot types "Corner" and "Kick Off" are treated as open play. Coordinates are rescaled from StatsBomb's 120 x 80 pitch to 105 x 68 metres (`data_sources.md`).
 
-The same model and coefficients drive the simulator and the StatsBomb adapter. The simulator only knows where a shot was taken, so its shots are scored as open-play shots with the foot, not under pressure.
+The simulator uses this model. It only knows where a shot was taken, so its shots are scored as open-play shots with the foot, not under pressure. Real StatsBomb shots carry StatsBomb's own xG by default, because it scored better on the held-out matches below; `statsbomb.shot_xg: ours` in `config.yaml` switches the adapter to this model.
 
 ## Data and split
 
@@ -78,5 +78,5 @@ Reading it: our model beats the constant clearly and is behind StatsBomb's model
 - 139 test goals: enough to rank the three models, not to resolve calibration finely in any one bin.
 - No keeper position, defenders, shot height, assist type or game state.
 - Penalties are one rate from 61 penalties, with no taker or keeper effect.
-- The replayed StatsBomb match (2018 final, match 8658) is in the training set, so xG on that replay is in-sample.
+- The replayed StatsBomb match (2018 final, match 8658) is in the training set, so with `shot_xg: ours` xG on that replay is in-sample.
 - xG is a model estimate. The verifier checks that an xG claim adds up the event log's xG values correctly; it does not and cannot check that the model is right.

@@ -202,6 +202,7 @@ class Mapper:
     scale: Scale
     pitch: Pitch
     coef: Xg
+    provider_xg: bool  # use StatsBomb's statsbomb_xg when the shot has one
 
     def t(self, e: SbEvent) -> float:
         return round(self.clock.period_starts[e.period - 1] + seconds(e.timestamp), 1)
@@ -264,10 +265,14 @@ class Mapper:
     def _shot(self, e: SbEvent, s: SbShot, loc: list[float]) -> list[dict[str, Any]]:
         xy, (ex, ey) = self.scale.xy(loc), self.scale.xy(s.end_location)
         outcome = SHOT_OUTCOME[s.outcome.name]
-        # Our fitted model, not StatsBomb's xG, so real and synthetic shots use one model.
-        xg = round(xg_of(shot_features(e, s, loc, self.scale), self.pitch, self.coef), 3)
-        shot = self.base(e, "shot", xy, end_x=ex, end_y=ey, outcome=outcome, xg=xg)
+        shot = self.base(e, "shot", xy, end_x=ex, end_y=ey, outcome=outcome, xg=self.xg(e, s, loc))
         return [shot, self.base(e, "goal", xy)] if outcome == "goal" else [shot]
+
+    def xg(self, e: SbEvent, s: SbShot, loc: list[float]) -> float:
+        """StatsBomb's xG if asked for and present, else our fitted model."""
+        if self.provider_xg and s.statsbomb_xg is not None:
+            return round(s.statsbomb_xg, 3)
+        return round(xg_of(shot_features(e, s, loc, self.scale), self.pitch, self.coef), 3)
 
     def _own_goal(self, e: SbEvent) -> dict[str, Any]:
         """Credited to the other side, as on the scoreboard; the player is the one who put it in."""
@@ -338,12 +343,18 @@ def mu_match_ids(season: list[dict[str, Any]], match_id: int, n: int) -> list[in
 
 
 def to_match(
-    row: SbMatch, raw: list[SbEvent], lineups: list[SbLineup], scale: Scale, pitch: Pitch, coef: Xg
+    row: SbMatch,
+    raw: list[SbEvent],
+    lineups: list[SbLineup],
+    scale: Scale,
+    pitch: Pitch,
+    coef: Xg,
+    provider_xg: bool,
 ) -> Match:
     home = team_code(row.home_team.name)
     codes = {row.home_team.id: home, row.away_team.id: team_code(row.away_team.name, home)}
     clock = make_clock(raw)
-    mapper = Mapper(codes, clock, scale, pitch, coef)
+    mapper = Mapper(codes, clock, scale, pitch, coef, provider_xg)
     tagged = [(e.index, ev) for e in raw for ev in mapper.map(e)] + possession_changes(raw, mapper)
     # Possession changes sort before the event that starts the new possession.
     tagged.sort(key=lambda p: (p[1]["t"], p[0], p[1]["type"] != "possession_change"))
@@ -400,7 +411,8 @@ class StatsBombOpenSource:
         row = SbMatch.model_validate(next(r for r in season if r["match_id"] == match_id))
         raw = [SbEvent.model_validate(e) for e in self._read(f"events/{match_id}.json")]
         lineups = [SbLineup.model_validate(t) for t in self._read(f"lineups/{match_id}.json")]
-        return to_match(row, raw, lineups, Scale.of(self.sb, self.pitch), self.pitch, self.xg)
+        scale, provider = Scale.of(self.sb, self.pitch), self.sb.shot_xg == "statsbomb"
+        return to_match(row, raw, lineups, scale, self.pitch, self.xg, provider)
 
     def load(self) -> tuple[Match, float]:
         """The match, and mu from the other downloaded matches of the season (never this one)."""

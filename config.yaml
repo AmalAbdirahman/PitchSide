@@ -127,6 +127,10 @@ statsbomb:
   # StatsBomb pitch units, from the StatsBomb event data specification.
   source_length: 120
   source_width: 80
+  # xG on real shots: "statsbomb" uses StatsBomb's own statsbomb_xg (better on held-out matches,
+  # docs/methods/xg.md); "ours" uses core/xg.py's fitted model. Chosen by hand. A shot without
+  # statsbomb_xg falls back to ours. The simulator always uses ours.
+  shot_xg: statsbomb
 
 # xG fit (P7): scripts/fit_xg.py fits core/xg.py's model on these StatsBomb Open Data seasons
 # (competition id, season id): men's World Cups 2018 and 2022, Euros 2020 and 2024. Chosen by hand:

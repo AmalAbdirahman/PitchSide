@@ -8,6 +8,7 @@ the file on import or looks the values up through a global.
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Literal
 
 import yaml
 from pydantic import BaseModel, ConfigDict
@@ -131,6 +132,7 @@ class StatsBomb(_Section):
     mu_matches: int
     source_length: int
     source_width: int
+    shot_xg: Literal["statsbomb", "ours"]
 
 
 class XgFit(_Section):

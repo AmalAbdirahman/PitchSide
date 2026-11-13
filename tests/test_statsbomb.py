@@ -6,6 +6,7 @@ The last test runs the real match if scripts/fetch_statsbomb.py has downloaded i
 
 from __future__ import annotations
 
+import copy
 import json
 from pathlib import Path
 from typing import Any
@@ -192,17 +193,21 @@ LINEUPS = [
 ]
 
 
-@pytest.fixture(scope="module")
-def fx() -> Match:
-    raw = [SbEvent.model_validate(e) for e in RAW]
+def _fixture_match(provider_xg: bool, raw_events: list[dict[str, Any]] = RAW) -> Match:
     return to_match(
         SbMatch.model_validate(ROW),
-        raw,
+        [SbEvent.model_validate(e) for e in raw_events],
         [SbLineup.model_validate(t) for t in LINEUPS],
         Scale.of(S.statsbomb, S.pitch),
         S.pitch,
         S.xg,
+        provider_xg,
     )
+
+
+@pytest.fixture(scope="module")
+def fx() -> Match:
+    return _fixture_match(S.statsbomb.shot_xg == "statsbomb")
 
 
 def _of(m: Match, etype: str) -> list[Event]:
@@ -234,14 +239,27 @@ def test_coordinates_rescale_without_mirroring(fx: Match) -> None:
 def test_shot_goal_and_xg(fx: Match) -> None:
     shot = _of(fx, "shot")
     assert len(shot) == 1, "the shoot-out shot is dropped"
-    assert (shot[0].team, shot[0].outcome, shot[0].xg, shot[0].x) == (
-        "FIC",
-        "goal",
-        round(xg_of(ShotFeatures(94.5, 30.6), S.pitch, S.xg), 3),
-        94.5,
-    )
+    assert (shot[0].team, shot[0].outcome, shot[0].xg, shot[0].x) == ("FIC", "goal", 0.312, 94.5)
     goal = _of(fx, "goal")[0]
     assert (goal.team, goal.player_id, goal.t, goal.outcome) == ("FIC", "FIC_22", 8.0, None)
+
+
+def test_real_shots_use_statsbomb_xg_by_default() -> None:
+    assert S.statsbomb.shot_xg == "statsbomb"
+
+
+def test_our_model_on_request() -> None:
+    shot = _of(_fixture_match(provider_xg=False), "shot")[0]
+    assert shot.xg == round(xg_of(ShotFeatures(94.5, 30.6), S.pitch, S.xg), 3)
+
+
+def test_shot_without_statsbomb_xg_falls_back_to_ours() -> None:
+    raw = copy.deepcopy(RAW)
+    for e in raw:
+        if "shot" in e:
+            e["shot"].pop("statsbomb_xg")
+    shot = _of(_fixture_match(True, raw), "shot")[0]
+    assert shot.xg == round(xg_of(ShotFeatures(94.5, 30.6), S.pitch, S.xg), 3)
 
 
 def test_own_goal_counts_for_the_other_side(fx: Match) -> None:
