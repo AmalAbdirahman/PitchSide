@@ -3,7 +3,7 @@
 import { D, S, $, esc, clock } from './data.js';
 import { PHASE } from './state.js';
 
-const CHECK_ORDER = ['recompute', 'evidence_exists', 'entities', 'numbers_match', 'intent_stripped', 'sample_size'];
+const CHECK_ORDER = ['recompute', 'evidence_exists', 'entities', 'numbers_match', 'intent_stripped', 'sample_size', 'meaning_matches'];
 const VERDICT = { verified: ['c-green', '✓'], corrected: ['c-amber', '✎ corrected'] };
 
 export function renderLog() {
@@ -27,7 +27,15 @@ export function renderAudit() {
       `<b>${m.scout.rejected}</b> still rejected, <b>${m.scout.rules}</b> fell back to rules.` : '');
   const list = D.items.filter(it => S.rt[it.id]);
   $('#vt tbody').innerHTML = list.length ? list.map(auditRow).join('')
-    : '<tr><td colspan="12" class="c-muted">No drafts yet. Press play.</td></tr>';
+    : '<tr><td colspan="13" class="c-muted">No drafts yet. Press play.</td></tr>';
+}
+
+/* What the Reader understood, in words, for the trace's tooltip. */
+function readingText(r) {
+  if (!r) return 'no reading';
+  const w = r.window || {};
+  const when = w.kind === 'unstated' ? 'no window' : w.kind.replace('_', ' ') + (w.minute != null ? ' ' + w.minute : '');
+  return `${r.subject.type} ${r.subject.id}, ${r.metric || 'no listed metric'}, ${when}, value ${r.value}`;
 }
 
 /* Trace as HTML: verifier verdicts in colour (green ✓ verified, amber ✎ corrected, red ✗ otherwise). */
@@ -37,6 +45,7 @@ function agentTrace(f) {
       const [cls, mark] = VERDICT[s.outcome] || ['c-red', '✗'];
       return `Verifier <span class="${cls}">${mark}</span>`;
     }
+    if (s.agent === 'Reader') return `<span title="Reader understood: ${esc(readingText(s.reading))}">Reader${s.outcome === 'read' ? '' : ' ' + esc(s.outcome)}</span>`;
     if (s.agent === 'Scout') return `Scout #${s.attempt}${s.outcome === 'drafted' ? '' : ' ' + esc(s.outcome.split(':')[0])}`;
     return 'Rules';
   }).join(' → ');

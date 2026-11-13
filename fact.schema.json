@@ -70,7 +70,8 @@
           "enum": [
             "Scout",
             "Drafter",
-            "Verifier"
+            "Verifier",
+            "Reader"
           ],
           "type": "string"
         },
@@ -106,6 +107,9 @@
         "tool_calls": {
           "minimum": 0,
           "type": "integer"
+        },
+        "reading": {
+          "$ref": "#/$defs/Reading"
         }
       },
       "required": [
@@ -126,7 +130,8 @@
             "entities",
             "numbers_match",
             "intent_stripped",
-            "sample_size"
+            "sample_size",
+            "meaning_matches"
           ],
           "type": "string"
         },
@@ -323,6 +328,94 @@
         }
       },
       "title": "Observed",
+      "type": "object"
+    },
+    "ReadSubject": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": [
+            "team",
+            "player",
+            "match"
+          ],
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "title": "ReadSubject",
+      "type": "object"
+    },
+    "ReadWindow": {
+      "additionalProperties": false,
+      "description": "The window as the sentence states it, in official minutes (code maps it to seconds).",
+      "properties": {
+        "kind": {
+          "enum": [
+            "since_minute",
+            "at_minute",
+            "first_half",
+            "second_half",
+            "unstated"
+          ],
+          "type": "string"
+        },
+        "minute": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "ReadWindow",
+      "type": "object"
+    },
+    "Reading": {
+      "additionalProperties": false,
+      "description": "What the Reader (P12) understood a sentence to claim, from the sentence and roster only.\n`metric` is None when no listed metric says what the sentence says.",
+      "properties": {
+        "subject": {
+          "$ref": "#/$defs/ReadSubject"
+        },
+        "metric": {
+          "enum": [
+            "goals",
+            "shots",
+            "xg_sum",
+            "attack_share_left",
+            "attack_share_centre",
+            "attack_share_right",
+            "pass_accuracy",
+            "turnovers_own_third",
+            "duels_lost",
+            "win_prob",
+            "top_shot_speed",
+            "xt_added",
+            "most_central_player",
+            "substitutions",
+            "cards"
+          ],
+          "type": "string"
+        },
+        "window": {
+          "$ref": "#/$defs/ReadWindow"
+        },
+        "value": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "subject",
+        "window",
+        "value"
+      ],
+      "title": "Reading",
       "type": "object"
     },
     "Rendition": {

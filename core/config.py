@@ -164,6 +164,7 @@ class DataCard(_Section):
 
 class Agents(_Section):
     scout_name: str
+    reader_name: str
     mode: Literal["handed", "explore"]
     max_calls: int
     explore_max_calls: int
@@ -171,6 +172,7 @@ class Agents(_Section):
     max_events: int
     memory_size: int
     timeout_s: int
+    reader_max_calls: int
 
     def budget(self, mode: str) -> int:
         return self.explore_max_calls if mode == "explore" else self.max_calls

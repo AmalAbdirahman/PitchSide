@@ -140,6 +140,7 @@ class Check(_Strict):
         "numbers_match",
         "intent_stripped",
         "sample_size",
+        "meaning_matches",
     ]
     passed: bool
     detail: str | None = None
@@ -191,8 +192,30 @@ class Rendition(_Strict):
     numbers_preserved: bool
 
 
+class ReadSubject(_Strict):
+    type: Literal["team", "player", "match"]
+    id: str
+
+
+class ReadWindow(_Strict):
+    """The window as the sentence states it, in official minutes (code maps it to seconds)."""
+
+    kind: Literal["since_minute", "at_minute", "first_half", "second_half", "unstated"]
+    minute: int | None = None
+
+
+class Reading(_Strict):
+    """What the Reader (P12) understood a sentence to claim, from the sentence and roster only.
+    `metric` is None when no listed metric says what the sentence says."""
+
+    subject: ReadSubject
+    metric: MetricName | None = None
+    window: ReadWindow
+    value: float
+
+
 class AuditStep(_Strict):
-    agent: Literal["Scout", "Drafter", "Verifier"]
+    agent: Literal["Scout", "Drafter", "Verifier", "Reader"]
     attempt: Annotated[int, Field(ge=1)]
     outcome: str
     path: Literal["foundry_agent", "foundry_responses", "rules"] | None = None
@@ -200,6 +223,7 @@ class AuditStep(_Strict):
     ms: Annotated[int, Field(ge=0)] | None = None
     mode: Literal["handed", "explore"] | None = None  # Scout steps only (P11)
     tool_calls: Annotated[int, Field(ge=0)] | None = None  # read-only tool calls in this attempt
+    reading: Reading | None = None  # Reader steps only (P12)
 
 
 class Audit(_Strict):

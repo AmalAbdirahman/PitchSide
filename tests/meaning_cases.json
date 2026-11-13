@@ -1,0 +1,1430 @@
+{
+ "note": "Hand-labelled for P12 on claims from the synthetic match's bundle. 'same': the sentence says what the claim says (the bundle's aired wording, and paraphrases). 'different': every number in the sentence is the claim's, but the sentence means something else. One labeller (the author, with Claude), not reviewed by a second.",
+ "cases": [
+  {
+   "id": "m001",
+   "label": "same",
+   "sentence": "The numbers suggest 71% of Northbridge attacks have gone down the right since the 1st minute.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_right",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 600.0
+    },
+    "comparator": "eq",
+    "value": 71.0
+   }
+  },
+  {
+   "id": "m002",
+   "label": "same",
+   "sentence": "Northbridge have had 3 turnovers in their own third since the 1st minute.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 600.0
+    },
+    "comparator": "eq",
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m003",
+   "label": "same",
+   "sentence": "The numbers suggest 50% of Harlow attacks have gone down the centre since the 6th minute.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "start_t": 300.0,
+     "end_t": 1200.0
+    },
+    "comparator": "eq",
+    "value": 50.0
+   }
+  },
+  {
+   "id": "m004",
+   "label": "same",
+   "sentence": "The numbers suggest 69% of Northbridge attacks have gone down the centre since the 11th minute.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "start_t": 600.0,
+     "end_t": 1500.0
+    },
+    "comparator": "eq",
+    "value": 69.0
+   }
+  },
+  {
+   "id": "m005",
+   "label": "same",
+   "sentence": "The numbers suggest 56% of Harlow attacks have gone down the left since the 11th minute.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "start_t": 600.0,
+     "end_t": 1500.0
+    },
+    "comparator": "eq",
+    "value": 56.0
+   }
+  },
+  {
+   "id": "m006",
+   "label": "same",
+   "sentence": "Northbridge have had 3 turnovers in their own third since the 26th minute.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "start_t": 1500.0,
+     "end_t": 2100.0
+    },
+    "comparator": "eq",
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m007",
+   "label": "same",
+   "sentence": "The numbers suggest 72% of Harlow attacks have gone down the left since the 26th minute.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "start_t": 1500.0,
+     "end_t": 2400.0
+    },
+    "comparator": "eq",
+    "value": 72.0
+   }
+  },
+  {
+   "id": "m008",
+   "label": "same",
+   "sentence": "Northbridge completed 67% of their passes.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 67.0
+   }
+  },
+  {
+   "id": "m009",
+   "label": "same",
+   "sentence": "Harlow completed 77% of their passes in the first half.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 77.0
+   }
+  },
+  {
+   "id": "m010",
+   "label": "same",
+   "sentence": "E. Lindqvist is Northbridge's most central passer, with 11 of 38 linked passes.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_08"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 1.0
+   }
+  },
+  {
+   "id": "m011",
+   "label": "same",
+   "sentence": "W. Abara is Harlow's most central passer, with 18 of 57 linked passes in the first half.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_06"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 1.0
+   }
+  },
+  {
+   "id": "m012",
+   "label": "same",
+   "sentence": "T. Brannock has taken 3 shots.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_09"
+    },
+    "metric": "shots",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m013",
+   "label": "same",
+   "sentence": "Y. Castell produced the match's fastest shot, at 109 km/h.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "match",
+     "id": "match"
+    },
+    "metric": "top_shot_speed",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 109.0
+   }
+  },
+  {
+   "id": "m014",
+   "label": "same",
+   "sentence": "Northbridge had 0.27 xG in the first half.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 0.27
+   }
+  },
+  {
+   "id": "m015",
+   "label": "same",
+   "sentence": "Harlow had 0.86 xG.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 0.86
+   }
+  },
+  {
+   "id": "m016",
+   "label": "same",
+   "sentence": "U. Kerridge has added 0.30 xT in the first half.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_11"
+    },
+    "metric": "xt_added",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 0.3
+   }
+  },
+  {
+   "id": "m017",
+   "label": "same",
+   "sentence": "The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st minute.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_right",
+    "window": {
+     "start_t": 2400.0,
+     "end_t": 3300.0
+    },
+    "comparator": "eq",
+    "value": 50.0
+   }
+  },
+  {
+   "id": "m018",
+   "label": "same",
+   "sentence": "The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "start_t": 2400.0,
+     "end_t": 3300.0
+    },
+    "comparator": "eq",
+    "value": 57.0
+   }
+  },
+  {
+   "id": "m019",
+   "label": "same",
+   "sentence": "The numbers suggest 77% of Harlow attacks have gone down the left since the 51st minute.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "start_t": 3000.0,
+     "end_t": 3900.0
+    },
+    "comparator": "eq",
+    "value": 77.0
+   }
+  },
+  {
+   "id": "m020",
+   "label": "same",
+   "sentence": "The numbers suggest 71% of Northbridge attacks have gone down the left since the 58th minute.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "start_t": 3445.0,
+     "end_t": 4200.0
+    },
+    "comparator": "eq",
+    "value": 71.0
+   }
+  },
+  {
+   "id": "m021",
+   "label": "same",
+   "sentence": "Harlow have 7 turnovers in their own third since the 71st minute.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "start_t": 4200.0,
+     "end_t": 4800.0
+    },
+    "comparator": "eq",
+    "value": 7.0
+   }
+  },
+  {
+   "id": "m022",
+   "label": "same",
+   "sentence": "The numbers suggest 51% of Northbridge attacks have gone down the left since the 58th minute.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "start_t": 3445.0,
+     "end_t": 5100.0
+    },
+    "comparator": "eq",
+    "value": 51.0
+   }
+  },
+  {
+   "id": "m023",
+   "label": "same",
+   "sentence": "The numbers suggest 50% of Northbridge attacks have gone down the centre since the 76th minute.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "start_t": 4500.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 50.0
+   }
+  },
+  {
+   "id": "m024",
+   "label": "same",
+   "sentence": "The numbers suggest 83% of Harlow attacks have gone down the right since the 71st minute.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_right",
+    "window": {
+     "start_t": 4230.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 83.0
+   }
+  },
+  {
+   "id": "m025",
+   "label": "same",
+   "sentence": "Northbridge have completed 81% of their passes.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 81.0
+   }
+  },
+  {
+   "id": "m026",
+   "label": "same",
+   "sentence": "Harlow completed 70% of their passes in the second half.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 70.0
+   }
+  },
+  {
+   "id": "m027",
+   "label": "same",
+   "sentence": "E. Lindqvist was Northbridge's most central passer in the second half, with 18 of 53 linked passes.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_08"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 1.0
+   }
+  },
+  {
+   "id": "m028",
+   "label": "same",
+   "sentence": "O. Fenwick was the most central player in Harlow's passing in the second half: involved in 10 of 44 linked passes.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_08"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 1.0
+   }
+  },
+  {
+   "id": "m029",
+   "label": "same",
+   "sentence": "C. Nkemelu had 4 shots in the second half.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_09"
+    },
+    "metric": "shots",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 4.0
+   }
+  },
+  {
+   "id": "m030",
+   "label": "same",
+   "sentence": "D. Varga hit a 109 km/h shot in the second half.",
+   "note": "aired; that it was the fastest is implied, not stated",
+   "claim": {
+    "subject": {
+     "type": "match",
+     "id": "match"
+    },
+    "metric": "top_shot_speed",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 109.0
+   }
+  },
+  {
+   "id": "m031",
+   "label": "same",
+   "sentence": "Harlow had 3 turnovers in their own third since the 81st minute.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "start_t": 4800.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m032",
+   "label": "same",
+   "sentence": "Northbridge had 2.11 xG in the second half.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 2.11
+   }
+  },
+  {
+   "id": "m033",
+   "label": "same",
+   "sentence": "Harlow had 0.22 xG in the second half.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 0.22
+   }
+  },
+  {
+   "id": "m034",
+   "label": "same",
+   "sentence": "E. Lindqvist added 0.28 xT in the second half.",
+   "note": "aired",
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_08"
+    },
+    "metric": "xt_added",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 0.28
+   }
+  },
+  {
+   "id": "m035",
+   "label": "same",
+   "sentence": "Northbridge have lost the ball 3 times in their own third since the 1st minute.",
+   "note": "paraphrase",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 600.0
+    },
+    "comparator": "eq",
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m036",
+   "label": "same",
+   "sentence": "Since the 11th minute, the numbers suggest 69% of Northbridge's attacks have come through the middle.",
+   "note": "paraphrase",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "start_t": 600.0,
+     "end_t": 1500.0
+    },
+    "comparator": "eq",
+    "value": 69.0
+   }
+  },
+  {
+   "id": "m037",
+   "label": "same",
+   "sentence": "In the first half Harlow found a teammate with 77% of their passes.",
+   "note": "paraphrase",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 77.0
+   }
+  },
+  {
+   "id": "m038",
+   "label": "same",
+   "sentence": "Northbridge built up 2.11 expected goals after the break.",
+   "note": "paraphrase",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 2.11
+   }
+  },
+  {
+   "id": "m039",
+   "label": "same",
+   "sentence": "The numbers suggest Harlow have sent 77% of their attacks down the left flank since the 51st minute.",
+   "note": "paraphrase",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "start_t": 3000.0,
+     "end_t": 3900.0
+    },
+    "comparator": "eq",
+    "value": 77.0
+   }
+  },
+  {
+   "id": "m040",
+   "label": "same",
+   "sentence": "After half-time C. Nkemelu tried his luck 4 times.",
+   "note": "paraphrase; words for shots",
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_09"
+    },
+    "metric": "shots",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 4.0
+   }
+  },
+  {
+   "id": "m041",
+   "label": "same",
+   "sentence": "No Harlow player linked more of the first-half passing than W. Abara: 18 of 57 linked passes.",
+   "note": "paraphrase",
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_06"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 1.0
+   }
+  },
+  {
+   "id": "m042",
+   "label": "different",
+   "sentence": "The numbers suggest 71% of right-side attacks have been Northbridge's since the 1st minute.",
+   "note": "share of the lane, not of the team's attacks",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_right",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 600.0
+    },
+    "comparator": "eq",
+    "value": 71.0
+   }
+  },
+  {
+   "id": "m043",
+   "label": "different",
+   "sentence": "The numbers suggest 69% of centre attacks have been Northbridge's since the 11th minute.",
+   "note": "share of the lane, not of the team's attacks",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "start_t": 600.0,
+     "end_t": 1500.0
+    },
+    "comparator": "eq",
+    "value": 69.0
+   }
+  },
+  {
+   "id": "m044",
+   "label": "different",
+   "sentence": "The numbers suggest 77% of the attacks down the left since the 51st minute have been Harlow's.",
+   "note": "share of the lane, not of the team's attacks",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "start_t": 3000.0,
+     "end_t": 3900.0
+    },
+    "comparator": "eq",
+    "value": 77.0
+   }
+  },
+  {
+   "id": "m045",
+   "label": "different",
+   "sentence": "The numbers suggest 69% of Northbridge attacks have gone down the left since the 11th minute.",
+   "note": "wrong lane",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "start_t": 600.0,
+     "end_t": 1500.0
+    },
+    "comparator": "eq",
+    "value": 69.0
+   }
+  },
+  {
+   "id": "m046",
+   "label": "different",
+   "sentence": "The numbers suggest 72% of Harlow attacks have gone down the right since the 26th minute.",
+   "note": "wrong lane",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "start_t": 1500.0,
+     "end_t": 2400.0
+    },
+    "comparator": "eq",
+    "value": 72.0
+   }
+  },
+  {
+   "id": "m047",
+   "label": "different",
+   "sentence": "The numbers suggest 71% of Northbridge attacks have gone down the right since the 58th minute.",
+   "note": "wrong lane",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "start_t": 3445.0,
+     "end_t": 4200.0
+    },
+    "comparator": "eq",
+    "value": 71.0
+   }
+  },
+  {
+   "id": "m048",
+   "label": "different",
+   "sentence": "The numbers suggest 50% of Northbridge attacks have gone down the centre since the 6th minute.",
+   "note": "wrong team",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "start_t": 300.0,
+     "end_t": 1200.0
+    },
+    "comparator": "eq",
+    "value": 50.0
+   }
+  },
+  {
+   "id": "m049",
+   "label": "different",
+   "sentence": "Harlow have had 3 turnovers in their own third since the 1st minute.",
+   "note": "wrong team",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 600.0
+    },
+    "comparator": "eq",
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m050",
+   "label": "different",
+   "sentence": "Northbridge have won the ball back 3 times in Harlow's third since the 26th minute.",
+   "note": "the other team's turnovers",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "start_t": 1500.0,
+     "end_t": 2100.0
+    },
+    "comparator": "eq",
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m051",
+   "label": "different",
+   "sentence": "Harlow have forced 7 turnovers in Northbridge's third since the 71st minute.",
+   "note": "the other team's turnovers",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "start_t": 4200.0,
+     "end_t": 4800.0
+    },
+    "comparator": "eq",
+    "value": 7.0
+   }
+  },
+  {
+   "id": "m052",
+   "label": "different",
+   "sentence": "Harlow have lost the ball 3 times in Northbridge's third since the 81st minute.",
+   "note": "wrong third of the pitch",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "turnovers_own_third",
+    "window": {
+     "start_t": 4800.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m053",
+   "label": "different",
+   "sentence": "The numbers suggest 83% of Harlow attacks down the right have ended in a shot since the 71st minute.",
+   "note": "another statistic",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "attack_share_right",
+    "window": {
+     "start_t": 4230.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 83.0
+   }
+  },
+  {
+   "id": "m054",
+   "label": "different",
+   "sentence": "The numbers suggest 51% of Northbridge attacks have broken down on the left since the 58th minute.",
+   "note": "another statistic",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_left",
+    "window": {
+     "start_t": 3445.0,
+     "end_t": 5100.0
+    },
+    "comparator": "eq",
+    "value": 51.0
+   }
+  },
+  {
+   "id": "m055",
+   "label": "different",
+   "sentence": "The numbers suggest 50% of Northbridge shots have come from the centre since the 76th minute.",
+   "note": "shots, not attacks",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "attack_share_centre",
+    "window": {
+     "start_t": 4500.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 50.0
+   }
+  },
+  {
+   "id": "m056",
+   "label": "different",
+   "sentence": "Northbridge misplaced 67% of their passes.",
+   "note": "the complement",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 67.0
+   }
+  },
+  {
+   "id": "m057",
+   "label": "different",
+   "sentence": "Harlow completed 77% of their passes in the second half.",
+   "note": "wrong half",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 77.0
+   }
+  },
+  {
+   "id": "m058",
+   "label": "different",
+   "sentence": "Northbridge completed 81% of their passes in the first half.",
+   "note": "wrong half",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 81.0
+   }
+  },
+  {
+   "id": "m059",
+   "label": "different",
+   "sentence": "Harlow's opponents completed 70% of their passes in the second half.",
+   "note": "wrong team",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "pass_accuracy",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 70.0
+   }
+  },
+  {
+   "id": "m060",
+   "label": "different",
+   "sentence": "E. Lindqvist is Northbridge's least central passer, with 11 of 38 linked passes.",
+   "note": "the opposite",
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_08"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 1.0
+   }
+  },
+  {
+   "id": "m061",
+   "label": "different",
+   "sentence": "O. Fenwick was the most central player in Harlow's passing in the first half: involved in 10 of 44 linked passes.",
+   "note": "wrong half",
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_08"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 1.0
+   }
+  },
+  {
+   "id": "m062",
+   "label": "different",
+   "sentence": "W. Abara is the match's most central passer, with 18 of 57 linked passes in the first half.",
+   "note": "the match, not the team; the rank is per team",
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_06"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 1.0
+   }
+  },
+  {
+   "id": "m063",
+   "label": "different",
+   "sentence": "T. Brannock has had 3 shots on target.",
+   "note": "on target is not measured",
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_09"
+    },
+    "metric": "shots",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m064",
+   "label": "different",
+   "sentence": "Harlow have taken 3 shots.",
+   "note": "the team, not the player",
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_09"
+    },
+    "metric": "shots",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 3.0
+   }
+  },
+  {
+   "id": "m065",
+   "label": "different",
+   "sentence": "C. Nkemelu scored 4 goals in the second half.",
+   "note": "goals, not shots",
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_09"
+    },
+    "metric": "shots",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 4.0
+   }
+  },
+  {
+   "id": "m066",
+   "label": "different",
+   "sentence": "Y. Castell produced Harlow's fastest shot, at 109 km/h.",
+   "note": "the team's fastest, not the match's",
+   "claim": {
+    "subject": {
+     "type": "match",
+     "id": "match"
+    },
+    "metric": "top_shot_speed",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 109.0
+   }
+  },
+  {
+   "id": "m067",
+   "label": "different",
+   "sentence": "D. Varga hit the slowest shot of the second half, at 109 km/h.",
+   "note": "the opposite",
+   "claim": {
+    "subject": {
+     "type": "match",
+     "id": "match"
+    },
+    "metric": "top_shot_speed",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 109.0
+   }
+  },
+  {
+   "id": "m068",
+   "label": "different",
+   "sentence": "Northbridge had 0.27 xG in the second half.",
+   "note": "wrong half",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 0.27
+   }
+  },
+  {
+   "id": "m069",
+   "label": "different",
+   "sentence": "Northbridge conceded 0.27 xG in the first half.",
+   "note": "conceded, so the other team's xG",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 0.27
+   }
+  },
+  {
+   "id": "m070",
+   "label": "different",
+   "sentence": "Northbridge allowed 2.11 xG in the second half.",
+   "note": "allowed, so the other team's xG",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 2.11
+   }
+  },
+  {
+   "id": "m071",
+   "label": "different",
+   "sentence": "Harlow had 0.22 xG in the first half.",
+   "note": "wrong half",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 0.22
+   }
+  },
+  {
+   "id": "m072",
+   "label": "different",
+   "sentence": "U. Kerridge has added 0.30 xG in the first half.",
+   "note": "xG, not xT",
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_11"
+    },
+    "metric": "xt_added",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 0.3
+   }
+  },
+  {
+   "id": "m073",
+   "label": "different",
+   "sentence": "E. Lindqvist added 0.28 xG in the second half.",
+   "note": "xG, not xT",
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_08"
+    },
+    "metric": "xt_added",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 0.28
+   }
+  },
+  {
+   "id": "m074",
+   "label": "different",
+   "sentence": "Harlow had 0.86 xG from set pieces.",
+   "note": "set pieces are not measured",
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "xg_sum",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 0.86
+   }
+  },
+  {
+   "id": "m075",
+   "label": "different",
+   "sentence": "E. Lindqvist was Harlow's most central passer in the second half, with 18 of 53 linked passes.",
+   "note": "wrong team for the player",
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_08"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 1.0
+   }
+  }
+ ]
+}

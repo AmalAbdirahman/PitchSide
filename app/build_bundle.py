@@ -30,6 +30,10 @@ from app.agents_foundry import (
     verify_rules,
 )
 from app.drafter import Moment, draft_facts
+from app.reader import CACHE_PATH as READ_PATH
+from app.reader import FoundryReader, Reader
+from app.reader import load_cache as load_reads
+from app.reader import save_cache as save_reads
 from app.renditions import all_preserved, with_renditions
 from app.router import route, routing_rules
 from app.series import build_series
@@ -152,12 +156,23 @@ def make_cues(facts: list[Fact]) -> list[dict[str, Any]]:
     return [{"cue_id": f"c_{i:06d}", **c} for i, c in enumerate(cues, 1)]
 
 
+def make_reader(foundry: bool, s: Settings) -> Reader | None:
+    """Live Reader with --foundry; otherwise replay its cache if there is one; otherwise none."""
+    if foundry:
+        return Reader(FoundryReader(s.agents), {}, s.agents.reader_max_calls, prior=load_reads())
+    return Reader(None, load_reads(), s.agents.reader_max_calls) if READ_PATH.exists() else None
+
+
 def make_scout(foundry: bool, s: Settings, mode: str | None = None) -> Scout | None:
-    """Live Scout with --foundry; otherwise replay the cache if there is one; otherwise no Scout."""
+    """Live Scout with --foundry; otherwise replay the cache if there is one; otherwise no Scout.
+    The Scout carries a Reader (P12) when there is one."""
     budget = s.agents.budget(mode or s.agents.mode)
     if foundry:
-        return Scout(FoundryCaller(s.agents), {}, budget, prior=load_cache())
-    return Scout(None, load_cache(), budget) if CACHE_PATH.exists() else None
+        caller = FoundryCaller(s.agents)
+        return Scout(caller, {}, budget, prior=load_cache(), reader=make_reader(True, s))
+    if not CACHE_PATH.exists():
+        return None
+    return Scout(None, load_cache(), budget, reader=make_reader(False, s))
 
 
 def checked_drafts(
@@ -245,6 +260,9 @@ def write(
         other = {k: r for k, r in load_cache().items() if r.get("mode", "handed") != s.agents.mode}
         save_cache({**other, **scout.cache})
         print(f"Scout calls: {scout.calls}  cache entries written: {len(scout.cache)}")
+        if scout.reader is not None:  # keep the labelled set's reads (scripts/eval_meaning.py)
+            save_reads({**load_reads(), **scout.reader.cache})
+            print(f"Reader calls: {scout.reader.calls}")
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "hero.json").write_text(
         json.dumps(hero, ensure_ascii=False, indent=1), encoding="utf-8"

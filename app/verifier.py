@@ -20,9 +20,10 @@ from app.checks import (
     make_check,
 )
 from app.corrections import hedge_text, strip_intent
+from app.meaning import check_meaning
 from core.config import MetricContext, Settings
 from core.events import Match
-from core.facts import Check, Correction, Fact, Verification, validate_fact
+from core.facts import Check, Correction, Fact, Reading, Verification, validate_fact
 from core.metrics import REGISTRY, compute_metric
 from core.sources import League
 
@@ -51,8 +52,11 @@ def _record(checks: list[Check], corrections: list[Correction], computable: bool
     )
 
 
-def verify(fact: Fact, match: Match, league: League, s: Settings) -> Fact:
-    """Run every check on a copy of the fact and return it with a verification record."""
+def verify(
+    fact: Fact, match: Match, league: League, s: Settings, reading: Reading | None = None
+) -> Fact:
+    """Run every check on a copy of the fact and return it with a verification record.
+    With a Reader's `reading` of the sentence (P12), also check that it means the claim."""
     v = s.verifier
     out = fact.model_copy(deep=True)
     by_id = {e.id: e for e in match.events}
@@ -85,6 +89,8 @@ def verify(fact: Fact, match: Match, league: League, s: Settings) -> Fact:
             corrections.append(fix.correction)
         reason = fix.correction.reason if fix else None
         checks += [check_sample(sample, reason), check_numbers(out, m, d, by_id, match, v)]
+    if reading is not None:
+        checks.append(check_meaning(reading, claim, match.meta.clock, v))
     out.verification = _record(checks, corrections, m is not None)
     validate_fact(out)
     return out

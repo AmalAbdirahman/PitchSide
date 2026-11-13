@@ -64,19 +64,22 @@ class ScoutOutputError(ValueError):
         self.problems = problems
 
 
-def _strict(node: Any) -> Any:
-    """Drop the keys OpenAI's strict mode does not accept; every object already lists all of
-    its properties as required and forbids others."""
+def strict_schema(node: Any) -> Any:
+    """Make a Pydantic schema fit OpenAI's strict mode: drop title and default, and list every
+    property as required (a field with a None default must still be sent, as null)."""
     if isinstance(node, dict):
-        return {k: _strict(v) for k, v in node.items() if k not in ("title", "default")}
+        out = {k: strict_schema(v) for k, v in node.items() if k not in ("title", "default")}
+        if "properties" in out:
+            out["required"] = list(out["properties"])
+        return out
     if isinstance(node, list):
-        return [_strict(v) for v in node]
+        return [strict_schema(v) for v in node]
     return node
 
 
 def output_schema() -> dict[str, Any]:
     """JSON Schema for structured output, generated from ScoutOutput."""
-    return _strict(ScoutOutput.model_json_schema())  # type: ignore[no-any-return]
+    return strict_schema(ScoutOutput.model_json_schema())  # type: ignore[no-any-return]
 
 
 def parse_scout(text: str) -> ScoutOutput:

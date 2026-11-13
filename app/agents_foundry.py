@@ -8,7 +8,9 @@ Its reply must follow a JSON Schema generated from Pydantic models (app/scout_sc
 else is a typed error. The deterministic verifier is the gate: a rejected claim or an invalid reply
 goes back to the Scout once with the problem, and a second failure stays rejected (or, for an
 invalid reply, falls back to the rule-based drafter). Each request carries a compact memory of what
-has already aired (app/scout_memory.py), recorded in the audit trail.
+has already aired (app/scout_memory.py), recorded in the audit trail. With a Reader (P12,
+app/reader.py), each sentence the Scout writes is read back by a second agent that sees only the
+sentence and the roster; the verifier's meaning_matches check compares that reading with the claim.
 
 Every request, response and tool call is cached in data/agent_cache.json, so a build without
 --foundry replays the same agent output with no network; replay re-runs each recorded tool call and
@@ -29,6 +31,7 @@ from typing import Any
 from pydantic import ValidationError
 
 from app.drafter import Moment, render
+from app.reader import Outcome, Reader
 from app.scout_memory import ROUTABLE, memory_for, memory_ids
 from app.scout_prompts import EXPLORE, HANDED
 from app.scout_requests import Mode, explore_request, fact_from_output, handed_request
@@ -37,7 +40,7 @@ from app.scout_tools import TOOL_SPECS, ToolBox, ToolCall
 from app.verifier import verify
 from core.config import ROOT, Agents, MetricContext, Settings, Verifier
 from core.events import Match
-from core.facts import Audit, AuditStep, Fact, validate_fact
+from core.facts import Audit, AuditStep, Fact, Reading, validate_fact
 from core.sources import League
 
 Record = dict[str, Any]  # one cache entry: the request, the raw response and the tool calls
@@ -71,6 +74,15 @@ def step(
     if agent == "Scout":
         s["mode"] = mode
     return AuditStep.model_validate({k: v for k, v in s.items() if v is not None})
+
+
+def read_step(attempt_no: int, o: Outcome) -> Step:
+    s: dict[str, Any] = {"agent": "Reader", "attempt": attempt_no, "outcome": o.label}
+    if o.rec and "path" in o.rec:
+        s.update(path=o.rec["path"], model=o.rec["model"], ms=o.rec["ms"])
+    if o.reading is not None:
+        s["reading"] = o.reading
+    return AuditStep.model_validate(s)
 
 
 def with_audit(fact: Fact, steps: list[Step], memory: list[str] | None = None) -> Fact:
@@ -170,6 +182,7 @@ class Scout:
     budget: int
     prior: dict[str, Record] = field(default_factory=dict)
     calls: int = 0
+    reader: Reader | None = None  # P12: reads each Scout sentence back; None skips the check
 
     def ask(
         self, request: dict[str, Any], mode: Mode, tools: ToolBox | None
@@ -259,10 +272,15 @@ def attempt(
         fb = f"Your reply was invalid: {problem}. Reply again following the schema and the rules."
         return Attempt(None, [bad], rec["response_text"], fb)
     steps = [step("Scout", n, "drafted", rec, mode=mode)]
+    reading: Reading | None = None
     if draft.claim.metric in s.router.t0_metrics:
         draft = template_wording(draft, m, match, s.verifier)
         steps.append(step("Drafter", n, "template wording (T0)", path="rules"))
-    checked = verify(draft, match, league, s)
+    elif scout.reader is not None:  # the template wording of T0 facts is code's, not the Scout's
+        read = scout.reader.read(draft.text.canonical_en, match)
+        reading = read.reading
+        steps.append(read_step(n, read))
+    checked = verify(draft, match, league, s, reading)
     steps.append(step("Verifier", n, checked.verification.status, path="rules"))
     retry = None if checked.verification.status in ROUTABLE else feedback(checked)
     return Attempt(checked, steps, as_dict(out), retry)
