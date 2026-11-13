@@ -43,6 +43,7 @@ MetricName = Literal[
     "win_prob",
     "top_shot_speed",
     "xt_added",
+    "most_central_player",
     "substitutions",
     "cards",
 ]

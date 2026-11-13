@@ -17,10 +17,11 @@ from typing import Literal, Protocol
 from core.config import MetricContext, Verifier
 from core.events import Event
 from core.facts import Subject, Window
+from core.network import betweenness, pass_links, rank, weights
 from core.shares import LANES, attacks_by_lane
 from core.xt import completed_move, gain
 
-Kind = Literal["count", "share", "sum", "max"]
+Kind = Literal["count", "share", "sum", "max", "rank"]
 SubjectType = Literal["team", "player", "match"]
 # "exact" means no tolerance; the others name a field of the verifier config.
 ToleranceKey = Literal["exact", "tol_share_pp", "tol_xg", "tol_speed", "tol_xt"]
@@ -95,6 +96,41 @@ class EventMetric:
         return self.fn(
             of_subject(in_window(events, window.start_t, window.end_t), subject), subject, ctx
         )
+
+
+@dataclass(frozen=True)
+class CentralityRank:
+    """most_central_player: the player's rank by betweenness in their team's pass network over
+    the window (core/network.py); 1 means the unique most central player. n is the team's passes
+    with a receiver, k and ids those the player made or received. Ranks must match exactly."""
+
+    name: str = "most_central_player"
+    kind: Kind = "rank"
+    subjects: frozenset[SubjectType] = frozenset({"player"})
+
+    def tolerance(self, v: Verifier) -> float:
+        return 0.0
+
+    def value_matches(self, claimed: float, observed: float, v: Verifier) -> bool:
+        return abs(observed - claimed) <= EPS
+
+    @property
+    def checks_sample(self) -> bool:
+        return False
+
+    def compute(
+        self, events: list[Event], subject: Subject, window: Window, ctx: MetricContext
+    ) -> Metric | None:
+        if subject.type != "player":
+            return None
+        evs = in_window(events, window.start_t, window.end_t)
+        team = next((e.team for e in evs if e.player_id == subject.id), None)
+        links = [] if team is None else pass_links(evs, team)
+        scores = betweenness(weights(links))
+        if subject.id not in scores:
+            return None
+        mine = sorted(x.event_id for x in links if subject.id in (x.passer, x.receiver))
+        return Metric(float(rank(scores, subject.id)), len(links), len(mine), mine)
 
 
 # ---- event selection -----------------------------------------------------------------
@@ -207,7 +243,7 @@ _DEFS: list[EventMetric] = [
         for lane in LANES
     ),
 ]
-REGISTRY: dict[str, MetricDef] = {d.name: d for d in _DEFS}
+REGISTRY: dict[str, MetricDef] = {d.name: d for d in [*_DEFS, CentralityRank()]}
 
 
 def compute_metric(
