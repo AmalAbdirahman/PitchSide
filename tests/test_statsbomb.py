@@ -28,6 +28,7 @@ from core.statsbomb import (
     shot_rows,
     team_code,
     to_match,
+    xt_rows,
 )
 from core.xg import ShotFeatures, xg_of
 
@@ -419,3 +420,26 @@ def test_shot_rows_carry_the_model_features() -> None:
         False,
     )
     assert (f.x, f.y) == (95.4, 34.0)
+
+
+def test_xt_rows_from_the_fixture() -> None:
+    rows = xt_rows([SbEvent.model_validate(e) for e in RAW], 99, Scale.of(S.statsbomb, S.pitch))
+    got = [(r.possession, r.team_id, r.action.kind, r.action.success) for r in rows]
+    # pass, carry, failed pass, shot (goal), pass; the shoot-out shot is not an xT action
+    assert got == [
+        (1, 1, "move", True),
+        (1, 1, "move", True),
+        (1, 1, "move", False),
+        (2, 2, "shot", True),
+        (3, 1, "move", True),
+    ]
+    first = rows[0].action
+    assert (first.x, first.y, first.end_x, first.end_y) == (52.5, 34.0, 78.8, 17.0)
+
+
+def test_penalties_are_not_xt_shots() -> None:
+    raw = copy.deepcopy(RAW)
+    shot = next(e for e in raw if e["index"] == 7)
+    shot["shot"]["type"] = {"id": 88, "name": "Penalty"}
+    rows = xt_rows([SbEvent.model_validate(e) for e in raw], 99, Scale.of(S.statsbomb, S.pitch))
+    assert all(r.action.kind == "move" for r in rows)

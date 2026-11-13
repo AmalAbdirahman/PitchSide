@@ -26,6 +26,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from core.config import ROOT, Pitch, StatsBomb, Xg
 from core.events import Clock, Event, Match, Meta, Team
 from core.xg import ShotFeatures, xg_of
+from core.xt import Action
 
 RAW_DIR = ROOT / "data" / "external" / "statsbomb"
 LAST_PERIOD = 4  # periods 1-2 are halves, 3-4 extra time; 5 is the shoot-out
@@ -463,7 +464,48 @@ def shot_rows(raw: list[SbEvent], match_id: int, scale: Scale) -> list[ShotRow]:
     return out
 
 
-def read_shots(raw_dir: Path, match_id: int, scale: Scale) -> list[ShotRow]:
+def read_events(raw_dir: Path, match_id: int) -> list[SbEvent]:
     path = raw_dir / "events" / f"{match_id}.json"
-    raw = [SbEvent.model_validate(e) for e in json.loads(path.read_text(encoding="utf-8"))]
-    return shot_rows(raw, match_id, scale)
+    return [SbEvent.model_validate(e) for e in json.loads(path.read_text(encoding="utf-8"))]
+
+
+def read_shots(raw_dir: Path, match_id: int, scale: Scale) -> list[ShotRow]:
+    return shot_rows(read_events(raw_dir, match_id), match_id, scale)
+
+
+# ---- actions for fitting xT (P8) --------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class XtRow:
+    match_id: int
+    possession: int
+    team_id: int
+    action: Action
+
+
+def xt_action(e: SbEvent, scale: Scale) -> Action | None:
+    """Passes (completed if StatsBomb gives no outcome) and carries are moves; every shot but a
+    penalty is a shot. Other event types, and the shoot-out, are not xT actions."""
+    if e.period > LAST_PERIOD or e.location is None:
+        return None
+    x, y = scale.xy(e.location)
+    kind = e.type.name
+    if kind == "Pass" and e.pass_:
+        ex, ey = scale.xy(e.pass_.end_location)
+        return Action("move", x, y, e.pass_.outcome is None, ex, ey)
+    if kind == "Carry" and e.carry:
+        ex, ey = scale.xy(e.carry.end_location)
+        return Action("move", x, y, True, ex, ey)
+    if kind == "Shot" and e.shot and not (e.shot.type and e.shot.type.name == "Penalty"):
+        return Action("shot", x, y, e.shot.outcome.name == "Goal")
+    return None
+
+
+def xt_rows(raw: list[SbEvent], match_id: int, scale: Scale) -> list[XtRow]:
+    """The match's xT actions in StatsBomb's order."""
+    return [
+        XtRow(match_id, e.possession, e.team.id, a)
+        for e in raw
+        if (a := xt_action(e, scale)) is not None
+    ]

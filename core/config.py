@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Literal
 
 import yaml
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, model_validator
 
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG_PATH = ROOT / "config.yaml"
@@ -136,6 +136,25 @@ class StatsBomb(_Section):
     shot_xg: Literal["statsbomb", "ours"]
 
 
+class Xt(_Section):
+    """Expected threat surface: rows across the pitch (row 0 at y = 0), cols along it."""
+
+    cols: int
+    rows: int
+    surface: tuple[tuple[float, ...], ...]
+
+    @model_validator(mode="after")
+    def _shape(self) -> Xt:
+        if len(self.surface) != self.rows or any(len(r) != self.cols for r in self.surface):
+            raise ValueError(f"xt.surface must be {self.rows} rows of {self.cols} values")
+        return self
+
+
+class XtFit(_Section):
+    max_iter: int
+    tol: float
+
+
 class XgFit(_Section):
     seasons: tuple[tuple[int, int], ...]
     test_fraction: float
@@ -159,6 +178,8 @@ class Settings(_Section):
     agents: Agents
     statsbomb: StatsBomb
     xg_fit: XgFit
+    xt: Xt
+    xt_fit: XtFit
 
 
 @dataclass(frozen=True)
