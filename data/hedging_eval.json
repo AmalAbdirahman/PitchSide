@@ -1,0 +1,274 @@
+{
+ "run_date": "2026-11-13",
+ "commit": "da95a22",
+ "lane_shares": {
+  "left": 0.3123,
+  "centre": 0.3562,
+  "right": 0.3315
+ },
+ "attack_deff": 3.5638,
+ "candidates": [
+  {
+   "prior_strength": 10.0,
+   "clear_prob": 0.95,
+   "min_effect": 0.0,
+   "clustered": false,
+   "name": "beta"
+  },
+  {
+   "prior_strength": 10.0,
+   "clear_prob": 0.95,
+   "min_effect": 0.1,
+   "clustered": false,
+   "name": "beta_effect"
+  },
+  {
+   "prior_strength": 10.0,
+   "clear_prob": 0.997,
+   "min_effect": 0.0,
+   "clustered": false,
+   "name": "beta_bonferroni"
+  },
+  {
+   "prior_strength": 10.0,
+   "clear_prob": 0.997,
+   "min_effect": 0.1,
+   "clustered": false,
+   "name": "beta_effect_bonferroni"
+  },
+  {
+   "prior_strength": 10.0,
+   "clear_prob": 0.95,
+   "min_effect": 0.0,
+   "clustered": true,
+   "name": "clustered"
+  },
+  {
+   "prior_strength": 10.0,
+   "clear_prob": 0.95,
+   "min_effect": 0.1,
+   "clustered": true,
+   "name": "clustered_effect"
+  },
+  {
+   "prior_strength": 10.0,
+   "clear_prob": 0.997,
+   "min_effect": 0.0,
+   "clustered": true,
+   "name": "clustered_bonferroni"
+  },
+  {
+   "prior_strength": 10.0,
+   "clear_prob": 0.9,
+   "min_effect": 0.0,
+   "clustered": true,
+   "name": "clustered_90"
+  },
+  {
+   "prior_strength": 3.0,
+   "clear_prob": 0.95,
+   "min_effect": 0.0,
+   "clustered": true,
+   "name": "clustered_light_prior"
+  },
+  {
+   "prior_strength": 3.0,
+   "clear_prob": 0.997,
+   "min_effect": 0.0,
+   "clustered": true,
+   "name": "clustered_light_prior_bonferroni"
+  }
+ ],
+ "null": {
+  "matches": 300,
+  "overloads_raised_per_match": 12.083,
+  "rules": {
+   "wilson": {
+    "false_clear_per_match": 6.297,
+    "matches_with_a_false_clear": 1.0
+   },
+   "beta": {
+    "false_clear_per_match": 4.73,
+    "matches_with_a_false_clear": 0.997
+   },
+   "beta_effect": {
+    "false_clear_per_match": 1.02,
+    "matches_with_a_false_clear": 0.657
+   },
+   "beta_bonferroni": {
+    "false_clear_per_match": 0.977,
+    "matches_with_a_false_clear": 0.65
+   },
+   "beta_effect_bonferroni": {
+    "false_clear_per_match": 0.16,
+    "matches_with_a_false_clear": 0.15
+   },
+   "clustered": {
+    "false_clear_per_match": 0.11,
+    "matches_with_a_false_clear": 0.1
+   },
+   "clustered_effect": {
+    "false_clear_per_match": 0.003,
+    "matches_with_a_false_clear": 0.003
+   },
+   "clustered_bonferroni": {
+    "false_clear_per_match": 0,
+    "matches_with_a_false_clear": 0.0
+   },
+   "clustered_90": {
+    "false_clear_per_match": 0.393,
+    "matches_with_a_false_clear": 0.327
+   },
+   "clustered_light_prior": {
+    "false_clear_per_match": 0.563,
+    "matches_with_a_false_clear": 0.43
+   },
+   "clustered_light_prior_bonferroni": {
+    "false_clear_per_match": 0.02,
+    "matches_with_a_false_clear": 0.02
+   }
+  }
+ },
+ "planted": {
+  "matches": 300,
+  "overload": {
+   "team": "NOR",
+   "lane": "left",
+   "from_t": 3445,
+   "until_t": 4500,
+   "lane_weights": [
+    0.75,
+    0.1,
+    0.15
+   ]
+  },
+  "rules": {
+   "wilson": {
+    "detected": 0.51,
+    "median_delay_min": 12.6,
+    "mean_delay_min": 12.9
+   },
+   "beta": {
+    "detected": 0.5,
+    "median_delay_min": 12.6,
+    "mean_delay_min": 14.0
+   },
+   "beta_effect": {
+    "detected": 0.197,
+    "median_delay_min": 17.6,
+    "mean_delay_min": 17.4
+   },
+   "beta_bonferroni": {
+    "detected": 0.227,
+    "median_delay_min": 17.6,
+    "mean_delay_min": 17.5
+   },
+   "beta_effect_bonferroni": {
+    "detected": 0.063,
+    "median_delay_min": 22.6,
+    "mean_delay_min": 19.7
+   },
+   "clustered": {
+    "detected": 0.07,
+    "median_delay_min": 22.6,
+    "mean_delay_min": 20.4
+   },
+   "clustered_effect": {
+    "detected": 0.0,
+    "median_delay_min": null,
+    "mean_delay_min": null
+   },
+   "clustered_bonferroni": {
+    "detected": 0.0,
+    "median_delay_min": null,
+    "mean_delay_min": null
+   },
+   "clustered_90": {
+    "detected": 0.15,
+    "median_delay_min": 17.6,
+    "mean_delay_min": 18.6
+   },
+   "clustered_light_prior": {
+    "detected": 0.167,
+    "median_delay_min": 17.6,
+    "mean_delay_min": 17.7
+   },
+   "clustered_light_prior_bonferroni": {
+    "detected": 0.013,
+    "median_delay_min": 22.6,
+    "mean_delay_min": 21.3
+   }
+  }
+ },
+ "planted_strong": {
+  "matches": 300,
+  "overload": {
+   "team": "NOR",
+   "lane": "left",
+   "from_t": 3445,
+   "until_t": 5400,
+   "lane_weights": [
+    0.9,
+    0.05,
+    0.05
+   ]
+  },
+  "rules": {
+   "wilson": {
+    "detected": 0.933,
+    "median_delay_min": 17.6,
+    "mean_delay_min": 17.4
+   },
+   "beta": {
+    "detected": 0.927,
+    "median_delay_min": 17.6,
+    "mean_delay_min": 18.5
+   },
+   "beta_effect": {
+    "detected": 0.653,
+    "median_delay_min": 22.6,
+    "mean_delay_min": 22.5
+   },
+   "beta_bonferroni": {
+    "detected": 0.72,
+    "median_delay_min": 22.6,
+    "mean_delay_min": 22.8
+   },
+   "beta_effect_bonferroni": {
+    "detected": 0.347,
+    "median_delay_min": 27.6,
+    "mean_delay_min": 24.8
+   },
+   "clustered": {
+    "detected": 0.38,
+    "median_delay_min": 27.6,
+    "mean_delay_min": 25.1
+   },
+   "clustered_effect": {
+    "detected": 0.057,
+    "median_delay_min": 27.6,
+    "mean_delay_min": 26.4
+   },
+   "clustered_bonferroni": {
+    "detected": 0.04,
+    "median_delay_min": 27.6,
+    "mean_delay_min": 26.3
+   },
+   "clustered_90": {
+    "detected": 0.607,
+    "median_delay_min": 25.1,
+    "mean_delay_min": 24.3
+   },
+   "clustered_light_prior": {
+    "detected": 0.6,
+    "median_delay_min": 22.6,
+    "mean_delay_min": 23.5
+   },
+   "clustered_light_prior_bonferroni": {
+    "detected": 0.143,
+    "median_delay_min": 27.6,
+    "mean_delay_min": 26.0
+   }
+  }
+ }
+}
