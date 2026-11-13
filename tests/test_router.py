@@ -6,7 +6,7 @@ from collections.abc import Callable
 
 import pytest
 
-from app.router import AUTOPILOT_OK, resolve, route
+from app.router import AUTOPILOT_OK, resolve, route, routing_rules
 from app.verifier import verify
 from core.config import load
 from core.events import Match
@@ -14,6 +14,7 @@ from core.facts import Correction, Fact, Impact
 from tests.conftest import seeded_of
 
 S = load()
+RULES = routing_rules(S.router)
 
 
 def _good(metric: str, match: Match, hedge: str | None = None) -> Fact:
@@ -118,24 +119,24 @@ def test_autopilot_only_for_clean_clear_t2(match: Match) -> None:
     assert AUTOPILOT_OK in _reasons(clean)
     corrected = route(_corrected(_good("attack_share_", match, "clear")), S.router)
     assert AUTOPILOT_OK not in _reasons(corrected)
-    assert resolve(corrected, 1, autopilot=True) == ("queued", None)
-    assert resolve(clean, 1, autopilot=True) == ("approved", "autopilot")
+    assert resolve(RULES, corrected, 1, "autopilot", 0) == ("queued", None)
+    assert resolve(RULES, clean, 1, "autopilot", 0) == ("approved", "autopilot")
 
 
 def test_t1_airs_after_veto_window_unless_vetoed(match: Match) -> None:
     f = route(_good("attack_share_", match, "clear"), S.router)
     assert f.approval.ttl_s == 3
-    assert resolve(f, 2.9) == ("veto_window", None)
-    assert resolve(f, 3.0) == ("auto_approved", "auto")
-    assert resolve(f, 5, "veto", 2.0) == ("vetoed", "producer")
-    assert resolve(f, 5, "veto", 3.5) == ("auto_approved", "auto")  # too late to veto
+    assert resolve(RULES, f, 2.9) == ("veto_window", None)
+    assert resolve(RULES, f, 3.0) == ("auto_approved", "auto")
+    assert resolve(RULES, f, 5, "veto", 2.0) == ("vetoed", "producer")
+    assert resolve(RULES, f, 5, "veto", 3.5) == ("auto_approved", "auto")  # too late to veto
 
 
 def test_ttl_expiry_drops_t2(match: Match) -> None:
     f = route(_corrected(_good("attack_share_", match, "clear")), S.router)
     assert f.approval.ttl_s == 12
-    assert resolve(f, 11.9) == ("queued", None)
-    assert resolve(f, 12.0) == ("expired", None)
-    assert resolve(f, 20, "approve", 13.0) == ("expired", None)  # late approval never airs
-    assert resolve(f, 20, "approve", 4.0) == ("approved", "producer")
-    assert resolve(f, 20, "reject", 4.0) == ("rejected", "producer")
+    assert resolve(RULES, f, 11.9) == ("queued", None)
+    assert resolve(RULES, f, 12.0) == ("expired", None)
+    assert resolve(RULES, f, 20, "approve", 13.0) == ("expired", None)  # late approval never airs
+    assert resolve(RULES, f, 20, "approve", 4.0) == ("approved", "producer")
+    assert resolve(RULES, f, 20, "reject", 4.0) == ("rejected", "producer")

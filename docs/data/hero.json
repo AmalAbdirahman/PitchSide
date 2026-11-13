@@ -49,6 +49,62 @@
    "width": 68,
    "own_third_x": 35,
    "final_third_x": 70
+  },
+  "routing": {
+   "tiers": {
+    "T0": {
+     "initial": {
+      "state": "auto_approved",
+      "by": "auto"
+     },
+     "ttl_s": null,
+     "decisions": {},
+     "on_timeout": null
+    },
+    "T1": {
+     "initial": {
+      "state": "veto_window",
+      "by": null
+     },
+     "ttl_s": 3,
+     "decisions": {
+      "veto": {
+       "state": "vetoed",
+       "by": "producer"
+      }
+     },
+     "on_timeout": {
+      "state": "auto_approved",
+      "by": "auto"
+     }
+    },
+    "T2": {
+     "initial": {
+      "state": "queued",
+      "by": null
+     },
+     "ttl_s": 12,
+     "decisions": {
+      "approve": {
+       "state": "approved",
+       "by": "producer"
+      },
+      "reject": {
+       "state": "rejected",
+       "by": "producer"
+      },
+      "autopilot": {
+       "state": "approved",
+       "by": "autopilot"
+      }
+     },
+     "on_timeout": {
+      "state": "expired",
+      "by": null
+     }
+    }
+   },
+   "autopilot_reason": "autopilot_ok"
   }
  },
  "events": [

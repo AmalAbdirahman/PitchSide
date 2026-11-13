@@ -4,17 +4,83 @@ T0  plain event-log facts (goal, substitution, card) that verified cleanly: air 
 T1  verified, no corrections, |impact| < 0.10, hedge suggests/clear/none: air after a veto window.
 T2  corrected, |impact| >= 0.10, names a player negatively, or hedge early: queue for a human,
     dropped (never aired) when the expiry runs out.
-`resolve` is the reference for what happens over time; the static UI mirrors it.
+
+What happens over time is data, not code: `routing_rules` builds a table from config, the
+bundle carries it (hero.json meta.routing), and both `resolve` here and docs/js/routing.js
+interpret the same table. tests/routing_cases.json runs against both.
 """
 
 from __future__ import annotations
 
 import re
+from typing import Literal
+
+from pydantic import BaseModel, ConfigDict
 
 from core.config import Router
-from core.facts import Approval, Fact, Risk, validate_fact
+from core.facts import Approval, Fact, Risk, Tier, validate_fact
 
 AUTOPILOT_OK = "autopilot_ok"
+State = Literal[
+    "auto_approved", "veto_window", "queued", "vetoed", "approved", "rejected", "expired"
+]
+DecidedBy = Literal["auto", "producer", "autopilot"]
+Decision = Literal["veto", "approve", "reject", "autopilot"]
+
+
+class _Rule(BaseModel):
+    model_config = ConfigDict(frozen=True, extra="forbid")
+
+
+class Outcome(_Rule):
+    state: State
+    by: DecidedBy | None = None
+
+
+class TierRule(_Rule):
+    """Where a fact of this tier starts, what may change it, and what its expiry does."""
+
+    initial: Outcome
+    ttl_s: int | None = None
+    decisions: dict[Decision, Outcome] = {}
+    on_timeout: Outcome | None = None
+
+
+class RoutingRules(_Rule):
+    tiers: dict[Tier, TierRule]
+    # An autopilot decision counts only for facts the router marked with this reason.
+    autopilot_reason: str
+
+
+def routing_rules(r: Router) -> RoutingRules:
+    producer = "producer"
+    return RoutingRules.model_validate(
+        {
+            "tiers": {
+                "T0": {"initial": {"state": "auto_approved", "by": "auto"}},
+                "T1": {
+                    "initial": {"state": "veto_window"},
+                    "ttl_s": r.veto_window_s,
+                    "decisions": {"veto": {"state": "vetoed", "by": producer}},
+                    "on_timeout": {"state": "auto_approved", "by": "auto"},
+                },
+                "T2": {
+                    "initial": {"state": "queued"},
+                    "ttl_s": r.t2_ttl_s,
+                    "decisions": {
+                        "approve": {"state": "approved", "by": producer},
+                        "reject": {"state": "rejected", "by": producer},
+                        "autopilot": {"state": "approved", "by": "autopilot"},
+                    },
+                    "on_timeout": {"state": "expired"},
+                },
+            },
+            "autopilot_reason": AUTOPILOT_OK,
+        }
+    )
+
+
+# ---- tiers ----------------------------------------------------------------------------
 
 
 def names_player_negatively(fact: Fact, r: Router) -> bool:
@@ -27,7 +93,7 @@ def names_player_negatively(fact: Fact, r: Router) -> bool:
     return fact.claim.metric in r.negative_metrics or words
 
 
-def tier_for(fact: Fact, r: Router) -> tuple[str, list[str]]:
+def tier_for(fact: Fact, r: Router) -> tuple[Tier, list[str]]:
     """Decide the tier and the reasons for it."""
     corrected = fact.verification.status == "corrected"
     hedge = fact.uncertainty.hedge if fact.uncertainty else "none"
@@ -63,48 +129,67 @@ def route(fact: Fact, r: Router) -> Fact:
     tier, reasons = tier_for(out, r)
     if tier == "T2" and autopilot_ok(out):
         reasons.append(AUTOPILOT_OK)
+    rule = routing_rules(r).tiers[tier]
     out.risk = Risk.model_validate({"tier": tier, "reasons": reasons})
-    ttl = None if tier == "T0" else (r.veto_window_s if tier == "T1" else r.t2_ttl_s)
     out.approval = Approval.model_validate(
         {
-            "state": {"T0": "auto_approved", "T1": "veto_window", "T2": "queued"}[tier],
+            "state": rule.initial.state,
             "valid_from_t": out.created_t,
-            "decided_by": "auto" if tier == "T0" else None,
-            "ttl_s": ttl,
+            "decided_by": rule.initial.by,
+            "ttl_s": rule.ttl_s,
         }
     )
     validate_fact(out)
     return out
 
 
+# ---- over time ---------------------------------------------------------------------------
+
+
+def resolve_state(
+    rules: RoutingRules,
+    tier: Tier,
+    ttl_s: float,
+    reasons: list[str],
+    elapsed_s: float,
+    decision: str | None = None,
+    decision_at_s: float | None = None,
+) -> tuple[str, str | None]:
+    """State and who decided, `elapsed_s` seconds after a fact was routed.
+
+    `decision` is the first decision taken (by the producer, or by autopilot when it is switched
+    on, at 0 if it was already on). It counts only if the tier allows it and it came before the
+    expiry; a later decision is ignored. Autopilot counts only for facts marked autopilot_ok.
+    """
+    rule = rules.tiers[tier]
+    if rule.on_timeout is None:
+        return rule.initial.state, rule.initial.by
+    outcome = next((o for d, o in rule.decisions.items() if d == decision), None)
+    in_time = decision_at_s is not None and decision_at_s < ttl_s and decision_at_s <= elapsed_s
+    allowed = decision != "autopilot" or rules.autopilot_reason in reasons
+    if outcome is not None and in_time and allowed:
+        return outcome.state, outcome.by
+    if elapsed_s >= ttl_s:
+        return rule.on_timeout.state, rule.on_timeout.by
+    return rule.initial.state, rule.initial.by
+
+
 def resolve(
+    rules: RoutingRules,
     fact: Fact,
     elapsed_s: float,
     decision: str | None = None,
     decision_at_s: float | None = None,
-    autopilot: bool = False,
 ) -> tuple[str, str | None]:
-    """Approval state after `elapsed_s` seconds on air-side, given an optional producer decision.
-
-    Returns (state, decided_by). Decisions made after the window or expiry are ignored.
-    """
+    """resolve_state for a routed fact."""
     if fact.risk is None:
         raise ValueError(f"{fact.fact_id} has not been routed")
-    tier, ttl = fact.risk.tier, fact.approval.ttl_s or 0
-    in_time = (
-        decision is not None
-        and decision_at_s is not None
-        and decision_at_s < ttl
-        and decision_at_s <= elapsed_s
+    return resolve_state(
+        rules,
+        fact.risk.tier,
+        fact.approval.ttl_s or 0,
+        fact.risk.reasons or [],
+        elapsed_s,
+        decision,
+        decision_at_s,
     )
-    if tier == "T0":
-        return "auto_approved", "auto"
-    if tier == "T1":
-        if in_time and decision == "veto":
-            return "vetoed", "producer"
-        return ("auto_approved", "auto") if elapsed_s >= ttl else ("veto_window", None)
-    if in_time and decision in ("approve", "reject"):
-        return ("approved" if decision == "approve" else "rejected"), "producer"
-    if autopilot and AUTOPILOT_OK in (fact.risk.reasons or []):
-        return "approved", "autopilot"
-    return ("expired", None) if elapsed_s >= ttl else ("queued", None)

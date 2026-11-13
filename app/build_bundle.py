@@ -29,7 +29,7 @@ from app.agents_foundry import (
 )
 from app.drafter import Moment, draft_facts
 from app.renditions import all_preserved, with_renditions
-from app.router import route
+from app.router import route, routing_rules
 from app.series import build_series
 from core.config import ROOT, Settings, load
 from core.events import Match
@@ -206,6 +206,7 @@ def build(
         "win_prob_method": "poisson_v1",
         "mu": mu,
         "pitch": s.pitch.model_dump(),
+        "routing": routing_rules(s.router).model_dump(mode="json"),
     }
     hero = {
         "meta": meta,

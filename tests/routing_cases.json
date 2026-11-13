@@ -1,0 +1,30 @@
+[
+  {"id": "t0_airs_at_once", "tier": "T0", "ttl_s": 0, "autopilot_ok": false, "elapsed_s": 0, "decision": null, "decision_at_s": null, "expect": {"state": "auto_approved", "by": "auto"}},
+  {"id": "t0_ignores_veto", "tier": "T0", "ttl_s": 0, "autopilot_ok": false, "elapsed_s": 1, "decision": "veto", "decision_at_s": 0, "expect": {"state": "auto_approved", "by": "auto"}},
+
+  {"id": "t1_starts_in_veto_window", "tier": "T1", "ttl_s": 3, "autopilot_ok": false, "elapsed_s": 0, "decision": null, "decision_at_s": null, "expect": {"state": "veto_window", "by": null}},
+  {"id": "t1_still_open_just_before_expiry", "tier": "T1", "ttl_s": 3, "autopilot_ok": false, "elapsed_s": 2.9, "decision": null, "decision_at_s": null, "expect": {"state": "veto_window", "by": null}},
+  {"id": "t1_airs_when_window_closes", "tier": "T1", "ttl_s": 3, "autopilot_ok": false, "elapsed_s": 3, "decision": null, "decision_at_s": null, "expect": {"state": "auto_approved", "by": "auto"}},
+  {"id": "t1_vetoed_in_time", "tier": "T1", "ttl_s": 3, "autopilot_ok": false, "elapsed_s": 5, "decision": "veto", "decision_at_s": 2, "expect": {"state": "vetoed", "by": "producer"}},
+  {"id": "t1_veto_not_yet_taken", "tier": "T1", "ttl_s": 3, "autopilot_ok": false, "elapsed_s": 1.5, "decision": "veto", "decision_at_s": 2, "expect": {"state": "veto_window", "by": null}},
+  {"id": "t1_veto_at_expiry_is_late", "tier": "T1", "ttl_s": 3, "autopilot_ok": false, "elapsed_s": 5, "decision": "veto", "decision_at_s": 3, "expect": {"state": "auto_approved", "by": "auto"}},
+  {"id": "t1_veto_after_expiry_is_late", "tier": "T1", "ttl_s": 3, "autopilot_ok": false, "elapsed_s": 5, "decision": "veto", "decision_at_s": 3.5, "expect": {"state": "auto_approved", "by": "auto"}},
+  {"id": "t1_approve_is_not_a_t1_decision", "tier": "T1", "ttl_s": 3, "autopilot_ok": false, "elapsed_s": 1, "decision": "approve", "decision_at_s": 0.5, "expect": {"state": "veto_window", "by": null}},
+  {"id": "t1_autopilot_is_not_a_t1_decision", "tier": "T1", "ttl_s": 3, "autopilot_ok": true, "elapsed_s": 1, "decision": "autopilot", "decision_at_s": 0, "expect": {"state": "veto_window", "by": null}},
+
+  {"id": "t2_starts_queued", "tier": "T2", "ttl_s": 12, "autopilot_ok": false, "elapsed_s": 0, "decision": null, "decision_at_s": null, "expect": {"state": "queued", "by": null}},
+  {"id": "t2_still_queued_just_before_expiry", "tier": "T2", "ttl_s": 12, "autopilot_ok": false, "elapsed_s": 11.9, "decision": null, "decision_at_s": null, "expect": {"state": "queued", "by": null}},
+  {"id": "t2_expires_unanswered", "tier": "T2", "ttl_s": 12, "autopilot_ok": false, "elapsed_s": 12, "decision": null, "decision_at_s": null, "expect": {"state": "expired", "by": null}},
+  {"id": "t2_approved_in_time", "tier": "T2", "ttl_s": 12, "autopilot_ok": false, "elapsed_s": 20, "decision": "approve", "decision_at_s": 4, "expect": {"state": "approved", "by": "producer"}},
+  {"id": "t2_rejected_in_time", "tier": "T2", "ttl_s": 12, "autopilot_ok": false, "elapsed_s": 20, "decision": "reject", "decision_at_s": 4, "expect": {"state": "rejected", "by": "producer"}},
+  {"id": "t2_approval_at_expiry_is_late", "tier": "T2", "ttl_s": 12, "autopilot_ok": false, "elapsed_s": 20, "decision": "approve", "decision_at_s": 12, "expect": {"state": "expired", "by": null}},
+  {"id": "t2_late_approval_never_airs", "tier": "T2", "ttl_s": 12, "autopilot_ok": false, "elapsed_s": 20, "decision": "approve", "decision_at_s": 13, "expect": {"state": "expired", "by": null}},
+  {"id": "t2_veto_is_not_a_t2_decision", "tier": "T2", "ttl_s": 12, "autopilot_ok": false, "elapsed_s": 20, "decision": "veto", "decision_at_s": 4, "expect": {"state": "expired", "by": null}},
+  {"id": "t2_autopilot_on_from_the_start", "tier": "T2", "ttl_s": 12, "autopilot_ok": true, "elapsed_s": 0, "decision": "autopilot", "decision_at_s": 0, "expect": {"state": "approved", "by": "autopilot"}},
+  {"id": "t2_autopilot_approval_stands", "tier": "T2", "ttl_s": 12, "autopilot_ok": true, "elapsed_s": 20, "decision": "autopilot", "decision_at_s": 0, "expect": {"state": "approved", "by": "autopilot"}},
+  {"id": "t2_autopilot_needs_autopilot_ok", "tier": "T2", "ttl_s": 12, "autopilot_ok": false, "elapsed_s": 5, "decision": "autopilot", "decision_at_s": 0, "expect": {"state": "queued", "by": null}},
+  {"id": "t2_autopilot_without_ok_still_expires", "tier": "T2", "ttl_s": 12, "autopilot_ok": false, "elapsed_s": 12, "decision": "autopilot", "decision_at_s": 0, "expect": {"state": "expired", "by": null}},
+  {"id": "t2_autopilot_switched_on_later_not_yet", "tier": "T2", "ttl_s": 12, "autopilot_ok": true, "elapsed_s": 5, "decision": "autopilot", "decision_at_s": 6, "expect": {"state": "queued", "by": null}},
+  {"id": "t2_autopilot_switched_on_later", "tier": "T2", "ttl_s": 12, "autopilot_ok": true, "elapsed_s": 7, "decision": "autopilot", "decision_at_s": 6, "expect": {"state": "approved", "by": "autopilot"}},
+  {"id": "t2_autopilot_switched_on_after_expiry", "tier": "T2", "ttl_s": 12, "autopilot_ok": true, "elapsed_s": 13, "decision": "autopilot", "decision_at_s": 12.5, "expect": {"state": "expired", "by": null}}
+]
