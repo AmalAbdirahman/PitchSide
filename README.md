@@ -14,6 +14,7 @@ A producer-first control room for a replayed, synthetic football match. Python b
 - **Code decides truth.** A deterministic verifier recomputes every claim from the event log before it can air. The Scout's words are not trusted.
 - **Injected errors are test cases.** Six drafts with planted errors (wrong number, player, window, a future event, an intent word, a small-sample overclaim) come from a rule-based drafter, not from the model. They exist so the verifier has something to catch; they say nothing about how any model behaves.
 - **Spanish is unreviewed.** It comes from templates and a small glossary and has not been checked by a native speaker.
+- **xG is a fitted model estimate.** A logistic regression fitted on StatsBomb Open Data shots from four men's international tournaments and validated on held-out matches: log loss 0.2655 against 0.2442 for StatsBomb's own xG and 0.3200 for a constant (`docs/methods/xg.md`). The simulator and the real-data adapter use it.
 - **Win probability is a simple Poisson model** with stated assumptions, labelled "model estimate", not a prediction about real football.
 
 ## Architecture
@@ -84,7 +85,7 @@ Limits: 45 s per call, at most 40 calls per build (`config.yaml`). A `--foundry`
 
 ## Results (from real runs)
 
-`python scripts/eval.py`, run on 2026-10-27:
+`python scripts/eval.py`, run on 2026-11-13 (after the P7 xG refit):
 
 | Verifier over `tests/seeded_claims.json` | |
 |---|---|
@@ -98,11 +99,13 @@ Scout agent, replayed from `data/agent_cache.json`:
 | | |
 |---|---|
 | Moments | 32 |
-| Passed the verifier first time | 31 |
-| Passed after one retry | 1 (attempt 1 wrote "since the 46th minute", a number not in its input; `numbers_match` rejected it) |
+| Passed the verifier first time | 28 |
+| Passed after one retry | 0 |
 | Still rejected | 0 |
-| Fell back to rules | 0 |
-| Calls / latency | 33 calls, median 10.2 s, max 19.2 s |
+| Fell back to rules | 4 (the four half-time xG moments: the P7 refit changed their numbers, so the cached requests no longer match; a new `--foundry` run would restore them) |
+| Calls / latency (the cached `--foundry` run of 2026-10-27) | 33 calls, median 10.2 s, max 19.2 s |
+
+In that earlier run one draft passed only on retry: attempt 1 wrote "since the 46th minute", a number not in its input, and `numbers_match` rejected it.
 
 ### What the verifier does not catch
 
@@ -113,17 +116,17 @@ The verifier checks numbers, windows, evidence, entities, intent words and hedgi
 ```
 sim/      seeded match simulator
 core/     typed models (events.py, facts.py), config, metric registry (metrics.py), event sources
-          (sources.py, statsbomb.py), xG,
+          (sources.py, statsbomb.py), fitted xG (xg.py, xg_fit.py),
           attack shares, Wilson intervals, win probability, moment rules
 app/      agents_foundry.py (Scout), drafter.py (fallback + injected errors), verifier.py
           (orchestrates checks.py and corrections.py), router.py,
           renditions.py, templates_es.py, build_bundle.py
-docs/     static control room (index.html, styles.css, js/ ES modules) and data/ — published by GitHub Pages
+docs/     static control room (index.html, styles.css, js/ ES modules), data/ and methods/ — published by GitHub Pages
           js/: data, routing (pure; reads meta.routing), state, pitch, queue, analysis, audit, main
 design/   prototype.html, the original design mockup (not published)
-data/     events.json, league_stats.json, agent_cache.json; external/ (git-ignored) for StatsBomb files
+data/     events.json, league_stats.json, agent_cache.json, xg_fit.json; external/ (git-ignored) for StatsBomb files
 tests/    seeded_claims.json and pytest suites
-scripts/  eval.py, build_seeded_claims.py, write_schema.py, foundry_smoke.py, fetch_statsbomb.py
+scripts/  eval.py, build_seeded_claims.py, write_schema.py, foundry_smoke.py, fetch_statsbomb.py, fit_xg.py
 ```
 
 Facts and events are Pydantic models (`core/facts.py`, `core/events.py`). `fact.schema.json` is generated from the fact models by `python scripts/write_schema.py`, and a test fails if the committed file and the models disagree.

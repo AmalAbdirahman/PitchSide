@@ -28,6 +28,7 @@ from core.statsbomb import (
     team_code,
     to_match,
 )
+from core.xg import ShotFeatures, xg_of
 
 S = load()
 HOME, AWAY = 1, 2
@@ -199,6 +200,8 @@ def fx() -> Match:
         raw,
         [SbLineup.model_validate(t) for t in LINEUPS],
         Scale.of(S.statsbomb, S.pitch),
+        S.pitch,
+        S.xg,
     )
 
 
@@ -231,7 +234,12 @@ def test_coordinates_rescale_without_mirroring(fx: Match) -> None:
 def test_shot_goal_and_xg(fx: Match) -> None:
     shot = _of(fx, "shot")
     assert len(shot) == 1, "the shoot-out shot is dropped"
-    assert (shot[0].team, shot[0].outcome, shot[0].xg, shot[0].x) == ("FIC", "goal", 0.312, 94.5)
+    assert (shot[0].team, shot[0].outcome, shot[0].xg, shot[0].x) == (
+        "FIC",
+        "goal",
+        round(xg_of(ShotFeatures(94.5, 30.6), S.pitch, S.xg), 3),
+        94.5,
+    )
     goal = _of(fx, "goal")[0]
     assert (goal.team, goal.player_id, goal.t, goal.outcome) == ("FIC", "FIC_22", 8.0, None)
 
@@ -309,7 +317,7 @@ REAL = RAW_DIR / "events" / f"{S.statsbomb.match_id}.json"
 )
 def test_real_match_goal_minutes(settings: Settings) -> None:
     match, mu = StatsBombOpenSource(
-        settings.statsbomb, settings.pitch, settings.statsbomb.match_id
+        settings.statsbomb, settings.pitch, settings.xg, settings.statsbomb.match_id
     ).load()
     goals = [(match.meta.clock.minute(e.t), e.team, e.outcome) for e in _of(match, "goal")]
     # 2018 World Cup final as published: own goal 18', 28', pen 38', 59', 65', 69'.
@@ -339,7 +347,9 @@ def _write_fixture(root: Path, sb: StatsBomb) -> None:
 
 def test_bundle_builds_from_statsbomb_files(tmp_path: Path, settings: Settings) -> None:
     _write_fixture(tmp_path, settings.statsbomb)
-    source = StatsBombOpenSource(settings.statsbomb, settings.pitch, 99, raw_dir=tmp_path)
+    source = StatsBombOpenSource(
+        settings.statsbomb, settings.pitch, settings.xg, 99, raw_dir=tmp_path
+    )
     hero, _ = build(settings, None, use_cache=False, source=source)
     assert hero["meta"]["data_source"] == "StatsBomb Open Data, match 99"
     assert hero["meta"]["synthetic"] is False

@@ -259,7 +259,7 @@ def real_source(s: Settings, match_id: int | None, out: Path | None) -> tuple[Ev
     out_dir = (out or REAL_BUNDLES / str(mid)).resolve()
     if out_dir.is_relative_to(ROOT / "docs"):
         raise SystemExit("real-data bundles are not written to docs/; see data_sources.md")
-    return StatsBombOpenSource(s.statsbomb, s.pitch, mid), out_dir
+    return StatsBombOpenSource(s.statsbomb, s.pitch, s.xg, mid), out_dir
 
 
 def main() -> None:

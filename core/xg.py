@@ -1,14 +1,13 @@
-"""Expected goals from shot location.
+"""Expected goals: a logistic model fitted on StatsBomb Open Data shots (P7).
 
-Assumptions (stated, not fitted to real data):
-- Logistic model on two features only: distance to goal centre (metres)
-  and the angle the goal mouth subtends at the shot location (radians).
-- Coefficients live in config.yaml and were set by hand so a central shot
-  from 6 m is about 0.40, from 11 m about 0.20, from 20 m about 0.07.
-- No body part, assist type, defender or keeper position. Penalties are
-  not modelled separately.
-- Coordinates: metres on a 105 x 68 pitch, the shooting team attacks
-  left to right, so the goal is at x = 105, y = 34.
+- Features (FEATURES): distance to the goal centre (m), the angle the goal mouth subtends (rad),
+  header, other body part (not foot or head), direct free kick, under pressure.
+- Penalties are not in the logistic part: they get the penalty conversion rate of the training set.
+- Coefficients live in config.yaml with their provenance; scripts/fit_xg.py fits them and writes
+  data/xg_fit.json. Method, validation and limits: docs/methods/xg.md.
+- No keeper or defender positions, no assist type, no shot height: StatsBomb's own xG knows more.
+- Coordinates: metres on a 105 x 68 pitch, the shooting team attacks left to right, so the goal is
+  at x = 105, y = 34. The simulator's shots are open-play shots with the foot, not under pressure.
 """
 
 from __future__ import annotations
@@ -17,6 +16,9 @@ import math
 from dataclasses import dataclass
 
 from core.config import Pitch, Xg
+
+# Order of the design row and of the fitted coefficients (names match the Xg config fields).
+FEATURES = ("intercept", "dist", "angle", "header", "other_body", "free_kick", "under_pressure")
 
 
 def goal_angle(x: float, y: float, pitch: Pitch, goal_width: float) -> float:
@@ -31,22 +33,6 @@ def goal_angle(x: float, y: float, pitch: Pitch, goal_width: float) -> float:
 def goal_distance(x: float, y: float, pitch: Pitch) -> float:
     """Distance in metres from (x, y) to the centre of the goal."""
     return math.hypot(pitch.length - x, pitch.width / 2 - y)
-
-
-def xg(x: float, y: float, pitch: Pitch, coef: Xg) -> float:
-    """Probability that a shot from (x, y) is a goal."""
-    logit = (
-        coef.intercept
-        + coef.dist * goal_distance(x, y, pitch)
-        + coef.angle * goal_angle(x, y, pitch, coef.goal_width)
-    )
-    return 1 / (1 + math.exp(-logit))
-
-
-# ---- features for the fitted model (P7) ------------------------------------------------
-
-# Order of the design row and of the fitted coefficients.
-FEATURES = ("intercept", "dist", "angle", "header", "other_body", "free_kick", "under_pressure")
 
 
 @dataclass(frozen=True)
@@ -74,3 +60,17 @@ def design_row(s: ShotFeatures, pitch: Pitch, goal_width: float) -> list[float]:
         float(s.free_kick),
         float(s.under_pressure),
     ]
+
+
+def xg_of(s: ShotFeatures, pitch: Pitch, coef: Xg) -> float:
+    """Probability that the shot is a goal."""
+    if s.penalty:
+        return coef.penalty
+    row = design_row(s, pitch, coef.goal_width)
+    logit = sum(getattr(coef, name) * v for name, v in zip(FEATURES, row, strict=True))
+    return 1 / (1 + math.exp(-logit))
+
+
+def xg(x: float, y: float, pitch: Pitch, coef: Xg) -> float:
+    """xG of an open-play shot with the foot from (x, y), not under pressure."""
+    return xg_of(ShotFeatures(x, y), pitch, coef)

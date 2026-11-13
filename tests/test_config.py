@@ -62,7 +62,10 @@ def test_pitch_ints_stay_ints(settings: Settings) -> None:
 
 
 def test_xg_uses_the_coefficients_it_is_given(settings: Settings) -> None:
-    flat = Xg(intercept=0.0, dist=0.0, angle=0.0, goal_width=7.32)
+    zero = dict.fromkeys(
+        ("intercept", "dist", "angle", "header", "other_body", "free_kick", "under_pressure"), 0.0
+    )
+    flat = Xg(**zero, penalty=0.7, goal_width=7.32)
     assert xg(94.0, 34.0, settings.pitch, flat) == pytest.approx(0.5)
     assert xg(94.0, 34.0, settings.pitch, settings.xg) != pytest.approx(0.5)
 

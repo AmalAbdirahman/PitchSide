@@ -9,27 +9,27 @@ Ranges are plausibility bands we chose (config.yaml), not targets fitted to real
 
 | check | result | plausible range | pass |
 |---|---|---|---|
-| Goals per match (league mean) | 3.020 | 1.8 to 3.5 | PASS |
-| Shots per team per match | 10.270 | 7 to 18 | PASS |
-| xG per shot (mean) | 0.136 | 0.07 to 0.16 | PASS |
-| Pass completion (all passes) | 0.766 | 0.7 to 0.9 | PASS |
+| Goals per match (league mean) | 2.840 | 1.8 to 3.5 | PASS |
+| Shots per team per match | 10.320 | 7 to 18 | PASS |
+| xG per shot (mean) | 0.122 | 0.07 to 0.16 | PASS |
+| Pass completion (all passes) | 0.767 | 0.7 to 0.9 | PASS |
 | Hero match events | 606 | 550 to 650 | PASS |
 
 ## Pass completion by zone (league)
 
 | zone (by pass origin) | completion |
 |---|---|
-| own third | 80.7% |
-| middle third | 75.8% |
-| final third | 72.7% |
+| own third | 80.6% |
+| middle third | 76.2% |
+| final third | 72.2% |
 
 Own > middle > final: PASS
 
 ## Shot xG distribution (league)
 
-1027 shots. p10 0.024, median 0.080, p90 0.264, share above 0.3: 8.3%.
+1032 shots. p10 0.017, median 0.055, p90 0.232, share above 0.3: 8.0%.
 
-League mean xG per team per minute (mu, used by win probability): 0.01556
+League mean xG per team per minute (mu, used by win probability): 0.01395
 
 ## Planted story (hero match)
 

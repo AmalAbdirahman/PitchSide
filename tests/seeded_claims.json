@@ -861,15 +861,15 @@
      "end_t": 2699.9
     },
     "comparator": "eq",
-    "value": 0.32
+    "value": 0.27
    },
    "text": {
-    "draft_en": "Northbridge generated 0.32 xG in the first half.",
-    "canonical_en": "Northbridge generated 0.32 xG in the first half.",
+    "draft_en": "Northbridge generated 0.27 xG in the first half.",
+    "canonical_en": "Northbridge generated 0.27 xG in the first half.",
     "numbers": [
      {
       "key": "value",
-      "value": 0.32,
+      "value": 0.27,
       "unit": "xG"
      }
     ]
@@ -915,15 +915,15 @@
      "end_t": 2699.9
     },
     "comparator": "eq",
-    "value": 1.0
+    "value": 0.86
    },
    "text": {
-    "draft_en": "Harlow generated 1.00 xG in the first half.",
-    "canonical_en": "Harlow generated 1.00 xG in the first half.",
+    "draft_en": "Harlow generated 0.86 xG in the first half.",
+    "canonical_en": "Harlow generated 0.86 xG in the first half.",
     "numbers": [
      {
       "key": "value",
-      "value": 1.0,
+      "value": 0.86,
       "unit": "xG"
      }
     ]
@@ -1197,9 +1197,9 @@
    },
    "impact": {
     "subject_team": "NOR",
-    "win_prob_before": 0.165,
-    "win_prob_after": 0.696,
-    "delta": 0.531,
+    "win_prob_before": 0.15,
+    "win_prob_after": 0.722,
+    "delta": 0.571,
     "method": "poisson_v1"
    }
   }
@@ -2070,15 +2070,15 @@
      "end_t": 5400.0
     },
     "comparator": "eq",
-    "value": 1.97
+    "value": 2.11
    },
    "text": {
-    "draft_en": "Northbridge generated 1.97 xG in the second half.",
-    "canonical_en": "Northbridge generated 1.97 xG in the second half.",
+    "draft_en": "Northbridge generated 2.11 xG in the second half.",
+    "canonical_en": "Northbridge generated 2.11 xG in the second half.",
     "numbers": [
      {
       "key": "value",
-      "value": 1.97,
+      "value": 2.11,
       "unit": "xG"
      }
     ]
@@ -2130,15 +2130,15 @@
      "end_t": 5400.0
     },
     "comparator": "eq",
-    "value": 0.3
+    "value": 0.22
    },
    "text": {
-    "draft_en": "Harlow generated 0.30 xG in the second half.",
-    "canonical_en": "Harlow generated 0.30 xG in the second half.",
+    "draft_en": "Harlow generated 0.22 xG in the second half.",
+    "canonical_en": "Harlow generated 0.22 xG in the second half.",
     "numbers": [
      {
       "key": "value",
-      "value": 0.3,
+      "value": 0.22,
       "unit": "xG"
      }
     ]
@@ -2424,15 +2424,15 @@
      "end_t": 2699.9
     },
     "comparator": "eq",
-    "value": 1.15
+    "value": 1.01
    },
    "text": {
-    "draft_en": "Harlow generated 1.15 xG in the first half.",
-    "canonical_en": "Harlow generated 1.15 xG in the first half.",
+    "draft_en": "Harlow generated 1.01 xG in the first half.",
+    "canonical_en": "Harlow generated 1.01 xG in the first half.",
     "numbers": [
      {
       "key": "value",
-      "value": 1.15,
+      "value": 1.01,
       "unit": "xG"
      }
     ]
@@ -2738,9 +2738,9 @@
    },
    "impact": {
     "subject_team": "NOR",
-    "win_prob_before": 0.165,
-    "win_prob_after": 0.696,
-    "delta": 0.531,
+    "win_prob_before": 0.15,
+    "win_prob_after": 0.722,
+    "delta": 0.571,
     "method": "poisson_v1"
    }
   }
@@ -2808,9 +2808,9 @@
    },
    "impact": {
     "subject_team": "NOR",
-    "win_prob_before": 0.165,
-    "win_prob_after": 0.696,
-    "delta": 0.531,
+    "win_prob_before": 0.15,
+    "win_prob_after": 0.722,
+    "delta": 0.571,
     "method": "poisson_v1"
    }
   }
@@ -2878,9 +2878,9 @@
    },
    "impact": {
     "subject_team": "NOR",
-    "win_prob_before": 0.165,
-    "win_prob_after": 0.696,
-    "delta": 0.531,
+    "win_prob_before": 0.15,
+    "win_prob_after": 0.722,
+    "delta": 0.571,
     "method": "poisson_v1"
    }
   }
@@ -3255,15 +3255,15 @@
      "end_t": 2700.0
     },
     "comparator": "eq",
-    "value": 1.97
+    "value": 2.11
    },
    "text": {
-    "draft_en": "Northbridge generated 1.97 xG in the second half.",
-    "canonical_en": "Northbridge generated 1.97 xG in the second half.",
+    "draft_en": "Northbridge generated 2.11 xG in the second half.",
+    "canonical_en": "Northbridge generated 2.11 xG in the second half.",
     "numbers": [
      {
       "key": "value",
-      "value": 1.97,
+      "value": 2.11,
       "unit": "xG"
      }
     ]
@@ -3473,9 +3473,9 @@
    },
    "impact": {
     "subject_team": "NOR",
-    "win_prob_before": 0.165,
-    "win_prob_after": 0.696,
-    "delta": 0.531,
+    "win_prob_before": 0.15,
+    "win_prob_after": 0.722,
+    "delta": 0.571,
     "method": "poisson_v1"
    }
   }
@@ -3723,9 +3723,9 @@
    },
    "impact": {
     "subject_team": "NOR",
-    "win_prob_before": 0.165,
-    "win_prob_after": 0.696,
-    "delta": 0.531,
+    "win_prob_before": 0.15,
+    "win_prob_after": 0.722,
+    "delta": 0.571,
     "method": "poisson_v1"
    }
   }
@@ -3793,9 +3793,9 @@
    },
    "impact": {
     "subject_team": "NOR",
-    "win_prob_before": 0.165,
-    "win_prob_after": 0.696,
-    "delta": 0.531,
+    "win_prob_before": 0.15,
+    "win_prob_after": 0.722,
+    "delta": 0.571,
     "method": "poisson_v1"
    }
   }
@@ -3899,15 +3899,15 @@
      "end_t": 2699.9
     },
     "comparator": "eq",
-    "value": 0.32
+    "value": 0.27
    },
    "text": {
-    "draft_en": "Northbridge generated 0.32 xG in the first half.",
-    "canonical_en": "Northbridge generated 0.32 xG in the first half.",
+    "draft_en": "Northbridge generated 0.27 xG in the first half.",
+    "canonical_en": "Northbridge generated 0.27 xG in the first half.",
     "numbers": [
      {
       "key": "value",
-      "value": 0.32,
+      "value": 0.27,
       "unit": "xG"
      }
     ]
@@ -4083,15 +4083,15 @@
      "end_t": 5400.0
     },
     "comparator": "eq",
-    "value": 0.3
+    "value": 0.22
    },
    "text": {
-    "draft_en": "Harlow deliberately generated 0.30 xG in the second half.",
-    "canonical_en": "Harlow deliberately generated 0.30 xG in the second half.",
+    "draft_en": "Harlow deliberately generated 0.22 xG in the second half.",
+    "canonical_en": "Harlow deliberately generated 0.22 xG in the second half.",
     "numbers": [
      {
       "key": "value",
-      "value": 0.3,
+      "value": 0.22,
       "unit": "xG"
      }
     ]

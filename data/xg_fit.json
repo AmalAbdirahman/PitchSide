@@ -1,0 +1,243 @@
+{
+ "data": "StatsBomb Open Data",
+ "seasons": [
+  [
+   43,
+   3
+  ],
+  [
+   43,
+   106
+  ],
+  [
+   55,
+   43
+  ],
+  [
+   55,
+   282
+  ]
+ ],
+ "run_date": "2026-11-13",
+ "commit": "1a949f7",
+ "matches": {
+  "train": 172,
+  "test": 58
+ },
+ "shots": {
+  "train": 4264,
+  "train_open_play": 4203,
+  "test": 1423
+ },
+ "goals": {
+  "train": 425,
+  "test": 139
+ },
+ "iterations": 8,
+ "coefficients": {
+  "intercept": {
+   "value": -1.6029,
+   "se": 0.3487
+  },
+  "dist": {
+   "value": -0.0959,
+   "se": 0.0161
+  },
+  "angle": {
+   "value": 1.7831,
+   "se": 0.2691
+  },
+  "header": {
+   "value": -1.22,
+   "se": 0.1719
+  },
+  "other_body": {
+   "value": -1.7899,
+   "se": 0.6133
+  },
+  "free_kick": {
+   "value": 0.3857,
+   "se": 0.412
+  },
+  "under_pressure": {
+   "value": -0.5047,
+   "se": 0.1558
+  }
+ },
+ "penalty": {
+  "rate": 0.6557,
+  "n": 61
+ },
+ "test_missing_statsbomb_xg": 0,
+ "test": {
+  "ours": {
+   "log_loss": 0.2655,
+   "brier": 0.0755,
+   "reliability": [
+    {
+     "n": 142,
+     "mean_pred": 0.0162,
+     "observed": 0.0141
+    },
+    {
+     "n": 142,
+     "mean_pred": 0.0273,
+     "observed": 0.0141
+    },
+    {
+     "n": 142,
+     "mean_pred": 0.0361,
+     "observed": 0.0282
+    },
+    {
+     "n": 143,
+     "mean_pred": 0.0454,
+     "observed": 0.042
+    },
+    {
+     "n": 142,
+     "mean_pred": 0.0557,
+     "observed": 0.0423
+    },
+    {
+     "n": 142,
+     "mean_pred": 0.069,
+     "observed": 0.0634
+    },
+    {
+     "n": 143,
+     "mean_pred": 0.0868,
+     "observed": 0.0909
+    },
+    {
+     "n": 142,
+     "mean_pred": 0.1131,
+     "observed": 0.1268
+    },
+    {
+     "n": 142,
+     "mean_pred": 0.1637,
+     "observed": 0.1972
+    },
+    {
+     "n": 143,
+     "mean_pred": 0.4047,
+     "observed": 0.3566
+    }
+   ]
+  },
+  "statsbomb": {
+   "log_loss": 0.2442,
+   "brier": 0.0689,
+   "reliability": [
+    {
+     "n": 142,
+     "mean_pred": 0.0087,
+     "observed": 0.0211
+    },
+    {
+     "n": 142,
+     "mean_pred": 0.0198,
+     "observed": 0.0141
+    },
+    {
+     "n": 142,
+     "mean_pred": 0.0299,
+     "observed": 0.0211
+    },
+    {
+     "n": 143,
+     "mean_pred": 0.04,
+     "observed": 0.035
+    },
+    {
+     "n": 142,
+     "mean_pred": 0.0516,
+     "observed": 0.0423
+    },
+    {
+     "n": 142,
+     "mean_pred": 0.0656,
+     "observed": 0.0141
+    },
+    {
+     "n": 143,
+     "mean_pred": 0.0842,
+     "observed": 0.0629
+    },
+    {
+     "n": 142,
+     "mean_pred": 0.1149,
+     "observed": 0.0845
+    },
+    {
+     "n": 142,
+     "mean_pred": 0.1766,
+     "observed": 0.2606
+    },
+    {
+     "n": 143,
+     "mean_pred": 0.4399,
+     "observed": 0.4196
+    }
+   ]
+  },
+  "constant": {
+   "log_loss": 0.32,
+   "brier": 0.0881,
+   "reliability": [
+    {
+     "n": 142,
+     "mean_pred": 0.0997,
+     "observed": 0.0
+    },
+    {
+     "n": 142,
+     "mean_pred": 0.0997,
+     "observed": 0.0
+    },
+    {
+     "n": 142,
+     "mean_pred": 0.0997,
+     "observed": 0.0
+    },
+    {
+     "n": 143,
+     "mean_pred": 0.0997,
+     "observed": 0.0
+    },
+    {
+     "n": 142,
+     "mean_pred": 0.0997,
+     "observed": 0.0
+    },
+    {
+     "n": 142,
+     "mean_pred": 0.0997,
+     "observed": 0.0
+    },
+    {
+     "n": 143,
+     "mean_pred": 0.0997,
+     "observed": 0.0
+    },
+    {
+     "n": 142,
+     "mean_pred": 0.0997,
+     "observed": 0.0
+    },
+    {
+     "n": 142,
+     "mean_pred": 0.0997,
+     "observed": 0.0
+    },
+    {
+     "n": 143,
+     "mean_pred": 0.0997,
+     "observed": 0.972
+    }
+   ],
+   "rate": 0.0997
+  }
+ }
+}

@@ -25,7 +25,7 @@ What this repo does about it:
 
 ### Default match
 
-2018 FIFA World Cup final, France 4–2 Croatia (competition 43, season 3, match 8658), chosen by hand in `config.yaml`. The league xG rate `mu` that win probability shrinks towards is the mean StatsBomb xG per team per minute over the first 10 other matches of that season by match id (`statsbomb.mu_matches`); the replayed match is excluded. Run on 2026-11-13 at commit 949e65b plus this change: mu = 0.01355.
+2018 FIFA World Cup final, France 4–2 Croatia (competition 43, season 3, match 8658), chosen by hand in `config.yaml`. The league xG rate `mu` that win probability shrinks towards is the mean xG (our fitted model) per team per minute over the first 10 other matches of that season by match id (`statsbomb.mu_matches`); the replayed match is excluded. With the P7 model, run on 2026-11-13: mu = 0.01316 (it was 0.01355 with StatsBomb's xG, commit 6f9ae7c).
 
 ### Mapping decisions (`core/statsbomb.py`)
 
@@ -58,7 +58,7 @@ In the 2018 final the 2978 StatsBomb events map to 1845 of ours: 846 passes, 617
 
 **Fields we do not have.** StatsBomb open data has no ball, shot or player speeds and no pass difficulty. Those fields stay empty. The `top_shot_speed` metric only counts shots with a measured speed, so on real data it produces no claim at all rather than a guess.
 
-**xG.** Shot xG is StatsBomb's own model value (`statsbomb_xg`), not ours. Win-probability and xG claims on real data therefore rest on StatsBomb's xG model until P7 fits our own.
+**xG.** Shot xG comes from our fitted model (`core/xg.py`, method in `docs/methods/xg.md`), computed from the shot's location, body part, type and pressure, so real and synthetic shots use one model. StatsBomb's own `statsbomb_xg` is read only to compare models in `scripts/fit_xg.py`. The 2018 final is in the xG training set, so its xG is in-sample.
 
 ### What the pipeline does with it
 

@@ -56,6 +56,11 @@ class Xg(_Section):
     intercept: float
     dist: float
     angle: float
+    header: float
+    other_body: float
+    free_kick: float
+    under_pressure: float
+    penalty: float
     goal_width: float
 
 

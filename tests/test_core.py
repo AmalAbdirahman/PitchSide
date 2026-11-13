@@ -1,13 +1,16 @@
 from __future__ import annotations
 
+import json
+from dataclasses import replace
+
 import pytest
 
-from core.config import load
+from core.config import ROOT, load
 from core.events import Event
 from core.shares import lane_shares
 from core.wilson import hedge_for, wilson
 from core.winprob import win_probability
-from core.xg import xg
+from core.xg import FEATURES, ShotFeatures, xg, xg_of
 
 MU = 0.0155
 
@@ -41,8 +44,24 @@ def test_hedge_rules() -> None:
 
 def test_xg_falls_with_distance_and_is_plausible() -> None:
     assert xg(99, 34, S.pitch, S.xg) > xg(94, 34, S.pitch, S.xg) > xg(85, 34, S.pitch, S.xg)
-    assert 0.3 < xg(99, 34, S.pitch, S.xg) < 0.5
-    assert xg(94, 34, S.pitch, S.xg) == pytest.approx(0.20, abs=0.03)
+    assert 0.05 < xg(94, 34, S.pitch, S.xg) < 0.5
+    assert xg(70, 10, S.pitch, S.xg) < 0.03
+
+
+def test_xg_features_move_it_the_fitted_way() -> None:
+    foot = ShotFeatures(97.0, 34.0)
+    base = xg_of(foot, S.pitch, S.xg)
+    assert xg_of(replace(foot, header=True), S.pitch, S.xg) < base
+    assert xg_of(replace(foot, under_pressure=True), S.pitch, S.xg) < base
+    assert xg_of(replace(foot, penalty=True), S.pitch, S.xg) == S.xg.penalty
+
+
+def test_config_coefficients_are_the_recorded_fit() -> None:
+    # Provenance: config.yaml must hold exactly what scripts/fit_xg.py wrote to data/xg_fit.json.
+    record = json.loads((ROOT / "data" / "xg_fit.json").read_text(encoding="utf-8"))
+    for name in FEATURES:
+        assert getattr(S.xg, name) == record["coefficients"][name]["value"], name
+    assert S.xg.penalty == record["penalty"]["rate"]
 
 
 def test_lane_shares_sum_to_one() -> None:

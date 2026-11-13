@@ -682,7 +682,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Northbridge have 0.32 xG in the first half.",
+  "text": "Northbridge generated 0.27 xG in the first half.",
   "evidence_ids": [
    128,
    166
@@ -697,7 +697,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "es",
-  "text": "Northbridge generó 0,32 de xG en la primera parte.",
+  "text": "Northbridge generó 0,27 de xG en la primera parte.",
   "evidence_ids": [
    128,
    166
@@ -712,7 +712,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Harlow have 1.00 xG in the first half.",
+  "text": "Harlow generated 0.86 xG in the first half.",
   "evidence_ids": [
    99,
    188,
@@ -731,7 +731,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "es",
-  "text": "Harlow generó 1,00 de xG en la primera parte.",
+  "text": "Harlow generó 0,86 de xG en la primera parte.",
   "evidence_ids": [
    99,
    188,
@@ -1568,7 +1568,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Northbridge have accumulated 1.97 xG since the start of the second half.",
+  "text": "Northbridge generated 2.11 xG in the second half.",
   "evidence_ids": [
    341,
    366,
@@ -1589,7 +1589,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "es",
-  "text": "Northbridge generó 1,97 de xG en la segunda parte.",
+  "text": "Northbridge generó 2,11 de xG en la segunda parte.",
   "evidence_ids": [
    341,
    366,
@@ -1610,7 +1610,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Harlow have 0.30 xG in the second half.",
+  "text": "Harlow generated 0.22 xG in the second half.",
   "evidence_ids": [
    314,
    437
@@ -1625,7 +1625,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "es",
-  "text": "Harlow generó 0,30 de xG en la segunda parte.",
+  "text": "Harlow generó 0,22 de xG en la segunda parte.",
   "evidence_ids": [
    314,
    437

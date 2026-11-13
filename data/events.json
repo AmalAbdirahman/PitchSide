@@ -1392,7 +1392,7 @@
    "end_x": 105.0,
    "end_y": 29.3,
    "outcome": "on_target",
-   "xg": 0.192,
+   "xg": 0.17,
    "shot_speed": 83.8
   },
   {
@@ -1801,7 +1801,7 @@
    "end_x": 105.0,
    "end_y": 35.9,
    "outcome": "off_target",
-   "xg": 0.071,
+   "xg": 0.043,
    "shot_speed": 60.5
   },
   {
@@ -2325,7 +2325,7 @@
    "end_x": 105.0,
    "end_y": 33.8,
    "outcome": "blocked",
-   "xg": 0.246,
+   "xg": 0.231,
    "shot_speed": 77.1
   },
   {
@@ -2644,7 +2644,7 @@
    "end_x": 105.0,
    "end_y": 31.3,
    "outcome": "off_target",
-   "xg": 0.028,
+   "xg": 0.02,
    "shot_speed": 69.5
   },
   {
@@ -2711,7 +2711,7 @@
    "end_x": 105.0,
    "end_y": 33.8,
    "outcome": "on_target",
-   "xg": 0.317,
+   "xg": 0.285,
    "shot_speed": 97.8
   },
   {
@@ -3172,7 +3172,7 @@
    "end_x": 105.0,
    "end_y": 26.5,
    "outcome": "off_target",
-   "xg": 0.06,
+   "xg": 0.04,
    "shot_speed": 109.0
   },
   {
@@ -3507,7 +3507,7 @@
    "end_x": 105.0,
    "end_y": 33.7,
    "outcome": "on_target",
-   "xg": 0.277,
+   "xg": 0.24,
    "shot_speed": 80.3
   },
   {
@@ -3603,7 +3603,7 @@
    "end_x": 105.0,
    "end_y": 31.3,
    "outcome": "blocked",
-   "xg": 0.126,
+   "xg": 0.103,
    "shot_speed": 66.5
   },
   {
@@ -4406,7 +4406,7 @@
    "end_x": 105.0,
    "end_y": 33.3,
    "outcome": "off_target",
-   "xg": 0.231,
+   "xg": 0.184,
    "shot_speed": 99.7
   },
   {
@@ -4792,7 +4792,7 @@
    "end_x": 105.0,
    "end_y": 34.1,
    "outcome": "on_target",
-   "xg": 0.064,
+   "xg": 0.044,
    "shot_speed": 82.3
   },
   {
@@ -5139,7 +5139,7 @@
    "end_x": 105.0,
    "end_y": 38.1,
    "outcome": "off_target",
-   "xg": 0.094,
+   "xg": 0.071,
    "shot_speed": 108.7
   },
   {
@@ -5190,7 +5190,7 @@
    "end_x": 105.0,
    "end_y": 41.1,
    "outcome": "on_target",
-   "xg": 0.103,
+   "xg": 0.082,
    "shot_speed": 77.8
   },
   {
@@ -5848,7 +5848,7 @@
    "end_x": 105.0,
    "end_y": 32.1,
    "outcome": "goal",
-   "xg": 0.2,
+   "xg": 0.178,
    "shot_speed": 77.2
   },
   {
@@ -6119,7 +6119,7 @@
    "end_x": 105.0,
    "end_y": 21.2,
    "outcome": "blocked",
-   "xg": 0.064,
+   "xg": 0.038,
    "shot_speed": 84.5
   },
   {
@@ -6845,7 +6845,7 @@
    "end_x": 105.0,
    "end_y": 33.0,
    "outcome": "off_target",
-   "xg": 0.014,
+   "xg": 0.009,
    "shot_speed": 78.2
   },
   {
@@ -7112,7 +7112,7 @@
    "end_x": 105.0,
    "end_y": 39.7,
    "outcome": "on_target",
-   "xg": 0.682,
+   "xg": 0.814,
    "shot_speed": 80.8
   },
   {
@@ -7806,7 +7806,7 @@
    "end_x": 105.0,
    "end_y": 38.6,
    "outcome": "off_target",
-   "xg": 0.667,
+   "xg": 0.801,
    "shot_speed": 85.0
   },
   {
@@ -8056,7 +8056,7 @@
    "end_x": 105.0,
    "end_y": 26.0,
    "outcome": "on_target",
-   "xg": 0.143,
+   "xg": 0.113,
    "shot_speed": 82.0
   },
   {
