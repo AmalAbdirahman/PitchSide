@@ -36,7 +36,9 @@ def build() -> list[dict[str, Any]]:
     good = [
         f
         for f in d.draft_facts(
-            detect_moments(match.events, ("NOR", "HAR"), mu, settings), match, settings
+            detect_moments(match.events, ("NOR", "HAR"), mu, settings, match.meta.clock),
+            match,
+            settings,
         )
         if not f.injected
     ]

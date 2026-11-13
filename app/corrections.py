@@ -14,7 +14,7 @@ from core.config import Verifier
 from core.events import Match
 from core.facts import Correction, Fact, TextNumber
 from core.metrics import Metric
-from core.moments import minute, ordinal
+from core.moments import ordinal
 
 HEDGE_LEVEL = {"early": 0, "suggests": 1, "clear": 2, "none": 2}
 FIELD = "text.canonical_en"
@@ -54,7 +54,7 @@ def _count_text(fact: Fact, m: Metric, match: Match) -> tuple[str, list[TextNumb
             TextNumber(key="k", value=m.k),
             TextNumber(key="n", value=m.n),
         ]
-    since = minute(claim.window.start_t)
+    since = match.meta.clock.minute(claim.window.start_t)
     lane = claim.metric.removeprefix("attack_share_")
     return (
         f"Early sign: {m.k} of {m.n} {team} attacks have gone down the {lane} since the {ordinal(since)} minute.",

@@ -374,6 +374,7 @@ def main(seed: int, cfg: Settings) -> None:
         "away": "HAR",
         "teams": roster_meta(),
         "synthetic": True,
+        "clock": {"period_starts": [0, cfg.sim.half_s], "end_t": 2 * cfg.sim.half_s},
     }
     out = ROOT / "data"
     out.mkdir(exist_ok=True)

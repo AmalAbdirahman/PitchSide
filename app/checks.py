@@ -14,7 +14,6 @@ from core.config import Verifier
 from core.events import Event, Match
 from core.facts import Check, Claim, Fact, TextNumber, Uncertainty
 from core.metrics import Metric, MetricDef
-from core.moments import minute
 from core.wilson import hedge_for, wilson
 
 NUMBER = re.compile(r"\d+(?:\.\d+)?")
@@ -101,9 +100,9 @@ def _number_ok(
     if key in ("n", "k"):
         return bool(val == getattr(m, key))
     if key == "minute":
-        return any(minute(e.t) == val for e in cited)
+        return any(match.meta.clock.minute(e.t) == val for e in cited)
     if key == "since_minute":
-        return minute(claim.window.start_t) == val
+        return match.meta.clock.minute(claim.window.start_t) == val
     if key.startswith("score_") and cited:
         team, t = key.removeprefix("score_"), max(e.t for e in cited)
         return val == sum(e.type == "goal" and e.team == team and e.t <= t for e in match.events)

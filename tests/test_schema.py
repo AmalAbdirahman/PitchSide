@@ -17,7 +17,9 @@ def _drafts(match: Match) -> list[Fact]:
     mu = json.loads((ROOT / "data" / "league_stats.json").read_text(encoding="utf-8"))[
         "mu_xg_per_team_minute"
     ]
-    return draft_facts(detect_moments(match.events, ("NOR", "HAR"), mu, S), match, S)
+    return draft_facts(
+        detect_moments(match.events, ("NOR", "HAR"), mu, S, match.meta.clock), match, S
+    )
 
 
 def test_schema_validates_every_fact(match: Match, seeded: list[SeededClaim]) -> None:

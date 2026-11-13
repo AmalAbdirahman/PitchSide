@@ -38,7 +38,6 @@ from core.facts import (
     TextNumber,
     validate_fact,
 )
-from core.moments import minute
 
 Record = dict[str, Any]  # one cache entry: the request and the raw response, as JSON
 Step = AuditStep
@@ -98,8 +97,8 @@ def scout_request(m: Moment, match: Match, v: Verifier) -> dict[str, Any]:
     return {
         "moment": {k: m[k] for k in MOMENT_FIELDS if k in m},
         "minutes": {
-            "window_start": minute(m["window"]["start_t"]),
-            "window_end": minute(m["window"]["end_t"]),
+            "window_start": match.meta.clock.minute(m["window"]["start_t"]),
+            "window_end": match.meta.clock.minute(m["window"]["end_t"]),
         },
         "teams": teams,
         "players": {p: player_name(match, p) for p in sorted(pids)},

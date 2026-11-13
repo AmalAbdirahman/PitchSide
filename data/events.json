@@ -40,7 +40,14 @@
     }
    }
   },
-  "synthetic": true
+  "synthetic": true,
+  "clock": {
+   "period_starts": [
+    0,
+    2700
+   ],
+   "end_t": 5400
+  }
  },
  "events": [
   {

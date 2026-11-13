@@ -41,6 +41,13 @@
    }
   },
   "synthetic": true,
+  "clock": {
+   "period_starts": [
+    0,
+    2700
+   ],
+   "end_t": 5400
+  },
   "win_prob_label": "model estimate",
   "win_prob_method": "poisson_v1",
   "mu": 0.015562,
@@ -12052,7 +12059,7 @@
     },
     "metric": "attack_share_left",
     "window": {
-     "start_t": 3445,
+     "start_t": 3445.0,
      "end_t": 3745.0
     },
     "comparator": "eq",
@@ -12084,7 +12091,7 @@
     ],
     "players": [],
     "window": {
-     "start_t": 3445,
+     "start_t": 3445.0,
      "end_t": 3745.0
     }
    },

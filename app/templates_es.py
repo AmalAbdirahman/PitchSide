@@ -38,8 +38,8 @@ def _team_of(match: Match, pid: str) -> str:
     return match.meta.team_name(match.meta.team_of(pid))
 
 
-def _half(fact: Fact, half_s: int) -> str:
-    second = fact.claim.window.start_t >= half_s
+def _half(fact: Fact, half_t: float) -> str:
+    second = fact.claim.window.start_t >= half_t
     return GLOSSARY["second" if second else "first"]
 
 
@@ -63,14 +63,14 @@ def _event_fact(fact: Fact, match: Match, n: dict[str, float]) -> str:
     return f"Tarjeta {GLOSSARY['yellow']} para {meta.player_name(pid)} ({_team_of(match, pid)}) en el minuto {m}."
 
 
-def _share_fact(fact: Fact, match: Match, n: dict[str, float], half_s: int) -> str:
+def _share_fact(fact: Fact, match: Match, n: dict[str, float], half_t: float) -> str:
     claim = fact.claim
     hedge = fact.uncertainty.hedge if fact.uncertainty else "clear"
     team = match.meta.team_name(claim.subject.id)
     if claim.metric == "pass_accuracy":
         if "k" in n:
             return f"Primeras señales: {team} completó {int(n['k'])} de {int(n['n'])} pases en este tramo."
-        return f"{team} completó el {int(n['value'])} % de sus pases en la {_half(fact, half_s)} parte."
+        return f"{team} completó el {int(n['value'])} % de sus pases en la {_half(fact, half_t)} parte."
     lane = GLOSSARY[claim.metric.removeprefix("attack_share_")]
     since = int(n["since_minute"])
     if "k" in n:
@@ -86,15 +86,16 @@ def _share_fact(fact: Fact, match: Match, n: dict[str, float], half_s: int) -> s
     return f"Desde el minuto {since}, el {int(n['value'])} % de los ataques de {team} han ido por {lane}."
 
 
-def caption_es(fact: Fact, match: Match, half_s: int) -> str:
-    """Spanish caption for a routed fact. `half_s` is the length of a half in seconds."""
+def caption_es(fact: Fact, match: Match) -> str:
+    """Spanish caption for a routed fact."""
     n, claim, meta = _nums(fact), fact.claim, match.meta
+    half_t = meta.clock.half_t
     metric, subj = claim.metric, claim.subject
     if metric in ("goals", "substitutions", "cards"):
         return _event_fact(fact, match, n)
     if metric.startswith("attack_share_") or metric == "pass_accuracy":
-        return _share_fact(fact, match, n, half_s)
-    half = _half(fact, half_s)
+        return _share_fact(fact, match, n, half_t)
+    half = _half(fact, half_t)
     if metric == "turnovers_own_third":
         return (
             f"{meta.team_name(subj.id)} ha perdido el balón {int(n['value'])} veces en su "

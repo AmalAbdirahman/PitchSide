@@ -26,7 +26,7 @@ from core.facts import (
     validate_fact,
 )
 from core.metrics import Metric, compute_metric
-from core.moments import minute, ordinal
+from core.moments import ordinal
 from core.wilson import hedge_for, wilson
 
 Moment = dict[str, Any]
@@ -62,7 +62,7 @@ Text = tuple[str, list[TextNumber]]
 
 def _text_goal(m: Moment, match: Match) -> Text:
     home, away = match.meta.home, match.meta.away
-    mn = minute(m["window"]["end_t"])
+    mn = match.meta.clock.minute(m["window"]["end_t"])
     s = m["score"]
     text = (
         f"GOAL, {team_name(match, home)} {s[home]}–{s[away]} {team_name(match, away)}. "
@@ -73,7 +73,7 @@ def _text_goal(m: Moment, match: Match) -> Text:
 
 
 def _text_overload(m: Moment, match: Match, v: Verifier, force_plain: bool = False) -> Text:
-    pct, since = round(m["value"]), minute(m["window"]["start_t"])
+    pct, since = round(m["value"]), match.meta.clock.minute(m["window"]["start_t"])
     team, lane = team_name(match, m["subject"]["id"]), m["lane"]
     hedge = "clear" if force_plain else share_hedge(m["k"], m["n"], 100 * v.lane_baseline, v)
     if hedge == "clear":
@@ -84,7 +84,7 @@ def _text_overload(m: Moment, match: Match, v: Verifier, force_plain: bool = Fal
 
 
 def _text_turnovers(m: Moment, match: Match) -> Text:
-    c, since = int(m["value"]), minute(m["window"]["start_t"])
+    c, since = int(m["value"]), match.meta.clock.minute(m["window"]["start_t"])
     text = f"{team_name(match, m['subject']['id'])} have lost the ball {c} times in their own third since the {ordinal(since)} minute."
     return text, [_num("value", c), _num("since_minute", since)]
 
@@ -115,7 +115,7 @@ def _text_half(m: Moment, match: Match) -> Text:
 
 
 def _text_event(m: Moment, match: Match) -> Text:
-    mn = minute(m["window"]["end_t"])
+    mn = match.meta.clock.minute(m["window"]["end_t"])
     if m["rule"] == "substitution":
         on, off = (player_name(match, p) for p in m["players"])
         text = f"Substitution for {team_name(match, m['subject']['id'])} in the {ordinal(mn)} minute: {on} on, {off} off."
@@ -341,10 +341,18 @@ def injected_drafts(good: list[Fact], match: Match, ids: Iterator[str], s: Setti
     if turn:
         out.append(inject_wrong_window(turn, next(ids), 900))
         out.append(inject_intent(turn, next(ids), "clause"))
-    small = first_small_sample("NOR", "left", s.sim.hero_sub_t, match, next(ids), s)
+    start = _small_sample_start(match)
+    small = first_small_sample(match.meta.home, "left", start, match, next(ids), s)
     if small:
         out.append(small)
     return out
+
+
+def _small_sample_start(match: Match) -> float:
+    """The home side's first substitution (a fresh window starts there), else the second half."""
+    home = match.meta.home
+    subs = [e.t for e in match.events if e.type == "substitution" and e.team == home]
+    return subs[0] if subs else match.meta.clock.half_t
 
 
 def first_small_sample(

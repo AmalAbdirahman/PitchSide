@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from core.config import load
 from core.events import Match
-from core.moments import minute
 from core.shares import lane_shares
 from sim.generate import Match as Simulation
 
@@ -25,6 +24,7 @@ def test_event_count_and_monotonic_ids(match: Match) -> None:
 def test_planted_story(match: Match) -> None:
     s, events = S.sim, match.events
     subs = [e for e in events if e.type == "substitution" and e.team == "NOR"]
+    minute = match.meta.clock.minute
     assert [minute(e.t) for e in subs] == [58]
     assert [(minute(e.t), e.team) for e in events if e.type == "goal"] == [(63, "NOR")]
     after = [e for e in events if s.hero_sub_t <= e.t < s.hero_overload_until_t]

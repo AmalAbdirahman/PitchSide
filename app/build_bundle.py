@@ -35,6 +35,7 @@ from core.config import ROOT, Settings, load
 from core.events import Match
 from core.facts import Fact, validate_fact
 from core.moments import detect_moments
+from core.sources import EventSource, SyntheticSource
 
 ROUTABLE = ("verified", "corrected")
 # Optional event fields kept for the pitch, shot map and evidence drawer.
@@ -87,11 +88,8 @@ CUE_SCHEMA: dict[str, Any] = {
 
 
 def load_match() -> tuple[Match, float]:
-    match = Match.model_validate_json((ROOT / "data" / "events.json").read_text(encoding="utf-8"))
-    mu = json.loads((ROOT / "data" / "league_stats.json").read_text(encoding="utf-8"))[
-        "mu_xg_per_team_minute"
-    ]
-    return match, mu
+    """The synthetic match and its league xG rate (the default source)."""
+    return SyntheticSource().load()
 
 
 def slim_events(match: Match) -> list[dict[str, Any]]:
@@ -184,13 +182,16 @@ def metrics(checked: list[Fact], facts: list[Fact]) -> dict[str, Any]:
 
 
 def build(
-    s: Settings, scout: Scout | None = None, use_cache: bool = True
+    s: Settings,
+    scout: Scout | None = None,
+    use_cache: bool = True,
+    source: EventSource | None = None,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    match, mu = load_match()
+    match, mu = (source or SyntheticSource()).load()
     teams = (match.meta.home, match.meta.away)
     if scout is None and use_cache:
         scout = make_scout(False, s)
-    moments = detect_moments(match.events, teams, mu, s)
+    moments = detect_moments(match.events, teams, mu, s, match.meta.clock)
     checked = checked_drafts(moments, match, scout, s)
     routable = [c for c in checked if c.verification.status in ROUTABLE]
     facts = sorted(

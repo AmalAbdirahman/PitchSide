@@ -78,11 +78,11 @@ def test_overload_moments_use_the_threshold_they_are_given(
     match: Match, settings: Settings
 ) -> None:
     teams = (match.meta.home, match.meta.away)
-    assert overload_moments(match.events, teams, settings)
+    assert overload_moments(match.events, teams, settings, match.meta.clock)
     impossible = settings.model_copy(
         update={"moments": settings.moments.model_copy(update={"overload_min_share": 1.01})}
     )
-    assert overload_moments(match.events, teams, impossible) == []
+    assert overload_moments(match.events, teams, impossible, match.meta.clock) == []
 
 
 def test_importing_the_pipeline_reads_no_project_file() -> None:

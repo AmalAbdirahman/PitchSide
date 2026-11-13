@@ -9,15 +9,10 @@ from __future__ import annotations
 from typing import Any
 
 from core.config import Pitch, Settings, Winprob
-from core.events import Event
+from core.events import Clock, Event
 from core.facts import Subject, Window
 from core.metrics import Metric, compute_metric, in_window, require_metric
 from core.winprob import win_probability
-
-
-def minute(t: float) -> int:
-    """Football minute for a clock time in seconds (0-59 s is the 1st minute)."""
-    return int(t // 60) + 1
 
 
 def ordinal(n: int) -> str:
@@ -153,10 +148,9 @@ def event_moments(events: list[Event]) -> list[dict[str, Any]]:
     return out
 
 
-def _checkpoints(s: Settings) -> list[float]:
+def _checkpoints(s: Settings, clock: Clock) -> list[float]:
     c = s.moments
-    end = 2 * s.sim.half_s
-    return [float(t) for t in range(c.first_check_s, end + 1, c.check_every_s)]
+    return [float(t) for t in range(c.first_check_s, int(clock.end_t) + 1, c.check_every_s)]
 
 
 def _overload_start(events: list[Event], team: str, cp: float, window_s: int) -> float:
@@ -168,12 +162,12 @@ def _overload_start(events: list[Event], team: str, cp: float, window_s: int) ->
 
 
 def overload_moments(
-    events: list[Event], teams: tuple[str, str], s: Settings
+    events: list[Event], teams: tuple[str, str], s: Settings, clock: Clock
 ) -> list[dict[str, Any]]:
     c, n_min = s.moments, s.verifier.n_min
     out: list[dict[str, Any]] = []
     last: dict[str, tuple[float, str]] = {}
-    for cp in _checkpoints(s):
+    for cp in _checkpoints(s, clock):
         for team in teams:
             start = _overload_start(events, team, cp, c.overload_window_s)
             w = Window(start_t=start, end_t=cp)
@@ -203,11 +197,11 @@ def overload_moments(
 
 
 def turnover_moments(
-    events: list[Event], teams: tuple[str, str], s: Settings
+    events: list[Event], teams: tuple[str, str], s: Settings, clock: Clock
 ) -> list[dict[str, Any]]:
     c = s.moments
     out, next_ok = [], {tm: 0.0 for tm in teams}
-    for cp in _checkpoints(s):
+    for cp in _checkpoints(s, clock):
         for team in teams:
             start = cp - c.turnover_window_s
             w = Window(start_t=start, end_t=cp)
@@ -220,11 +214,13 @@ def turnover_moments(
     return out
 
 
-def half_moments(events: list[Event], teams: tuple[str, str], s: Settings) -> list[dict[str, Any]]:
-    half = float(s.sim.half_s)
+def half_moments(
+    events: list[Event], teams: tuple[str, str], s: Settings, clock: Clock
+) -> list[dict[str, Any]]:
+    half, end_t = float(clock.half_t), float(clock.end_t)
     out = []
-    # The simulator keeps first-half events strictly below half_s.
-    for idx, (start, end) in enumerate(((0.0, half - 0.1), (half, 2 * half))):
+    # Every source keeps first-half events at least 0.1 s before the second half starts.
+    for idx, (start, end) in enumerate(((0.0, half - 0.1), (half, end_t))):
         name = ("first", "second")[idx]
         w = Window(start_t=start, end_t=end)
         for team in teams:
@@ -280,14 +276,14 @@ def _top_shooter(events: list[Event], w: Window, name: str, pitch: Pitch) -> lis
 
 
 def detect_moments(
-    events: list[Event], teams: tuple[str, str], mu: float, s: Settings
+    events: list[Event], teams: tuple[str, str], mu: float, s: Settings, clock: Clock
 ) -> list[dict[str, Any]]:
     """All moments in the match, sorted by creation time."""
     moments = (
         goal_moments(events, teams, mu, s.winprob)
         + event_moments(events)
-        + overload_moments(events, teams, s)
-        + turnover_moments(events, teams, s)
-        + half_moments(events, teams, s)
+        + overload_moments(events, teams, s, clock)
+        + turnover_moments(events, teams, s, clock)
+        + half_moments(events, teams, s, clock)
     )
     return sorted(moments, key=lambda m: (m["created_t"], m["rule"]))

@@ -27,7 +27,7 @@ def moments(match: Match) -> list[Moment]:
     mu = json.loads((ROOT / "data" / "league_stats.json").read_text(encoding="utf-8"))[
         "mu_xg_per_team_minute"
     ]
-    return detect_moments(match.events, ("NOR", "HAR"), mu, S)
+    return detect_moments(match.events, ("NOR", "HAR"), mu, S, match.meta.clock)
 
 
 def _key(subject: dict[str, str], metric: str, window: dict[str, float]) -> str:

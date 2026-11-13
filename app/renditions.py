@@ -216,7 +216,7 @@ def _cue(fact: Fact, lang: str, text: str, s: Settings) -> Rendition:
 
 
 def build_renditions(fact: Fact, match: Match, s: Settings) -> list[Rendition]:
-    en, es = fact.text.canonical_en, caption_es(fact, match, s.sim.half_s)
+    en, es = fact.text.canonical_en, caption_es(fact, match)
     return [
         _cue(fact, "en", en, s),
         _cue(fact, "es", es, s),
