@@ -3,6 +3,7 @@
 Each rendition passes a deterministic number check: every number it contains is
 in the fact's `text.numbers`, and every number in the canonical text survives.
 Audio scripts spell numbers out, so they are parsed back from words to check.
+A cue also carries a typed card for the overlay (app/cards.py, P13); its numbers are checked too.
 """
 
 from __future__ import annotations
@@ -10,10 +11,12 @@ from __future__ import annotations
 import re
 from typing import Any
 
+from app.cards import build_card, other_value
 from app.templates_es import caption_es
 from core.config import Settings
 from core.events import Match
-from core.facts import Fact, Rendition, validate_fact
+from core.facts import Card, Fact, Rendition, StatComparisonCard, validate_fact
+from core.metrics import REGISTRY
 
 ONES = [
     "nought",
@@ -201,25 +204,54 @@ def _rendition(fact: Fact, kind: str, lang: str, text: str, **extra: Any) -> Ren
     )
 
 
-def _cue(fact: Fact, lang: str, text: str, s: Settings) -> Rendition:
+def _rounded(value: float, metric: str) -> float:
+    """The other team's value as a card writes it (app/cards.shown)."""
+    return round(value, 2) if REGISTRY[metric].kind == "sum" else float(round(value))
+
+
+def card_numbers_ok(card: Card, fact: Fact, match: Match, s: Settings, lang: str) -> bool:
+    """Every number on the card (outside its sentence, checked on its own) is one of the fact's
+    numbers or, on a stat comparison, the other team's value recomputed here from the event log."""
+    allowed = [n.value for n in fact.text.numbers]
+    if isinstance(card, StatComparisonCard):
+        other = other_value(fact, match, s)
+        if other is None:
+            return False
+        allowed.append(_rounded(other, fact.claim.metric))
+    # What the overlay shows: ids, codes and the layout name are not drawn; the text is checked alone.
+    fields = card.model_dump(exclude={"text", "layout", "player_id", "team", "subject"})
+    strings = [v for v in fields.values() if isinstance(v, str)]
+    strings += [side["shown"] for side in (fields.get("home"), fields.get("away")) if side]
+    found = [x for t in strings for x in digits_in(t, lang)]
+    return all(any(_close(f, a) for a in allowed) for f in found)
+
+
+def _cue(fact: Fact, lang: str, text: str, match: Match, s: Settings) -> Rendition:
     r = s.renditions
-    ticker = fact.claim.metric in r.ticker_metrics
-    return _rendition(
-        fact,
-        "cue",
-        lang,
-        text,
-        layout="ticker" if ticker else "lower_third",
-        duration_s=r.ticker_duration_s if ticker else r.cue_duration_s,
-        start_t=air_time(fact, s.router.veto_window_s),
+    card = build_card(fact, text, match, s, lang)
+    duration = {"ticker": r.ticker_duration_s, "lower_third": r.cue_duration_s}
+    preserved = numbers_preserved(text, "cue", lang, fact) and card_numbers_ok(
+        card, fact, match, s, lang
+    )
+    return Rendition.model_validate(
+        {
+            "kind": "cue",
+            "lang": lang,
+            "text": text,
+            "layout": card.layout,
+            "duration_s": duration.get(card.layout, r.card_duration_s),
+            "start_t": air_time(fact, s.router.veto_window_s),
+            "numbers_preserved": preserved,
+            "card": card,
+        }
     )
 
 
 def build_renditions(fact: Fact, match: Match, s: Settings) -> list[Rendition]:
     en, es = fact.text.canonical_en, caption_es(fact, match)
     return [
-        _cue(fact, "en", en, s),
-        _cue(fact, "es", es, s),
+        _cue(fact, "en", en, match, s),
+        _cue(fact, "es", es, match, s),
         _rendition(fact, "caption", "en", en),
         _rendition(fact, "caption", "es", es),
         _rendition(fact, "audio_script", "en", speak(en)),

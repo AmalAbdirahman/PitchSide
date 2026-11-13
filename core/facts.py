@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from typing import Annotated, Any, Literal
 
-from pydantic import AliasChoices, BaseModel, ConfigDict, Field, WithJsonSchema
+from pydantic import AliasChoices, BaseModel, ConfigDict, Field, WithJsonSchema, model_validator
 from pydantic.json_schema import GenerateJsonSchema, JsonSchemaValue
 from pydantic_core import core_schema
 
@@ -182,14 +182,75 @@ class Approval(_Strict):
     ttl_s: NonNegative | None = None
 
 
+# ---- broadcast graphics (P13): one typed card per cue, drawn by docs/overlay.html ----------
+
+Layout = Literal["lower_third", "ticker", "stat_comparison", "player_card"]
+
+
+class LowerThirdCard(_Strict):
+    layout: Literal["lower_third"]
+    label: str  # who it is about, or "Goal"
+    text: str
+
+
+class TickerCard(_Strict):
+    layout: Literal["ticker"]
+    text: str
+
+
+class Side(_Strict):
+    """One team in a stat comparison; `shown` is the value as written on screen."""
+
+    team: str
+    name: str
+    shown: str
+
+
+class StatComparisonCard(_Strict):
+    """The subject team's claimed value beside the other team's, recomputed from the event log
+    over the same window by the metric registry."""
+
+    layout: Literal["stat_comparison"]
+    label: str
+    period: str  # "First half", "Second half" or "" (no digits, so no unchecked numbers)
+    subject: str  # team code of the claim's subject
+    home: Side
+    away: Side
+    text: str
+
+
+class PlayerCard(_Strict):
+    layout: Literal["player_card"]
+    player_id: str
+    name: str
+    team: str
+    team_name: str
+    label: str
+    figure: str  # the headline number(s) as written, from the fact's text.numbers
+    period: str
+    text: str
+
+
+Card = Annotated[
+    LowerThirdCard | TickerCard | StatComparisonCard | PlayerCard, Field(discriminator="layout")
+]
+
+
 class Rendition(_Strict):
     kind: Literal["cue", "caption", "audio_script"]
     lang: Literal["en", "es"]
     text: str
-    layout: Literal["lower_third", "score_bug", "ticker"] | None = None
+    layout: Layout | None = None
     duration_s: Number | None = None
     start_t: Number | None = None
     numbers_preserved: bool
+    card: Card | None = None  # cues only (P13)
+
+    @model_validator(mode="after")
+    def _card_matches_layout(self) -> Rendition:
+        if self.card is not None and self.card.layout != self.layout:
+            raise ValueError(f"card layout {self.card.layout} differs from layout {self.layout}")
+        return self
 
 
 class ReadSubject(_Strict):

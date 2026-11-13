@@ -159,6 +159,11 @@ renditions:
   cue_duration_s: 6
   ticker_duration_s: 8
   ticker_metrics: [xg_sum, pass_accuracy, top_shot_speed, shots]
+  # P13 graphics, chosen by hand. A team claim on a comparison metric shows both teams side by
+  # side; a player claim on a player-card metric gets a player card. Both win over the ticker.
+  card_duration_s: 8
+  comparison_metrics: [xg_sum, pass_accuracy]
+  player_card_metrics: [shots, xt_added, most_central_player]
 
 data_card:
   goals_per_match: [1.8, 3.5]

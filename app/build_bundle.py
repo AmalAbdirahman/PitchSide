@@ -79,18 +79,21 @@ CUE_SCHEMA: dict[str, Any] = {
             "evidence_ids",
             "checked",
             "tier",
+            "card",
         ],
         "properties": {
             "cue_id": {"type": "string", "pattern": "^c_[0-9]{6}$"},
             "fact_id": {"type": "string", "pattern": "^f_[0-9]{6}$"},
             "start_t": {"type": "number", "minimum": 0},
             "duration_s": {"type": "number", "exclusiveMinimum": 0},
-            "layout": {"enum": ["lower_third", "score_bug", "ticker"]},
+            "layout": {"enum": ["lower_third", "ticker", "stat_comparison", "player_card"]},
             "lang": {"enum": ["en", "es"]},
             "text": {"type": "string", "minLength": 1},
             "evidence_ids": {"type": "array", "items": {"type": "integer"}, "minItems": 1},
             "checked": {"const": True},
             "tier": {"enum": ["T0", "T1"]},
+            # The typed card the overlay draws; its full schema is Rendition.card in fact.schema.json.
+            "card": {"type": "object", "required": ["layout"]},
         },
     },
 }
@@ -150,6 +153,7 @@ def make_cues(facts: list[Fact]) -> list[dict[str, Any]]:
                         "evidence_ids": list(f.evidence.event_ids),
                         "checked": True,
                         "tier": f.risk.tier,
+                        "card": r.card.model_dump() if r.card else None,
                     }
                 )
     cues.sort(key=lambda c: (c["start_t"], c["fact_id"], c["lang"]))

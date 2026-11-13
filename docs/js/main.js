@@ -6,6 +6,7 @@ import { drawPitch, drawRibbon, flash, popScore, renderClock, renderFeed, render
 import { openEvidence, renderOnAir, renderQueue, renderTimers } from './queue.js';
 import { renderAudit, renderLog } from './audit.js';
 import { maybeRenderAnalysis } from './analysis.js';
+import { publishProgram, startProgram } from './program.js';
 
 async function load() {
   try {
@@ -18,6 +19,7 @@ async function load() {
     return;
   }
   setState(freshState());
+  startProgram();
   setupStatic();
   wire();
   renderAll();
@@ -101,6 +103,7 @@ function frame(now) {
   if (UI.view === 'an') maybeRenderAnalysis(now);
   renderClock();
   renderTimers();
+  publishProgram();
   requestAnimationFrame(frame);
 }
 

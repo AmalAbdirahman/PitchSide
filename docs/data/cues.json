@@ -15,7 +15,12 @@
    14
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Northbridge",
+   "text": "The numbers suggest 71% of Northbridge attacks have gone down the right since the 1st minute."
+  }
  },
  {
   "cue_id": "c_000002",
@@ -33,7 +38,12 @@
    14
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Northbridge",
+   "text": "Los datos sugieren que Northbridge carga el juego por la banda derecha: el 71 % de sus ataques desde el minuto 1."
+  }
  },
  {
   "cue_id": "c_000003",
@@ -49,7 +59,12 @@
    61
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Northbridge",
+   "text": "Northbridge have had 3 turnovers in their own third since the 1st minute."
+  }
  },
  {
   "cue_id": "c_000004",
@@ -65,7 +80,12 @@
    61
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Northbridge",
+   "text": "Northbridge ha perdido el balón 3 veces en su tercio defensivo desde el minuto 1."
+  }
  },
  {
   "cue_id": "c_000005",
@@ -87,7 +107,12 @@
    99
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Harlow",
+   "text": "The numbers suggest 50% of Harlow attacks have gone down the centre since the 6th minute."
+  }
  },
  {
   "cue_id": "c_000006",
@@ -109,7 +134,12 @@
    99
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Harlow",
+   "text": "Los datos sugieren que Harlow carga el juego por el centro: el 50 % de sus ataques desde el minuto 6."
+  }
  },
  {
   "cue_id": "c_000007",
@@ -133,7 +163,12 @@
    166
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Northbridge",
+   "text": "The numbers suggest 69% of Northbridge attacks have gone down the centre since the 11th minute."
+  }
  },
  {
   "cue_id": "c_000008",
@@ -157,7 +192,12 @@
    166
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Northbridge",
+   "text": "Los datos sugieren que Northbridge carga el juego por el centro: el 69 % de sus ataques desde el minuto 11."
+  }
  },
  {
   "cue_id": "c_000009",
@@ -175,7 +215,12 @@
    135
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Harlow",
+   "text": "The numbers suggest 56% of Harlow attacks have gone down the left since the 11th minute."
+  }
  },
  {
   "cue_id": "c_000010",
@@ -193,7 +238,12 @@
    135
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Harlow",
+   "text": "Los datos sugieren que Harlow carga el juego por la banda izquierda: el 56 % de sus ataques desde el minuto 11."
+  }
  },
  {
   "cue_id": "c_000011",
@@ -209,7 +259,12 @@
    227
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Northbridge",
+   "text": "Northbridge have had 3 turnovers in their own third since the 26th minute."
+  }
  },
  {
   "cue_id": "c_000012",
@@ -225,7 +280,12 @@
    227
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Northbridge",
+   "text": "Northbridge ha perdido el balón 3 veces en su tercio defensivo desde el minuto 26."
+  }
  },
  {
   "cue_id": "c_000013",
@@ -259,7 +319,12 @@
    242
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Harlow",
+   "text": "The numbers suggest 72% of Harlow attacks have gone down the left since the 26th minute."
+  }
  },
  {
   "cue_id": "c_000014",
@@ -293,7 +358,12 @@
    242
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Harlow",
+   "text": "Los datos sugieren que Harlow carga el juego por la banda izquierda: el 72 % de sus ataques desde el minuto 26."
+  }
  },
  {
   "cue_id": "c_000015",
@@ -307,7 +377,12 @@
    301
   ],
   "checked": true,
-  "tier": "T0"
+  "tier": "T0",
+  "card": {
+   "layout": "lower_third",
+   "label": "I. Marchetti-Holt",
+   "text": "Yellow card for I. Marchetti-Holt of Harlow in the 45th minute."
+  }
  },
  {
   "cue_id": "c_000016",
@@ -321,14 +396,19 @@
    301
   ],
   "checked": true,
-  "tier": "T0"
+  "tier": "T0",
+  "card": {
+   "layout": "lower_third",
+   "label": "I. Marchetti-Holt",
+   "text": "Tarjeta amarilla para I. Marchetti-Holt (Harlow) en el minuto 45."
+  }
  },
  {
   "cue_id": "c_000017",
   "fact_id": "f_000009",
   "start_t": 2702.9,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "stat_comparison",
   "lang": "en",
   "text": "Northbridge completed 67% of their passes.",
   "evidence_ids": [
@@ -385,14 +465,31 @@
    279
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "stat_comparison",
+   "label": "Pass accuracy",
+   "period": "First half",
+   "subject": "NOR",
+   "home": {
+    "team": "NOR",
+    "name": "Northbridge",
+    "shown": "67%"
+   },
+   "away": {
+    "team": "HAR",
+    "name": "Harlow",
+    "shown": "77%"
+   },
+   "text": "Northbridge completed 67% of their passes."
+  }
  },
  {
   "cue_id": "c_000018",
   "fact_id": "f_000009",
   "start_t": 2702.9,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "stat_comparison",
   "lang": "es",
   "text": "Northbridge completó el 67 % de sus pases en la primera parte.",
   "evidence_ids": [
@@ -449,14 +546,31 @@
    279
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "stat_comparison",
+   "label": "Precisión de pase",
+   "period": "Primera parte",
+   "subject": "NOR",
+   "home": {
+    "team": "NOR",
+    "name": "Northbridge",
+    "shown": "67 %"
+   },
+   "away": {
+    "team": "HAR",
+    "name": "Harlow",
+    "shown": "77 %"
+   },
+   "text": "Northbridge completó el 67 % de sus pases en la primera parte."
+  }
  },
  {
   "cue_id": "c_000019",
   "fact_id": "f_000010",
   "start_t": 2702.9,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "stat_comparison",
   "lang": "en",
   "text": "Harlow completed 77% of their passes in the first half.",
   "evidence_ids": [
@@ -531,14 +645,31 @@
    295
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "stat_comparison",
+   "label": "Pass accuracy",
+   "period": "First half",
+   "subject": "HAR",
+   "home": {
+    "team": "NOR",
+    "name": "Northbridge",
+    "shown": "67%"
+   },
+   "away": {
+    "team": "HAR",
+    "name": "Harlow",
+    "shown": "77%"
+   },
+   "text": "Harlow completed 77% of their passes in the first half."
+  }
  },
  {
   "cue_id": "c_000020",
   "fact_id": "f_000010",
   "start_t": 2702.9,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "stat_comparison",
   "lang": "es",
   "text": "Harlow completó el 77 % de sus pases en la primera parte.",
   "evidence_ids": [
@@ -613,14 +744,31 @@
    295
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "stat_comparison",
+   "label": "Precisión de pase",
+   "period": "Primera parte",
+   "subject": "HAR",
+   "home": {
+    "team": "NOR",
+    "name": "Northbridge",
+    "shown": "67 %"
+   },
+   "away": {
+    "team": "HAR",
+    "name": "Harlow",
+    "shown": "77 %"
+   },
+   "text": "Harlow completó el 77 % de sus pases en la primera parte."
+  }
  },
  {
   "cue_id": "c_000021",
   "fact_id": "f_000011",
   "start_t": 2702.9,
-  "duration_s": 6,
-  "layout": "lower_third",
+  "duration_s": 8,
+  "layout": "player_card",
   "lang": "en",
   "text": "E. Lindqvist is Northbridge's most central passer, with 11 of 38 linked passes.",
   "evidence_ids": [
@@ -637,14 +785,25 @@
    279
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "player_card",
+   "player_id": "NOR_08",
+   "name": "E. Lindqvist",
+   "team": "NOR",
+   "team_name": "Northbridge",
+   "label": "Most central passer · linked passes",
+   "figure": "11 of 38",
+   "period": "First half",
+   "text": "E. Lindqvist is Northbridge's most central passer, with 11 of 38 linked passes."
+  }
  },
  {
   "cue_id": "c_000022",
   "fact_id": "f_000011",
   "start_t": 2702.9,
-  "duration_s": 6,
-  "layout": "lower_third",
+  "duration_s": 8,
+  "layout": "player_card",
   "lang": "es",
   "text": "E. Lindqvist fue el jugador más central en la circulación de Northbridge en la primera parte: participó en 11 de 38 pases enlazados.",
   "evidence_ids": [
@@ -661,14 +820,25 @@
    279
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "player_card",
+   "player_id": "NOR_08",
+   "name": "E. Lindqvist",
+   "team": "NOR",
+   "team_name": "Northbridge",
+   "label": "Pasador más central · pases",
+   "figure": "11 de 38",
+   "period": "Primera parte",
+   "text": "E. Lindqvist fue el jugador más central en la circulación de Northbridge en la primera parte: participó en 11 de 38 pases enlazados."
+  }
  },
  {
   "cue_id": "c_000023",
   "fact_id": "f_000012",
   "start_t": 2702.9,
-  "duration_s": 6,
-  "layout": "lower_third",
+  "duration_s": 8,
+  "layout": "player_card",
   "lang": "en",
   "text": "W. Abara is Harlow's most central passer, with 18 of 57 linked passes in the first half.",
   "evidence_ids": [
@@ -692,14 +862,25 @@
    271
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "player_card",
+   "player_id": "HAR_06",
+   "name": "W. Abara",
+   "team": "HAR",
+   "team_name": "Harlow",
+   "label": "Most central passer · linked passes",
+   "figure": "18 of 57",
+   "period": "First half",
+   "text": "W. Abara is Harlow's most central passer, with 18 of 57 linked passes in the first half."
+  }
  },
  {
   "cue_id": "c_000024",
   "fact_id": "f_000012",
   "start_t": 2702.9,
-  "duration_s": 6,
-  "layout": "lower_third",
+  "duration_s": 8,
+  "layout": "player_card",
   "lang": "es",
   "text": "W. Abara fue el jugador más central en la circulación de Harlow en la primera parte: participó en 18 de 57 pases enlazados.",
   "evidence_ids": [
@@ -723,14 +904,25 @@
    271
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "player_card",
+   "player_id": "HAR_06",
+   "name": "W. Abara",
+   "team": "HAR",
+   "team_name": "Harlow",
+   "label": "Pasador más central · pases",
+   "figure": "18 de 57",
+   "period": "Primera parte",
+   "text": "W. Abara fue el jugador más central en la circulación de Harlow en la primera parte: participó en 18 de 57 pases enlazados."
+  }
  },
  {
   "cue_id": "c_000025",
   "fact_id": "f_000013",
   "start_t": 2702.9,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "player_card",
   "lang": "en",
   "text": "T. Brannock has taken 3 shots.",
   "evidence_ids": [
@@ -739,14 +931,25 @@
    248
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "player_card",
+   "player_id": "HAR_09",
+   "name": "T. Brannock",
+   "team": "HAR",
+   "team_name": "Harlow",
+   "label": "Shots",
+   "figure": "3",
+   "period": "First half",
+   "text": "T. Brannock has taken 3 shots."
+  }
  },
  {
   "cue_id": "c_000026",
   "fact_id": "f_000013",
   "start_t": 2702.9,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "player_card",
   "lang": "es",
   "text": "T. Brannock realizó 3 disparos en la primera parte.",
   "evidence_ids": [
@@ -755,7 +958,18 @@
    248
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "player_card",
+   "player_id": "HAR_09",
+   "name": "T. Brannock",
+   "team": "HAR",
+   "team_name": "Harlow",
+   "label": "Disparos",
+   "figure": "3",
+   "period": "Primera parte",
+   "text": "T. Brannock realizó 3 disparos en la primera parte."
+  }
  },
  {
   "cue_id": "c_000027",
@@ -769,7 +983,11 @@
    225
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "ticker",
+   "text": "The match's fastest shot was 109 km/h."
+  }
  },
  {
   "cue_id": "c_000028",
@@ -783,14 +1001,18 @@
    225
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "ticker",
+   "text": "Disparo más rápido de la primera parte: 109 km/h, de Y. Castell."
+  }
  },
  {
   "cue_id": "c_000029",
   "fact_id": "f_000015",
   "start_t": 2702.9,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "stat_comparison",
   "lang": "en",
   "text": "Northbridge have 0.27 xG.",
   "evidence_ids": [
@@ -798,14 +1020,31 @@
    166
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "stat_comparison",
+   "label": "Expected goals (xG)",
+   "period": "First half",
+   "subject": "NOR",
+   "home": {
+    "team": "NOR",
+    "name": "Northbridge",
+    "shown": "0.27"
+   },
+   "away": {
+    "team": "HAR",
+    "name": "Harlow",
+    "shown": "0.86"
+   },
+   "text": "Northbridge have 0.27 xG."
+  }
  },
  {
   "cue_id": "c_000030",
   "fact_id": "f_000015",
   "start_t": 2702.9,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "stat_comparison",
   "lang": "es",
   "text": "Northbridge generó 0,27 de xG en la primera parte.",
   "evidence_ids": [
@@ -813,14 +1052,31 @@
    166
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "stat_comparison",
+   "label": "Goles esperados (xG)",
+   "period": "Primera parte",
+   "subject": "NOR",
+   "home": {
+    "team": "NOR",
+    "name": "Northbridge",
+    "shown": "0,27"
+   },
+   "away": {
+    "team": "HAR",
+    "name": "Harlow",
+    "shown": "0,86"
+   },
+   "text": "Northbridge generó 0,27 de xG en la primera parte."
+  }
  },
  {
   "cue_id": "c_000031",
   "fact_id": "f_000016",
   "start_t": 2702.9,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "stat_comparison",
   "lang": "en",
   "text": "Harlow generated 0.86 xG in the first half.",
   "evidence_ids": [
@@ -832,14 +1088,31 @@
    255
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "stat_comparison",
+   "label": "Expected goals (xG)",
+   "period": "First half",
+   "subject": "HAR",
+   "home": {
+    "team": "NOR",
+    "name": "Northbridge",
+    "shown": "0.27"
+   },
+   "away": {
+    "team": "HAR",
+    "name": "Harlow",
+    "shown": "0.86"
+   },
+   "text": "Harlow generated 0.86 xG in the first half."
+  }
  },
  {
   "cue_id": "c_000032",
   "fact_id": "f_000016",
   "start_t": 2702.9,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "stat_comparison",
   "lang": "es",
   "text": "Harlow generó 0,86 de xG en la primera parte.",
   "evidence_ids": [
@@ -851,14 +1124,31 @@
    255
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "stat_comparison",
+   "label": "Goles esperados (xG)",
+   "period": "Primera parte",
+   "subject": "HAR",
+   "home": {
+    "team": "NOR",
+    "name": "Northbridge",
+    "shown": "0,27"
+   },
+   "away": {
+    "team": "HAR",
+    "name": "Harlow",
+    "shown": "0,86"
+   },
+   "text": "Harlow generó 0,86 de xG en la primera parte."
+  }
  },
  {
   "cue_id": "c_000033",
   "fact_id": "f_000017",
   "start_t": 2702.9,
-  "duration_s": 6,
-  "layout": "lower_third",
+  "duration_s": 8,
+  "layout": "player_card",
   "lang": "en",
   "text": "U. Kerridge added 0.30 xT in the first half.",
   "evidence_ids": [
@@ -876,14 +1166,25 @@
    254
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "player_card",
+   "player_id": "HAR_11",
+   "name": "U. Kerridge",
+   "team": "HAR",
+   "team_name": "Harlow",
+   "label": "Expected threat added (xT)",
+   "figure": "0.30",
+   "period": "First half",
+   "text": "U. Kerridge added 0.30 xT in the first half."
+  }
  },
  {
   "cue_id": "c_000034",
   "fact_id": "f_000017",
   "start_t": 2702.9,
-  "duration_s": 6,
-  "layout": "lower_third",
+  "duration_s": 8,
+  "layout": "player_card",
   "lang": "es",
   "text": "U. Kerridge sumó 0,30 de xT con pases y conducciones completados en la primera parte.",
   "evidence_ids": [
@@ -901,7 +1202,18 @@
    254
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "player_card",
+   "player_id": "HAR_11",
+   "name": "U. Kerridge",
+   "team": "HAR",
+   "team_name": "Harlow",
+   "label": "Amenaza esperada añadida (xT)",
+   "figure": "0,30",
+   "period": "Primera parte",
+   "text": "U. Kerridge sumó 0,30 de xT con pases y conducciones completados en la primera parte."
+  }
  },
  {
   "cue_id": "c_000035",
@@ -919,7 +1231,12 @@
    341
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Northbridge",
+   "text": "The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st minute."
+  }
  },
  {
   "cue_id": "c_000036",
@@ -937,7 +1254,12 @@
    341
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Northbridge",
+   "text": "Los datos sugieren que Northbridge carga el juego por la banda derecha: el 50 % de sus ataques desde el minuto 41."
+  }
  },
  {
   "cue_id": "c_000037",
@@ -958,7 +1280,12 @@
    314
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Harlow",
+   "text": "The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute."
+  }
  },
  {
   "cue_id": "c_000038",
@@ -979,7 +1306,12 @@
    314
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Harlow",
+   "text": "Los datos sugieren que Harlow carga el juego por el centro: el 57 % de sus ataques desde el minuto 41."
+  }
  },
  {
   "cue_id": "c_000039",
@@ -993,7 +1325,12 @@
    383
   ],
   "checked": true,
-  "tier": "T0"
+  "tier": "T0",
+  "card": {
+   "layout": "lower_third",
+   "label": "Northbridge",
+   "text": "Substitution for Northbridge in the 58th minute: B. Adeyemi-Ross on, D. Varga off."
+  }
  },
  {
   "cue_id": "c_000040",
@@ -1007,7 +1344,12 @@
    383
   ],
   "checked": true,
-  "tier": "T0"
+  "tier": "T0",
+  "card": {
+   "layout": "lower_third",
+   "label": "Northbridge",
+   "text": "Cambio en Northbridge en el minuto 58: entra B. Adeyemi-Ross, sale D. Varga."
+  }
  },
  {
   "cue_id": "c_000041",
@@ -1022,7 +1364,12 @@
    419
   ],
   "checked": true,
-  "tier": "T0"
+  "tier": "T0",
+  "card": {
+   "layout": "lower_third",
+   "label": "Goal",
+   "text": "GOAL, Northbridge 1–0 Harlow. C. Nkemelu, 63'."
+  }
  },
  {
   "cue_id": "c_000042",
@@ -1037,7 +1384,12 @@
    419
   ],
   "checked": true,
-  "tier": "T0"
+  "tier": "T0",
+  "card": {
+   "layout": "lower_third",
+   "label": "Gol",
+   "text": "¡GOL! C. Nkemelu marca para Northbridge en el minuto 63. Northbridge 1–0 Harlow."
+  }
  },
  {
   "cue_id": "c_000043",
@@ -1060,7 +1412,12 @@
    432
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Harlow",
+   "text": "The numbers suggest 77% of Harlow attacks have gone down the left since the 51st minute."
+  }
  },
  {
   "cue_id": "c_000044",
@@ -1083,7 +1440,12 @@
    432
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Harlow",
+   "text": "Los datos sugieren que Harlow carga el juego por la banda izquierda: el 77 % de sus ataques desde el minuto 51."
+  }
  },
  {
   "cue_id": "c_000045",
@@ -1101,7 +1463,12 @@
    465
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Northbridge",
+   "text": "The numbers suggest 71% of Northbridge attacks have gone down the left since the 58th minute."
+  }
  },
  {
   "cue_id": "c_000046",
@@ -1119,7 +1486,12 @@
    465
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Northbridge",
+   "text": "Los datos sugieren que Northbridge carga el juego por la banda izquierda: el 71 % de sus ataques desde el minuto 58."
+  }
  },
  {
   "cue_id": "c_000047",
@@ -1133,7 +1505,12 @@
    470
   ],
   "checked": true,
-  "tier": "T0"
+  "tier": "T0",
+  "card": {
+   "layout": "lower_third",
+   "label": "Harlow",
+   "text": "Substitution for Harlow in the 71st minute: A. Somerby on, Z. Halloran off."
+  }
  },
  {
   "cue_id": "c_000048",
@@ -1147,7 +1524,12 @@
    470
   ],
   "checked": true,
-  "tier": "T0"
+  "tier": "T0",
+  "card": {
+   "layout": "lower_third",
+   "label": "Harlow",
+   "text": "Cambio en Harlow en el minuto 71: entra A. Somerby, sale Z. Halloran."
+  }
  },
  {
   "cue_id": "c_000049",
@@ -1167,7 +1549,12 @@
    527
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Harlow",
+   "text": "Harlow have 7 turnovers in their own third since the 71st minute."
+  }
  },
  {
   "cue_id": "c_000050",
@@ -1187,7 +1574,12 @@
    527
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Harlow",
+   "text": "Harlow ha perdido el balón 7 veces en su tercio defensivo desde el minuto 71."
+  }
  },
  {
   "cue_id": "c_000051",
@@ -1220,7 +1612,12 @@
    548
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Northbridge",
+   "text": "The numbers suggest 51% of Northbridge attacks have gone down the left since the 58th minute."
+  }
  },
  {
   "cue_id": "c_000052",
@@ -1253,7 +1650,12 @@
    548
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Northbridge",
+   "text": "Los datos sugieren que Northbridge carga el juego por la banda izquierda: el 51 % de sus ataques desde el minuto 58."
+  }
  },
  {
   "cue_id": "c_000053",
@@ -1278,7 +1680,12 @@
    581
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Northbridge",
+   "text": "The numbers suggest 50% of Northbridge attacks have gone down the centre since the 76th minute."
+  }
  },
  {
   "cue_id": "c_000054",
@@ -1303,7 +1710,12 @@
    581
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Northbridge",
+   "text": "Los datos sugieren que Northbridge carga el juego por el centro: el 50 % de sus ataques desde el minuto 76."
+  }
  },
  {
   "cue_id": "c_000055",
@@ -1321,7 +1733,12 @@
    590
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Harlow",
+   "text": "The numbers suggest 83% of Harlow attacks have gone down the right since the 71st minute."
+  }
  },
  {
   "cue_id": "c_000056",
@@ -1339,14 +1756,19 @@
    590
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Harlow",
+   "text": "Los datos sugieren que Harlow carga el juego por la banda derecha: el 83 % de sus ataques desde el minuto 71."
+  }
  },
  {
   "cue_id": "c_000057",
   "fact_id": "f_000029",
   "start_t": 5403.0,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "stat_comparison",
   "lang": "en",
   "text": "Northbridge have completed 81% of their passes.",
   "evidence_ids": [
@@ -1416,14 +1838,31 @@
    599
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "stat_comparison",
+   "label": "Pass accuracy",
+   "period": "Second half",
+   "subject": "NOR",
+   "home": {
+    "team": "NOR",
+    "name": "Northbridge",
+    "shown": "81%"
+   },
+   "away": {
+    "team": "HAR",
+    "name": "Harlow",
+    "shown": "70%"
+   },
+   "text": "Northbridge have completed 81% of their passes."
+  }
  },
  {
   "cue_id": "c_000058",
   "fact_id": "f_000029",
   "start_t": 5403.0,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "stat_comparison",
   "lang": "es",
   "text": "Northbridge completó el 81 % de sus pases en la segunda parte.",
   "evidence_ids": [
@@ -1493,14 +1932,31 @@
    599
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "stat_comparison",
+   "label": "Precisión de pase",
+   "period": "Segunda parte",
+   "subject": "NOR",
+   "home": {
+    "team": "NOR",
+    "name": "Northbridge",
+    "shown": "81 %"
+   },
+   "away": {
+    "team": "HAR",
+    "name": "Harlow",
+    "shown": "70 %"
+   },
+   "text": "Northbridge completó el 81 % de sus pases en la segunda parte."
+  }
  },
  {
   "cue_id": "c_000059",
   "fact_id": "f_000030",
   "start_t": 5403.0,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "stat_comparison",
   "lang": "en",
   "text": "Harlow completed 70% of their passes in the second half.",
   "evidence_ids": [
@@ -1559,14 +2015,31 @@
    603
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "stat_comparison",
+   "label": "Pass accuracy",
+   "period": "Second half",
+   "subject": "HAR",
+   "home": {
+    "team": "NOR",
+    "name": "Northbridge",
+    "shown": "81%"
+   },
+   "away": {
+    "team": "HAR",
+    "name": "Harlow",
+    "shown": "70%"
+   },
+   "text": "Harlow completed 70% of their passes in the second half."
+  }
  },
  {
   "cue_id": "c_000060",
   "fact_id": "f_000030",
   "start_t": 5403.0,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "stat_comparison",
   "lang": "es",
   "text": "Harlow completó el 70 % de sus pases en la segunda parte.",
   "evidence_ids": [
@@ -1625,14 +2098,31 @@
    603
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "stat_comparison",
+   "label": "Precisión de pase",
+   "period": "Segunda parte",
+   "subject": "HAR",
+   "home": {
+    "team": "NOR",
+    "name": "Northbridge",
+    "shown": "81 %"
+   },
+   "away": {
+    "team": "HAR",
+    "name": "Harlow",
+    "shown": "70 %"
+   },
+   "text": "Harlow completó el 70 % de sus pases en la segunda parte."
+  }
  },
  {
   "cue_id": "c_000061",
   "fact_id": "f_000031",
   "start_t": 5403.0,
-  "duration_s": 6,
-  "layout": "lower_third",
+  "duration_s": 8,
+  "layout": "player_card",
   "lang": "en",
   "text": "E. Lindqvist was Northbridge's most central passer in the second half, with 18 of 53 linked passes.",
   "evidence_ids": [
@@ -1656,14 +2146,25 @@
    597
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "player_card",
+   "player_id": "NOR_08",
+   "name": "E. Lindqvist",
+   "team": "NOR",
+   "team_name": "Northbridge",
+   "label": "Most central passer · linked passes",
+   "figure": "18 of 53",
+   "period": "Second half",
+   "text": "E. Lindqvist was Northbridge's most central passer in the second half, with 18 of 53 linked passes."
+  }
  },
  {
   "cue_id": "c_000062",
   "fact_id": "f_000031",
   "start_t": 5403.0,
-  "duration_s": 6,
-  "layout": "lower_third",
+  "duration_s": 8,
+  "layout": "player_card",
   "lang": "es",
   "text": "E. Lindqvist fue el jugador más central en la circulación de Northbridge en la segunda parte: participó en 18 de 53 pases enlazados.",
   "evidence_ids": [
@@ -1687,14 +2188,25 @@
    597
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "player_card",
+   "player_id": "NOR_08",
+   "name": "E. Lindqvist",
+   "team": "NOR",
+   "team_name": "Northbridge",
+   "label": "Pasador más central · pases",
+   "figure": "18 de 53",
+   "period": "Segunda parte",
+   "text": "E. Lindqvist fue el jugador más central en la circulación de Northbridge en la segunda parte: participó en 18 de 53 pases enlazados."
+  }
  },
  {
   "cue_id": "c_000063",
   "fact_id": "f_000032",
   "start_t": 5403.0,
-  "duration_s": 6,
-  "layout": "lower_third",
+  "duration_s": 8,
+  "layout": "player_card",
   "lang": "en",
   "text": "O. Fenwick was the most central player in Harlow's passing in the second half: involved in 10 of 44 linked passes.",
   "evidence_ids": [
@@ -1710,14 +2222,25 @@
    550
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "player_card",
+   "player_id": "HAR_08",
+   "name": "O. Fenwick",
+   "team": "HAR",
+   "team_name": "Harlow",
+   "label": "Most central passer · linked passes",
+   "figure": "10 of 44",
+   "period": "Second half",
+   "text": "O. Fenwick was the most central player in Harlow's passing in the second half: involved in 10 of 44 linked passes."
+  }
  },
  {
   "cue_id": "c_000064",
   "fact_id": "f_000032",
   "start_t": 5403.0,
-  "duration_s": 6,
-  "layout": "lower_third",
+  "duration_s": 8,
+  "layout": "player_card",
   "lang": "es",
   "text": "O. Fenwick fue el jugador más central en la circulación de Harlow en la segunda parte: participó en 10 de 44 pases enlazados.",
   "evidence_ids": [
@@ -1733,14 +2256,25 @@
    550
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "player_card",
+   "player_id": "HAR_08",
+   "name": "O. Fenwick",
+   "team": "HAR",
+   "team_name": "Harlow",
+   "label": "Pasador más central · pases",
+   "figure": "10 de 44",
+   "period": "Segunda parte",
+   "text": "O. Fenwick fue el jugador más central en la circulación de Harlow en la segunda parte: participó en 10 de 44 pases enlazados."
+  }
  },
  {
   "cue_id": "c_000065",
   "fact_id": "f_000033",
   "start_t": 5403.0,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "player_card",
   "lang": "en",
   "text": "C. Nkemelu had 4 shots in the second half.",
   "evidence_ids": [
@@ -1750,14 +2284,25 @@
    562
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "player_card",
+   "player_id": "NOR_09",
+   "name": "C. Nkemelu",
+   "team": "NOR",
+   "team_name": "Northbridge",
+   "label": "Shots",
+   "figure": "4",
+   "period": "Second half",
+   "text": "C. Nkemelu had 4 shots in the second half."
+  }
  },
  {
   "cue_id": "c_000066",
   "fact_id": "f_000033",
   "start_t": 5403.0,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "player_card",
   "lang": "es",
   "text": "C. Nkemelu realizó 4 disparos en la segunda parte.",
   "evidence_ids": [
@@ -1767,7 +2312,18 @@
    562
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "player_card",
+   "player_id": "NOR_09",
+   "name": "C. Nkemelu",
+   "team": "NOR",
+   "team_name": "Northbridge",
+   "label": "Disparos",
+   "figure": "4",
+   "period": "Segunda parte",
+   "text": "C. Nkemelu realizó 4 disparos en la segunda parte."
+  }
  },
  {
   "cue_id": "c_000067",
@@ -1781,7 +2337,11 @@
    366
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "ticker",
+   "text": "The fastest shot in the second half was 109 km/h."
+  }
  },
  {
   "cue_id": "c_000068",
@@ -1795,7 +2355,11 @@
    366
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "ticker",
+   "text": "Disparo más rápido de la segunda parte: 109 km/h, de D. Varga."
+  }
  },
  {
   "cue_id": "c_000069",
@@ -1811,7 +2375,12 @@
    579
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Harlow",
+   "text": "Harlow have had 3 turnovers in their own third since the 81st minute."
+  }
  },
  {
   "cue_id": "c_000070",
@@ -1827,14 +2396,19 @@
    579
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "lower_third",
+   "label": "Harlow",
+   "text": "Harlow ha perdido el balón 3 veces en su tercio defensivo desde el minuto 81."
+  }
  },
  {
   "cue_id": "c_000071",
   "fact_id": "f_000036",
   "start_t": 5403.0,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "stat_comparison",
   "lang": "en",
   "text": "Northbridge generated 2.11 xG in the second half.",
   "evidence_ids": [
@@ -1848,14 +2422,31 @@
    581
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "stat_comparison",
+   "label": "Expected goals (xG)",
+   "period": "Second half",
+   "subject": "NOR",
+   "home": {
+    "team": "NOR",
+    "name": "Northbridge",
+    "shown": "2.11"
+   },
+   "away": {
+    "team": "HAR",
+    "name": "Harlow",
+    "shown": "0.22"
+   },
+   "text": "Northbridge generated 2.11 xG in the second half."
+  }
  },
  {
   "cue_id": "c_000072",
   "fact_id": "f_000036",
   "start_t": 5403.0,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "stat_comparison",
   "lang": "es",
   "text": "Northbridge generó 2,11 de xG en la segunda parte.",
   "evidence_ids": [
@@ -1869,14 +2460,31 @@
    581
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "stat_comparison",
+   "label": "Goles esperados (xG)",
+   "period": "Segunda parte",
+   "subject": "NOR",
+   "home": {
+    "team": "NOR",
+    "name": "Northbridge",
+    "shown": "2,11"
+   },
+   "away": {
+    "team": "HAR",
+    "name": "Harlow",
+    "shown": "0,22"
+   },
+   "text": "Northbridge generó 2,11 de xG en la segunda parte."
+  }
  },
  {
   "cue_id": "c_000073",
   "fact_id": "f_000037",
   "start_t": 5403.0,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "stat_comparison",
   "lang": "en",
   "text": "Harlow generated 0.22 xG in the second half.",
   "evidence_ids": [
@@ -1884,14 +2492,31 @@
    437
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "stat_comparison",
+   "label": "Expected goals (xG)",
+   "period": "Second half",
+   "subject": "HAR",
+   "home": {
+    "team": "NOR",
+    "name": "Northbridge",
+    "shown": "2.11"
+   },
+   "away": {
+    "team": "HAR",
+    "name": "Harlow",
+    "shown": "0.22"
+   },
+   "text": "Harlow generated 0.22 xG in the second half."
+  }
  },
  {
   "cue_id": "c_000074",
   "fact_id": "f_000037",
   "start_t": 5403.0,
   "duration_s": 8,
-  "layout": "ticker",
+  "layout": "stat_comparison",
   "lang": "es",
   "text": "Harlow generó 0,22 de xG en la segunda parte.",
   "evidence_ids": [
@@ -1899,14 +2524,31 @@
    437
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "stat_comparison",
+   "label": "Goles esperados (xG)",
+   "period": "Segunda parte",
+   "subject": "HAR",
+   "home": {
+    "team": "NOR",
+    "name": "Northbridge",
+    "shown": "2,11"
+   },
+   "away": {
+    "team": "HAR",
+    "name": "Harlow",
+    "shown": "0,22"
+   },
+   "text": "Harlow generó 0,22 de xG en la segunda parte."
+  }
  },
  {
   "cue_id": "c_000075",
   "fact_id": "f_000038",
   "start_t": 5403.0,
-  "duration_s": 6,
-  "layout": "lower_third",
+  "duration_s": 8,
+  "layout": "player_card",
   "lang": "en",
   "text": "E. Lindqvist has added 0.28 xT in the second half.",
   "evidence_ids": [
@@ -1926,14 +2568,25 @@
    597
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "player_card",
+   "player_id": "NOR_08",
+   "name": "E. Lindqvist",
+   "team": "NOR",
+   "team_name": "Northbridge",
+   "label": "Expected threat added (xT)",
+   "figure": "0.28",
+   "period": "Second half",
+   "text": "E. Lindqvist has added 0.28 xT in the second half."
+  }
  },
  {
   "cue_id": "c_000076",
   "fact_id": "f_000038",
   "start_t": 5403.0,
-  "duration_s": 6,
-  "layout": "lower_third",
+  "duration_s": 8,
+  "layout": "player_card",
   "lang": "es",
   "text": "E. Lindqvist sumó 0,28 de xT con pases y conducciones completados en la segunda parte.",
   "evidence_ids": [
@@ -1953,6 +2606,17 @@
    597
   ],
   "checked": true,
-  "tier": "T1"
+  "tier": "T1",
+  "card": {
+   "layout": "player_card",
+   "player_id": "NOR_08",
+   "name": "E. Lindqvist",
+   "team": "NOR",
+   "team_name": "Northbridge",
+   "label": "Amenaza esperada añadida (xT)",
+   "figure": "0,28",
+   "period": "Segunda parte",
+   "text": "E. Lindqvist sumó 0,28 de xT con pases y conducciones completados en la segunda parte."
+  }
  }
 ]

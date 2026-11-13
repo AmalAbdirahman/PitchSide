@@ -101,3 +101,54 @@ def test_routing_cases_in_the_browser(page: Any) -> None:
     )
     assert failed == []
     assert page.problems == []
+
+
+def _watch(pg: Any) -> Any:
+    pg.problems = []
+    pg.on("console", lambda m: m.type == "error" and pg.problems.append(m.text))
+    pg.on("pageerror", lambda e: pg.problems.append(str(e)))
+    return pg
+
+
+def test_overlay_follows_the_control_room(site: str) -> None:
+    """P13: two tabs of one browser; the overlay draws what the control room puts on air."""
+    with sync_api.sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        context = browser.new_context(
+            reduced_motion="reduce", viewport={"width": 1920, "height": 1080}
+        )
+        overlay = _watch(context.new_page())
+        overlay.goto(site + "overlay.html")
+        assert overlay.is_visible("#hint")
+        assert (
+            overlay.evaluate("getComputedStyle(document.body).backgroundColor")
+            == "rgba(0, 0, 0, 0)"
+        )
+        room = _watch(context.new_page())
+        room.goto(site)
+        room.wait_for_selector("#qhead b")
+        room.click('[data-speed="4"]')
+        room.click("#play")
+        overlay.wait_for_selector("#graphic .g", timeout=30_000)
+        assert not overlay.is_visible("#hint")
+        assert HERO["meta"]["home"] in overlay.inner_text("#bug")
+        on_air = room.inner_text("#lt-t")
+        assert on_air and on_air in overlay.inner_text("#graphic").replace("\n", " ")
+        browser.close()
+        assert overlay.problems == [] and room.problems == []
+
+
+@pytest.mark.parametrize(
+    ("layout", "css"),
+    [
+        ("lower_third", ".g-lower"),
+        ("ticker", ".g-ticker"),
+        ("stat_comparison", ".g-compare"),
+        ("player_card", ".g-player"),
+    ],
+)
+def test_overlay_demo_draws_each_layout(page: Any, site: str, layout: str, css: str) -> None:
+    page.goto(f"{site}overlay.html?demo={layout}")
+    page.wait_for_selector(css)
+    assert page.is_visible("#bug") and not page.is_visible("#hint")
+    assert page.problems == []

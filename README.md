@@ -2,7 +2,7 @@
 
 [![tests](https://github.com/AmalAbdirahman/PitchSide/actions/workflows/test.yml/badge.svg)](https://github.com/AmalAbdirahman/PitchSide/actions/workflows/test.yml)
 
-A producer-first control room for a replayed, synthetic football match. Python builds a replay bundle offline; a static web page in `docs/` replays it. An LLM agent drafts claims at build time, a second agent reads each sentence back, deterministic code verifies every one, risk tiers decide what airs on its own and what a human must approve, and each approved fact becomes a lower-third cue, English and Spanish captions, and an audio script.
+A producer-first control room for a replayed, synthetic football match. Python builds a replay bundle offline; a static web page in `docs/` replays it. An LLM agent drafts claims at build time, a second agent reads each sentence back, deterministic code verifies every one, risk tiers decide what airs on its own and what a human must approve, and each approved fact becomes a broadcast graphic (lower third, stat comparison, player card or ticker) for a clean program output, English and Spanish captions, and an audio script.
 
 ## Honesty first
 
@@ -86,6 +86,36 @@ python -m app.build_bundle --source statsbomb      # writes data/external/bundle
 
 Limits: 45 s per call, at most 40 calls per build (`config.yaml`). A `--foundry` run reuses cached successful answers to identical requests and only calls for the rest.
 
+## Program output (overlay)
+
+`docs/overlay.html` is a clean program feed: a transparent 1920x1080 page with only the score bug and the graphic on air, nothing from the control room. The control room sends its state (minute, score, the on-air cue and its card, in the language selected) to the overlay over a `BroadcastChannel`, so the overlay shows exactly what the producer has put on air. There is no server and no network call; it works between tabs of one browser on the same origin.
+
+Each cue carries a typed card (`Rendition.card` in `fact.schema.json`), chosen in `config.yaml` (`renditions`):
+
+| layout | used for | numbers on it |
+|---|---|---|
+| lower third | most facts, goals, cards, substitutions | the sentence |
+| stat comparison | team xG and pass accuracy | the claim's value, and the other team's value over the same window recomputed from the event log by the metric registry |
+| player card | player shots, xT added, most central passer | taken from the sentence's checked numbers |
+| ticker | the fastest shot, and xG, pass accuracy or shots not covered above | the sentence |
+
+Every number on a card goes through the same number check as the sentence (`app/renditions.card_numbers_ok`); a cue that fails it does not air.
+
+<img src="docs/img/overlay-stat-comparison.png" width="32%" alt="Overlay over a green backdrop: score bug top left, a pass-accuracy comparison of Northbridge 67% and Harlow 77% at the bottom"> <img src="docs/img/overlay-player-card.png" width="32%" alt="Overlay: a player card for E. Lindqvist, most central passer, 11 of 38 linked passes, first half"> <img src="docs/img/overlay-lower-third.png" width="32%" alt="Overlay: a lower third for Northbridge with the sentence about attacks down the right">
+
+*Demo mode (`overlay.html?demo=<layout>&bg=1`) over a backdrop; the real page is transparent. Synthetic match.*
+
+**In a browser:** serve `docs/` (`python -m http.server 8000 --directory docs`), open `http://localhost:8000/` and, from the Cue feed panel, **Program output ↗**. Press play in the control room; the overlay follows. Tested in Chromium by `pytest -m e2e`.
+
+**In OBS (not tested by the author):** a `BroadcastChannel` only reaches pages in the same browser, and an OBS browser source runs in OBS's own embedded browser, not in Chrome or Edge. So run the control room inside OBS too:
+
+1. Serve `docs/` as above.
+2. Add a **Browser** source: URL `http://localhost:8000/overlay.html?clean=1`, width 1920, height 1080. OBS browser sources are transparent by default; `clean=1` hides the "waiting" hint.
+3. Open the control room as a dock: **Docks → Custom Browser Docks…**, URL `http://localhost:8000/`. Use the same host name in both (`localhost`, not `127.0.0.1` in one and `localhost` in the other), since the channel is per origin.
+4. Press play in the dock.
+
+To place the source without the control room, use `overlay.html?demo=stat_comparison` (or `lower_third`, `player_card`, `ticker`; add `&lang=es` for Spanish, which is unreviewed).
+
 ## Microsoft technologies used
 
 - **Microsoft Foundry (Agent Service), `gpt-5-mini` deployment, at build time.** The Scout is created with `agents.create_version` (`PromptAgentDefinition`) and called through the project's OpenAI-compatible client. In the committed cache, all 33 calls went through the agent path (`foundry_agent`); none needed the plain-responses fallback.
@@ -131,11 +161,13 @@ core/     typed models (events.py, facts.py), config, metric registry (metrics.p
           and its validation (winprob.py, winprob_eval.py), pass networks (network.py),
           moment rules
 app/      agents_foundry.py (Scout loop) and scout_*.py, reader.py (Reader), meaning.py (meaning
-          check), drafter.py (fallback + injected errors), verifier.py
+          check), drafter.py (fallback + injected errors), cards.py (overlay cards), verifier.py
           (orchestrates checks.py and corrections.py), router.py,
           renditions.py, templates_es.py, build_bundle.py
-docs/     static control room (index.html, styles.css, js/ ES modules), data/ and methods/ — published by GitHub Pages
-          js/: data, routing (pure; reads meta.routing), state, pitch, queue, analysis, audit, main
+docs/     static control room (index.html, styles.css, js/ ES modules), overlay.html (program output),
+          data/, methods/ and img/ — published by GitHub Pages
+          js/: data, routing (pure; reads meta.routing), state, pitch, queue, analysis, audit, main,
+          cards (pure; overlay drawing), program (sends state to the overlay), overlay
 design/   prototype.html, the original design mockup (not published)
 data/     events.json, league_stats.json, agent_cache.json, reader_cache.json, xg_fit.json, xt_fit.json; external/ (git-ignored) for StatsBomb files
 tests/    seeded_claims.json, meaning_cases.json and pytest suites

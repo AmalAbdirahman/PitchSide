@@ -316,6 +316,28 @@
       "title": "Impact",
       "type": "object"
     },
+    "LowerThirdCard": {
+      "additionalProperties": false,
+      "properties": {
+        "layout": {
+          "const": "lower_third",
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "layout",
+        "label",
+        "text"
+      ],
+      "title": "LowerThirdCard",
+      "type": "object"
+    },
     "Observed": {
       "additionalProperties": true,
       "properties": {
@@ -328,6 +350,52 @@
         }
       },
       "title": "Observed",
+      "type": "object"
+    },
+    "PlayerCard": {
+      "additionalProperties": false,
+      "properties": {
+        "layout": {
+          "const": "player_card",
+          "type": "string"
+        },
+        "player_id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "team": {
+          "type": "string"
+        },
+        "team_name": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "figure": {
+          "type": "string"
+        },
+        "period": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "layout",
+        "player_id",
+        "name",
+        "team",
+        "team_name",
+        "label",
+        "figure",
+        "period",
+        "text"
+      ],
+      "title": "PlayerCard",
       "type": "object"
     },
     "ReadSubject": {
@@ -442,8 +510,9 @@
         "layout": {
           "enum": [
             "lower_third",
-            "score_bug",
-            "ticker"
+            "ticker",
+            "stat_comparison",
+            "player_card"
           ],
           "type": "string"
         },
@@ -455,6 +524,31 @@
         },
         "numbers_preserved": {
           "type": "boolean"
+        },
+        "card": {
+          "discriminator": {
+            "mapping": {
+              "lower_third": "#/$defs/LowerThirdCard",
+              "player_card": "#/$defs/PlayerCard",
+              "stat_comparison": "#/$defs/StatComparisonCard",
+              "ticker": "#/$defs/TickerCard"
+            },
+            "propertyName": "layout"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/LowerThirdCard"
+            },
+            {
+              "$ref": "#/$defs/TickerCard"
+            },
+            {
+              "$ref": "#/$defs/StatComparisonCard"
+            },
+            {
+              "$ref": "#/$defs/PlayerCard"
+            }
+          ]
         }
       },
       "required": [
@@ -488,6 +582,67 @@
         "tier"
       ],
       "title": "Risk",
+      "type": "object"
+    },
+    "Side": {
+      "additionalProperties": false,
+      "description": "One team in a stat comparison; `shown` is the value as written on screen.",
+      "properties": {
+        "team": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "shown": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "team",
+        "name",
+        "shown"
+      ],
+      "title": "Side",
+      "type": "object"
+    },
+    "StatComparisonCard": {
+      "additionalProperties": false,
+      "description": "The subject team's claimed value beside the other team's, recomputed from the event log\nover the same window by the metric registry.",
+      "properties": {
+        "layout": {
+          "const": "stat_comparison",
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "period": {
+          "type": "string"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "home": {
+          "$ref": "#/$defs/Side"
+        },
+        "away": {
+          "$ref": "#/$defs/Side"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "layout",
+        "label",
+        "period",
+        "subject",
+        "home",
+        "away",
+        "text"
+      ],
+      "title": "StatComparisonCard",
       "type": "object"
     },
     "Subject": {
@@ -530,6 +685,24 @@
         "value"
       ],
       "title": "TextNumber",
+      "type": "object"
+    },
+    "TickerCard": {
+      "additionalProperties": false,
+      "properties": {
+        "layout": {
+          "const": "ticker",
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "layout",
+        "text"
+      ],
+      "title": "TickerCard",
       "type": "object"
     },
     "Uncertainty": {

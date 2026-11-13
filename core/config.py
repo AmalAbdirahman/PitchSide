@@ -152,6 +152,9 @@ class Renditions(_Section):
     cue_duration_s: int
     ticker_duration_s: int
     ticker_metrics: tuple[str, ...]
+    card_duration_s: int
+    comparison_metrics: tuple[str, ...]
+    player_card_metrics: tuple[str, ...]
 
 
 class DataCard(_Section):
