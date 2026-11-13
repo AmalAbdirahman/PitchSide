@@ -1,0 +1,67 @@
+{
+  "run_date": "2026-11-13",
+  "commit": "c269994-dirty",
+  "handed": {
+    "moments": 38,
+    "counts": {
+      "first_pass": 36,
+      "after_retry": 2,
+      "rejected": 0,
+      "rules": 0
+    },
+    "rates": {
+      "first_pass": 0.947,
+      "after_retry": 0.053,
+      "rejected": 0.0,
+      "rules": 0.0
+    },
+    "invalid_outputs": 2,
+    "aired": 38,
+    "duplicates": 1,
+    "duplicate_rate": 0.026,
+    "tool_calls": 0,
+    "model_responses": 40,
+    "latency_ms": {
+      "median": 10943.0,
+      "max": 22037
+    },
+    "models": [
+      "gpt-5-mini"
+    ],
+    "paths": [
+      "foundry_agent"
+    ]
+  },
+  "explore": {
+    "moments": 38,
+    "counts": {
+      "first_pass": 24,
+      "after_retry": 7,
+      "rejected": 7,
+      "rules": 0
+    },
+    "rates": {
+      "first_pass": 0.632,
+      "after_retry": 0.184,
+      "rejected": 0.184,
+      "rules": 0.0
+    },
+    "invalid_outputs": 0,
+    "aired": 31,
+    "duplicates": 1,
+    "duplicate_rate": 0.032,
+    "tool_calls": 146,
+    "model_responses": 134,
+    "latency_ms": {
+      "median": 22570.0,
+      "max": 32813
+    },
+    "models": [
+      "gpt-5-mini"
+    ],
+    "paths": [
+      "foundry_agent"
+    ]
+  },
+  "live": true
+}

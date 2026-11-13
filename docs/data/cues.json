@@ -6,7 +6,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "The numbers suggest Northbridge are favouring the right: 71% of their attacks since the 1st minute.",
+  "text": "The numbers suggest 71% of Northbridge attacks have gone down the right since the 1st minute.",
   "evidence_ids": [
    10,
    11,
@@ -118,7 +118,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "The numbers suggest Northbridge are favouring the centre: 69% of their attacks since the 11th minute.",
+  "text": "The numbers suggest 69% of Northbridge attacks have gone down the centre since the 11th minute.",
   "evidence_ids": [
    114,
    121,
@@ -166,7 +166,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "The numbers suggest 56% of Harlow attacks have gone down the left since the 11th.",
+  "text": "The numbers suggest 56% of Harlow attacks have gone down the left since the 11th minute.",
   "evidence_ids": [
    80,
    87,
@@ -234,7 +234,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "The numbers suggest Harlow are favouring the left: 72% of their attacks since the 26th minute.",
+  "text": "The numbers suggest 72% of Harlow attacks have gone down the left since the 26th minute.",
   "evidence_ids": [
    181,
    182,
@@ -330,7 +330,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Northbridge completed 67% of their passes in the first half.",
+  "text": "Northbridge completed 67% of their passes.",
   "evidence_ids": [
    8,
    9,
@@ -622,7 +622,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "E. Lindqvist was the most central player in Northbridge's passing in the first half: involved in 11 of 38 linked passes.",
+  "text": "E. Lindqvist is Northbridge's most central passer, with 11 of 38 linked passes.",
   "evidence_ids": [
    10,
    32,
@@ -670,7 +670,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "W. Abara was the most central player in Harlow's passing in the first half: involved in 18 of 57 linked passes.",
+  "text": "W. Abara is Harlow's most central passer, with 18 of 57 linked passes in the first half.",
   "evidence_ids": [
    37,
    38,
@@ -732,7 +732,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "T. Brannock had 3 shots in the first half.",
+  "text": "T. Brannock has taken 3 shots.",
   "evidence_ids": [
    99,
    193,
@@ -764,7 +764,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Y. Castell's shot reached 109 km/h, the fastest shot of the first half.",
+  "text": "Y. Castell produced the match's fastest shot, at 109 km/h.",
   "evidence_ids": [
    225
   ],
@@ -792,7 +792,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Northbridge generated 0.27 xG in the first half.",
+  "text": "Northbridge had 0.27 xG in the first half.",
   "evidence_ids": [
    128,
    166
@@ -822,7 +822,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Harlow generated 0.86 xG in the first half.",
+  "text": "Harlow had 0.86 xG.",
   "evidence_ids": [
    99,
    188,
@@ -860,7 +860,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "U. Kerridge added 0.30 xT with completed passes and carries in the first half.",
+  "text": "U. Kerridge has added 0.30 xT in the first half.",
   "evidence_ids": [
    37,
    39,
@@ -910,7 +910,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st.",
+  "text": "The numbers suggest 50% of Northbridge attacks have gone down the right since the 41st minute.",
   "evidence_ids": [
    281,
    320,
@@ -1046,7 +1046,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "The numbers suggest Harlow are favouring the left: 77% of their attacks since the 51st minute.",
+  "text": "The numbers suggest 77% of Harlow attacks have gone down the left since the 51st minute.",
   "evidence_ids": [
    348,
    349,
@@ -1092,7 +1092,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "The numbers suggest Northbridge are favouring the left: 71% of their attacks since the 58th minute.",
+  "text": "The numbers suggest 71% of Northbridge attacks have gone down the left since the 58th minute.",
   "evidence_ids": [
    404,
    416,
@@ -1156,7 +1156,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "Harlow have made 7 turnovers in their own third since the 71st minute.",
+  "text": "Harlow have 7 turnovers in their own third since the 71st minute.",
   "evidence_ids": [
    469,
    477,
@@ -1196,7 +1196,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "The numbers suggest Northbridge are favouring the left: 51% of their attacks since the 58th minute.",
+  "text": "The numbers suggest 51% of Northbridge attacks have gone down the left since the 58th minute.",
   "evidence_ids": [
    404,
    416,
@@ -1312,7 +1312,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "The numbers suggest Harlow are favouring the right: 83% of their attacks since the 71st minute.",
+  "text": "The numbers suggest 83% of Harlow attacks have gone down the right since the 71st minute.",
   "evidence_ids": [
    537,
    539,
@@ -1348,7 +1348,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Northbridge's pass accuracy in the second half was 81%.",
+  "text": "Northbridge have completed 81% of their passes.",
   "evidence_ids": [
    315,
    316,
@@ -1502,7 +1502,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Harlow's pass accuracy was 70% in the second half.",
+  "text": "Harlow completed 70% of their passes in the second half.",
   "evidence_ids": [
    304,
    306,
@@ -1634,7 +1634,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "E. Lindqvist was the most central player in Northbridge's passing in the second half: involved in 18 of 53 linked passes.",
+  "text": "E. Lindqvist was Northbridge's most central passer in the second half, with 18 of 53 linked passes.",
   "evidence_ids": [
    334,
    337,
@@ -1742,7 +1742,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "C. Nkemelu has 4 shots in the second half.",
+  "text": "C. Nkemelu had 4 shots in the second half.",
   "evidence_ids": [
    370,
    418,
@@ -1776,7 +1776,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "D. Varga's 109 km/h shot was the fastest shot of the second half.",
+  "text": "D. Varga hit a 109 km/h shot in the second half.",
   "evidence_ids": [
    366
   ],
@@ -1804,7 +1804,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "Harlow have 3 turnovers in their own third since the 81st minute.",
+  "text": "Harlow had 3 turnovers in their own third since the 81st minute.",
   "evidence_ids": [
    558,
    568,
@@ -1836,7 +1836,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Northbridge generated 2.11 xG in the second half.",
+  "text": "Northbridge had 2.11 xG in the second half.",
   "evidence_ids": [
    341,
    366,
@@ -1878,7 +1878,7 @@
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
-  "text": "Harlow generated 0.22 xG in the second half.",
+  "text": "Harlow had 0.22 xG in the second half.",
   "evidence_ids": [
    314,
    437
@@ -1908,7 +1908,7 @@
   "duration_s": 6,
   "layout": "lower_third",
   "lang": "en",
-  "text": "E. Lindqvist added 0.28 xT with completed passes and carries in the second half.",
+  "text": "E. Lindqvist added 0.28 xT in the second half.",
   "evidence_ids": [
    336,
    337,

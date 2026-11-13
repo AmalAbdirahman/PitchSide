@@ -26,6 +26,7 @@ The hackathon is over. The goal now is a polished, honest portfolio project: cle
 - `REGISTRY` in `core/metrics.py` is the single definition of every metric (kind, subjects, tolerance, compute). The moment rules, the chart series and the verifier all compute through it. Keep that property: a metric with no registry entry is unverifiable and never airs.
 - Win probability (P10): the product uses poisson_v1; `core/winprob.outcome_probs` with `PoissonParams` also runs the fitted poisson_v2, which only `scripts/eval_winprob.py` uses (record `data/winprob_eval.json`, note `docs/methods/winprob.md`).
 - Win probability (P10): the product uses poisson_v1. `core/winprob.outcome_probs` with `PoissonParams` also runs the fitted poisson_v2, which only `scripts/eval_winprob.py` uses (record `data/winprob_eval.json`, note `docs/methods/winprob.md`).
+- Scout (P11): `app/agents_foundry.py` runs the loop, cache and Foundry caller; `scout_schema.py` (Pydantic output models and the strict JSON Schema), `scout_tools.py` (read-only list_metrics / compute_metric / list_events, never past the moment), `scout_memory.py` (aired facts, duplicate rule), `scout_requests.py` and `scout_prompts.py` (handed and explore modes). `config.yaml agents.mode` picks the site's mode (handed). The cache records tool calls and replay re-runs them. `scripts/eval_scout.py` compares the modes (record `data/scout_eval.json`).
 - Pass networks (P10): `core/network.py` infers each pass's receiver (next on-ball player of the same team), then degree, betweenness and communities. The `most_central_player` metric is a betweenness rank (1 = unique leader); the `pass_hub` moment names it at half-time if `moments.hub_min_passes` is met. `series.network` carries per-half networks every 5 minutes for the Analysis view.
 - Lane-share hedges (P9): `EventSource.load()` returns a `League` (mu, per-lane league shares, `attack_deff`, the variance inflation of lane counts). `core/hedge.judge_share` is the single hedge for lane shares, used by moments, verifier and series; Wilson stays only for comparison and for pass accuracy (no baseline). `scripts/eval_hedging.py` is the false-alarm study behind `config.yaml` `hedge`; `docs/methods/hedging.md` has the results.
 - The verifier is split: pure checks in `app/checks.py`, wording corrections in `app/corrections.py`, and `app/verifier.py` orchestrates and records both.
@@ -69,6 +70,7 @@ python -m sim.generate --seed 7
 python -m app.build_bundle                    # offline, replays data/agent_cache.json
 python -m app.build_bundle --foundry          # live Scout; needs .env
 python scripts/eval.py
+python scripts/eval_scout.py                  # P11 Scout modes; --foundry for a live run
 python scripts/eval_winprob.py                # P10 study; needs fetch_statsbomb.py --xg
 python -m http.server 8000 --directory docs
 ```
