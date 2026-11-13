@@ -100,7 +100,8 @@ core/     typed models (events.py, facts.py), config, metric registry (metrics.p
 app/      agents_foundry.py (Scout), drafter.py (fallback + injected errors), verifier.py
           (orchestrates checks.py and corrections.py), router.py,
           renditions.py, templates_es.py, build_bundle.py
-docs/     static control room (index.html, app.js, styles.css) and data/ — published by GitHub Pages
+docs/     static control room (index.html, styles.css, js/ ES modules) and data/ — published by GitHub Pages
+          js/: data, routing (pure; reads meta.routing), state, pitch, queue, analysis, audit, main
 design/   prototype.html, the original design mockup (not published)
 data/     events.json, league_stats.json, agent_cache.json
 tests/    seeded_claims.json and pytest suites

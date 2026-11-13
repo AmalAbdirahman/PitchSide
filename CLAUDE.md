@@ -22,7 +22,7 @@ The hackathon is over. The goal now is a polished, honest portfolio project: cle
 - Config comes from `config.yaml` through PyYAML into a frozen, validated Pydantic `Settings` (`core/config.py`). Entry points call `load()` once and pass `Settings` (or a section of it) down as an argument; no function reads config through a global.
 - `REGISTRY` in `core/metrics.py` is the single definition of every metric (kind, subjects, tolerance, compute). The moment rules, the chart series and the verifier all compute through it. Keep that property: a metric with no registry entry is unverifiable and never airs.
 - The verifier is split: pure checks in `app/checks.py`, wording corrections in `app/corrections.py`, and `app/verifier.py` orchestrates and records both.
-- Routing over time is data: `routing_rules` in `app/router.py` builds the table from config, hero.json carries it as `meta.routing`, and `tests/routing_cases.json` pins the behaviour. `docs/app.js` still hard-codes the same rules until P5 part 2 makes it read `meta.routing`.
+- Routing over time is data: `routing_rules` in `app/router.py` builds the table from config and hero.json carries it as `meta.routing`. `app/router.resolve` and `docs/js/routing.js` both interpret it, and `tests/routing_cases.json` runs against both (pytest and `node --test`). The front end is plain ES modules in `docs/js/` with no build step; `state.js` asks `routing.js` for each fact's state rather than keeping its own timers.
 
 ## Stack rules
 - Python 3.12. Allowed runtime deps: `pydantic>=2`, `pyyaml`, `jsonschema`, `numpy`. Analysis extras: `pandas`, `scipy`, `scikit-learn`, `kloppy`, `statsbombpy`, `matplotlib`. Agent extras: `azure-ai-projects`, `azure-identity`, `python-dotenv`. Ask before adding anything else.

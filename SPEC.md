@@ -85,7 +85,9 @@ State: minutes played, goals and xG for each side. Rate per side per minute: `(x
 | **T1** | Verified, no corrections, absolute impact under 0.10, hedge `suggests` or `clear` | Air after a 3 second veto window unless vetoed |
 | **T2** | Corrected by the verifier; absolute impact 0.10 or more; names a player negatively; hedge `early` | Queue for approve or reject, 12 second expiry, then dropped and never aired |
 
-A rejected draft never reaches the router. Autopilot (a UI toggle used when recording the video) approves T2 facts only if verification was clean and hedge is `clear`.
+A rejected draft never reaches the router. Autopilot (a UI toggle used when recording the video) approves T2 facts only if verification was clean and hedge is `clear`; the router marks those facts with the reason `autopilot_ok`.
+
+Behaviour over time is a table, not code: `routing_rules` in `app/router.py` builds it from `config.yaml` (starting state, allowed decisions, timeout and state on timeout, per tier) and the bundle carries it as `meta.routing`. The Python resolver and the front end (`docs/js/routing.js`) both interpret that table. Autopilot counts as a decision taken when it is switched on (at 0 if it was already on), and the first decision in time wins. `tests/routing_cases.json` runs against both implementations.
 
 ## 11. Renditions
 
@@ -99,6 +101,7 @@ A deterministic check confirms every number in each rendition appears in `text.n
 ## 12. Bundle format
 
 `docs/data/hero.json`: `{meta, events, score_timeline, facts[], log[], metrics, series}`.
+- `meta.routing`: the routing table from section 10. The UI reads its timeouts and allowed decisions from here.
 - `events`: at least `id, t, type, team, player`; may also carry the simulator fields the UI draws (`x, y, end_x, end_y, xg`, speeds, `period`, `outcome`). Coordinates are per team, attacking left to right.
 - `series`: per-minute values for the charts, all computed in Python by `core/` (win probability, team stats, attack lanes with Wilson interval and hedge). The front end draws them and computes no statistics of its own.
 `docs/data/cues.json`: an array of timed cues `{cue_id, fact_id, start_t, duration_s, layout, lang, text, evidence_ids, checked, tier}`, the machine-readable overlay feed. Provide a download link for it in the UI.

@@ -1,4 +1,4 @@
-"""Static site checks: assets exist, no network, and the bundle carries what app.js reads."""
+"""Static site checks: assets exist, no network, and the bundle carries what the modules read."""
 
 from __future__ import annotations
 
@@ -29,10 +29,39 @@ def test_index_references_exist() -> None:
         assert (DOCS / ref).is_file(), f"index.html references missing file {ref}"
 
 
+MODULES = sorted((DOCS / "js").glob("*.js"))
+IMPORT = re.compile(r"""^import\s[^'"]*['"]([^'"]+)['"]""", re.MULTILINE)
+
+
+def test_index_loads_the_entry_module() -> None:
+    html = (DOCS / "index.html").read_text(encoding="utf-8")
+    assert '<script type="module" src="js/main.js"></script>' in html
+
+
 def test_app_fetches_only_local_data() -> None:
-    js = (DOCS / "app.js").read_text(encoding="utf-8")
-    for path in re.findall(r"getJson\('([^']+)'\)", js):
-        assert (DOCS / path).is_file(), f"app.js fetches missing file {path}"
+    fetched = [
+        path
+        for module in MODULES
+        for path in re.findall(r"getJson\('([^']+)'\)", module.read_text(encoding="utf-8"))
+    ]
+    assert fetched, "no module fetches the bundle"
+    for path in fetched:
+        assert (DOCS / path).is_file(), f"the site fetches missing file {path}"
+
+
+@pytest.mark.parametrize("module", MODULES, ids=lambda p: p.name)
+def test_module_imports_resolve(module: Path) -> None:
+    for spec in IMPORT.findall(module.read_text(encoding="utf-8")):
+        assert spec.startswith("./"), f"{module.name} imports {spec}; only local modules allowed"
+        assert (module.parent / spec).is_file(), f"{module.name} imports missing {spec}"
+
+
+def test_front_end_reads_routing_rules_from_the_bundle() -> None:
+    # The timeouts and the autopilot rule come from meta.routing, not from literals in the code.
+    js = "\n".join(m.read_text(encoding="utf-8") for m in MODULES)
+    assert "meta.routing" in js
+    assert "autopilot_ok" not in js
+    assert not re.search(r"(?<![-\w])(ttl|left)\s*[:=]\s*\d", js)  # not CSS padding-left:0
 
 
 @pytest.mark.parametrize("path", PUBLISHED, ids=lambda p: p.relative_to(DOCS).as_posix())
