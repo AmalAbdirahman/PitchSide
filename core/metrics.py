@@ -243,7 +243,8 @@ _DEFS: list[EventMetric] = [
         for lane in LANES
     ),
 ]
-REGISTRY: dict[str, MetricDef] = {d.name: d for d in [*_DEFS, CentralityRank()]}
+_ALL: list[MetricDef] = [*_DEFS, CentralityRank()]
+REGISTRY: dict[str, MetricDef] = {d.name: d for d in _ALL}
 
 
 def compute_metric(
