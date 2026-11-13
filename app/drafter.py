@@ -66,7 +66,7 @@ def _text_goal(m: Moment, match: Match) -> Text:
     s = m["score"]
     text = (
         f"GOAL, {team_name(match, home)} {s[home]}–{s[away]} {team_name(match, away)}. "
-        f"{player_name(match, m['subject']['id'])}, {mn}'."
+        f"{'Own goal, ' if m.get('own_goal') else ''}{player_name(match, m['subject']['id'])}, {mn}'."
     )
     nums = [_num("minute", mn), _num(f"score_{home}", s[home]), _num(f"score_{away}", s[away])]
     return text, nums

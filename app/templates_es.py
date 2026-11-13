@@ -7,7 +7,7 @@ reappear. Not reviewed by a native speaker.
 
 from __future__ import annotations
 
-from core.events import Match
+from core.events import Event, Match
 from core.facts import Fact
 
 GLOSSARY: dict[str, str] = {
@@ -17,6 +17,7 @@ GLOSSARY: dict[str, str] = {
     "first": "primera",
     "second": "segunda",
     "yellow": "amarilla",
+    "second yellow": "amarilla (segunda)",
     "red": "roja",
     "goal": "gol",
     "substitution": "cambio",
@@ -43,6 +44,11 @@ def _half(fact: Fact, half_t: float) -> str:
     return GLOSSARY["second" if second else "first"]
 
 
+def _cited(fact: Fact, match: Match, etype: str) -> Event | None:
+    ids = set(fact.evidence.event_ids)
+    return next((e for e in match.events if e.id in ids and e.type == etype), None)
+
+
 def _players(fact: Fact) -> list[str]:
     return fact.evidence.players or []
 
@@ -52,15 +58,24 @@ def _event_fact(fact: Fact, match: Match, n: dict[str, float]) -> str:
     meta = match.meta
     if metric == "goals":
         home, away = meta.home, meta.away
+        goal = _cited(fact, match, "goal")
+        who = f"{meta.player_name(subj.id)} marca para {_team_of(match, subj.id)}"
+        if goal is not None and goal.outcome == "own_goal":
+            who = (
+                f"gol en propia puerta de {meta.player_name(subj.id)} ({_team_of(match, subj.id)})"
+            )
         return (
-            f"¡GOL! {meta.player_name(subj.id)} marca para {_team_of(match, subj.id)} en el minuto {m}. "
+            f"¡GOL! {who[0].upper() + who[1:]} en el minuto {m}. "
             f"{meta.team_name(home)} {int(n['score_' + home])}–{int(n['score_' + away])} {meta.team_name(away)}."
         )
     if metric == "substitutions":
         on, off = (meta.player_name(p) for p in _players(fact))
         return f"Cambio en {meta.team_name(subj.id)} en el minuto {m}: entra {on}, sale {off}."
-    pid = subj.id
-    return f"Tarjeta {GLOSSARY['yellow']} para {meta.player_name(pid)} ({_team_of(match, pid)}) en el minuto {m}."
+    pid, card = subj.id, _cited(fact, match, "card")
+    colour = GLOSSARY[card.card if card is not None and card.card else "yellow"]
+    return (
+        f"Tarjeta {colour} para {meta.player_name(pid)} ({_team_of(match, pid)}) en el minuto {m}."
+    )
 
 
 def _share_fact(fact: Fact, match: Match, n: dict[str, float], half_t: float) -> str:

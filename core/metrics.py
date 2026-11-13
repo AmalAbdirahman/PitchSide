@@ -152,11 +152,12 @@ def _xg_sum(evs: list[Event], _subject: Subject, _pitch: Pitch) -> Metric:
 
 
 def _top_shot_speed(evs: list[Event], _subject: Subject, _pitch: Pitch) -> Metric | None:
-    shots = _shots(evs)
-    if not shots:
+    # Only shots with a measured speed count; with none (open data has no speeds) there is no metric.
+    timed = [e for e in _shots(evs) if e.shot_speed is not None]
+    if not timed:
         return None
-    best = max(shots, key=_speed)
-    return Metric(_speed(best), len(shots), 1, [best.id])
+    best = max(timed, key=_speed)
+    return Metric(_speed(best), len(timed), 1, [best.id])
 
 
 def _turnovers_own_third(evs: list[Event], _subject: Subject, pitch: Pitch) -> Metric:

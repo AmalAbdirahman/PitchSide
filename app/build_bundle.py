@@ -2,6 +2,8 @@
 
 Run: python -m app.build_bundle             (offline: replays data/agent_cache.json if present, else rules)
      python -m app.build_bundle --foundry   (calls the Scout agent on Microsoft Foundry, rewrites the cache)
+     python -m app.build_bundle --source statsbomb [--match 8658] [--out DIR]
+                                            (real open data, rule drafter; writes to data/external/bundles/)
 
 Pipeline: events -> moments -> drafts (Scout or rules) -> verifier -> router -> renditions.
 Rejected and unverifiable drafts go to the log only; they never reach the router.
@@ -36,8 +38,11 @@ from core.events import Match
 from core.facts import Fact, validate_fact
 from core.moments import detect_moments
 from core.sources import EventSource, SyntheticSource
+from core.statsbomb import StatsBombOpenSource
 
 ROUTABLE = ("verified", "corrected")
+DOCS_DATA = ROOT / "docs" / "data"
+REAL_BUNDLES = ROOT / "data" / "external" / "bundles"  # git-ignored, like the raw data
 # Optional event fields kept for the pitch, shot map and evidence drawer.
 EVENT_EXTRAS = (
     "period",
@@ -187,7 +192,8 @@ def build(
     use_cache: bool = True,
     source: EventSource | None = None,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    match, mu = (source or SyntheticSource()).load()
+    source = source or SyntheticSource()
+    match, mu = source.load()
     teams = (match.meta.home, match.meta.away)
     if scout is None and use_cache:
         scout = make_scout(False, s)
@@ -209,6 +215,8 @@ def build(
         "pitch": s.pitch.model_dump(),
         "routing": routing_rules(s.router).model_dump(mode="json"),
     }
+    if not match.meta.synthetic:
+        meta["data_source"] = source.label
     hero = {
         "meta": meta,
         "events": slim_events(match),
@@ -224,10 +232,14 @@ def build(
 
 
 def write(
-    s: Settings, out_dir: Path = ROOT / "docs" / "data", foundry: bool = False
+    s: Settings,
+    out_dir: Path = DOCS_DATA,
+    foundry: bool = False,
+    source: EventSource | None = None,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    scout = make_scout(foundry, s)
-    hero, cues = build(s, scout, use_cache=False)
+    # The Scout's prompt and cache are for the synthetic match; real matches use the rule drafter.
+    scout = make_scout(foundry, s) if source is None else None
+    hero, cues = build(s, scout, use_cache=False, source=source)
     if foundry and scout is not None:
         save_cache(scout.cache)
         print(f"Scout calls: {scout.calls}  cache entries written: {len(scout.cache)}")
@@ -241,6 +253,15 @@ def write(
     return hero, cues
 
 
+def real_source(s: Settings, match_id: int | None, out: Path | None) -> tuple[EventSource, Path]:
+    """The StatsBomb source and where its bundle goes: never docs/ (see data_sources.md)."""
+    mid = match_id or s.statsbomb.match_id
+    out_dir = (out or REAL_BUNDLES / str(mid)).resolve()
+    if out_dir.is_relative_to(ROOT / "docs"):
+        raise SystemExit("real-data bundles are not written to docs/; see data_sources.md")
+    return StatsBombOpenSource(s.statsbomb, s.pitch, mid), out_dir
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description="Build the replay bundle.")
     ap.add_argument(
@@ -248,16 +269,28 @@ def main() -> None:
         action="store_true",
         help="call the Scout agent on Microsoft Foundry (needs .env)",
     )
-    foundry = ap.parse_args().foundry
-    print(
-        "drafts from:",
-        "Scout on Foundry (live)"
-        if foundry
-        else "Scout replayed from data/agent_cache.json"
-        if CACHE_PATH.exists()
-        else "rule-based drafter",
-    )
-    hero, cues = write(load(), foundry=foundry)
+    ap.add_argument("--source", choices=("synthetic", "statsbomb"), default="synthetic")
+    ap.add_argument("--match", type=int, help="StatsBomb match id (default: config.yaml)")
+    ap.add_argument("--out", type=Path, help="output folder for a StatsBomb bundle")
+    args = ap.parse_args()
+    s, foundry = load(), args.foundry
+    if args.source == "statsbomb":
+        if foundry:
+            raise SystemExit("--foundry is for the synthetic match only")
+        source, out_dir = real_source(s, args.match, args.out)
+        print(f"source: {source.label}; drafts from: rule-based drafter")
+        hero, cues = write(s, out_dir, source=source)
+        print(f"wrote {out_dir} (git-ignored; not published)")
+    else:
+        print(
+            "drafts from:",
+            "Scout on Foundry (live)"
+            if foundry
+            else "Scout replayed from data/agent_cache.json"
+            if CACHE_PATH.exists()
+            else "rule-based drafter",
+        )
+        hero, cues = write(s, foundry=foundry)
     m = hero["metrics"]
     print(
         f"facts routed: {len(hero['facts'])}  log (rejected/unverifiable): {len(hero['log'])}  cues: {len(cues)}"

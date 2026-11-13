@@ -76,30 +76,36 @@ def _wp(
     return win_probability(t / 60, g[team], g[other], x[team], x[other], mu, wp)[0]
 
 
+def _scoring_shot(events: list[Event], g: Event) -> tuple[float, list[int]]:
+    """Start time and evidence of a goal: the scoring side's last shot at or before it."""
+    shot = next(e for e in reversed(events) if e.type == "shot" and e.t <= g.t and e.team == g.team)
+    return shot.t, [shot.id, g.id]
+
+
 def goal_moments(
     events: list[Event], teams: tuple[str, str], mu: float, wp: Winprob
 ) -> list[dict[str, Any]]:
     out = []
     for g in (e for e in events if e.type == "goal"):
-        shot = next(
-            e for e in reversed(events) if e.type == "shot" and e.t <= g.t and e.team == g.team
-        )
+        own = g.outcome == "own_goal"
+        start, ids = (g.t, [g.id]) if own else _scoring_shot(events, g)
         other = teams[1] if g.team == teams[0] else teams[0]
-        before = _wp(events, shot.t, g.team, other, mu, False, wp)
+        before = _wp(events, start, g.team, other, mu, False, wp)
         after = _wp(events, g.t, g.team, other, mu, True, wp)
-        m = Metric(1, 1, 1, [shot.id, g.id])
+        m = Metric(1, 1, 1, ids)
         out.append(
             _moment(
                 "score_event",
                 "goal",
                 "goals",
                 Subject(type="player", id=g.player_id),
-                shot.t,
+                start,
                 g.t,
                 m,
                 team=g.team,
                 players=[g.player_id],
                 score=score_at(events, g.t, teams),
+                **({"own_goal": True} if own else {}),
                 impact={
                     "subject_team": g.team,
                     "win_prob_before": round(before, 3),
@@ -226,6 +232,8 @@ def half_moments(
         for team in teams:
             for metric in ("xg_sum", "pass_accuracy"):
                 m = require_metric(metric, _team(team), w, events, s.pitch)
+                if not m.ids:  # no shots or passes in the half: nothing to cite, so no claim
+                    continue
                 out.append(_moment("stat", metric, metric, _team(team), start, end, m, half=name))
         match_subject = Subject(type="match", id="match")
         top = compute_metric("top_shot_speed", match_subject, w, events, s.pitch)

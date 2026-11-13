@@ -6,7 +6,8 @@ A producer-first control room for a replayed, synthetic football match. Python b
 
 ## Honesty first
 
-- **Synthetic data.** The clubs (Northbridge, Harlow), players and events come from a seeded simulator. No real match data, names or logos.
+- **Synthetic data on the site.** The published replay's clubs (Northbridge, Harlow), players and events come from a seeded simulator. No real match data, names or logos are on the site.
+- **Real open data, locally only.** The pipeline also runs on a real match from StatsBomb Open Data (rule-based drafter, no agent). Raw files and the built bundle stay in git-ignored folders and are not published, because StatsBomb's user agreement does not allow redistributing the data. See `data_sources.md` for the licence, every mapping decision and the dropped event types.
 - **Replay, not live.** The page replays a pre-built bundle. It has no server and makes no network calls.
 - **The model runs at build time only.** Drafts for each moment come from the Scout, a prompt agent on Microsoft Foundry, called by `python -m app.build_bundle --foundry`. Its answers are cached in `data/agent_cache.json`, so the normal build and the site never call a model.
 - **Template wording for T0.** Goals, substitutions and cards air at once, so they use fixed templates; agent wording is used only for facts that pass through a veto window or a producer (T1/T2).
@@ -66,6 +67,13 @@ python -m pip install -e ".[agents]"
 python -m app.build_bundle --foundry
 ```
 
+Running the pipeline on a real match (StatsBomb Open Data; downloads into `data/external/`, which is git-ignored):
+
+```
+python scripts/fetch_statsbomb.py                  # 2018 World Cup final plus 10 matches for the league xG rate
+python -m app.build_bundle --source statsbomb      # writes data/external/bundles/8658/, never docs/
+```
+
 Limits: 45 s per call, at most 40 calls per build (`config.yaml`). A `--foundry` run reuses cached successful answers to identical requests and only calls for the rest.
 
 ## Microsoft technologies used
@@ -104,7 +112,8 @@ The verifier checks numbers, windows, evidence, entities, intent words and hedgi
 
 ```
 sim/      seeded match simulator
-core/     typed models (events.py, facts.py), config, metric registry (metrics.py), xG,
+core/     typed models (events.py, facts.py), config, metric registry (metrics.py), event sources
+          (sources.py, statsbomb.py), xG,
           attack shares, Wilson intervals, win probability, moment rules
 app/      agents_foundry.py (Scout), drafter.py (fallback + injected errors), verifier.py
           (orchestrates checks.py and corrections.py), router.py,
@@ -112,14 +121,20 @@ app/      agents_foundry.py (Scout), drafter.py (fallback + injected errors), ve
 docs/     static control room (index.html, styles.css, js/ ES modules) and data/ — published by GitHub Pages
           js/: data, routing (pure; reads meta.routing), state, pitch, queue, analysis, audit, main
 design/   prototype.html, the original design mockup (not published)
-data/     events.json, league_stats.json, agent_cache.json
+data/     events.json, league_stats.json, agent_cache.json; external/ (git-ignored) for StatsBomb files
 tests/    seeded_claims.json and pytest suites
-scripts/  eval.py, build_seeded_claims.py, write_schema.py, foundry_smoke.py
+scripts/  eval.py, build_seeded_claims.py, write_schema.py, foundry_smoke.py, fetch_statsbomb.py
 ```
 
 Facts and events are Pydantic models (`core/facts.py`, `core/events.py`). `fact.schema.json` is generated from the fact models by `python scripts/write_schema.py`, and a test fails if the committed file and the models disagree.
 
-See `SPEC.md` for the full contract and `data_card.md` for the simulator's realism checks.
+See `SPEC.md` for the full contract, `data_card.md` for the simulator's realism checks and `data_sources.md` for the data sources.
+
+## Roadmap
+
+- **Real match on the site and a match selector.** Not done. Publishing a StatsBomb replay needs a decision on what the licence allows (the bundle holds the full event log) and the StatsBomb logo on the page. The front end also assumes simulator-only fields (speeds, pass difficulty) in its analyst labels.
+- **Scout on real data.** The agent's instructions and cache describe the synthetic match; real matches use the rule-based drafter.
+- The rest of the planned work, in order, is in `ROADMAP_PROMPTS.md`.
 
 ## How this was built
 

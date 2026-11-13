@@ -103,3 +103,18 @@ agents:
   max_calls: 40
   max_retries: 1
   timeout_s: 45
+
+# StatsBomb Open Data (P6). Raw files are downloaded into data/external/ (git-ignored) by
+# scripts/fetch_statsbomb.py and never committed. Licence: StatsBomb Public Data User Agreement.
+statsbomb:
+  base_url: "https://raw.githubusercontent.com/statsbomb/open-data/master/data"
+  # Chosen by hand: the 2018 FIFA World Cup final. Competition and season ids are StatsBomb's.
+  competition_id: 43
+  season_id: 3
+  match_id: 8658
+  # Other matches of the same season used for the league xG rate (mu), chosen by hand.
+  # The replayed match is excluded so its own shots do not set its prior.
+  mu_matches: 10
+  # StatsBomb pitch units, from the StatsBomb event data specification.
+  source_length: 120
+  source_width: 80

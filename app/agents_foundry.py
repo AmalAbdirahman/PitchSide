@@ -53,6 +53,7 @@ MOMENT_FIELDS = (
     "lane",
     "half",
     "card",
+    "own_goal",
     "n",
     "k",
 )

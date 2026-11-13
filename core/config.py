@@ -118,6 +118,16 @@ class Agents(_Section):
     timeout_s: int
 
 
+class StatsBomb(_Section):
+    base_url: str
+    competition_id: int
+    season_id: int
+    match_id: int
+    mu_matches: int
+    source_length: int
+    source_width: int
+
+
 class Settings(_Section):
     seed: int
     pitch: Pitch
@@ -130,6 +140,7 @@ class Settings(_Section):
     renditions: Renditions
     data_card: DataCard
     agents: Agents
+    statsbomb: StatsBomb
 
 
 def load(path: Path = CONFIG_PATH) -> Settings:
