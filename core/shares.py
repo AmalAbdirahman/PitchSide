@@ -66,6 +66,33 @@ def pooled_lane_shares(matches: Iterable[Iterable[Event]], pitch: Pitch) -> dict
     return {lane: c / total for lane, c in counts.items()}
 
 
+def attack_design_effect(
+    matches: Iterable[Iterable[Event]], pitch: Pitch, shares: dict[str, float], window_s: float
+) -> float:
+    """How much more lane counts vary than independent attacks would: over every team's
+    consecutive windows of window_s seconds in every match, sum (k - n p)^2 / sum n p (1 - p) for
+    each lane (k of the window's n attacks, league share p). 1 means independent attacks; the
+    hedge divides counts by it. Attacks in one possession often share a lane, so it is above 1.
+    Never below 1: fewer effective attacks than counted is the only correction made."""
+    num = den = 0.0
+    for events in matches:
+        evs = list(events)
+        end = max((e.t for e in evs), default=0.0)
+        for team in sorted({e.team for e in evs}):
+            for start in range(0, int(end) + 1, int(window_s)):
+                lanes = [
+                    attack_lane(e, pitch)
+                    for e in evs
+                    if e.team == team and start <= e.t < start + window_s and is_attack(e, pitch)
+                ]
+                for lane, p in shares.items():
+                    num += (lanes.count(lane) - len(lanes) * p) ** 2
+                    den += len(lanes) * p * (1 - p)
+    if den == 0:
+        raise ValueError("no attacks to measure")
+    return max(1.0, num / den)
+
+
 def lane_shares(events: Iterable[Event], team: str, pitch: Pitch) -> tuple[dict[str, float], int]:
     """Share of attacks per lane (0..1) and the total number of attacks."""
     groups = attacks_by_lane(events, team, pitch)

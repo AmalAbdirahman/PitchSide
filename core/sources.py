@@ -24,6 +24,7 @@ class League:
 
     mu: float  # mean xG per team per minute
     lane_shares: dict[str, float]  # share of attacks per lane (left, centre, right), sums to 1
+    attack_deff: float  # variance inflation of lane counts (core/shares.attack_design_effect)
 
 
 class EventSource(Protocol):
@@ -53,4 +54,5 @@ class SyntheticSource:
         )
         stats = json.loads((self.data_dir / "league_stats.json").read_text(encoding="utf-8"))
         shares = {k: float(v) for k, v in stats["lane_shares"].items()}
-        return match, League(float(stats["mu_xg_per_team_minute"]), shares)
+        mu, deff = float(stats["mu_xg_per_team_minute"]), float(stats["attack_deff"])
+        return match, League(mu, shares, deff)

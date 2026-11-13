@@ -336,7 +336,11 @@ REAL = RAW_DIR / "events" / f"{S.statsbomb.match_id}.json"
 )
 def test_real_match_goal_minutes(settings: Settings) -> None:
     match, league = StatsBombOpenSource(
-        settings.statsbomb, settings.pitch, settings.xg, settings.statsbomb.match_id
+        settings.statsbomb,
+        settings.pitch,
+        settings.xg,
+        settings.statsbomb.match_id,
+        settings.moments.overload_window_s,
     ).load()
     goals = [(match.meta.clock.minute(e.t), e.team, e.outcome) for e in _of(match, "goal")]
     # 2018 World Cup final as published: own goal 18', 28', pen 38', 59', 65', 69'.
@@ -368,7 +372,12 @@ def _write_fixture(root: Path, sb: StatsBomb) -> None:
 def test_bundle_builds_from_statsbomb_files(tmp_path: Path, settings: Settings) -> None:
     _write_fixture(tmp_path, settings.statsbomb)
     source = StatsBombOpenSource(
-        settings.statsbomb, settings.pitch, settings.xg, 99, raw_dir=tmp_path
+        settings.statsbomb,
+        settings.pitch,
+        settings.xg,
+        99,
+        settings.moments.overload_window_s,
+        raw_dir=tmp_path,
     )
     hero, _ = build(settings, None, use_cache=False, source=source)
     assert hero["meta"]["data_source"] == "StatsBomb Open Data, match 99"

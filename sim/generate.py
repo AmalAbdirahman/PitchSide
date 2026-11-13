@@ -19,7 +19,7 @@ from typing import Any
 
 from core.config import ROOT, Settings, load
 from core.events import Event as EventModel
-from core.shares import lane_of, pooled_lane_shares
+from core.shares import attack_design_effect, lane_of, pooled_lane_shares
 from core.xg import xg as shot_xg
 from sim.data_card import write_data_card
 
@@ -382,14 +382,16 @@ def main(seed: int, cfg: Settings) -> None:
     (out / "events.json").write_text(
         json.dumps({"meta": meta, "events": hero}, indent=1), encoding="utf-8"
     )
-    shares = pooled_lane_shares(
-        ([EventModel.model_validate(e) for e in m] for m in league), cfg.pitch
-    )
+    models = [[EventModel.model_validate(e) for e in m] for m in league]
+    shares = pooled_lane_shares(models, cfg.pitch)
     stats = {
         "seed": seed,
         "league_matches": len(league),
         "mu_xg_per_team_minute": round(mu, 6),
         "lane_shares": {k: round(v, 4) for k, v in shares.items()},
+        "attack_deff": round(
+            attack_design_effect(models, cfg.pitch, shares, cfg.moments.overload_window_s), 4
+        ),
     }
     (out / "league_stats.json").write_text(json.dumps(stats, indent=1), encoding="utf-8")
     write_data_card(hero, league, seed, mu, cfg)

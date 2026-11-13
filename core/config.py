@@ -103,6 +103,25 @@ class Hedge(_Section):
     prior_strength: float
     clear_prob: float
     min_effect: float
+    clustered: bool  # divide counts by the league's attack design effect before the update
+
+
+class HedgeRule(Hedge):
+    """A named candidate hedge rule for the P9 study."""
+
+    name: str
+
+
+class HedgeEval(_Section):
+    """The P9 false-alarm study (scripts/eval_hedging.py)."""
+
+    null_matches: int
+    planted_matches: int
+    null_seed: int
+    planted_seed: int
+    strong_lane_weights: tuple[float, float, float]
+    strong_until_t: int
+    candidates: tuple[HedgeRule, ...]
 
 
 class Router(_Section):
@@ -183,6 +202,7 @@ class Settings(_Section):
     moments: Moments
     verifier: Verifier
     hedge: Hedge
+    hedge_eval: HedgeEval
     router: Router
     renditions: Renditions
     data_card: DataCard

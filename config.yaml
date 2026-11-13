@@ -97,6 +97,33 @@ hedge:
   prior_strength: 10
   clear_prob: 0.95
   min_effect: 0.0
+  clustered: false
+
+# P9 false-alarm study (scripts/eval_hedging.py): simulated matches with no planted overload, and
+# with the hero script's overload (seeds far from the league's 7000-7049). Candidate Beta rules,
+# all with hedge.prior_strength; the Wilson rule in the product is always measured too.
+# clear_prob 0.997 is 1 - 0.05 / 17: a Bonferroni split of 5% over the 17 checkpoints per match.
+hedge_eval:
+  null_matches: 300
+  planted_matches: 300
+  null_seed: 100000
+  planted_seed: 200000
+  # A second, stronger planted overload (chosen by hand): 90% of the home side's possessions
+  # aim down the left from its substitution to full time, instead of the hero script's
+  # sim.overload_lane_weights until sim.hero_overload_until_t.
+  strong_lane_weights: [0.90, 0.05, 0.05]
+  strong_until_t: 5400
+  candidates:
+    - {name: beta, prior_strength: 10, clear_prob: 0.95, min_effect: 0.0, clustered: false}
+    - {name: beta_effect, prior_strength: 10, clear_prob: 0.95, min_effect: 0.1, clustered: false}
+    - {name: beta_bonferroni, prior_strength: 10, clear_prob: 0.997, min_effect: 0.0, clustered: false}
+    - {name: beta_effect_bonferroni, prior_strength: 10, clear_prob: 0.997, min_effect: 0.1, clustered: false}
+    - {name: clustered, prior_strength: 10, clear_prob: 0.95, min_effect: 0.0, clustered: true}
+    - {name: clustered_effect, prior_strength: 10, clear_prob: 0.95, min_effect: 0.1, clustered: true}
+    - {name: clustered_bonferroni, prior_strength: 10, clear_prob: 0.997, min_effect: 0.0, clustered: true}
+    - {name: clustered_90, prior_strength: 10, clear_prob: 0.90, min_effect: 0.0, clustered: true}
+    - {name: clustered_light_prior, prior_strength: 3, clear_prob: 0.95, min_effect: 0.0, clustered: true}
+    - {name: clustered_light_prior_bonferroni, prior_strength: 3, clear_prob: 0.997, min_effect: 0.0, clustered: true}
 
 router:
   veto_window_s: 3

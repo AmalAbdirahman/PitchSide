@@ -25,7 +25,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from core.config import ROOT, Pitch, StatsBomb, Xg
 from core.events import Clock, Event, Match, Meta, Team
-from core.shares import pooled_lane_shares
+from core.shares import attack_design_effect, pooled_lane_shares
 from core.sources import League
 from core.xg import ShotFeatures, xg_of
 from core.xt import Action
@@ -395,6 +395,7 @@ class StatsBombOpenSource:
     pitch: Pitch
     xg: Xg
     match_id: int
+    window_s: float  # lane-share window, for the league's variance inflation (moments config)
     raw_dir: Path = RAW_DIR
 
     @property
@@ -426,7 +427,8 @@ class StatsBombOpenSource:
         totals = [xg_rate(m) for m in others]
         mu = sum(x for x, _ in totals) / sum(n for _, n in totals)
         shares = pooled_lane_shares((m.events for m in others), self.pitch)
-        return self.match(self.match_id), League(mu, shares)
+        deff = attack_design_effect([m.events for m in others], self.pitch, shares, self.window_s)
+        return self.match(self.match_id), League(mu, shares, deff)
 
 
 # ---- shots for fitting xG (P7) ----------------------------------------------------------

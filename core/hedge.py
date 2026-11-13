@@ -2,7 +2,9 @@
 
 A lane's attack share gets a Beta prior centred on the league's share for that lane, with weight
 `prior_strength` pseudo-attacks. After k of n attacks down the lane the posterior is
-Beta(a + k, b + n - k). The claim may be stated plainly ("clear") when the posterior probability
+Beta(a + k, b + n - k). Attacks in one possession usually share a lane, so with `clustered`
+k and n are first divided by the league's design effect (how much more lane counts vary than
+independent attacks would). The claim may be stated plainly ("clear") when the posterior probability
 that the share is above the league share plus `min_effect` is at least `clear_prob`; with fewer
 than n_min attacks it is "early"; otherwise "suggests". Wilson (core/wilson.py) stays available
 for comparison. Method and the false-alarm study: docs/methods/hedging.md.
@@ -80,14 +82,17 @@ class Posterior:
         return beta_ppf(tail, self.a, self.b), beta_ppf(1 - tail, self.a, self.b)
 
 
-def posterior(k: int, n: int, prior_share: float, strength: float) -> Posterior:
+def posterior(k: float, n: float, prior_share: float, strength: float) -> Posterior:
     """Beta posterior for a share after k of n, from a prior with mean prior_share."""
     return Posterior(prior_share * strength + k, (1 - prior_share) * strength + n - k)
 
 
-def beta_hedge(k: int, n: int, prior_share: float, h: HedgeConfig, n_min: int) -> str:
-    """early / suggests / clear for a claim that a share is above the league share."""
+def beta_hedge(k: int, n: int, prior_share: float, h: HedgeConfig, n_min: int, deff: float) -> str:
+    """early / suggests / clear for a claim that a share is above the league share. With
+    h.clustered, k and n are divided by deff (the league's variance inflation) first."""
     if n < n_min:
         return "early"
-    p = posterior(k, n, prior_share, h.prior_strength).prob_above(prior_share + h.min_effect)
+    d = deff if h.clustered else 1.0
+    post = posterior(k / d, n / d, prior_share, h.prior_strength)
+    p = post.prob_above(prior_share + h.min_effect)
     return "clear" if p >= h.clear_prob else "suggests"
