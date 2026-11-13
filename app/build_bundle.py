@@ -241,7 +241,9 @@ def write(
     scout = make_scout(foundry, s) if source is None else None
     hero, cues = build(s, scout, use_cache=False, source=source)
     if foundry and scout is not None:
-        save_cache(scout.cache)
+        # Keep the other mode's entries (scripts/eval_scout.py records both modes).
+        other = {k: r for k, r in load_cache().items() if r.get("mode", "handed") != s.agents.mode}
+        save_cache({**other, **scout.cache})
         print(f"Scout calls: {scout.calls}  cache entries written: {len(scout.cache)}")
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "hero.json").write_text(

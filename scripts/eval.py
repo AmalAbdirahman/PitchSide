@@ -87,13 +87,16 @@ def main() -> None:
 
 def scout_report() -> None:
     """Scout outcomes from replaying the cache through the verifier (same path as the offline build)."""
-    print("\nScout agent (replayed from data/agent_cache.json)")
+    mode = load().agents.mode
+    print(
+        f"\nScout agent, {mode} mode (replayed from data/agent_cache.json; both modes: scripts/eval_scout.py)"
+    )
     if not CACHE_PATH.exists():
         print("no agent cache: run python -m app.build_bundle --foundry first")
         return
     hero, _ = build(load())
     s = hero["metrics"]["scout"]
-    calls = [r for r in load_cache().values() if "ms" in r]
+    calls = [r for r in load_cache().values() if "ms" in r and r.get("mode", "handed") == mode]
     ms = sorted(r["ms"] for r in calls)
     print(
         f"moments: {sum(s.values())}  passed first time: {s['first_pass']}  passed after retry: {s['after_retry']}  "
