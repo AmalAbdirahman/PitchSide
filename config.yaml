@@ -54,6 +54,22 @@ winprob:
   goal_cap: 10
   match_minutes: 90
 
+# Win-probability validation (P10, scripts/eval_winprob.py, docs/methods/winprob.md). Game states
+# every every_min official minutes before 90; phases bucket the calibration tables. Real matches
+# are the xg_fit seasons with the same train/test split; simulated matches use their own seeds.
+# poisson_v2 picks k and rho from these grids by training Brier score (grids chosen by hand;
+# k 100000 all but ignores in-game xG). Bootstrap resamples whole matches.
+winprob_eval:
+  every_min: 5
+  phases: [0, 30, 60, 90]
+  sim_seed: 300000
+  sim_train_matches: 300
+  sim_test_matches: 300
+  k_grid: [10, 20, 40, 80, 160, 320, 640, 1280, 100000]
+  rho_grid: [-0.1, -0.05, 0.0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3]
+  bootstrap: 1000
+  bootstrap_seed: 7
+
 moments:
   check_every_s: 300
   first_check_s: 600

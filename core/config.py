@@ -72,6 +72,20 @@ class Winprob(_Section):
     match_minutes: int
 
 
+class WinprobEval(_Section):
+    """The P10 win-probability validation (scripts/eval_winprob.py)."""
+
+    every_min: int
+    phases: tuple[int, ...]
+    sim_seed: int
+    sim_train_matches: int
+    sim_test_matches: int
+    k_grid: tuple[float, ...]
+    rho_grid: tuple[float, ...]
+    bootstrap: int
+    bootstrap_seed: int
+
+
 class Moments(_Section):
     check_every_s: int
     first_check_s: int
@@ -199,6 +213,7 @@ class Settings(_Section):
     sim: Sim
     xg: Xg
     winprob: Winprob
+    winprob_eval: WinprobEval
     moments: Moments
     verifier: Verifier
     hedge: Hedge

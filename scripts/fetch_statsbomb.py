@@ -2,7 +2,7 @@
 
 Run: python scripts/fetch_statsbomb.py                 # the match and season in config.yaml
      python scripts/fetch_statsbomb.py --match 8650     # another match of that season
-     python scripts/fetch_statsbomb.py --xg             # every match of the xg_fit seasons (~650 MB)
+     python scripts/fetch_statsbomb.py --xg             # every match of the xg_fit seasons (~660 MB)
 
 Downloads the season's match list, then events and lineups for the replayed match and for
 `statsbomb.mu_matches` other matches of the same season (used only for the league xG rate).
@@ -56,14 +56,16 @@ def main(match_id: int, sb: StatsBomb) -> None:
 
 
 def fetch_xg_seasons(sb: StatsBomb, fit: XgFit) -> None:
-    """Match lists and events (no lineups needed) for every season the xG model is fitted on."""
+    """Match lists, events and lineups for every season the xG model is fitted on. The xG and xT
+    fits read only events; the win-probability validation (P10) maps whole matches, which needs
+    the lineups."""
     rels = []
     for comp, season in fit.seasons:
         rows = json.loads(fetch(sb, f"matches/{comp}/{season}.json").read_text(encoding="utf-8"))
-        rels += [f"events/{r['match_id']}.json" for r in rows]
+        rels += [f"{kind}/{r['match_id']}.json" for r in rows for kind in ("events", "lineups")]
     with ThreadPoolExecutor(max_workers=8) as pool:
         list(pool.map(lambda rel: fetch(sb, rel), rels))
-    print(f"{len(rels)} matches for the xG fit in {RAW_DIR} (git-ignored; do not commit)")
+    print(f"{len(rels) // 2} matches for the xG fit in {RAW_DIR} (git-ignored; do not commit)")
 
 
 if __name__ == "__main__":
