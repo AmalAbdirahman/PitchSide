@@ -1,7 +1,7 @@
 """Fit the expected threat (xT) surface on StatsBomb Open Data and validate it on held-out matches.
 
 Run: python scripts/fetch_statsbomb.py --xg   (once; the same seasons as the xG fit)
-     python scripts/fit_xt.py                 (writes data/xt_fit.json and the heatmap)
+     python scripts/fit_xt.py                 (writes data/xt_fit.json)
 
 Method (docs/methods/xt.md): whole matches are split into train and test exactly as for xG. The
 train matches' passes, carries and non-penalty shots give per-cell probabilities, and value
@@ -27,7 +27,6 @@ from core.xt import Grid, count, probabilities, solve  # noqa: E402
 from scripts.fit_xg import commit, scores  # noqa: E402
 
 OUT = ROOT / "data" / "xt_fit.json"
-SVG = ROOT / "docs" / "methods" / "xt_surface.svg"
 
 
 def load_rows(s: Settings) -> list[XtRow]:
@@ -99,47 +98,14 @@ def fit(s: Settings) -> dict[str, Any]:
     }
 
 
-def _colour(v: float, top: float) -> str:
-    """Square-root scale from near white to dark blue, so midfield differences stay visible."""
-    a = (v / top) ** 0.5 if top else 0.0
-    lo, hi = (241, 245, 249), (30, 58, 138)
-    r, g, b = (round(p + (q - p) * a) for p, q in zip(lo, hi, strict=True))
-    return f"#{r:02x}{g:02x}{b:02x}"
-
-
-def surface_svg(surface: list[list[float]], title: str) -> str:
-    cell, top = 44, max(max(r) for r in surface)
-    w, h = cell * len(surface[0]), cell * len(surface)
-    parts = [
-        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h + 40}" '
-        f'width="{w}" height="{h + 40}" font-family="sans-serif" role="img">',
-        f"<title>{title}</title>",
-    ]
-    for r, row in enumerate(surface):
-        for c, v in enumerate(row):
-            fill, ink = _colour(v, top), "#fff" if (v / top) ** 0.5 > 0.55 else "#0f172a"
-            x, y = c * cell, r * cell
-            parts.append(f'<rect x="{x}" y="{y}" width="{cell}" height="{cell}" fill="{fill}"/>')
-            parts.append(
-                f'<text x="{x + cell / 2}" y="{y + cell / 2 + 4}" font-size="10" '
-                f'text-anchor="middle" fill="{ink}">{v:.3f}</text>'
-            )
-    parts.append(
-        f'<text x="0" y="{h + 26}" font-size="13" fill="#0f172a">Attacking left to right. '
-        f"Colour: square root of xT (max {top:.3f}).</text></svg>"
-    )
-    return "\n".join(parts) + "\n"
-
-
 def main() -> None:
     argparse.ArgumentParser(description="Fit and validate the xT surface.").parse_args()
     result = fit(load())
     OUT.write_text(json.dumps(result, indent=1) + "\n", encoding="utf-8")
-    SVG.write_text(surface_svg(result["surface"], "Fitted xT surface"), encoding="utf-8")
     print(json.dumps({k: v for k, v in result.items() if k not in ("test", "surface")}, indent=1))
     for name, sc in result["test"].items():
         print(f"{name:10s} log loss {sc['log_loss']:.4f}  Brier {sc['brier']:.4f}")
-    print(f"wrote {OUT} and {SVG}")
+    print(f"wrote {OUT}; python scripts/plot_xt.py draws the figures")
 
 
 if __name__ == "__main__":

@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
+import json
+
 import pytest
 
-from core.config import Pitch, Xt
+from core.config import ROOT, Pitch, Xt, load
 from core.xt import Action, Grid, count, probabilities, solve, value_at
 
+S = load()
 G2 = Grid(cols=2, rows=1, length=100, width=50)  # cell 0: x < 50, cell 1: x >= 50
 
 
@@ -78,3 +81,16 @@ def test_value_at_reads_the_surface() -> None:
 def test_surface_shape_is_checked() -> None:
     with pytest.raises(ValueError, match="2 rows of 2"):
         Xt(cols=2, rows=2, surface=((0.1, 0.2),))
+
+
+def test_config_surface_is_the_fitted_one() -> None:
+    record = json.loads((ROOT / "data" / "xt_fit.json").read_text(encoding="utf-8"))
+    assert [list(r) for r in S.xt.surface] == record["surface"]
+    assert (S.xt.cols, S.xt.rows) == (record["cols"], record["rows"])
+
+
+def test_fitted_surface_rises_towards_goal() -> None:
+    mid = S.xt.rows // 2
+    row = S.xt.surface[mid]
+    assert row[-1] > row[S.xt.cols // 2] > row[0]
+    assert max(max(r) for r in S.xt.surface) == max(row[-2:])
