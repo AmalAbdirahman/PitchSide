@@ -79,6 +79,9 @@ moments:
   turnover_min_count: 3
   # Least xT a player must add in a half for the xT moment; chosen by hand (P8).
   xt_leader_min: 0.1
+  # Least linked passes a team needs in a half before its most central player is named (P10;
+  # chosen by hand: a smaller network ranks players on a handful of passes).
+  hub_min_passes: 20
 
 verifier:
   n_min: 6

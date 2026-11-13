@@ -9420,7 +9420,7 @@
    ]
   },
   {
-   "fact_id": "f_000039",
+   "fact_id": "f_000043",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 600.0,
@@ -10997,6 +10997,345 @@
    "claim": {
     "subject": {
      "type": "player",
+     "id": "NOR_08"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 1.0
+   },
+   "text": {
+    "draft_en": "E. Lindqvist was the most central player in Northbridge's passing in the first half: involved in 11 of 38 linked passes.",
+    "canonical_en": "E. Lindqvist was the most central player in Northbridge's passing in the first half: involved in 11 of 38 linked passes.",
+    "numbers": [
+     {
+      "key": "k",
+      "value": 11
+     },
+     {
+      "key": "n",
+      "value": 38
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     10,
+     32,
+     102,
+     104,
+     138,
+     158,
+     185,
+     194,
+     257,
+     258,
+     279
+    ],
+    "players": [
+     "NOR_08"
+    ],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "verified",
+    "checks": [
+     {
+      "name": "intent_stripped",
+      "passed": true,
+      "detail": "no intent words"
+     },
+     {
+      "name": "evidence_exists",
+      "passed": true,
+      "detail": "all cited events exist, in window, in the past"
+     },
+     {
+      "name": "entities",
+      "passed": true,
+      "detail": "teams and players match the cited events"
+     },
+     {
+      "name": "recompute",
+      "passed": true,
+      "detail": "claimed eq 1.0, recomputed 1.0 from 38 events"
+     },
+     {
+      "name": "sample_size",
+      "passed": true,
+      "detail": "plain value from the event log; no inference"
+     },
+     {
+      "name": "numbers_match",
+      "passed": true,
+      "detail": "every number traced to the event log"
+     }
+    ]
+   },
+   "approval": {
+    "state": "veto_window",
+    "valid_from_t": 2699.9,
+    "ttl_s": 3
+   },
+   "uncertainty": {
+    "n": 38,
+    "ci_method": "none",
+    "hedge": "none"
+   },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "not_cached"
+     },
+     {
+      "agent": "Drafter",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "rules"
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
+   "risk": {
+    "tier": "T1",
+    "reasons": [
+     "verified, no corrections, impact 0.00, hedge none"
+    ]
+   },
+   "renditions": [
+    {
+     "kind": "cue",
+     "lang": "en",
+     "text": "E. Lindqvist was the most central player in Northbridge's passing in the first half: involved in 11 of 38 linked passes.",
+     "layout": "lower_third",
+     "duration_s": 6,
+     "start_t": 2702.9,
+     "numbers_preserved": true
+    },
+    {
+     "kind": "cue",
+     "lang": "es",
+     "text": "E. Lindqvist fue el jugador más central en la circulación de Northbridge en la primera parte: participó en 11 de 38 pases enlazados.",
+     "layout": "lower_third",
+     "duration_s": 6,
+     "start_t": 2702.9,
+     "numbers_preserved": true
+    },
+    {
+     "kind": "caption",
+     "lang": "en",
+     "text": "E. Lindqvist was the most central player in Northbridge's passing in the first half: involved in 11 of 38 linked passes.",
+     "numbers_preserved": true
+    },
+    {
+     "kind": "caption",
+     "lang": "es",
+     "text": "E. Lindqvist fue el jugador más central en la circulación de Northbridge en la primera parte: participó en 11 de 38 pases enlazados.",
+     "numbers_preserved": true
+    },
+    {
+     "kind": "audio_script",
+     "lang": "en",
+     "text": "E. Lindqvist was the most central player in Northbridge's passing in the first half: involved in eleven of thirty-eight linked passes.",
+     "numbers_preserved": true
+    }
+   ]
+  },
+  {
+   "fact_id": "f_000012",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2699.9,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_06"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 1.0
+   },
+   "text": {
+    "draft_en": "W. Abara was the most central player in Harlow's passing in the first half: involved in 18 of 57 linked passes.",
+    "canonical_en": "W. Abara was the most central player in Harlow's passing in the first half: involved in 18 of 57 linked passes.",
+    "numbers": [
+     {
+      "key": "k",
+      "value": 18
+     },
+     {
+      "key": "n",
+      "value": 57
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     37,
+     38,
+     51,
+     96,
+     97,
+     98,
+     129,
+     133,
+     134,
+     168,
+     169,
+     204,
+     205,
+     206,
+     223,
+     254,
+     270,
+     271
+    ],
+    "players": [
+     "HAR_06"
+    ],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "verified",
+    "checks": [
+     {
+      "name": "intent_stripped",
+      "passed": true,
+      "detail": "no intent words"
+     },
+     {
+      "name": "evidence_exists",
+      "passed": true,
+      "detail": "all cited events exist, in window, in the past"
+     },
+     {
+      "name": "entities",
+      "passed": true,
+      "detail": "teams and players match the cited events"
+     },
+     {
+      "name": "recompute",
+      "passed": true,
+      "detail": "claimed eq 1.0, recomputed 1.0 from 57 events"
+     },
+     {
+      "name": "sample_size",
+      "passed": true,
+      "detail": "plain value from the event log; no inference"
+     },
+     {
+      "name": "numbers_match",
+      "passed": true,
+      "detail": "every number traced to the event log"
+     }
+    ]
+   },
+   "approval": {
+    "state": "veto_window",
+    "valid_from_t": 2699.9,
+    "ttl_s": 3
+   },
+   "uncertainty": {
+    "n": 57,
+    "ci_method": "none",
+    "hedge": "none"
+   },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "not_cached"
+     },
+     {
+      "agent": "Drafter",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "rules"
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
+   "risk": {
+    "tier": "T1",
+    "reasons": [
+     "verified, no corrections, impact 0.00, hedge none"
+    ]
+   },
+   "renditions": [
+    {
+     "kind": "cue",
+     "lang": "en",
+     "text": "W. Abara was the most central player in Harlow's passing in the first half: involved in 18 of 57 linked passes.",
+     "layout": "lower_third",
+     "duration_s": 6,
+     "start_t": 2702.9,
+     "numbers_preserved": true
+    },
+    {
+     "kind": "cue",
+     "lang": "es",
+     "text": "W. Abara fue el jugador más central en la circulación de Harlow en la primera parte: participó en 18 de 57 pases enlazados.",
+     "layout": "lower_third",
+     "duration_s": 6,
+     "start_t": 2702.9,
+     "numbers_preserved": true
+    },
+    {
+     "kind": "caption",
+     "lang": "en",
+     "text": "W. Abara was the most central player in Harlow's passing in the first half: involved in 18 of 57 linked passes.",
+     "numbers_preserved": true
+    },
+    {
+     "kind": "caption",
+     "lang": "es",
+     "text": "W. Abara fue el jugador más central en la circulación de Harlow en la primera parte: participó en 18 de 57 pases enlazados.",
+     "numbers_preserved": true
+    },
+    {
+     "kind": "audio_script",
+     "lang": "en",
+     "text": "W. Abara was the most central player in Harlow's passing in the first half: involved in eighteen of fifty-seven linked passes.",
+     "numbers_preserved": true
+    }
+   ]
+  },
+  {
+   "fact_id": "f_000013",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2699.9,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "player",
      "id": "HAR_09"
     },
     "metric": "shots",
@@ -11141,7 +11480,7 @@
    ]
   },
   {
-   "fact_id": "f_000012",
+   "fact_id": "f_000014",
    "match_id": "nb_v_hr_hero",
    "kind": "milestone",
    "created_t": 2699.9,
@@ -11297,7 +11636,7 @@
    ]
   },
   {
-   "fact_id": "f_000013",
+   "fact_id": "f_000015",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 2699.9,
@@ -11449,7 +11788,7 @@
    ]
   },
   {
-   "fact_id": "f_000014",
+   "fact_id": "f_000016",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 2699.9,
@@ -11605,7 +11944,7 @@
    ]
   },
   {
-   "fact_id": "f_000015",
+   "fact_id": "f_000017",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 2699.9,
@@ -11769,7 +12108,7 @@
    ]
   },
   {
-   "fact_id": "f_000016",
+   "fact_id": "f_000018",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 3300.0,
@@ -11932,7 +12271,7 @@
    ]
   },
   {
-   "fact_id": "f_000017",
+   "fact_id": "f_000019",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 3300.0,
@@ -12098,7 +12437,7 @@
    ]
   },
   {
-   "fact_id": "f_000018",
+   "fact_id": "f_000020",
    "match_id": "nb_v_hr_hero",
    "kind": "moment",
    "created_t": 3445.0,
@@ -12254,7 +12593,7 @@
    ]
   },
   {
-   "fact_id": "f_000040",
+   "fact_id": "f_000044",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 3745.0,
@@ -12422,7 +12761,7 @@
    ]
   },
   {
-   "fact_id": "f_000019",
+   "fact_id": "f_000021",
    "match_id": "nb_v_hr_hero",
    "kind": "score_event",
    "created_t": 3748.5,
@@ -12593,7 +12932,7 @@
    ]
   },
   {
-   "fact_id": "f_000020",
+   "fact_id": "f_000022",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 3900.0,
@@ -12764,7 +13103,7 @@
    ]
   },
   {
-   "fact_id": "f_000021",
+   "fact_id": "f_000023",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 4200.0,
@@ -12930,7 +13269,7 @@
    ]
   },
   {
-   "fact_id": "f_000022",
+   "fact_id": "f_000024",
    "match_id": "nb_v_hr_hero",
    "kind": "moment",
    "created_t": 4230.0,
@@ -13086,7 +13425,7 @@
    ]
   },
   {
-   "fact_id": "f_000023",
+   "fact_id": "f_000025",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 4800.0,
@@ -13243,7 +13582,7 @@
    ]
   },
   {
-   "fact_id": "f_000024",
+   "fact_id": "f_000026",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 5100.0,
@@ -13424,7 +13763,7 @@
    ]
   },
   {
-   "fact_id": "f_000025",
+   "fact_id": "f_000027",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 5400.0,
@@ -13594,7 +13933,7 @@
    ]
   },
   {
-   "fact_id": "f_000026",
+   "fact_id": "f_000028",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 5400.0,
@@ -13760,7 +14099,7 @@
    ]
   },
   {
-   "fact_id": "f_000027",
+   "fact_id": "f_000029",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 5400.0,
@@ -13973,7 +14312,7 @@
    ]
   },
   {
-   "fact_id": "f_000028",
+   "fact_id": "f_000030",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 5400.0,
@@ -14175,7 +14514,345 @@
    ]
   },
   {
-   "fact_id": "f_000029",
+   "fact_id": "f_000031",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 5400.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_08"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 1.0
+   },
+   "text": {
+    "draft_en": "E. Lindqvist was the most central player in Northbridge's passing in the second half: involved in 18 of 53 linked passes.",
+    "canonical_en": "E. Lindqvist was the most central player in Northbridge's passing in the second half: involved in 18 of 53 linked passes.",
+    "numbers": [
+     {
+      "key": "k",
+      "value": 18
+     },
+     {
+      "key": "n",
+      "value": 53
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     334,
+     337,
+     340,
+     356,
+     358,
+     392,
+     400,
+     455,
+     488,
+     489,
+     521,
+     545,
+     559,
+     561,
+     593,
+     594,
+     596,
+     597
+    ],
+    "players": [
+     "NOR_08"
+    ],
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    }
+   },
+   "verification": {
+    "status": "verified",
+    "checks": [
+     {
+      "name": "intent_stripped",
+      "passed": true,
+      "detail": "no intent words"
+     },
+     {
+      "name": "evidence_exists",
+      "passed": true,
+      "detail": "all cited events exist, in window, in the past"
+     },
+     {
+      "name": "entities",
+      "passed": true,
+      "detail": "teams and players match the cited events"
+     },
+     {
+      "name": "recompute",
+      "passed": true,
+      "detail": "claimed eq 1.0, recomputed 1.0 from 53 events"
+     },
+     {
+      "name": "sample_size",
+      "passed": true,
+      "detail": "plain value from the event log; no inference"
+     },
+     {
+      "name": "numbers_match",
+      "passed": true,
+      "detail": "every number traced to the event log"
+     }
+    ]
+   },
+   "approval": {
+    "state": "veto_window",
+    "valid_from_t": 5400.0,
+    "ttl_s": 3
+   },
+   "uncertainty": {
+    "n": 53,
+    "ci_method": "none",
+    "hedge": "none"
+   },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "not_cached"
+     },
+     {
+      "agent": "Drafter",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "rules"
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
+   "risk": {
+    "tier": "T1",
+    "reasons": [
+     "verified, no corrections, impact 0.00, hedge none"
+    ]
+   },
+   "renditions": [
+    {
+     "kind": "cue",
+     "lang": "en",
+     "text": "E. Lindqvist was the most central player in Northbridge's passing in the second half: involved in 18 of 53 linked passes.",
+     "layout": "lower_third",
+     "duration_s": 6,
+     "start_t": 5403.0,
+     "numbers_preserved": true
+    },
+    {
+     "kind": "cue",
+     "lang": "es",
+     "text": "E. Lindqvist fue el jugador más central en la circulación de Northbridge en la segunda parte: participó en 18 de 53 pases enlazados.",
+     "layout": "lower_third",
+     "duration_s": 6,
+     "start_t": 5403.0,
+     "numbers_preserved": true
+    },
+    {
+     "kind": "caption",
+     "lang": "en",
+     "text": "E. Lindqvist was the most central player in Northbridge's passing in the second half: involved in 18 of 53 linked passes.",
+     "numbers_preserved": true
+    },
+    {
+     "kind": "caption",
+     "lang": "es",
+     "text": "E. Lindqvist fue el jugador más central en la circulación de Northbridge en la segunda parte: participó en 18 de 53 pases enlazados.",
+     "numbers_preserved": true
+    },
+    {
+     "kind": "audio_script",
+     "lang": "en",
+     "text": "E. Lindqvist was the most central player in Northbridge's passing in the second half: involved in eighteen of fifty-three linked passes.",
+     "numbers_preserved": true
+    }
+   ]
+  },
+  {
+   "fact_id": "f_000032",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 5400.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_08"
+    },
+    "metric": "most_central_player",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 1.0
+   },
+   "text": {
+    "draft_en": "O. Fenwick was the most central player in Harlow's passing in the second half: involved in 10 of 44 linked passes.",
+    "canonical_en": "O. Fenwick was the most central player in Harlow's passing in the second half: involved in 10 of 44 linked passes.",
+    "numbers": [
+     {
+      "key": "k",
+      "value": 10
+     },
+     {
+      "key": "n",
+      "value": 44
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     343,
+     373,
+     374,
+     396,
+     449,
+     450,
+     532,
+     536,
+     537,
+     550
+    ],
+    "players": [
+     "HAR_08"
+    ],
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    }
+   },
+   "verification": {
+    "status": "verified",
+    "checks": [
+     {
+      "name": "intent_stripped",
+      "passed": true,
+      "detail": "no intent words"
+     },
+     {
+      "name": "evidence_exists",
+      "passed": true,
+      "detail": "all cited events exist, in window, in the past"
+     },
+     {
+      "name": "entities",
+      "passed": true,
+      "detail": "teams and players match the cited events"
+     },
+     {
+      "name": "recompute",
+      "passed": true,
+      "detail": "claimed eq 1.0, recomputed 1.0 from 44 events"
+     },
+     {
+      "name": "sample_size",
+      "passed": true,
+      "detail": "plain value from the event log; no inference"
+     },
+     {
+      "name": "numbers_match",
+      "passed": true,
+      "detail": "every number traced to the event log"
+     }
+    ]
+   },
+   "approval": {
+    "state": "veto_window",
+    "valid_from_t": 5400.0,
+    "ttl_s": 3
+   },
+   "uncertainty": {
+    "n": 44,
+    "ci_method": "none",
+    "hedge": "none"
+   },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Scout",
+      "attempt": 1,
+      "outcome": "not_cached"
+     },
+     {
+      "agent": "Drafter",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "rules"
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
+   "risk": {
+    "tier": "T1",
+    "reasons": [
+     "verified, no corrections, impact 0.00, hedge none"
+    ]
+   },
+   "renditions": [
+    {
+     "kind": "cue",
+     "lang": "en",
+     "text": "O. Fenwick was the most central player in Harlow's passing in the second half: involved in 10 of 44 linked passes.",
+     "layout": "lower_third",
+     "duration_s": 6,
+     "start_t": 5403.0,
+     "numbers_preserved": true
+    },
+    {
+     "kind": "cue",
+     "lang": "es",
+     "text": "O. Fenwick fue el jugador más central en la circulación de Harlow en la segunda parte: participó en 10 de 44 pases enlazados.",
+     "layout": "lower_third",
+     "duration_s": 6,
+     "start_t": 5403.0,
+     "numbers_preserved": true
+    },
+    {
+     "kind": "caption",
+     "lang": "en",
+     "text": "O. Fenwick was the most central player in Harlow's passing in the second half: involved in 10 of 44 linked passes.",
+     "numbers_preserved": true
+    },
+    {
+     "kind": "caption",
+     "lang": "es",
+     "text": "O. Fenwick fue el jugador más central en la circulación de Harlow en la segunda parte: participó en 10 de 44 pases enlazados.",
+     "numbers_preserved": true
+    },
+    {
+     "kind": "audio_script",
+     "lang": "en",
+     "text": "O. Fenwick was the most central player in Harlow's passing in the second half: involved in ten of forty-four linked passes.",
+     "numbers_preserved": true
+    }
+   ]
+  },
+  {
+   "fact_id": "f_000033",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 5400.0,
@@ -14328,7 +15005,7 @@
    ]
   },
   {
-   "fact_id": "f_000030",
+   "fact_id": "f_000034",
    "match_id": "nb_v_hr_hero",
    "kind": "milestone",
    "created_t": 5400.0,
@@ -14478,7 +15155,7 @@
    ]
   },
   {
-   "fact_id": "f_000031",
+   "fact_id": "f_000035",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 5400.0,
@@ -14633,7 +15310,7 @@
    ]
   },
   {
-   "fact_id": "f_000032",
+   "fact_id": "f_000036",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 5400.0,
@@ -14791,7 +15468,7 @@
    ]
   },
   {
-   "fact_id": "f_000033",
+   "fact_id": "f_000037",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 5400.0,
@@ -14943,7 +15620,7 @@
    ]
   },
   {
-   "fact_id": "f_000034",
+   "fact_id": "f_000038",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 5400.0,
@@ -15111,7 +15788,7 @@
  ],
  "log": [
   {
-   "fact_id": "f_000035",
+   "fact_id": "f_000039",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 600.0,
@@ -15227,7 +15904,7 @@
    }
   },
   {
-   "fact_id": "f_000036",
+   "fact_id": "f_000040",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 600.0,
@@ -15344,7 +16021,7 @@
    }
   },
   {
-   "fact_id": "f_000037",
+   "fact_id": "f_000041",
    "match_id": "nb_v_hr_hero",
    "kind": "score_event",
    "created_t": 3748.5,
@@ -15462,7 +16139,7 @@
    }
   },
   {
-   "fact_id": "f_000038",
+   "fact_id": "f_000042",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 600.0,
@@ -15569,16 +16246,16 @@
   }
  ],
  "metrics": {
-  "drafts": 40,
+  "drafts": 44,
   "injected_drafts": 6,
   "injected_not_verified": 6,
   "by_status": {
-   "verified": 34,
+   "verified": 38,
    "rejected": 4,
    "corrected": 2
   },
   "by_tier": {
-   "T1": 30,
+   "T1": 34,
    "T2": 2,
    "T0": 4
   },
@@ -15587,7 +16264,7 @@
    "first_pass": 21,
    "after_retry": 0,
    "rejected": 0,
-   "rules": 13
+   "rules": 17
   }
  },
  "series": {
@@ -23601,6 +24278,6205 @@
       603,
       0.0037
      ]
+    ]
+   }
+  },
+  "network": {
+   "step_s": 300,
+   "t": [
+    0.0,
+    300.0,
+    600.0,
+    900.0,
+    1200.0,
+    1500.0,
+    1800.0,
+    2100.0,
+    2400.0,
+    2700.0,
+    3000.0,
+    3300.0,
+    3600.0,
+    3900.0,
+    4200.0,
+    4500.0,
+    4800.0,
+    5100.0,
+    5400.0
+   ],
+   "half_t": 2700,
+   "teams": {
+    "NOR": [
+     {
+      "n": 0,
+      "nodes": [],
+      "edges": []
+     },
+     {
+      "n": 3,
+      "nodes": [
+       [
+        "NOR_04",
+        33.1,
+        51.1,
+        1,
+        0.0,
+        0
+       ],
+       [
+        "NOR_05",
+        17.6,
+        37.4,
+        2,
+        0.333,
+        0
+       ],
+       [
+        "NOR_08",
+        49.65,
+        35.7,
+        2,
+        0.333,
+        1
+       ],
+       [
+        "NOR_09",
+        71.3,
+        47.1,
+        1,
+        0.0,
+        1
+       ]
+      ],
+      "edges": [
+       [
+        "NOR_04",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_09",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 4,
+      "nodes": [
+       [
+        "NOR_04",
+        32.0,
+        49.5,
+        2,
+        0.0,
+        0
+       ],
+       [
+        "NOR_05",
+        17.6,
+        37.4,
+        2,
+        0.167,
+        0
+       ],
+       [
+        "NOR_06",
+        41.9,
+        43.3,
+        1,
+        0.0,
+        0
+       ],
+       [
+        "NOR_08",
+        49.65,
+        35.7,
+        2,
+        0.167,
+        1
+       ],
+       [
+        "NOR_09",
+        71.3,
+        47.1,
+        1,
+        0.0,
+        1
+       ]
+      ],
+      "edges": [
+       [
+        "NOR_04",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_09",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 6,
+      "nodes": [
+       [
+        "NOR_02",
+        27.1,
+        48.1,
+        1,
+        0.0,
+        0
+       ],
+       [
+        "NOR_03",
+        23.3,
+        62.5,
+        1,
+        0.0,
+        1
+       ],
+       [
+        "NOR_04",
+        32.0,
+        49.5,
+        2,
+        0.0,
+        0
+       ],
+       [
+        "NOR_05",
+        21.833,
+        47.267,
+        3,
+        0.133,
+        1
+       ],
+       [
+        "NOR_06",
+        34.55,
+        46.65,
+        2,
+        0.0,
+        0
+       ],
+       [
+        "NOR_08",
+        49.65,
+        35.7,
+        2,
+        0.1,
+        2
+       ],
+       [
+        "NOR_09",
+        71.3,
+        47.1,
+        1,
+        0.0,
+        2
+       ]
+      ],
+      "edges": [
+       [
+        "NOR_02",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_09",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 10,
+      "nodes": [
+       [
+        "NOR_02",
+        35.55,
+        35.05,
+        2,
+        0.054,
+        0
+       ],
+       [
+        "NOR_03",
+        23.3,
+        62.5,
+        1,
+        0.0,
+        1
+       ],
+       [
+        "NOR_04",
+        32.0,
+        49.5,
+        2,
+        0.0,
+        0
+       ],
+       [
+        "NOR_05",
+        21.5,
+        41.825,
+        4,
+        0.125,
+        1
+       ],
+       [
+        "NOR_06",
+        34.55,
+        46.65,
+        2,
+        0.0,
+        0
+       ],
+       [
+        "NOR_07",
+        90.3,
+        41.7,
+        2,
+        0.0,
+        2
+       ],
+       [
+        "NOR_08",
+        39.275,
+        28.05,
+        4,
+        0.143,
+        1
+       ],
+       [
+        "NOR_09",
+        71.3,
+        47.1,
+        1,
+        0.0,
+        1
+       ],
+       [
+        "NOR_11",
+        102.3,
+        37.7,
+        2,
+        0.0,
+        2
+       ]
+      ],
+      "edges": [
+       [
+        "NOR_02",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_08",
+        2
+       ],
+       [
+        "NOR_07",
+        "NOR_11",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_11",
+        "NOR_07",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 20,
+      "nodes": [
+       [
+        "NOR_02",
+        35.55,
+        35.05,
+        2,
+        0.021,
+        0
+       ],
+       [
+        "NOR_03",
+        48.967,
+        31.1,
+        3,
+        0.021,
+        0
+       ],
+       [
+        "NOR_04",
+        31.2,
+        45.65,
+        4,
+        0.049,
+        0
+       ],
+       [
+        "NOR_05",
+        31.7,
+        40.017,
+        6,
+        0.181,
+        0
+       ],
+       [
+        "NOR_06",
+        34.55,
+        46.65,
+        2,
+        0.0,
+        0
+       ],
+       [
+        "NOR_07",
+        76.267,
+        31.633,
+        6,
+        0.042,
+        1
+       ],
+       [
+        "NOR_08",
+        37.35,
+        28.367,
+        6,
+        0.208,
+        0
+       ],
+       [
+        "NOR_09",
+        69.975,
+        38.85,
+        4,
+        0.062,
+        1
+       ],
+       [
+        "NOR_10",
+        65.15,
+        29.7,
+        2,
+        0.0,
+        1
+       ],
+       [
+        "NOR_11",
+        87.4,
+        34.9,
+        5,
+        0.028,
+        1
+       ]
+      ],
+      "edges": [
+       [
+        "NOR_02",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_05",
+        2
+       ],
+       [
+        "NOR_04",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_08",
+        2
+       ],
+       [
+        "NOR_05",
+        "NOR_10",
+        1
+       ],
+       [
+        "NOR_07",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_07",
+        "NOR_11",
+        2
+       ],
+       [
+        "NOR_08",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_03",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_04",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_11",
+        1
+       ],
+       [
+        "NOR_11",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_11",
+        "NOR_10",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 29,
+      "nodes": [
+       [
+        "NOR_02",
+        31.671,
+        46.1,
+        7,
+        0.144,
+        0
+       ],
+       [
+        "NOR_03",
+        35.78,
+        40.1,
+        5,
+        0.042,
+        1
+       ],
+       [
+        "NOR_04",
+        31.2,
+        45.65,
+        4,
+        0.007,
+        1
+       ],
+       [
+        "NOR_05",
+        31.7,
+        40.017,
+        6,
+        0.13,
+        1
+       ],
+       [
+        "NOR_06",
+        33.575,
+        54.225,
+        4,
+        0.056,
+        0
+       ],
+       [
+        "NOR_07",
+        73.725,
+        38.7,
+        8,
+        0.13,
+        2
+       ],
+       [
+        "NOR_08",
+        29.738,
+        31.2,
+        8,
+        0.174,
+        1
+       ],
+       [
+        "NOR_09",
+        65.7,
+        41.76,
+        5,
+        0.042,
+        2
+       ],
+       [
+        "NOR_10",
+        48.75,
+        44.567,
+        6,
+        0.111,
+        2
+       ],
+       [
+        "NOR_11",
+        87.4,
+        34.9,
+        5,
+        0.021,
+        2
+       ]
+      ],
+      "edges": [
+       [
+        "NOR_02",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_10",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_05",
+        2
+       ],
+       [
+        "NOR_04",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_08",
+        2
+       ],
+       [
+        "NOR_05",
+        "NOR_10",
+        1
+       ],
+       [
+        "NOR_06",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_07",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_07",
+        "NOR_10",
+        1
+       ],
+       [
+        "NOR_07",
+        "NOR_11",
+        2
+       ],
+       [
+        "NOR_08",
+        "NOR_02",
+        2
+       ],
+       [
+        "NOR_08",
+        "NOR_03",
+        2
+       ],
+       [
+        "NOR_08",
+        "NOR_04",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_11",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_11",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_11",
+        "NOR_10",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 30,
+      "nodes": [
+       [
+        "NOR_02",
+        31.188,
+        48.712,
+        8,
+        0.171,
+        0
+       ],
+       [
+        "NOR_03",
+        35.78,
+        40.1,
+        5,
+        0.028,
+        1
+       ],
+       [
+        "NOR_04",
+        31.2,
+        45.65,
+        4,
+        0.007,
+        1
+       ],
+       [
+        "NOR_05",
+        31.7,
+        40.017,
+        6,
+        0.13,
+        1
+       ],
+       [
+        "NOR_06",
+        33.575,
+        54.225,
+        4,
+        0.056,
+        0
+       ],
+       [
+        "NOR_07",
+        73.725,
+        38.7,
+        8,
+        0.074,
+        2
+       ],
+       [
+        "NOR_08",
+        29.738,
+        31.2,
+        8,
+        0.174,
+        1
+       ],
+       [
+        "NOR_09",
+        65.7,
+        41.76,
+        5,
+        0.028,
+        2
+       ],
+       [
+        "NOR_10",
+        48.75,
+        44.567,
+        6,
+        0.111,
+        2
+       ],
+       [
+        "NOR_11",
+        78.917,
+        35.55,
+        6,
+        0.021,
+        2
+       ]
+      ],
+      "edges": [
+       [
+        "NOR_02",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_10",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_11",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_05",
+        2
+       ],
+       [
+        "NOR_04",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_08",
+        2
+       ],
+       [
+        "NOR_05",
+        "NOR_10",
+        1
+       ],
+       [
+        "NOR_06",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_07",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_07",
+        "NOR_10",
+        1
+       ],
+       [
+        "NOR_07",
+        "NOR_11",
+        2
+       ],
+       [
+        "NOR_08",
+        "NOR_02",
+        2
+       ],
+       [
+        "NOR_08",
+        "NOR_03",
+        2
+       ],
+       [
+        "NOR_08",
+        "NOR_04",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_11",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_11",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_11",
+        "NOR_10",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 33,
+      "nodes": [
+       [
+        "NOR_02",
+        24.373,
+        43.536,
+        11,
+        0.479,
+        0
+       ],
+       [
+        "NOR_03",
+        26.557,
+        37.157,
+        7,
+        0.111,
+        0
+       ],
+       [
+        "NOR_04",
+        31.2,
+        45.65,
+        4,
+        0.007,
+        0
+       ],
+       [
+        "NOR_05",
+        31.7,
+        40.017,
+        6,
+        0.111,
+        0
+       ],
+       [
+        "NOR_06",
+        33.575,
+        54.225,
+        4,
+        0.278,
+        0
+       ],
+       [
+        "NOR_07",
+        73.725,
+        38.7,
+        8,
+        0.086,
+        1
+       ],
+       [
+        "NOR_08",
+        27.9,
+        28.756,
+        9,
+        0.266,
+        0
+       ],
+       [
+        "NOR_09",
+        65.7,
+        41.76,
+        5,
+        0.028,
+        1
+       ],
+       [
+        "NOR_10",
+        48.75,
+        44.567,
+        6,
+        0.273,
+        1
+       ],
+       [
+        "NOR_11",
+        78.917,
+        35.55,
+        6,
+        0.049,
+        1
+       ]
+      ],
+      "edges": [
+       [
+        "NOR_02",
+        "NOR_03",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_10",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_11",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_02",
+        2
+       ],
+       [
+        "NOR_03",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_05",
+        2
+       ],
+       [
+        "NOR_04",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_08",
+        2
+       ],
+       [
+        "NOR_05",
+        "NOR_10",
+        1
+       ],
+       [
+        "NOR_06",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_07",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_07",
+        "NOR_10",
+        1
+       ],
+       [
+        "NOR_07",
+        "NOR_11",
+        2
+       ],
+       [
+        "NOR_08",
+        "NOR_02",
+        2
+       ],
+       [
+        "NOR_08",
+        "NOR_03",
+        2
+       ],
+       [
+        "NOR_08",
+        "NOR_04",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_11",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_11",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_11",
+        "NOR_10",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 0,
+      "nodes": [],
+      "edges": []
+     },
+     {
+      "n": 6,
+      "nodes": [
+       [
+        "NOR_02",
+        33.15,
+        54.45,
+        4,
+        0.25,
+        0
+       ],
+       [
+        "NOR_03",
+        41.1,
+        46.9,
+        1,
+        0.0,
+        1
+       ],
+       [
+        "NOR_04",
+        6.0,
+        34.0,
+        1,
+        0.0,
+        0
+       ],
+       [
+        "NOR_05",
+        33.8,
+        41.4,
+        4,
+        0.25,
+        1
+       ],
+       [
+        "NOR_07",
+        62.7,
+        50.2,
+        1,
+        0.0,
+        0
+       ],
+       [
+        "NOR_10",
+        24.5,
+        12.4,
+        1,
+        0.0,
+        1
+       ]
+      ],
+      "edges": [
+       [
+        "NOR_02",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_03",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_05",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 17,
+      "nodes": [
+       [
+        "NOR_02",
+        41.043,
+        53.486,
+        7,
+        0.384,
+        0
+       ],
+       [
+        "NOR_03",
+        41.1,
+        46.9,
+        2,
+        0.074,
+        0
+       ],
+       [
+        "NOR_04",
+        26.48,
+        24.68,
+        5,
+        0.095,
+        1
+       ],
+       [
+        "NOR_05",
+        33.8,
+        41.4,
+        4,
+        0.181,
+        0
+       ],
+       [
+        "NOR_06",
+        50.6,
+        11.6,
+        2,
+        0.014,
+        2
+       ],
+       [
+        "NOR_07",
+        63.7,
+        28.267,
+        3,
+        0.111,
+        2
+       ],
+       [
+        "NOR_08",
+        49.02,
+        42.26,
+        5,
+        0.222,
+        1
+       ],
+       [
+        "NOR_09",
+        79.5,
+        28.3,
+        1,
+        0.0,
+        2
+       ],
+       [
+        "NOR_10",
+        39.5,
+        35.2,
+        3,
+        0.116,
+        0
+       ],
+       [
+        "NOR_11",
+        82.4,
+        51.4,
+        2,
+        0.012,
+        1
+       ]
+      ],
+      "edges": [
+       [
+        "NOR_02",
+        "NOR_04",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_11",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_10",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_03",
+        1
+       ],
+       [
+        "NOR_06",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_07",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_04",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_11",
+        "NOR_08",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 20,
+      "nodes": [
+       [
+        "NOR_02",
+        43.413,
+        51.55,
+        8,
+        0.375,
+        0
+       ],
+       [
+        "NOR_03",
+        36.967,
+        47.867,
+        3,
+        0.083,
+        1
+       ],
+       [
+        "NOR_04",
+        26.48,
+        24.68,
+        5,
+        0.09,
+        0
+       ],
+       [
+        "NOR_05",
+        33.8,
+        41.4,
+        4,
+        0.125,
+        1
+       ],
+       [
+        "NOR_06",
+        50.6,
+        11.6,
+        2,
+        0.014,
+        2
+       ],
+       [
+        "NOR_07",
+        70.75,
+        27.125,
+        4,
+        0.111,
+        2
+       ],
+       [
+        "NOR_08",
+        48.6,
+        42.35,
+        6,
+        0.278,
+        0
+       ],
+       [
+        "NOR_09",
+        76.95,
+        27.1,
+        2,
+        0.0,
+        2
+       ],
+       [
+        "NOR_10",
+        38.75,
+        37.45,
+        4,
+        0.125,
+        1
+       ],
+       [
+        "NOR_11",
+        82.4,
+        51.4,
+        2,
+        0.007,
+        0
+       ]
+      ],
+      "edges": [
+       [
+        "NOR_02",
+        "NOR_04",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_11",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_10",
+        2
+       ],
+       [
+        "NOR_04",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_03",
+        1
+       ],
+       [
+        "NOR_06",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_07",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_02",
+        2
+       ],
+       [
+        "NOR_08",
+        "NOR_04",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_11",
+        "NOR_08",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 23,
+      "nodes": [
+       [
+        "NOR_02",
+        43.413,
+        51.55,
+        8,
+        0.233,
+        0
+       ],
+       [
+        "NOR_03",
+        39.86,
+        38.6,
+        5,
+        0.067,
+        1
+       ],
+       [
+        "NOR_04",
+        26.48,
+        24.68,
+        5,
+        0.072,
+        0
+       ],
+       [
+        "NOR_05",
+        36.9,
+        36.06,
+        5,
+        0.05,
+        1
+       ],
+       [
+        "NOR_06",
+        50.6,
+        11.6,
+        2,
+        0.011,
+        2
+       ],
+       [
+        "NOR_07",
+        70.75,
+        27.125,
+        4,
+        0.089,
+        2
+       ],
+       [
+        "NOR_08",
+        46.786,
+        40.814,
+        7,
+        0.228,
+        0
+       ],
+       [
+        "NOR_09",
+        82.967,
+        28.067,
+        3,
+        0.011,
+        2
+       ],
+       [
+        "NOR_10",
+        38.75,
+        37.45,
+        4,
+        0.067,
+        1
+       ],
+       [
+        "NOR_11",
+        82.4,
+        51.4,
+        2,
+        0.006,
+        0
+       ],
+       [
+        "NOR_12",
+        80.0,
+        9.0,
+        1,
+        0.0,
+        2
+       ]
+      ],
+      "edges": [
+       [
+        "NOR_02",
+        "NOR_04",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_11",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_10",
+        2
+       ],
+       [
+        "NOR_04",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_03",
+        1
+       ],
+       [
+        "NOR_06",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_07",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_02",
+        2
+       ],
+       [
+        "NOR_08",
+        "NOR_03",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_04",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_11",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_12",
+        "NOR_09",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 31,
+      "nodes": [
+       [
+        "NOR_02",
+        41.333,
+        40.125,
+        12,
+        0.322,
+        0
+       ],
+       [
+        "NOR_03",
+        39.86,
+        38.6,
+        5,
+        0.122,
+        1
+       ],
+       [
+        "NOR_04",
+        28.871,
+        21.643,
+        7,
+        0.05,
+        0
+       ],
+       [
+        "NOR_05",
+        31.75,
+        35.717,
+        6,
+        0.119,
+        0
+       ],
+       [
+        "NOR_06",
+        40.5,
+        9.867,
+        3,
+        0.011,
+        0
+       ],
+       [
+        "NOR_07",
+        70.75,
+        27.125,
+        4,
+        0.067,
+        2
+       ],
+       [
+        "NOR_08",
+        43.388,
+        38.1,
+        8,
+        0.177,
+        0
+       ],
+       [
+        "NOR_09",
+        82.967,
+        28.067,
+        3,
+        0.008,
+        2
+       ],
+       [
+        "NOR_10",
+        45.983,
+        29.85,
+        6,
+        0.1,
+        1
+       ],
+       [
+        "NOR_11",
+        69.95,
+        31.05,
+        4,
+        0.017,
+        0
+       ],
+       [
+        "NOR_12",
+        66.55,
+        11.75,
+        4,
+        0.038,
+        1
+       ]
+      ],
+      "edges": [
+       [
+        "NOR_02",
+        "NOR_04",
+        2
+       ],
+       [
+        "NOR_02",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_11",
+        2
+       ],
+       [
+        "NOR_03",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_10",
+        2
+       ],
+       [
+        "NOR_04",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_11",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_02",
+        2
+       ],
+       [
+        "NOR_05",
+        "NOR_03",
+        1
+       ],
+       [
+        "NOR_06",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_07",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_02",
+        2
+       ],
+       [
+        "NOR_08",
+        "NOR_03",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_04",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_12",
+        2
+       ],
+       [
+        "NOR_11",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_12",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_12",
+        "NOR_09",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 38,
+      "nodes": [
+       [
+        "NOR_02",
+        42.746,
+        39.485,
+        13,
+        0.38,
+        0
+       ],
+       [
+        "NOR_03",
+        39.86,
+        38.6,
+        5,
+        0.059,
+        1
+       ],
+       [
+        "NOR_04",
+        28.871,
+        21.643,
+        7,
+        0.067,
+        0
+       ],
+       [
+        "NOR_05",
+        31.75,
+        35.717,
+        6,
+        0.078,
+        0
+       ],
+       [
+        "NOR_06",
+        56.375,
+        7.825,
+        4,
+        0.008,
+        0
+       ],
+       [
+        "NOR_07",
+        70.75,
+        27.125,
+        4,
+        0.026,
+        1
+       ],
+       [
+        "NOR_08",
+        55.51,
+        31.4,
+        10,
+        0.247,
+        0
+       ],
+       [
+        "NOR_09",
+        91.38,
+        21.56,
+        5,
+        0.122,
+        1
+       ],
+       [
+        "NOR_10",
+        63.256,
+        22.567,
+        9,
+        0.126,
+        1
+       ],
+       [
+        "NOR_11",
+        69.95,
+        31.05,
+        4,
+        0.011,
+        0
+       ],
+       [
+        "NOR_12",
+        82.7,
+        9.167,
+        9,
+        0.259,
+        1
+       ]
+      ],
+      "edges": [
+       [
+        "NOR_02",
+        "NOR_04",
+        2
+       ],
+       [
+        "NOR_02",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_11",
+        2
+       ],
+       [
+        "NOR_02",
+        "NOR_12",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_10",
+        2
+       ],
+       [
+        "NOR_04",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_11",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_02",
+        2
+       ],
+       [
+        "NOR_05",
+        "NOR_03",
+        1
+       ],
+       [
+        "NOR_06",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_06",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_07",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_02",
+        2
+       ],
+       [
+        "NOR_08",
+        "NOR_03",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_04",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_12",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_12",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_12",
+        3
+       ],
+       [
+        "NOR_11",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_12",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_12",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_12",
+        "NOR_10",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 39,
+      "nodes": [
+       [
+        "NOR_02",
+        42.746,
+        39.485,
+        13,
+        0.335,
+        0
+       ],
+       [
+        "NOR_03",
+        39.86,
+        38.6,
+        5,
+        0.059,
+        0
+       ],
+       [
+        "NOR_04",
+        28.871,
+        21.643,
+        7,
+        0.033,
+        0
+       ],
+       [
+        "NOR_05",
+        31.75,
+        35.717,
+        6,
+        0.056,
+        0
+       ],
+       [
+        "NOR_06",
+        56.375,
+        7.825,
+        4,
+        0.008,
+        0
+       ],
+       [
+        "NOR_07",
+        70.75,
+        27.125,
+        4,
+        0.026,
+        1
+       ],
+       [
+        "NOR_08",
+        58.064,
+        31.891,
+        11,
+        0.303,
+        0
+       ],
+       [
+        "NOR_09",
+        91.38,
+        21.56,
+        5,
+        0.122,
+        1
+       ],
+       [
+        "NOR_10",
+        63.256,
+        22.567,
+        9,
+        0.07,
+        1
+       ],
+       [
+        "NOR_11",
+        69.95,
+        31.05,
+        4,
+        0.011,
+        0
+       ],
+       [
+        "NOR_12",
+        82.4,
+        11.19,
+        10,
+        0.259,
+        1
+       ]
+      ],
+      "edges": [
+       [
+        "NOR_02",
+        "NOR_04",
+        2
+       ],
+       [
+        "NOR_02",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_11",
+        2
+       ],
+       [
+        "NOR_02",
+        "NOR_12",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_10",
+        2
+       ],
+       [
+        "NOR_04",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_11",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_02",
+        2
+       ],
+       [
+        "NOR_05",
+        "NOR_03",
+        1
+       ],
+       [
+        "NOR_06",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_06",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_07",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_02",
+        2
+       ],
+       [
+        "NOR_08",
+        "NOR_03",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_04",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_12",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_12",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_12",
+        3
+       ],
+       [
+        "NOR_11",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_12",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_12",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_12",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_12",
+        "NOR_10",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 46,
+      "nodes": [
+       [
+        "NOR_02",
+        41.393,
+        36.26,
+        15,
+        0.383,
+        0
+       ],
+       [
+        "NOR_03",
+        39.86,
+        38.6,
+        5,
+        0.05,
+        0
+       ],
+       [
+        "NOR_04",
+        26.387,
+        19.85,
+        8,
+        0.041,
+        0
+       ],
+       [
+        "NOR_05",
+        31.75,
+        35.717,
+        6,
+        0.039,
+        0
+       ],
+       [
+        "NOR_06",
+        56.375,
+        7.825,
+        4,
+        0.006,
+        0
+       ],
+       [
+        "NOR_07",
+        70.75,
+        27.125,
+        4,
+        0.006,
+        1
+       ],
+       [
+        "NOR_08",
+        60.721,
+        33.321,
+        14,
+        0.383,
+        0
+       ],
+       [
+        "NOR_09",
+        89.456,
+        24.722,
+        9,
+        0.133,
+        1
+       ],
+       [
+        "NOR_10",
+        57.03,
+        20.41,
+        10,
+        0.072,
+        1
+       ],
+       [
+        "NOR_11",
+        69.95,
+        31.05,
+        4,
+        0.007,
+        0
+       ],
+       [
+        "NOR_12",
+        78.285,
+        11.185,
+        13,
+        0.135,
+        1
+       ]
+      ],
+      "edges": [
+       [
+        "NOR_02",
+        "NOR_04",
+        2
+       ],
+       [
+        "NOR_02",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_11",
+        2
+       ],
+       [
+        "NOR_02",
+        "NOR_12",
+        2
+       ],
+       [
+        "NOR_03",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_10",
+        2
+       ],
+       [
+        "NOR_04",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_11",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_02",
+        2
+       ],
+       [
+        "NOR_05",
+        "NOR_03",
+        1
+       ],
+       [
+        "NOR_06",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_06",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_07",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_02",
+        3
+       ],
+       [
+        "NOR_08",
+        "NOR_03",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_04",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_12",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_12",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_04",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_12",
+        3
+       ],
+       [
+        "NOR_11",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_12",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_12",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_12",
+        "NOR_09",
+        3
+       ],
+       [
+        "NOR_12",
+        "NOR_10",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 53,
+      "nodes": [
+       [
+        "NOR_02",
+        38.869,
+        34.406,
+        16,
+        0.281,
+        0
+       ],
+       [
+        "NOR_03",
+        39.86,
+        38.6,
+        5,
+        0.044,
+        1
+       ],
+       [
+        "NOR_04",
+        26.387,
+        19.85,
+        8,
+        0.006,
+        0
+       ],
+       [
+        "NOR_05",
+        41.263,
+        43.212,
+        8,
+        0.031,
+        1
+       ],
+       [
+        "NOR_06",
+        49.15,
+        24.383,
+        6,
+        0.006,
+        0
+       ],
+       [
+        "NOR_07",
+        70.75,
+        27.125,
+        4,
+        0.006,
+        2
+       ],
+       [
+        "NOR_08",
+        54.928,
+        36.217,
+        18,
+        0.388,
+        0
+       ],
+       [
+        "NOR_09",
+        89.456,
+        24.722,
+        9,
+        0.133,
+        2
+       ],
+       [
+        "NOR_10",
+        57.03,
+        20.41,
+        10,
+        0.07,
+        2
+       ],
+       [
+        "NOR_11",
+        65.775,
+        46.025,
+        8,
+        0.026,
+        0
+       ],
+       [
+        "NOR_12",
+        79.643,
+        14.657,
+        14,
+        0.144,
+        2
+       ]
+      ],
+      "edges": [
+       [
+        "NOR_02",
+        "NOR_04",
+        2
+       ],
+       [
+        "NOR_02",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_02",
+        "NOR_11",
+        2
+       ],
+       [
+        "NOR_02",
+        "NOR_12",
+        2
+       ],
+       [
+        "NOR_03",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_03",
+        "NOR_10",
+        2
+       ],
+       [
+        "NOR_04",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_06",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_04",
+        "NOR_11",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_02",
+        2
+       ],
+       [
+        "NOR_05",
+        "NOR_03",
+        1
+       ],
+       [
+        "NOR_05",
+        "NOR_11",
+        1
+       ],
+       [
+        "NOR_06",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_06",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_06",
+        "NOR_11",
+        1
+       ],
+       [
+        "NOR_07",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_02",
+        3
+       ],
+       [
+        "NOR_08",
+        "NOR_03",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_04",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_06",
+        2
+       ],
+       [
+        "NOR_08",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_08",
+        "NOR_12",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_07",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_09",
+        "NOR_12",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_04",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_05",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_09",
+        1
+       ],
+       [
+        "NOR_10",
+        "NOR_12",
+        3
+       ],
+       [
+        "NOR_11",
+        "NOR_08",
+        2
+       ],
+       [
+        "NOR_11",
+        "NOR_12",
+        1
+       ],
+       [
+        "NOR_12",
+        "NOR_02",
+        1
+       ],
+       [
+        "NOR_12",
+        "NOR_08",
+        1
+       ],
+       [
+        "NOR_12",
+        "NOR_09",
+        3
+       ],
+       [
+        "NOR_12",
+        "NOR_10",
+        1
+       ]
+      ]
+     }
+    ],
+    "HAR": [
+     {
+      "n": 0,
+      "nodes": [],
+      "edges": []
+     },
+     {
+      "n": 3,
+      "nodes": [
+       [
+        "HAR_02",
+        14.05,
+        13.5,
+        2,
+        0.0,
+        0
+       ],
+       [
+        "HAR_05",
+        54.0,
+        37.4,
+        1,
+        0.0,
+        1
+       ],
+       [
+        "HAR_08",
+        8.2,
+        12.4,
+        2,
+        0.0,
+        0
+       ],
+       [
+        "HAR_09",
+        58.1,
+        27.6,
+        1,
+        0.0,
+        1
+       ]
+      ],
+      "edges": [
+       [
+        "HAR_02",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_02",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 12,
+      "nodes": [
+       [
+        "HAR_02",
+        27.433,
+        22.967,
+        3,
+        0.0,
+        0
+       ],
+       [
+        "HAR_05",
+        55.8,
+        57.133,
+        3,
+        0.119,
+        1
+       ],
+       [
+        "HAR_06",
+        56.633,
+        44.8,
+        3,
+        0.036,
+        2
+       ],
+       [
+        "HAR_07",
+        79.35,
+        26.0,
+        2,
+        0.0,
+        0
+       ],
+       [
+        "HAR_08",
+        46.5,
+        26.34,
+        5,
+        0.155,
+        0
+       ],
+       [
+        "HAR_09",
+        58.1,
+        27.6,
+        1,
+        0.0,
+        1
+       ],
+       [
+        "HAR_10",
+        48.6,
+        57.0,
+        2,
+        0.119,
+        1
+       ],
+       [
+        "HAR_11",
+        50.48,
+        64.08,
+        5,
+        0.357,
+        2
+       ]
+      ],
+      "edges": [
+       [
+        "HAR_02",
+        "HAR_08",
+        2
+       ],
+       [
+        "HAR_05",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_02",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_08",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 17,
+      "nodes": [
+       [
+        "HAR_02",
+        27.433,
+        22.967,
+        3,
+        0.0,
+        0
+       ],
+       [
+        "HAR_05",
+        55.8,
+        57.133,
+        3,
+        0.048,
+        1
+       ],
+       [
+        "HAR_06",
+        64.117,
+        43.25,
+        6,
+        0.119,
+        2
+       ],
+       [
+        "HAR_07",
+        77.767,
+        21.9,
+        3,
+        0.048,
+        1
+       ],
+       [
+        "HAR_08",
+        46.5,
+        26.34,
+        5,
+        0.143,
+        0
+       ],
+       [
+        "HAR_09",
+        77.167,
+        27.833,
+        3,
+        0.0,
+        1
+       ],
+       [
+        "HAR_10",
+        51.533,
+        38.333,
+        3,
+        0.119,
+        2
+       ],
+       [
+        "HAR_11",
+        55.55,
+        54.337,
+        8,
+        0.333,
+        2
+       ]
+      ],
+      "edges": [
+       [
+        "HAR_02",
+        "HAR_08",
+        2
+       ],
+       [
+        "HAR_05",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_07",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_02",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_11",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_06",
+        2
+       ],
+       [
+        "HAR_11",
+        "HAR_08",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 22,
+      "nodes": [
+       [
+        "HAR_02",
+        27.433,
+        22.967,
+        3,
+        0.0,
+        0
+       ],
+       [
+        "HAR_03",
+        13.8,
+        48.8,
+        1,
+        0.0,
+        0
+       ],
+       [
+        "HAR_05",
+        47.45,
+        57.45,
+        4,
+        0.0,
+        1
+       ],
+       [
+        "HAR_06",
+        57.3,
+        39.843,
+        7,
+        0.125,
+        2
+       ],
+       [
+        "HAR_07",
+        77.767,
+        21.9,
+        3,
+        0.018,
+        1
+       ],
+       [
+        "HAR_08",
+        36.322,
+        30.622,
+        9,
+        0.259,
+        0
+       ],
+       [
+        "HAR_09",
+        77.167,
+        27.833,
+        3,
+        0.0,
+        1
+       ],
+       [
+        "HAR_10",
+        43.683,
+        38.117,
+        6,
+        0.223,
+        0
+       ],
+       [
+        "HAR_11",
+        55.55,
+        54.337,
+        8,
+        0.33,
+        2
+       ]
+      ],
+      "edges": [
+       [
+        "HAR_02",
+        "HAR_08",
+        2
+       ],
+       [
+        "HAR_03",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_07",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_02",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_10",
+        2
+       ],
+       [
+        "HAR_10",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_11",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_06",
+        2
+       ],
+       [
+        "HAR_11",
+        "HAR_08",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 28,
+      "nodes": [
+       [
+        "HAR_02",
+        24.2,
+        21.575,
+        4,
+        0.0,
+        0
+       ],
+       [
+        "HAR_03",
+        13.8,
+        48.8,
+        1,
+        0.0,
+        1
+       ],
+       [
+        "HAR_04",
+        29.1,
+        35.1,
+        1,
+        0.0,
+        2
+       ],
+       [
+        "HAR_05",
+        40.367,
+        45.8,
+        6,
+        0.023,
+        3
+       ],
+       [
+        "HAR_06",
+        50.736,
+        28.645,
+        11,
+        0.123,
+        1
+       ],
+       [
+        "HAR_07",
+        70.54,
+        26.1,
+        5,
+        0.021,
+        2
+       ],
+       [
+        "HAR_08",
+        36.322,
+        30.622,
+        9,
+        0.137,
+        0
+       ],
+       [
+        "HAR_09",
+        68.3,
+        24.9,
+        4,
+        0.0,
+        3
+       ],
+       [
+        "HAR_10",
+        43.171,
+        34.871,
+        7,
+        0.148,
+        1
+       ],
+       [
+        "HAR_11",
+        55.55,
+        54.337,
+        8,
+        0.176,
+        1
+       ]
+      ],
+      "edges": [
+       [
+        "HAR_02",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_08",
+        2
+       ],
+       [
+        "HAR_03",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_04",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_09",
+        2
+       ],
+       [
+        "HAR_05",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_07",
+        2
+       ],
+       [
+        "HAR_06",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_07",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_02",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_10",
+        2
+       ],
+       [
+        "HAR_10",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_11",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_06",
+        2
+       ],
+       [
+        "HAR_11",
+        "HAR_08",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 31,
+      "nodes": [
+       [
+        "HAR_02",
+        24.3,
+        24.18,
+        5,
+        0.005,
+        0
+       ],
+       [
+        "HAR_03",
+        13.8,
+        48.8,
+        1,
+        0.0,
+        1
+       ],
+       [
+        "HAR_04",
+        29.1,
+        35.1,
+        1,
+        0.0,
+        2
+       ],
+       [
+        "HAR_05",
+        41.35,
+        40.325,
+        8,
+        0.021,
+        2
+       ],
+       [
+        "HAR_06",
+        50.736,
+        28.645,
+        11,
+        0.065,
+        1
+       ],
+       [
+        "HAR_07",
+        68.5,
+        26.017,
+        6,
+        0.019,
+        2
+       ],
+       [
+        "HAR_08",
+        36.322,
+        30.622,
+        9,
+        0.123,
+        0
+       ],
+       [
+        "HAR_09",
+        75.44,
+        25.78,
+        5,
+        0.0,
+        2
+       ],
+       [
+        "HAR_10",
+        43.171,
+        34.871,
+        7,
+        0.15,
+        1
+       ],
+       [
+        "HAR_11",
+        60.933,
+        53.489,
+        9,
+        0.188,
+        1
+       ]
+      ],
+      "edges": [
+       [
+        "HAR_02",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_08",
+        2
+       ],
+       [
+        "HAR_03",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_04",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_09",
+        2
+       ],
+       [
+        "HAR_05",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_07",
+        2
+       ],
+       [
+        "HAR_06",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_07",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_02",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_10",
+        2
+       ],
+       [
+        "HAR_10",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_11",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_06",
+        2
+       ],
+       [
+        "HAR_11",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_09",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 42,
+      "nodes": [
+       [
+        "HAR_02",
+        31.167,
+        24.75,
+        6,
+        0.0,
+        0
+       ],
+       [
+        "HAR_03",
+        15.667,
+        29.667,
+        3,
+        0.0,
+        1
+       ],
+       [
+        "HAR_04",
+        29.1,
+        35.1,
+        1,
+        0.0,
+        2
+       ],
+       [
+        "HAR_05",
+        41.35,
+        40.325,
+        8,
+        0.0,
+        2
+       ],
+       [
+        "HAR_06",
+        47.14,
+        25.727,
+        15,
+        0.269,
+        1
+       ],
+       [
+        "HAR_07",
+        64.55,
+        20.688,
+        8,
+        0.115,
+        2
+       ],
+       [
+        "HAR_08",
+        52.807,
+        26.236,
+        14,
+        0.35,
+        0
+       ],
+       [
+        "HAR_09",
+        67.97,
+        22.39,
+        10,
+        0.222,
+        2
+       ],
+       [
+        "HAR_10",
+        49.6,
+        28.11,
+        10,
+        0.13,
+        1
+       ],
+       [
+        "HAR_11",
+        60.933,
+        53.489,
+        9,
+        0.069,
+        1
+       ]
+      ],
+      "edges": [
+       [
+        "HAR_02",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_08",
+        3
+       ],
+       [
+        "HAR_03",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_03",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_04",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_09",
+        2
+       ],
+       [
+        "HAR_05",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_03",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_07",
+        2
+       ],
+       [
+        "HAR_06",
+        "HAR_09",
+        2
+       ],
+       [
+        "HAR_06",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_07",
+        "HAR_09",
+        2
+       ],
+       [
+        "HAR_08",
+        "HAR_02",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_06",
+        2
+       ],
+       [
+        "HAR_08",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_10",
+        2
+       ],
+       [
+        "HAR_09",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_11",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_06",
+        2
+       ],
+       [
+        "HAR_11",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_09",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 49,
+      "nodes": [
+       [
+        "HAR_02",
+        31.167,
+        24.75,
+        6,
+        0.0,
+        0
+       ],
+       [
+        "HAR_03",
+        15.667,
+        29.667,
+        3,
+        0.0,
+        1
+       ],
+       [
+        "HAR_04",
+        29.1,
+        35.1,
+        1,
+        0.0,
+        1
+       ],
+       [
+        "HAR_05",
+        41.35,
+        40.325,
+        8,
+        0.0,
+        0
+       ],
+       [
+        "HAR_06",
+        49.856,
+        26.444,
+        16,
+        0.229,
+        1
+       ],
+       [
+        "HAR_07",
+        75.309,
+        18.036,
+        11,
+        0.111,
+        1
+       ],
+       [
+        "HAR_08",
+        52.807,
+        26.236,
+        14,
+        0.222,
+        0
+       ],
+       [
+        "HAR_09",
+        78.264,
+        19.064,
+        14,
+        0.132,
+        1
+       ],
+       [
+        "HAR_10",
+        49.6,
+        28.11,
+        10,
+        0.056,
+        0
+       ],
+       [
+        "HAR_11",
+        76.713,
+        38.32,
+        15,
+        0.194,
+        1
+       ]
+      ],
+      "edges": [
+       [
+        "HAR_02",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_08",
+        3
+       ],
+       [
+        "HAR_03",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_03",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_04",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_09",
+        2
+       ],
+       [
+        "HAR_05",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_03",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_07",
+        2
+       ],
+       [
+        "HAR_06",
+        "HAR_09",
+        2
+       ],
+       [
+        "HAR_06",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_07",
+        "HAR_09",
+        2
+       ],
+       [
+        "HAR_07",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_02",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_06",
+        2
+       ],
+       [
+        "HAR_08",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_10",
+        2
+       ],
+       [
+        "HAR_09",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_11",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_06",
+        3
+       ],
+       [
+        "HAR_11",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_09",
+        3
+       ]
+      ]
+     },
+     {
+      "n": 0,
+      "nodes": [],
+      "edges": []
+     },
+     {
+      "n": 5,
+      "nodes": [
+       [
+        "HAR_02",
+        24.2,
+        14.2,
+        1,
+        0.0,
+        0
+       ],
+       [
+        "HAR_06",
+        61.9,
+        54.3,
+        2,
+        0.0,
+        1
+       ],
+       [
+        "HAR_07",
+        39.4,
+        35.7,
+        1,
+        0.0,
+        0
+       ],
+       [
+        "HAR_09",
+        71.3,
+        28.4,
+        2,
+        0.1,
+        2
+       ],
+       [
+        "HAR_10",
+        52.5,
+        34.0,
+        1,
+        0.0,
+        2
+       ],
+       [
+        "HAR_11",
+        72.0,
+        42.667,
+        3,
+        0.1,
+        1
+       ]
+      ],
+      "edges": [
+       [
+        "HAR_02",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_06",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 9,
+      "nodes": [
+       [
+        "HAR_02",
+        24.2,
+        14.2,
+        1,
+        0.0,
+        0
+       ],
+       [
+        "HAR_06",
+        61.9,
+        54.3,
+        2,
+        0.0,
+        1
+       ],
+       [
+        "HAR_07",
+        39.4,
+        35.7,
+        1,
+        0.0,
+        0
+       ],
+       [
+        "HAR_08",
+        6.0,
+        34.0,
+        1,
+        0.0,
+        2
+       ],
+       [
+        "HAR_09",
+        59.65,
+        20.25,
+        4,
+        0.0,
+        2
+       ],
+       [
+        "HAR_10",
+        51.04,
+        22.02,
+        5,
+        0.1,
+        2
+       ],
+       [
+        "HAR_11",
+        73.55,
+        36.525,
+        4,
+        0.1,
+        1
+       ]
+      ],
+      "edges": [
+       [
+        "HAR_02",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_09",
+        2
+       ],
+       [
+        "HAR_10",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_06",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 17,
+      "nodes": [
+       [
+        "HAR_02",
+        17.825,
+        16.9,
+        4,
+        0.089,
+        0
+       ],
+       [
+        "HAR_03",
+        25.6,
+        20.333,
+        3,
+        0.0,
+        0
+       ],
+       [
+        "HAR_04",
+        1.0,
+        1.0,
+        2,
+        0.0,
+        1
+       ],
+       [
+        "HAR_06",
+        61.9,
+        54.3,
+        2,
+        0.0,
+        2
+       ],
+       [
+        "HAR_07",
+        39.4,
+        35.7,
+        1,
+        0.0,
+        0
+       ],
+       [
+        "HAR_08",
+        14.575,
+        23.95,
+        4,
+        0.143,
+        1
+       ],
+       [
+        "HAR_09",
+        59.65,
+        20.25,
+        4,
+        0.0,
+        1
+       ],
+       [
+        "HAR_10",
+        44.35,
+        24.637,
+        8,
+        0.179,
+        1
+       ],
+       [
+        "HAR_11",
+        70.9,
+        33.45,
+        6,
+        0.107,
+        2
+       ]
+      ],
+      "edges": [
+       [
+        "HAR_02",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_03",
+        "HAR_02",
+        2
+       ],
+       [
+        "HAR_03",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_04",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_04",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_10",
+        2
+       ],
+       [
+        "HAR_09",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_09",
+        2
+       ],
+       [
+        "HAR_10",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_11",
+        "HAR_06",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 24,
+      "nodes": [
+       [
+        "HAR_02",
+        22.817,
+        26.933,
+        6,
+        0.215,
+        0
+       ],
+       [
+        "HAR_03",
+        35.48,
+        27.84,
+        5,
+        0.056,
+        0
+       ],
+       [
+        "HAR_04",
+        1.0,
+        1.0,
+        2,
+        0.0,
+        1
+       ],
+       [
+        "HAR_05",
+        58.1,
+        29.2,
+        1,
+        0.0,
+        1
+       ],
+       [
+        "HAR_06",
+        43.12,
+        42.66,
+        5,
+        0.292,
+        0
+       ],
+       [
+        "HAR_07",
+        54.95,
+        32.55,
+        2,
+        0.0,
+        0
+       ],
+       [
+        "HAR_08",
+        14.575,
+        23.95,
+        4,
+        0.083,
+        1
+       ],
+       [
+        "HAR_09",
+        58.883,
+        25.083,
+        6,
+        0.097,
+        1
+       ],
+       [
+        "HAR_10",
+        42.52,
+        28.83,
+        10,
+        0.312,
+        1
+       ],
+       [
+        "HAR_11",
+        70.186,
+        33.529,
+        7,
+        0.111,
+        0
+       ]
+      ],
+      "edges": [
+       [
+        "HAR_02",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_03",
+        "HAR_02",
+        2
+       ],
+       [
+        "HAR_03",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_03",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_04",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_02",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_03",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_04",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_10",
+        2
+       ],
+       [
+        "HAR_09",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_09",
+        2
+       ],
+       [
+        "HAR_10",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_11",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_07",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 30,
+      "nodes": [
+       [
+        "HAR_02",
+        22.817,
+        26.933,
+        6,
+        0.081,
+        0
+       ],
+       [
+        "HAR_03",
+        35.48,
+        27.84,
+        5,
+        0.0,
+        0
+       ],
+       [
+        "HAR_04",
+        1.0,
+        1.0,
+        2,
+        0.0,
+        1
+       ],
+       [
+        "HAR_05",
+        58.1,
+        29.2,
+        1,
+        0.0,
+        2
+       ],
+       [
+        "HAR_06",
+        51.657,
+        47.3,
+        7,
+        0.153,
+        0
+       ],
+       [
+        "HAR_07",
+        54.95,
+        32.55,
+        2,
+        0.0,
+        0
+       ],
+       [
+        "HAR_08",
+        29.35,
+        35.133,
+        6,
+        0.097,
+        1
+       ],
+       [
+        "HAR_09",
+        70.511,
+        25.622,
+        9,
+        0.102,
+        2
+       ],
+       [
+        "HAR_10",
+        52.767,
+        26.025,
+        12,
+        0.25,
+        2
+       ],
+       [
+        "HAR_11",
+        73.99,
+        32.28,
+        10,
+        0.206,
+        2
+       ]
+      ],
+      "edges": [
+       [
+        "HAR_02",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_03",
+        "HAR_02",
+        2
+       ],
+       [
+        "HAR_03",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_03",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_04",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_02",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_03",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_04",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_10",
+        2
+       ],
+       [
+        "HAR_09",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_10",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_09",
+        3
+       ],
+       [
+        "HAR_10",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_11",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_10",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 33,
+      "nodes": [
+       [
+        "HAR_02",
+        22.817,
+        26.933,
+        6,
+        0.137,
+        0
+       ],
+       [
+        "HAR_03",
+        32.383,
+        31.767,
+        6,
+        0.09,
+        0
+       ],
+       [
+        "HAR_04",
+        8.7,
+        12.5,
+        3,
+        0.0,
+        1
+       ],
+       [
+        "HAR_05",
+        21.8,
+        31.367,
+        3,
+        0.021,
+        0
+       ],
+       [
+        "HAR_06",
+        44.667,
+        44.989,
+        9,
+        0.146,
+        1
+       ],
+       [
+        "HAR_07",
+        54.95,
+        32.55,
+        2,
+        0.0,
+        0
+       ],
+       [
+        "HAR_08",
+        29.35,
+        35.133,
+        6,
+        0.111,
+        1
+       ],
+       [
+        "HAR_09",
+        70.511,
+        25.622,
+        9,
+        0.102,
+        2
+       ],
+       [
+        "HAR_10",
+        52.767,
+        26.025,
+        12,
+        0.208,
+        2
+       ],
+       [
+        "HAR_11",
+        73.99,
+        32.28,
+        10,
+        0.185,
+        2
+       ]
+      ],
+      "edges": [
+       [
+        "HAR_02",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_03",
+        "HAR_02",
+        2
+       ],
+       [
+        "HAR_03",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_03",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_04",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_04",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_03",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_02",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_03",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_04",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_10",
+        2
+       ],
+       [
+        "HAR_09",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_10",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_09",
+        3
+       ],
+       [
+        "HAR_10",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_11",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_10",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 36,
+      "nodes": [
+       [
+        "HAR_02",
+        22.817,
+        26.933,
+        6,
+        0.097,
+        0
+       ],
+       [
+        "HAR_03",
+        32.383,
+        31.767,
+        6,
+        0.037,
+        0
+       ],
+       [
+        "HAR_04",
+        8.7,
+        12.5,
+        3,
+        0.0,
+        1
+       ],
+       [
+        "HAR_05",
+        18.575,
+        37.575,
+        4,
+        0.019,
+        1
+       ],
+       [
+        "HAR_06",
+        48.37,
+        46.87,
+        10,
+        0.139,
+        1
+       ],
+       [
+        "HAR_07",
+        54.95,
+        32.55,
+        2,
+        0.0,
+        0
+       ],
+       [
+        "HAR_08",
+        36.167,
+        44.1,
+        9,
+        0.176,
+        1
+       ],
+       [
+        "HAR_09",
+        68.26,
+        29.6,
+        10,
+        0.153,
+        2
+       ],
+       [
+        "HAR_10",
+        52.767,
+        26.025,
+        12,
+        0.213,
+        2
+       ],
+       [
+        "HAR_11",
+        73.99,
+        32.28,
+        10,
+        0.095,
+        2
+       ]
+      ],
+      "edges": [
+       [
+        "HAR_02",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_03",
+        "HAR_02",
+        2
+       ],
+       [
+        "HAR_03",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_03",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_04",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_04",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_03",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_02",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_03",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_04",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_06",
+        2
+       ],
+       [
+        "HAR_08",
+        "HAR_10",
+        2
+       ],
+       [
+        "HAR_09",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_10",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_09",
+        3
+       ],
+       [
+        "HAR_10",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_11",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_10",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 38,
+      "nodes": [
+       [
+        "HAR_02",
+        22.817,
+        26.933,
+        6,
+        0.089,
+        0
+       ],
+       [
+        "HAR_03",
+        32.383,
+        31.767,
+        6,
+        0.056,
+        0
+       ],
+       [
+        "HAR_04",
+        11.425,
+        19.775,
+        4,
+        0.0,
+        1
+       ],
+       [
+        "HAR_05",
+        19.58,
+        39.9,
+        5,
+        0.115,
+        1
+       ],
+       [
+        "HAR_06",
+        48.37,
+        46.87,
+        10,
+        0.115,
+        1
+       ],
+       [
+        "HAR_07",
+        54.95,
+        32.55,
+        2,
+        0.0,
+        0
+       ],
+       [
+        "HAR_08",
+        33.75,
+        46.39,
+        10,
+        0.178,
+        1
+       ],
+       [
+        "HAR_09",
+        68.26,
+        29.6,
+        10,
+        0.122,
+        2
+       ],
+       [
+        "HAR_10",
+        52.767,
+        26.025,
+        12,
+        0.185,
+        2
+       ],
+       [
+        "HAR_11",
+        73.99,
+        32.28,
+        10,
+        0.076,
+        2
+       ],
+       [
+        "HAR_12",
+        15.9,
+        45.9,
+        1,
+        0.0,
+        1
+       ]
+      ],
+      "edges": [
+       [
+        "HAR_02",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_03",
+        "HAR_02",
+        2
+       ],
+       [
+        "HAR_03",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_03",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_04",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_04",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_03",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_02",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_03",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_04",
+        2
+       ],
+       [
+        "HAR_08",
+        "HAR_06",
+        2
+       ],
+       [
+        "HAR_08",
+        "HAR_10",
+        2
+       ],
+       [
+        "HAR_09",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_10",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_09",
+        3
+       ],
+       [
+        "HAR_10",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_11",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_12",
+        "HAR_05",
+        1
+       ]
+      ]
+     },
+     {
+      "n": 44,
+      "nodes": [
+       [
+        "HAR_02",
+        22.817,
+        26.933,
+        6,
+        0.061,
+        0
+       ],
+       [
+        "HAR_03",
+        27.9,
+        29.614,
+        7,
+        0.059,
+        0
+       ],
+       [
+        "HAR_04",
+        16.957,
+        21.571,
+        7,
+        0.093,
+        1
+       ],
+       [
+        "HAR_05",
+        17.317,
+        38.917,
+        6,
+        0.056,
+        1
+       ],
+       [
+        "HAR_06",
+        48.37,
+        46.87,
+        10,
+        0.115,
+        1
+       ],
+       [
+        "HAR_07",
+        54.95,
+        32.55,
+        2,
+        0.0,
+        0
+       ],
+       [
+        "HAR_08",
+        33.75,
+        46.39,
+        10,
+        0.141,
+        1
+       ],
+       [
+        "HAR_09",
+        70.883,
+        31.633,
+        12,
+        0.119,
+        2
+       ],
+       [
+        "HAR_10",
+        52.767,
+        26.025,
+        12,
+        0.137,
+        2
+       ],
+       [
+        "HAR_11",
+        72.862,
+        36.323,
+        13,
+        0.128,
+        2
+       ],
+       [
+        "HAR_12",
+        42.433,
+        49.633,
+        3,
+        0.011,
+        1
+       ]
+      ],
+      "edges": [
+       [
+        "HAR_02",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_02",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_03",
+        "HAR_02",
+        2
+       ],
+       [
+        "HAR_03",
+        "HAR_04",
+        1
+       ],
+       [
+        "HAR_03",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_03",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_04",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_04",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_04",
+        "HAR_12",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_03",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_04",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_05",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_02",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_03",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_06",
+        "HAR_11",
+        1
+       ],
+       [
+        "HAR_08",
+        "HAR_04",
+        2
+       ],
+       [
+        "HAR_08",
+        "HAR_06",
+        2
+       ],
+       [
+        "HAR_08",
+        "HAR_10",
+        2
+       ],
+       [
+        "HAR_09",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_09",
+        "HAR_11",
+        3
+       ],
+       [
+        "HAR_10",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_10",
+        "HAR_09",
+        3
+       ],
+       [
+        "HAR_10",
+        "HAR_11",
+        2
+       ],
+       [
+        "HAR_11",
+        "HAR_06",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_07",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_08",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_09",
+        1
+       ],
+       [
+        "HAR_11",
+        "HAR_10",
+        1
+       ],
+       [
+        "HAR_12",
+        "HAR_05",
+        1
+       ],
+       [
+        "HAR_12",
+        "HAR_11",
+        1
+       ]
+      ]
+     }
     ]
    }
   }

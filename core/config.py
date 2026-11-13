@@ -94,6 +94,7 @@ class Moments(_Section):
     turnover_window_s: int
     turnover_min_count: int
     xt_leader_min: float
+    hub_min_passes: int
 
 
 class Verifier(_Section):

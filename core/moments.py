@@ -13,6 +13,7 @@ from core.events import Clock, Event
 from core.facts import Subject, Window
 from core.hedge import judge_share
 from core.metrics import Metric, compute_metric, in_window, require_metric
+from core.network import betweenness, pass_links, rank, weights
 from core.sources import League
 from core.winprob import win_probability
 from core.xt import completed_move
@@ -263,6 +264,8 @@ def half_moments(
             )
         out += _top_shooter(events, w, name, MetricContext.of(s))
         out += _xt_leader(events, w, name, MetricContext.of(s), s.moments.xt_leader_min)
+        for team in teams:
+            out += _pass_hub(events, team, w, name, MetricContext.of(s), s.moments.hub_min_passes)
     return out
 
 
@@ -315,6 +318,36 @@ def _xt_leader(
     return [
         _moment(
             "stat", "xt_leader", "xt_added", subj, w.start_t, w.end_t, m, half=name, players=[pid]
+        )
+    ]
+
+
+def _pass_hub(
+    events: list[Event], team: str, w: Window, name: str, ctx: MetricContext, least: int
+) -> list[dict[str, Any]]:
+    """The team's most central passer in the half (unique highest betweenness), if the team linked
+    at least `least` passes. The claim is the rank (1), which the verifier recomputes."""
+    links = pass_links(in_window(events, w.start_t, w.end_t), team)
+    scores = betweenness(weights(links))
+    if len(links) < least or not scores:
+        return []
+    pid = max(sorted(scores), key=lambda p: scores[p])
+    if rank(scores, pid) != 1:  # a tie for the top: nobody is "the" most central player
+        return []
+    subj = Subject(type="player", id=pid)
+    m = require_metric("most_central_player", subj, w, events, ctx)
+    return [
+        _moment(
+            "stat",
+            "pass_hub",
+            "most_central_player",
+            subj,
+            w.start_t,
+            w.end_t,
+            m,
+            half=name,
+            players=[pid],
+            team=team,
         )
     ]
 

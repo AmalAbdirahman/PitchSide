@@ -14,6 +14,7 @@ export function maybeRenderAnalysis(now) {
   renderCompare();
   renderLanes();
   renderThreat();
+  renderNetwork();
 }
 
 function xgScale() {
@@ -156,4 +157,53 @@ function threatPitch(team) {
 function renderThreat() {
   $('#xt-h').innerHTML = threatPitch(D.meta.home);
   $('#xt-a').innerHTML = threatPitch(D.meta.away);
+}
+
+/* Pass network: the bundle's network for the current half at the last 5-minute sample before the
+   replay clock. Positions, degree, betweenness and groups all come from the bundle. */
+const GROUP_COLS = ['#ffd23f', '#00ff85', '#b28cff', '#ff8a3d', '#7fd1ff'];
+
+function netAt() {
+  const N = D.series.network;
+  const i = Math.max(0, Math.min(N.t.length - 1, Math.floor(S.t / N.step_s)));
+  return { N, i, t: N.t[i] };
+}
+
+function networkPitch(team, snap) {
+  const p = D.meta.pitch, name = esc(D.meta.teams[team].name), col = teamCol(team);
+  if (!snap.nodes.length) return `<h3 style="color:${col}">${name}</h3><p class="note">No linked passes in this half yet.</p>`;
+  const at = Object.fromEntries(snap.nodes.map(n => [n[0], n]));
+  const pair = {};
+  snap.edges.forEach(([a, b, k]) => { const key = a < b ? a + '|' + b : b + '|' + a; pair[key] = (pair[key] || 0) + k; });
+  const top = snap.nodes.reduce((best, n) => (n[4] > best[4] ? n : best));
+  const unique = snap.nodes.filter(n => n[4] === top[4]).length === 1;
+  let g = `<rect x="0" y="0" width="${p.length}" height="${p.width}" fill="#0a0412"/>` + pitchLines(0.25);
+  Object.entries(pair).forEach(([key, k]) => {
+    const [a, b] = key.split('|').map(id => at[id]);
+    g += `<line x1="${a[1]}" y1="${a[2]}" x2="${b[1]}" y2="${b[2]}" stroke="#f5f1f9" stroke-opacity="${Math.min(0.85, 0.2 + 0.12 * k).toFixed(2)}" stroke-width="${(0.25 + 0.2 * k).toFixed(2)}"><title>${esc(nameOf(a[0]))} – ${esc(nameOf(b[0]))}: ${k} passes</title></line>`;
+  });
+  // Larger circles first, so smaller ones stay visible on top; the most central player last.
+  const order = [...snap.nodes].sort((a, b) => (unique && a[0] === top[0]) - (unique && b[0] === top[0]) || b[3] - a[3]);
+  order.forEach(([id, x, y, deg, btw, grp]) => {
+    const r = 1.1 + Math.sqrt(deg) * 0.4, ring = unique && id === top[0];
+    const ink = UI.follow && id === UI.follow ? '#00ff85' : '#07030d';
+    g += `<g><title>${esc(nameOf(id))}: ${deg} passes made or received · betweenness ${btw.toFixed(2)}</title>` +
+      `<circle cx="${x}" cy="${y}" r="${r.toFixed(2)}" fill="${GROUP_COLS[grp % GROUP_COLS.length]}" stroke="${ring ? '#ffffff' : ink}" stroke-width="${ring ? 0.8 : 0.4}"/>` +
+      `<text x="${x}" y="${(y + 0.8).toFixed(2)}" text-anchor="middle" font-size="2.2" font-weight="800" fill="#07030d">${esc(id.split('_').pop())}</text></g>`;
+  });
+  g += `<text x="${p.length - 1}" y="${p.width - 1.5}" text-anchor="end" font-size="2.4" font-weight="800" fill="${col}">${esc(team)} ATTACK ▶</text>`;
+  const ranked = [...snap.nodes].sort((a, b) => b[4] - a[4]).slice(0, 3)
+    .map(n => `${esc(nameOf(n[0]))} <b class="num">${n[4].toFixed(2)}</b>`).join(' · ');
+  const lead = unique ? `Most central: <b>${esc(nameOf(top[0]))}</b>.` : 'No single most central player (tie).';
+  return `<h3 style="color:${col}">${name} · ${snap.n} linked passes</h3>` +
+    `<svg viewBox="-2 -2 109 72" role="img" aria-label="${name}: pass network for this half, ${snap.n} linked passes">${g}</svg>` +
+    `<p class="netlist">${lead} Betweenness: ${ranked}</p>`;
+}
+
+function renderNetwork() {
+  const { N, i, t } = netAt();
+  const half = t < N.half_t ? 'First half' : 'Second half';
+  $('#net-t').textContent = `${half} · to ${minute(t)} · sampled every ${N.step_s / 60} min · receivers inferred`;
+  $('#net-h').innerHTML = networkPitch(D.meta.home, N.teams[D.meta.home][i]);
+  $('#net-a').innerHTML = networkPitch(D.meta.away, N.teams[D.meta.away][i]);
 }

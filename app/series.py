@@ -15,6 +15,7 @@ from core.facts import Subject, Window
 from core.hedge import ShareJudgement, judge_share
 from core.metrics import compute_metric, require_metric
 from core.moments import score_at
+from core.network import betweenness, communities, degree, pass_links, weights
 from core.shares import LANES
 from core.sources import League
 from core.wilson import wilson
@@ -112,8 +113,64 @@ def xt_panel(events: list[Event], teams: tuple[str, str], ctx: MetricContext) ->
     }
 
 
+NETWORK_STEP_S = 300  # pass networks are sampled every 5 minutes; they change slowly
+
+
+def network_at(events: list[Event], team: str, start: float, t: float) -> dict[str, Any]:
+    """The team's pass network from `start` (kick-off or the start of the second half) to t.
+    Nodes: [player, mean x, mean y, degree, betweenness, community]; position is the mean of
+    where the player passed from and received, in the team's attacking frame."""
+    evs = [e for e in events if start <= e.t <= t]
+    links = pass_links(evs, team)
+    w = weights(links)
+    deg, btw = degree(w), betweenness(w)
+    group = {p: i for i, g in enumerate(communities(w)) for p in g}
+    spots: dict[str, list[tuple[float, float]]] = {p: [] for p in deg}
+    by_id = {e.id: e for e in evs}
+    for x in links:
+        e = by_id[x.event_id]
+        spots[x.passer].append((e.x, e.y))
+        if e.end_x is not None and e.end_y is not None:
+            spots[x.receiver].append((e.end_x, e.end_y))
+    nodes = [
+        [
+            p,
+            _r(_mean(s[0] for s in spots[p])),
+            _r(_mean(s[1] for s in spots[p])),
+            deg[p],
+            _r(btw[p]),
+            group[p],
+        ]
+        for p in sorted(deg)
+    ]
+    return {
+        "n": len(links),
+        "nodes": nodes,
+        "edges": [[a, b, k] for (a, b), k in sorted(w.items())],
+    }
+
+
+def _mean(xs: Any) -> float:
+    vals = list(xs)
+    return sum(vals) / len(vals) if vals else 0.0
+
+
+def network_panel(events: list[Event], teams: tuple[str, str], half_t: float) -> dict[str, Any]:
+    """Pass networks for the current half, every NETWORK_STEP_S seconds."""
+    ts = grid(events, NETWORK_STEP_S)
+    return {
+        "step_s": NETWORK_STEP_S,
+        "t": ts,
+        "half_t": half_t,
+        "teams": {
+            tm: [network_at(events, tm, 0.0 if t < half_t else half_t, t) for t in ts]
+            for tm in teams
+        },
+    }
+
+
 def build_series(
-    events: list[Event], teams: tuple[str, str], league: League, s: Settings
+    events: list[Event], teams: tuple[str, str], league: League, s: Settings, half_t: float
 ) -> dict[str, Any]:
     """Column-oriented series sampled every minute."""
     step, ctx = 60, MetricContext.of(s)
@@ -132,4 +189,5 @@ def build_series(
         },
         "lanes": {tm: [lanes_at(events, tm, t, league, s) for t in ts] for tm in teams},
         "xt": xt_panel(events, teams, ctx),
+        "network": network_panel(events, teams, half_t),
     }

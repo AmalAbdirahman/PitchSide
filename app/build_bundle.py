@@ -224,7 +224,7 @@ def build(
         "facts": [f.to_dict() for f in facts],
         "log": [f.to_dict() for f in log],
         "metrics": metrics(checked, facts),
-        "series": build_series(match.events, teams, league, s),
+        "series": build_series(match.events, teams, league, s, match.meta.clock.half_t),
     }
     cues = make_cues(facts)
     Draft202012Validator(CUE_SCHEMA).validate(cues)

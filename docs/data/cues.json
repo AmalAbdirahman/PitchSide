@@ -619,6 +619,116 @@
   "cue_id": "c_000021",
   "fact_id": "f_000011",
   "start_t": 2702.9,
+  "duration_s": 6,
+  "layout": "lower_third",
+  "lang": "en",
+  "text": "E. Lindqvist was the most central player in Northbridge's passing in the first half: involved in 11 of 38 linked passes.",
+  "evidence_ids": [
+   10,
+   32,
+   102,
+   104,
+   138,
+   158,
+   185,
+   194,
+   257,
+   258,
+   279
+  ],
+  "checked": true,
+  "tier": "T1"
+ },
+ {
+  "cue_id": "c_000022",
+  "fact_id": "f_000011",
+  "start_t": 2702.9,
+  "duration_s": 6,
+  "layout": "lower_third",
+  "lang": "es",
+  "text": "E. Lindqvist fue el jugador más central en la circulación de Northbridge en la primera parte: participó en 11 de 38 pases enlazados.",
+  "evidence_ids": [
+   10,
+   32,
+   102,
+   104,
+   138,
+   158,
+   185,
+   194,
+   257,
+   258,
+   279
+  ],
+  "checked": true,
+  "tier": "T1"
+ },
+ {
+  "cue_id": "c_000023",
+  "fact_id": "f_000012",
+  "start_t": 2702.9,
+  "duration_s": 6,
+  "layout": "lower_third",
+  "lang": "en",
+  "text": "W. Abara was the most central player in Harlow's passing in the first half: involved in 18 of 57 linked passes.",
+  "evidence_ids": [
+   37,
+   38,
+   51,
+   96,
+   97,
+   98,
+   129,
+   133,
+   134,
+   168,
+   169,
+   204,
+   205,
+   206,
+   223,
+   254,
+   270,
+   271
+  ],
+  "checked": true,
+  "tier": "T1"
+ },
+ {
+  "cue_id": "c_000024",
+  "fact_id": "f_000012",
+  "start_t": 2702.9,
+  "duration_s": 6,
+  "layout": "lower_third",
+  "lang": "es",
+  "text": "W. Abara fue el jugador más central en la circulación de Harlow en la primera parte: participó en 18 de 57 pases enlazados.",
+  "evidence_ids": [
+   37,
+   38,
+   51,
+   96,
+   97,
+   98,
+   129,
+   133,
+   134,
+   168,
+   169,
+   204,
+   205,
+   206,
+   223,
+   254,
+   270,
+   271
+  ],
+  "checked": true,
+  "tier": "T1"
+ },
+ {
+  "cue_id": "c_000025",
+  "fact_id": "f_000013",
+  "start_t": 2702.9,
   "duration_s": 8,
   "layout": "ticker",
   "lang": "en",
@@ -632,8 +742,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000022",
-  "fact_id": "f_000011",
+  "cue_id": "c_000026",
+  "fact_id": "f_000013",
   "start_t": 2702.9,
   "duration_s": 8,
   "layout": "ticker",
@@ -648,8 +758,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000023",
-  "fact_id": "f_000012",
+  "cue_id": "c_000027",
+  "fact_id": "f_000014",
   "start_t": 2702.9,
   "duration_s": 8,
   "layout": "ticker",
@@ -662,8 +772,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000024",
-  "fact_id": "f_000012",
+  "cue_id": "c_000028",
+  "fact_id": "f_000014",
   "start_t": 2702.9,
   "duration_s": 8,
   "layout": "ticker",
@@ -676,8 +786,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000025",
-  "fact_id": "f_000013",
+  "cue_id": "c_000029",
+  "fact_id": "f_000015",
   "start_t": 2702.9,
   "duration_s": 8,
   "layout": "ticker",
@@ -691,8 +801,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000026",
-  "fact_id": "f_000013",
+  "cue_id": "c_000030",
+  "fact_id": "f_000015",
   "start_t": 2702.9,
   "duration_s": 8,
   "layout": "ticker",
@@ -706,8 +816,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000027",
-  "fact_id": "f_000014",
+  "cue_id": "c_000031",
+  "fact_id": "f_000016",
   "start_t": 2702.9,
   "duration_s": 8,
   "layout": "ticker",
@@ -725,8 +835,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000028",
-  "fact_id": "f_000014",
+  "cue_id": "c_000032",
+  "fact_id": "f_000016",
   "start_t": 2702.9,
   "duration_s": 8,
   "layout": "ticker",
@@ -744,8 +854,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000029",
-  "fact_id": "f_000015",
+  "cue_id": "c_000033",
+  "fact_id": "f_000017",
   "start_t": 2702.9,
   "duration_s": 6,
   "layout": "lower_third",
@@ -769,8 +879,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000030",
-  "fact_id": "f_000015",
+  "cue_id": "c_000034",
+  "fact_id": "f_000017",
   "start_t": 2702.9,
   "duration_s": 6,
   "layout": "lower_third",
@@ -794,8 +904,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000031",
-  "fact_id": "f_000016",
+  "cue_id": "c_000035",
+  "fact_id": "f_000018",
   "start_t": 3303.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -812,8 +922,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000032",
-  "fact_id": "f_000016",
+  "cue_id": "c_000036",
+  "fact_id": "f_000018",
   "start_t": 3303.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -830,8 +940,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000033",
-  "fact_id": "f_000017",
+  "cue_id": "c_000037",
+  "fact_id": "f_000019",
   "start_t": 3303.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -851,8 +961,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000034",
-  "fact_id": "f_000017",
+  "cue_id": "c_000038",
+  "fact_id": "f_000019",
   "start_t": 3303.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -872,8 +982,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000035",
-  "fact_id": "f_000018",
+  "cue_id": "c_000039",
+  "fact_id": "f_000020",
   "start_t": 3445.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -886,8 +996,8 @@
   "tier": "T0"
  },
  {
-  "cue_id": "c_000036",
-  "fact_id": "f_000018",
+  "cue_id": "c_000040",
+  "fact_id": "f_000020",
   "start_t": 3445.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -900,8 +1010,8 @@
   "tier": "T0"
  },
  {
-  "cue_id": "c_000037",
-  "fact_id": "f_000019",
+  "cue_id": "c_000041",
+  "fact_id": "f_000021",
   "start_t": 3748.5,
   "duration_s": 6,
   "layout": "lower_third",
@@ -915,8 +1025,8 @@
   "tier": "T0"
  },
  {
-  "cue_id": "c_000038",
-  "fact_id": "f_000019",
+  "cue_id": "c_000042",
+  "fact_id": "f_000021",
   "start_t": 3748.5,
   "duration_s": 6,
   "layout": "lower_third",
@@ -930,8 +1040,8 @@
   "tier": "T0"
  },
  {
-  "cue_id": "c_000039",
-  "fact_id": "f_000020",
+  "cue_id": "c_000043",
+  "fact_id": "f_000022",
   "start_t": 3903.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -953,8 +1063,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000040",
-  "fact_id": "f_000020",
+  "cue_id": "c_000044",
+  "fact_id": "f_000022",
   "start_t": 3903.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -976,8 +1086,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000041",
-  "fact_id": "f_000021",
+  "cue_id": "c_000045",
+  "fact_id": "f_000023",
   "start_t": 4203.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -994,8 +1104,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000042",
-  "fact_id": "f_000021",
+  "cue_id": "c_000046",
+  "fact_id": "f_000023",
   "start_t": 4203.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1012,8 +1122,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000043",
-  "fact_id": "f_000022",
+  "cue_id": "c_000047",
+  "fact_id": "f_000024",
   "start_t": 4230.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1026,8 +1136,8 @@
   "tier": "T0"
  },
  {
-  "cue_id": "c_000044",
-  "fact_id": "f_000022",
+  "cue_id": "c_000048",
+  "fact_id": "f_000024",
   "start_t": 4230.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1040,8 +1150,8 @@
   "tier": "T0"
  },
  {
-  "cue_id": "c_000045",
-  "fact_id": "f_000023",
+  "cue_id": "c_000049",
+  "fact_id": "f_000025",
   "start_t": 4803.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1060,8 +1170,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000046",
-  "fact_id": "f_000023",
+  "cue_id": "c_000050",
+  "fact_id": "f_000025",
   "start_t": 4803.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1080,8 +1190,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000047",
-  "fact_id": "f_000024",
+  "cue_id": "c_000051",
+  "fact_id": "f_000026",
   "start_t": 5103.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1113,8 +1223,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000048",
-  "fact_id": "f_000024",
+  "cue_id": "c_000052",
+  "fact_id": "f_000026",
   "start_t": 5103.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1146,8 +1256,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000049",
-  "fact_id": "f_000025",
+  "cue_id": "c_000053",
+  "fact_id": "f_000027",
   "start_t": 5403.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1171,8 +1281,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000050",
-  "fact_id": "f_000025",
+  "cue_id": "c_000054",
+  "fact_id": "f_000027",
   "start_t": 5403.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1196,8 +1306,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000051",
-  "fact_id": "f_000026",
+  "cue_id": "c_000055",
+  "fact_id": "f_000028",
   "start_t": 5403.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1214,8 +1324,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000052",
-  "fact_id": "f_000026",
+  "cue_id": "c_000056",
+  "fact_id": "f_000028",
   "start_t": 5403.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1232,8 +1342,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000053",
-  "fact_id": "f_000027",
+  "cue_id": "c_000057",
+  "fact_id": "f_000029",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1309,8 +1419,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000054",
-  "fact_id": "f_000027",
+  "cue_id": "c_000058",
+  "fact_id": "f_000029",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1386,8 +1496,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000055",
-  "fact_id": "f_000028",
+  "cue_id": "c_000059",
+  "fact_id": "f_000030",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1452,8 +1562,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000056",
-  "fact_id": "f_000028",
+  "cue_id": "c_000060",
+  "fact_id": "f_000030",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1518,8 +1628,116 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000057",
-  "fact_id": "f_000029",
+  "cue_id": "c_000061",
+  "fact_id": "f_000031",
+  "start_t": 5403.0,
+  "duration_s": 6,
+  "layout": "lower_third",
+  "lang": "en",
+  "text": "E. Lindqvist was the most central player in Northbridge's passing in the second half: involved in 18 of 53 linked passes.",
+  "evidence_ids": [
+   334,
+   337,
+   340,
+   356,
+   358,
+   392,
+   400,
+   455,
+   488,
+   489,
+   521,
+   545,
+   559,
+   561,
+   593,
+   594,
+   596,
+   597
+  ],
+  "checked": true,
+  "tier": "T1"
+ },
+ {
+  "cue_id": "c_000062",
+  "fact_id": "f_000031",
+  "start_t": 5403.0,
+  "duration_s": 6,
+  "layout": "lower_third",
+  "lang": "es",
+  "text": "E. Lindqvist fue el jugador más central en la circulación de Northbridge en la segunda parte: participó en 18 de 53 pases enlazados.",
+  "evidence_ids": [
+   334,
+   337,
+   340,
+   356,
+   358,
+   392,
+   400,
+   455,
+   488,
+   489,
+   521,
+   545,
+   559,
+   561,
+   593,
+   594,
+   596,
+   597
+  ],
+  "checked": true,
+  "tier": "T1"
+ },
+ {
+  "cue_id": "c_000063",
+  "fact_id": "f_000032",
+  "start_t": 5403.0,
+  "duration_s": 6,
+  "layout": "lower_third",
+  "lang": "en",
+  "text": "O. Fenwick was the most central player in Harlow's passing in the second half: involved in 10 of 44 linked passes.",
+  "evidence_ids": [
+   343,
+   373,
+   374,
+   396,
+   449,
+   450,
+   532,
+   536,
+   537,
+   550
+  ],
+  "checked": true,
+  "tier": "T1"
+ },
+ {
+  "cue_id": "c_000064",
+  "fact_id": "f_000032",
+  "start_t": 5403.0,
+  "duration_s": 6,
+  "layout": "lower_third",
+  "lang": "es",
+  "text": "O. Fenwick fue el jugador más central en la circulación de Harlow en la segunda parte: participó en 10 de 44 pases enlazados.",
+  "evidence_ids": [
+   343,
+   373,
+   374,
+   396,
+   449,
+   450,
+   532,
+   536,
+   537,
+   550
+  ],
+  "checked": true,
+  "tier": "T1"
+ },
+ {
+  "cue_id": "c_000065",
+  "fact_id": "f_000033",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1535,8 +1753,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000058",
-  "fact_id": "f_000029",
+  "cue_id": "c_000066",
+  "fact_id": "f_000033",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1552,8 +1770,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000059",
-  "fact_id": "f_000030",
+  "cue_id": "c_000067",
+  "fact_id": "f_000034",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1566,8 +1784,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000060",
-  "fact_id": "f_000030",
+  "cue_id": "c_000068",
+  "fact_id": "f_000034",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1580,8 +1798,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000061",
-  "fact_id": "f_000031",
+  "cue_id": "c_000069",
+  "fact_id": "f_000035",
   "start_t": 5403.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1596,8 +1814,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000062",
-  "fact_id": "f_000031",
+  "cue_id": "c_000070",
+  "fact_id": "f_000035",
   "start_t": 5403.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1612,8 +1830,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000063",
-  "fact_id": "f_000032",
+  "cue_id": "c_000071",
+  "fact_id": "f_000036",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1633,8 +1851,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000064",
-  "fact_id": "f_000032",
+  "cue_id": "c_000072",
+  "fact_id": "f_000036",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1654,8 +1872,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000065",
-  "fact_id": "f_000033",
+  "cue_id": "c_000073",
+  "fact_id": "f_000037",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1669,8 +1887,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000066",
-  "fact_id": "f_000033",
+  "cue_id": "c_000074",
+  "fact_id": "f_000037",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1684,8 +1902,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000067",
-  "fact_id": "f_000034",
+  "cue_id": "c_000075",
+  "fact_id": "f_000038",
   "start_t": 5403.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1711,8 +1929,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000068",
-  "fact_id": "f_000034",
+  "cue_id": "c_000076",
+  "fact_id": "f_000038",
   "start_t": 5403.0,
   "duration_s": 6,
   "layout": "lower_third",

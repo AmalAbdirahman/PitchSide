@@ -54,7 +54,7 @@ def build() -> list[dict[str, Any]]:
         find("top_shot_speed"),
         find("shots"),
     )
-    xt = find("xt_added")
+    xt, hub = find("xt_added"), find("most_central_player")
     ids, out = _ids(), []
 
     def add(cat: str, expect: str, fact: Fact) -> None:
@@ -91,6 +91,7 @@ def build() -> list[dict[str, Any]]:
         (shots[0], "HAR_08"),
         (shots[1], "NOR_10"),
         (xt[1], "NOR_10"),
+        (hub[0], "NOR_07"),  # a team-mate in the network, but not its most central player
     ]:
         add("wrong_player", "rejected", d.inject_wrong_player(base, next(ids), wrong, match))
     for base, shift in [

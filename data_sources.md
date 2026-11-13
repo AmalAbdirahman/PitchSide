@@ -59,6 +59,8 @@ In the 2018 final the 2978 StatsBomb events map to 1845 of ours: 846 passes, 617
 
 **Fields we do not have.** StatsBomb open data has no ball, shot or player speeds and no pass difficulty. Those fields stay empty. The `top_shot_speed` metric only counts shots with a measured speed, so on real data it produces no claim at all rather than a guess.
 
+**Pass recipients are not mapped.** StatsBomb records `pass.recipient`, but our `Event` has no receiver field, so pass networks (`core/network.py`) infer the receiver the same way on both sources: the next on-ball player of the same team. Mapping the recorded recipient is roadmap.
+
 **xG.** Real shots carry StatsBomb's own `statsbomb_xg` (`statsbomb.shot_xg: statsbomb` in `config.yaml`), because it scored better than our fitted model on held-out matches (log loss 0.2442 against 0.2655, `docs/methods/xg.md`). A shot without `statsbomb_xg` falls back to our model, and `shot_xg: ours` uses our model for every shot. The simulator always uses our model, since its shots have only a location. Either way xG is a model estimate: the verifier checks that xG claims add up the event log's values, not that the model is right. With our model, the 2018 final is in its training set, so its xG would be in-sample.
 
 ### What the pipeline does with it

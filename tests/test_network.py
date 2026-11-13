@@ -6,10 +6,13 @@ import itertools
 
 import pytest
 
+from app.drafter import to_fact
+from app.verifier import verify
 from core.config import MetricContext, load
 from core.events import Event, Match
-from core.facts import Subject, Window
+from core.facts import Fact, Subject, Window
 from core.metrics import REGISTRY, compute_metric
+from core.moments import _moment, detect_moments
 from core.network import (
     Weights,
     betweenness,
@@ -20,6 +23,7 @@ from core.network import (
     rank,
     weights,
 )
+from tests.conftest import LEAGUE
 
 S = load()
 CTX = MetricContext.of(S)
@@ -167,3 +171,53 @@ def test_most_central_player_metric_is_the_rank_with_the_players_passes(match: M
     assert compute_metric("most_central_player", nobody, w, match.events, CTX) is None
     team_subject = Subject(type="team", id=team)
     assert compute_metric("most_central_player", team_subject, w, match.events, CTX) is None
+
+
+def _hub_fact(match: Match, pid: str, half: str = "first") -> Fact:
+    """A pass_hub fact for `pid` that is consistent in every way except the ranking."""
+    w = Window(start_t=0, end_t=match.meta.clock.half_t - 0.1)
+    m = compute_metric("most_central_player", Subject(type="player", id=pid), w, match.events, CTX)
+    assert m is not None
+    team = pid.split("_")[0]
+    moment = _moment(
+        "stat",
+        "pass_hub",
+        "most_central_player",
+        Subject(type="player", id=pid),
+        w.start_t,
+        w.end_t,
+        m,
+        half=half,
+        players=[pid],
+        team=team,
+    )
+    moment["value"] = 1.0  # the claim: rank 1
+    return to_fact(moment, match, "f_999999", S.verifier)
+
+
+def test_the_verifier_rejects_a_hub_claim_for_anyone_but_the_leader(match: Match) -> None:
+    w = Window(start_t=0, end_t=match.meta.clock.half_t - 0.1)
+    links = pass_links([e for e in match.events if e.t <= w.end_t], match.meta.home)
+    scores = betweenness(weights(links))
+    top, second = sorted(scores, key=lambda p: -scores[p])[:2]
+    assert verify(_hub_fact(match, top), match, LEAGUE, S).verification.status == "verified"
+    out = verify(_hub_fact(match, second), match, LEAGUE, S)
+    failed = [c.name for c in out.verification.checks if not c.passed]
+    assert out.verification.status == "rejected" and failed == ["recompute"]
+
+
+def test_hub_moments_name_unique_leaders_with_enough_passes(match: Match) -> None:
+    hubs = [
+        m
+        for m in detect_moments(match.events, ("NOR", "HAR"), LEAGUE, S, match.meta.clock)
+        if m["rule"] == "pass_hub"
+    ]
+    assert len(hubs) == 4 and all(
+        m["value"] == 1 and m["n"] >= S.moments.hub_min_passes for m in hubs
+    )
+    strict = S.model_copy(update={"moments": S.moments.model_copy(update={"hub_min_passes": 1000})})
+    assert not [
+        m
+        for m in detect_moments(match.events, ("NOR", "HAR"), LEAGUE, strict, match.meta.clock)
+        if m["rule"] == "pass_hub"
+    ]

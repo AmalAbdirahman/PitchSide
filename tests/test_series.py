@@ -13,6 +13,7 @@ from core.events import Match
 from core.facts import Subject, Window
 from core.hedge import judge_share
 from core.metrics import compute_metric
+from core.network import pass_links
 from core.wilson import wilson
 from core.winprob import win_probability
 
@@ -31,7 +32,7 @@ def mu() -> float:
 
 @pytest.fixture(scope="module")
 def series(match: Match) -> dict[str, Any]:
-    return build_series(match.events, TEAMS, LEAGUE, S)
+    return build_series(match.events, TEAMS, LEAGUE, S, match.meta.clock.half_t)
 
 
 def test_grid_covers_the_match(series: dict[str, Any], match: Match) -> None:
@@ -116,3 +117,34 @@ def test_bundle_events_keep_coordinates_and_xg() -> None:
         {"x", "y", "end_x", "end_y"} <= set(e) for e in hero["events"] if e["type"] == "pass"
     )
     assert "series" in hero
+
+
+def test_network_snapshots_cover_the_current_half_up_to_their_time(
+    series: dict[str, Any], match: Match
+) -> None:
+    net, half = series["network"], match.meta.clock.half_t
+    assert net["t"][0] == 0.0 and all(
+        b - a == net["step_s"] for a, b in zip(net["t"], net["t"][1:], strict=False)
+    )
+    for i, t in enumerate(net["t"]):
+        start = 0.0 if t < half else half
+        snap = net["teams"]["NOR"][i]
+        links = pass_links([e for e in match.events if start <= e.t <= t], "NOR")
+        assert snap["n"] == len(links) == sum(k for _, _, k in snap["edges"])
+        assert {p for p, *_ in snap["nodes"]} == {p for a, b, _ in snap["edges"] for p in (a, b)}
+
+
+def test_network_leader_agrees_with_the_verifiable_metric(
+    series: dict[str, Any], match: Match
+) -> None:
+    # At the last snapshot before half-time, the node with the top betweenness is rank 1 by the
+    # registry metric over the same window.
+    net, half = series["network"], match.meta.clock.half_t
+    i = max(k for k, t in enumerate(net["t"]) if t < half)
+    nodes = net["teams"]["HAR"][i]["nodes"]
+    top = max(nodes, key=lambda n: n[4])[0]
+    w = Window(start_t=0.0, end_t=net["t"][i])
+    m = compute_metric(
+        "most_central_player", Subject(type="player", id=top), w, match.events, MetricContext.of(S)
+    )
+    assert m is not None and m.value == 1

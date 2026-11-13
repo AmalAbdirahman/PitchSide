@@ -125,6 +125,12 @@ def caption_es(fact: Fact, match: Match) -> str:
         return f"Disparo más rápido de la {half} parte: {int(n['value'])} km/h, de {shooter}."
     if metric == "shots":
         return f"{meta.player_name(subj.id)} realizó {int(n['value'])} disparos en la {half} parte."
+    if metric == "most_central_player":
+        return (
+            f"{meta.player_name(subj.id)} fue el jugador más central en la circulación de "
+            f"{_team_of(match, subj.id)} en la {half} parte: participó en {int(n['k'])} de "
+            f"{int(n['n'])} pases enlazados."
+        )
     if metric == "xt_added":
         return (
             f"{meta.player_name(subj.id)} sumó {es_number(n['value'], 2)} de xT con pases y "
