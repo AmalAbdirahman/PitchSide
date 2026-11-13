@@ -76,7 +76,7 @@ def explore_request(m: Moment, match: Match, memory: dict[str, Any]) -> dict[str
 
 
 def _matches_moment(claim: Claim, m: Moment) -> bool:
-    return claim.metric == m["metric"] and claim.subject.model_dump() == m["subject"]
+    return bool(claim.metric == m["metric"] and claim.subject.model_dump() == m["subject"])
 
 
 def _players(claim: Claim, m: Moment, mode: Mode) -> list[str]:
