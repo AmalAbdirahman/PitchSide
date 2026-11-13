@@ -17,8 +17,16 @@ from core.moments import score_at
 from core.shares import LANES
 from core.wilson import hedge_for, wilson
 from core.winprob import win_probability
+from core.xt import completed_move, gain
 
-TEAM_METRICS = ("shots", "xg_sum", "pass_accuracy", "turnovers_own_third", "top_shot_speed")
+TEAM_METRICS = (
+    "shots",
+    "xg_sum",
+    "pass_accuracy",
+    "turnovers_own_third",
+    "top_shot_speed",
+    "xt_added",
+)
 
 
 def _r(x: float) -> float:
@@ -79,6 +87,23 @@ def lanes_at(events: list[Event], team: str, t: float, s: Settings) -> dict[str,
     return out
 
 
+def xt_panel(events: list[Event], teams: tuple[str, str], ctx: MetricContext) -> dict[str, Any]:
+    """The fitted surface and each completed move's xT gain, per team, for the threat map."""
+    return {
+        "cols": ctx.xt.cols,
+        "rows": ctx.xt.rows,
+        "surface": [list(r) for r in ctx.xt.surface],
+        "moves": {
+            tm: [
+                [e.id, round(gain(e, ctx.xt, ctx.pitch), 4)]
+                for e in events
+                if e.team == tm and completed_move(e)
+            ]
+            for tm in teams
+        },
+    }
+
+
 def build_series(
     events: list[Event], teams: tuple[str, str], mu: float, s: Settings
 ) -> dict[str, Any]:
@@ -96,4 +121,5 @@ def build_series(
             for tm in teams
         },
         "lanes": {tm: [lanes_at(events, tm, t, s) for t in ts] for tm in teams},
+        "xt": xt_panel(events, teams, ctx),
     }

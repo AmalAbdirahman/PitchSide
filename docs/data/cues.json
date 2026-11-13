@@ -746,6 +746,56 @@
  {
   "cue_id": "c_000029",
   "fact_id": "f_000015",
+  "start_t": 2702.9,
+  "duration_s": 6,
+  "layout": "lower_third",
+  "lang": "en",
+  "text": "U. Kerridge added 0.30 xT with completed passes and carries in the first half.",
+  "evidence_ids": [
+   37,
+   39,
+   42,
+   43,
+   87,
+   97,
+   192,
+   229,
+   235,
+   238,
+   241,
+   254
+  ],
+  "checked": true,
+  "tier": "T1"
+ },
+ {
+  "cue_id": "c_000030",
+  "fact_id": "f_000015",
+  "start_t": 2702.9,
+  "duration_s": 6,
+  "layout": "lower_third",
+  "lang": "es",
+  "text": "U. Kerridge sumó 0,30 de xT con pases y conducciones completados en la primera parte.",
+  "evidence_ids": [
+   37,
+   39,
+   42,
+   43,
+   87,
+   97,
+   192,
+   229,
+   235,
+   238,
+   241,
+   254
+  ],
+  "checked": true,
+  "tier": "T1"
+ },
+ {
+  "cue_id": "c_000031",
+  "fact_id": "f_000016",
   "start_t": 3303.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -762,8 +812,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000030",
-  "fact_id": "f_000015",
+  "cue_id": "c_000032",
+  "fact_id": "f_000016",
   "start_t": 3303.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -780,8 +830,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000031",
-  "fact_id": "f_000016",
+  "cue_id": "c_000033",
+  "fact_id": "f_000017",
   "start_t": 3303.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -801,8 +851,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000032",
-  "fact_id": "f_000016",
+  "cue_id": "c_000034",
+  "fact_id": "f_000017",
   "start_t": 3303.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -822,8 +872,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000033",
-  "fact_id": "f_000017",
+  "cue_id": "c_000035",
+  "fact_id": "f_000018",
   "start_t": 3445.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -836,8 +886,8 @@
   "tier": "T0"
  },
  {
-  "cue_id": "c_000034",
-  "fact_id": "f_000017",
+  "cue_id": "c_000036",
+  "fact_id": "f_000018",
   "start_t": 3445.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -850,8 +900,8 @@
   "tier": "T0"
  },
  {
-  "cue_id": "c_000035",
-  "fact_id": "f_000018",
+  "cue_id": "c_000037",
+  "fact_id": "f_000019",
   "start_t": 3748.5,
   "duration_s": 6,
   "layout": "lower_third",
@@ -865,8 +915,8 @@
   "tier": "T0"
  },
  {
-  "cue_id": "c_000036",
-  "fact_id": "f_000018",
+  "cue_id": "c_000038",
+  "fact_id": "f_000019",
   "start_t": 3748.5,
   "duration_s": 6,
   "layout": "lower_third",
@@ -880,8 +930,8 @@
   "tier": "T0"
  },
  {
-  "cue_id": "c_000037",
-  "fact_id": "f_000019",
+  "cue_id": "c_000039",
+  "fact_id": "f_000020",
   "start_t": 3903.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -903,8 +953,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000038",
-  "fact_id": "f_000019",
+  "cue_id": "c_000040",
+  "fact_id": "f_000020",
   "start_t": 3903.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -926,8 +976,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000039",
-  "fact_id": "f_000020",
+  "cue_id": "c_000041",
+  "fact_id": "f_000021",
   "start_t": 4203.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -944,8 +994,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000040",
-  "fact_id": "f_000020",
+  "cue_id": "c_000042",
+  "fact_id": "f_000021",
   "start_t": 4203.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -962,8 +1012,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000041",
-  "fact_id": "f_000021",
+  "cue_id": "c_000043",
+  "fact_id": "f_000022",
   "start_t": 4230.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -976,8 +1026,8 @@
   "tier": "T0"
  },
  {
-  "cue_id": "c_000042",
-  "fact_id": "f_000021",
+  "cue_id": "c_000044",
+  "fact_id": "f_000022",
   "start_t": 4230.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -990,8 +1040,8 @@
   "tier": "T0"
  },
  {
-  "cue_id": "c_000043",
-  "fact_id": "f_000022",
+  "cue_id": "c_000045",
+  "fact_id": "f_000023",
   "start_t": 4803.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1010,8 +1060,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000044",
-  "fact_id": "f_000022",
+  "cue_id": "c_000046",
+  "fact_id": "f_000023",
   "start_t": 4803.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1030,8 +1080,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000045",
-  "fact_id": "f_000023",
+  "cue_id": "c_000047",
+  "fact_id": "f_000024",
   "start_t": 5103.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1063,8 +1113,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000046",
-  "fact_id": "f_000023",
+  "cue_id": "c_000048",
+  "fact_id": "f_000024",
   "start_t": 5103.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1096,8 +1146,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000047",
-  "fact_id": "f_000024",
+  "cue_id": "c_000049",
+  "fact_id": "f_000025",
   "start_t": 5403.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1121,8 +1171,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000048",
-  "fact_id": "f_000024",
+  "cue_id": "c_000050",
+  "fact_id": "f_000025",
   "start_t": 5403.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1146,8 +1196,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000049",
-  "fact_id": "f_000025",
+  "cue_id": "c_000051",
+  "fact_id": "f_000026",
   "start_t": 5403.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1164,8 +1214,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000050",
-  "fact_id": "f_000025",
+  "cue_id": "c_000052",
+  "fact_id": "f_000026",
   "start_t": 5403.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1182,8 +1232,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000051",
-  "fact_id": "f_000026",
+  "cue_id": "c_000053",
+  "fact_id": "f_000027",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1259,8 +1309,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000052",
-  "fact_id": "f_000026",
+  "cue_id": "c_000054",
+  "fact_id": "f_000027",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1336,8 +1386,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000053",
-  "fact_id": "f_000027",
+  "cue_id": "c_000055",
+  "fact_id": "f_000028",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1402,8 +1452,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000054",
-  "fact_id": "f_000027",
+  "cue_id": "c_000056",
+  "fact_id": "f_000028",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1468,8 +1518,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000055",
-  "fact_id": "f_000028",
+  "cue_id": "c_000057",
+  "fact_id": "f_000029",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1485,8 +1535,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000056",
-  "fact_id": "f_000028",
+  "cue_id": "c_000058",
+  "fact_id": "f_000029",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1502,8 +1552,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000057",
-  "fact_id": "f_000029",
+  "cue_id": "c_000059",
+  "fact_id": "f_000030",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1516,8 +1566,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000058",
-  "fact_id": "f_000029",
+  "cue_id": "c_000060",
+  "fact_id": "f_000030",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1530,8 +1580,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000059",
-  "fact_id": "f_000030",
+  "cue_id": "c_000061",
+  "fact_id": "f_000031",
   "start_t": 5403.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1546,8 +1596,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000060",
-  "fact_id": "f_000030",
+  "cue_id": "c_000062",
+  "fact_id": "f_000031",
   "start_t": 5403.0,
   "duration_s": 6,
   "layout": "lower_third",
@@ -1562,8 +1612,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000061",
-  "fact_id": "f_000031",
+  "cue_id": "c_000063",
+  "fact_id": "f_000032",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1583,8 +1633,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000062",
-  "fact_id": "f_000031",
+  "cue_id": "c_000064",
+  "fact_id": "f_000032",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1604,8 +1654,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000063",
-  "fact_id": "f_000032",
+  "cue_id": "c_000065",
+  "fact_id": "f_000033",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1619,8 +1669,8 @@
   "tier": "T1"
  },
  {
-  "cue_id": "c_000064",
-  "fact_id": "f_000032",
+  "cue_id": "c_000066",
+  "fact_id": "f_000033",
   "start_t": 5403.0,
   "duration_s": 8,
   "layout": "ticker",
@@ -1629,6 +1679,60 @@
   "evidence_ids": [
    314,
    437
+  ],
+  "checked": true,
+  "tier": "T1"
+ },
+ {
+  "cue_id": "c_000067",
+  "fact_id": "f_000034",
+  "start_t": 5403.0,
+  "duration_s": 6,
+  "layout": "lower_third",
+  "lang": "en",
+  "text": "E. Lindqvist added 0.28 xT with completed passes and carries in the second half.",
+  "evidence_ids": [
+   336,
+   337,
+   358,
+   392,
+   400,
+   403,
+   455,
+   489,
+   544,
+   545,
+   560,
+   561,
+   594,
+   597
+  ],
+  "checked": true,
+  "tier": "T1"
+ },
+ {
+  "cue_id": "c_000068",
+  "fact_id": "f_000034",
+  "start_t": 5403.0,
+  "duration_s": 6,
+  "layout": "lower_third",
+  "lang": "es",
+  "text": "E. Lindqvist sumó 0,28 de xT con pases y conducciones completados en la segunda parte.",
+  "evidence_ids": [
+   336,
+   337,
+   358,
+   392,
+   400,
+   403,
+   455,
+   489,
+   544,
+   545,
+   560,
+   561,
+   594,
+   597
   ],
   "checked": true,
   "tier": "T1"

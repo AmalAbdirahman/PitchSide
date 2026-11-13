@@ -20,6 +20,7 @@ What the agreement says, in short (read the PDF for the binding text):
 What this repo does about it:
 - `scripts/fetch_statsbomb.py` downloads raw files into `data/external/statsbomb/`, which is git-ignored. Raw data is never committed.
 - `python -m app.build_bundle --source statsbomb` writes the bundle to `data/external/bundles/<match id>/`, also git-ignored, and refuses to write into `docs/`. A bundle carries the full mapped event log (every pass, carry and shot with coordinates and player names), which is a reformatted copy of StatsBomb's data, so publishing it on GitHub Pages is not covered by the agreement as written.
+- Committed results derived from StatsBomb data are aggregates only: the xG coefficients and test scores (`data/xg_fit.json`), and the 192-cell xT surface with its test scores (`data/xt_fit.json`, figures in `docs/methods/`). No event, shot or player record is committed.
 - Tests use a small hand-written fixture in StatsBomb's format with invented teams and players (`tests/test_statsbomb.py`), never StatsBomb data.
 - Publishing a real-match replay on the site is **not done** (see the README roadmap). It needs a decision on what may be published (for example aggregate analysis only, or written consent) and the StatsBomb logo on the page.
 

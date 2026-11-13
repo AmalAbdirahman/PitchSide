@@ -18,11 +18,12 @@ from core.config import MetricContext, Verifier
 from core.events import Event
 from core.facts import Subject, Window
 from core.shares import LANES, attacks_by_lane
+from core.xt import completed_move, gain
 
 Kind = Literal["count", "share", "sum", "max"]
 SubjectType = Literal["team", "player", "match"]
 # "exact" means no tolerance; the others name a field of the verifier config.
-ToleranceKey = Literal["exact", "tol_share_pp", "tol_xg", "tol_speed"]
+ToleranceKey = Literal["exact", "tol_share_pp", "tol_xg", "tol_speed", "tol_xt"]
 ALL_SUBJECTS: frozenset[SubjectType] = frozenset({"team", "player", "match"})
 EPS = 1e-9
 
@@ -160,6 +161,13 @@ def _top_shot_speed(evs: list[Event], _subject: Subject, _ctx: MetricContext) ->
     return Metric(_speed(best), len(timed), 1, [best.id])
 
 
+def _xt_added(evs: list[Event], _subject: Subject, ctx: MetricContext) -> Metric:
+    # Every completed pass and carry, backwards ones included, so the sum is net threat added.
+    moves = [e for e in evs if completed_move(e)]
+    value = sum(gain(e, ctx.xt, ctx.pitch) for e in moves)
+    return Metric(value, len(moves), len(moves), [e.id for e in moves])
+
+
 def _turnovers_own_third(evs: list[Event], _subject: Subject, ctx: MetricContext) -> Metric:
     own = ctx.pitch.own_third_x
     return _count([e for e in evs if e.type == "possession_change" and e.x < own])
@@ -186,6 +194,7 @@ _DEFS: list[EventMetric] = [
     EventMetric("turnovers_own_third", "count", "exact", _turnovers_own_third),
     EventMetric("xg_sum", "sum", "tol_xg", _xg_sum),
     EventMetric("top_shot_speed", "max", "tol_speed", _top_shot_speed),
+    EventMetric("xt_added", "sum", "tol_xt", _xt_added, frozenset({"team", "player"})),
     EventMetric("pass_accuracy", "share", "tol_share_pp", _pass_accuracy),
     *(
         EventMetric(

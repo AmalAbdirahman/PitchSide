@@ -40,6 +40,7 @@ def test_registry_lists_every_computable_metric() -> None:
         "attack_share_left",
         "attack_share_centre",
         "attack_share_right",
+        "xt_added",
     }
     assert set(REGISTRY) <= set(get_args(MetricName))
     assert all(name == d.name for name, d in REGISTRY.items())
@@ -57,6 +58,7 @@ def test_kinds_and_tolerances_come_from_config() -> None:
         "turnovers_own_third": ("count", 0.0),
         "xg_sum": ("sum", v.tol_xg),
         "top_shot_speed": ("max", v.tol_speed),
+        "xt_added": ("sum", v.tol_xt),
         "pass_accuracy": ("share", v.tol_share_pp),
         "attack_share_left": ("share", v.tol_share_pp),
     }

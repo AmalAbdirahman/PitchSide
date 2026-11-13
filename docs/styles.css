@@ -165,6 +165,8 @@ body[data-mode="analyst"] .row p{font-size:13px}
 .an svg{display:block;width:100%;height:auto}
 .pad{padding:14px 16px 16px}
 .lanes2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.xtlist{margin:8px 0 0;padding:0;list-style:none;font:500 12px var(--body);color:var(--muted);display:grid;gap:2px}
+.xtlist b{color:var(--text)}
 .lanes2 h3{margin:0 0 4px;font:700 12px var(--body);letter-spacing:.1em;text-transform:uppercase}
 .cmp{display:grid;gap:13px}
 .cmp .r{display:grid;grid-template-columns:70px 1fr 70px;align-items:center;gap:6px 12px}

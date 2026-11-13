@@ -21,6 +21,7 @@ from dataclasses import dataclass, field
 from typing import Literal
 
 from core.config import Pitch, Xt
+from core.events import Event
 
 
 @dataclass(frozen=True)
@@ -125,3 +126,20 @@ def value_at(x: float, y: float, xt: Xt, pitch: Pitch) -> float:
     """Threat of the cell holding (x, y), from the fitted surface in config."""
     cell = Grid.of(xt, pitch).cell(x, y)
     return xt.surface[cell // xt.cols][cell % xt.cols]
+
+
+def completed_move(e: Event) -> bool:
+    """A pass or carry that reached its end point: the actions xT added counts."""
+    return (
+        e.type in ("pass", "carry")
+        and e.outcome == "success"
+        and e.end_x is not None
+        and e.end_y is not None
+    )
+
+
+def gain(e: Event, xt: Xt, pitch: Pitch) -> float:
+    """xT at the end of a completed move minus xT at its start (negative for a move backwards)."""
+    if e.end_x is None or e.end_y is None:
+        raise ValueError(f"event {e.id} has no end point")
+    return value_at(e.end_x, e.end_y, xt, pitch) - value_at(e.x, e.y, xt, pitch)

@@ -13,6 +13,7 @@ export function maybeRenderAnalysis(now) {
   renderShots();
   renderCompare();
   renderLanes();
+  renderThreat();
 }
 
 function xgScale() {
@@ -76,6 +77,7 @@ function renderCompare() {
   const rows = [
     ['Win prob % (model estimate)', wp[0] * 100, wp[2] * 100, 0], ['Shots', h.shots[i], a.shots[i], 0],
     ['xG', h.xg_sum[i], a.xg_sum[i], 2], ['Pass accuracy %', h.pass_accuracy[i], a.pass_accuracy[i], 0],
+    ['xT added', h.xt_added[i], a.xt_added[i], 2],
     ['Turnovers in own third', h.turnovers_own_third[i], a.turnovers_own_third[i], 0],
     ['Top shot speed km/h', h.top_shot_speed[i], a.top_shot_speed[i], 1],
   ];
@@ -115,4 +117,41 @@ function renderLanes() {
   $('#lanes-t').textContent = `Last ${mins} min of play · 95% Wilson interval · dashed line = ${Math.round(D.series.lane_baseline * 100)}% baseline`;
   $('#lanes-h').innerHTML = lanePanel(D.meta.home, i);
   $('#lanes-a').innerHTML = lanePanel(D.meta.away, i);
+}
+
+/* Threat map: the fitted xT surface (from the bundle) with the team's biggest completed moves so far.
+   Each team is drawn attacking left to right, the way the surface is defined. */
+const TOP_MOVES = 5;
+
+function threatPitch(team) {
+  const p = D.meta.pitch, X = D.series.xt, cw = p.length / X.cols, ch = p.width / X.rows;
+  const top = Math.max(...X.surface.flat()), col = teamCol(team);
+  let g = `<rect x="0" y="0" width="${p.length}" height="${p.width}" fill="#0a0412"/>`;
+  X.surface.forEach((row, r) => row.forEach((v, c) => {
+    g += `<rect x="${(c * cw).toFixed(2)}" y="${(r * ch).toFixed(2)}" width="${cw.toFixed(2)}" height="${ch.toFixed(2)}" fill="${col}" fill-opacity="${(Math.sqrt(v / top) * 0.7).toFixed(3)}"><title>xT ${v.toFixed(3)}</title></rect>`;
+  }));
+  g += pitchLines(0.25);
+  const moves = X.moves[team].filter(([id]) => D.byId.get(id).t <= S.t)
+    .sort((a, b) => b[1] - a[1]).slice(0, TOP_MOVES);
+  moves.forEach(([id, gain], k) => {
+    const e = D.byId.get(id), ink = UI.follow && e.player_id === UI.follow ? '#00ff85' : '#f5f1f9';
+    g += `<g><title>${esc(nameOf(e.player_id))} ${minute(e.t)} · ${esc(e.type)} · xT +${gain.toFixed(3)}</title>` +
+      `<line x1="${e.x}" y1="${e.y}" x2="${e.end_x}" y2="${e.end_y}" stroke="${ink}" stroke-width=".6"/>` +
+      `<circle cx="${e.end_x}" cy="${e.end_y}" r="1.6" fill="#07030d" stroke="${ink}" stroke-width=".4"/>` +
+      `<text x="${e.end_x}" y="${e.end_y + 0.7}" text-anchor="middle" font-size="2" font-weight="800" fill="#f5f1f9">${k + 1}</text></g>`;
+  });
+  g += `<text x="${p.length - 1}" y="${p.width - 1.5}" text-anchor="end" font-size="2.4" font-weight="800" fill="${col}">${esc(team)} ATTACK ▶</text>`;
+  const list = moves.length ? moves.map(([id, gain], k) => {
+    const e = D.byId.get(id);
+    return `<li>${k + 1}. ${esc(nameOf(e.player_id))} · ${minute(e.t)} · ${esc(e.type)} · <b class="num">+${gain.toFixed(3)}</b></li>`;
+  }).join('') : '<li>No completed passes or carries yet.</li>';
+  const name = esc(D.meta.teams[team].name);
+  return `<h3 style="color:${col}">${name}</h3>` +
+    `<svg viewBox="-2 -2 109 72" role="img" aria-label="${name}: xT surface and the ${TOP_MOVES} largest xT gains so far">${g}</svg>` +
+    `<ol class="xtlist">${list}</ol>`;
+}
+
+function renderThreat() {
+  $('#xt-h').innerHTML = threatPitch(D.meta.home);
+  $('#xt-a').innerHTML = threatPitch(D.meta.away);
 }

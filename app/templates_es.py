@@ -125,4 +125,9 @@ def caption_es(fact: Fact, match: Match) -> str:
         return f"Disparo más rápido de la {half} parte: {int(n['value'])} km/h, de {shooter}."
     if metric == "shots":
         return f"{meta.player_name(subj.id)} realizó {int(n['value'])} disparos en la {half} parte."
+    if metric == "xt_added":
+        return (
+            f"{meta.player_name(subj.id)} sumó {es_number(n['value'], 2)} de xT con pases y "
+            f"conducciones completados en la {half} parte."
+        )
     raise ValueError(f"no Spanish template for {metric}")

@@ -42,6 +42,7 @@ MetricName = Literal[
     "duels_lost",
     "win_prob",
     "top_shot_speed",
+    "xt_added",
     "substitutions",
     "cards",
 ]

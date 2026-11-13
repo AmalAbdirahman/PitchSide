@@ -108,6 +108,13 @@ def _text_half(m: Moment, match: Match) -> Text:
             f"Fastest shot of the {half} half: {s} km/h from {player_name(match, m['players'][0])}.",
             [_num("value", s, "km/h")],
         )
+    if rule == "xt_leader":
+        x = round(m["value"], 2)
+        return (
+            f"{player_name(match, m['subject']['id'])} added {x:.2f} xT with completed passes "
+            f"and carries in the {half} half.",
+            [_num("value", x, "xT")],
+        )
     c = int(m["value"])
     return f"{player_name(match, m['subject']['id'])} had {c} shots in the {half} half.", [
         _num("value", c)

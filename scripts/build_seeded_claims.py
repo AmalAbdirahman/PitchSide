@@ -53,6 +53,7 @@ def build() -> list[dict[str, Any]]:
         find("top_shot_speed"),
         find("shots"),
     )
+    xt = find("xt_added")
     ids, out = _ids(), []
 
     def add(cat: str, expect: str, fact: Fact) -> None:
@@ -77,6 +78,7 @@ def build() -> list[dict[str, Any]]:
         (top[0], 7),
         (shots[0], 1),
         (goal, -2),
+        (xt[0], 0.12),
     ]:
         add("wrong_number", "rejected", d.inject_wrong_number(base, next(ids), bump))
     mates = [p for p in match.meta.teams["NOR"].players if p not in ("NOR_01", "NOR_09")]
@@ -87,6 +89,7 @@ def build() -> list[dict[str, Any]]:
         (top[1], "NOR_11"),
         (shots[0], "HAR_08"),
         (shots[1], "NOR_10"),
+        (xt[1], "NOR_10"),
     ]:
         add("wrong_player", "rejected", d.inject_wrong_player(base, next(ids), wrong, match))
     for base, shift in [
@@ -96,6 +99,7 @@ def build() -> list[dict[str, Any]]:
         (acc[2], 2700),
         (goal, 120),
         (shots[1], 2700),
+        (xt[0], 2700),
     ]:
         add("wrong_window", "rejected", d.inject_wrong_window(base, next(ids), shift))
     for base, mode in [

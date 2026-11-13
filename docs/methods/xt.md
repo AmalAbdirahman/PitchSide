@@ -72,7 +72,10 @@ Reading it: xT ranks positions in the right order (the observed rate rises from 
 
 ## How PitchSide uses it
 
-Not yet: the surface is fitted and stored, and the next commit adds the `xt_added` metric that uses it.
+- **Metric.** `xt_added` (`core/metrics.py`) is, for a team or a player over a window, the sum over completed passes and carries of xT at the end point minus xT at the start. Moves backwards count, so it is net threat added. Failed passes, failed carries and shots are not counted. It is in the metric registry, so the verifier recomputes any xT claim from the event log with tolerance `verifier.tol_xt` (0.01, as claims state two decimals).
+- **Moment.** At the end of each half, the player with the largest `xt_added` in that half gets a fact if it is at least `moments.xt_leader_min` (0.1, chosen by hand: in the synthetic match the leaders added about 0.3 per half). The text states only that player's own total, for example "U. Kerridge added 0.30 xT with completed passes and carries in the first half."; it does not say "most", because the verifier checks the number, not the ranking.
+- **Analysis view.** A threat map per team: the surface as shading, and the team's five completed moves with the largest xT gain up to the replay clock. The front end draws the gains the bundle carries (`series.xt`); it computes none.
+- The site's match is synthetic, so xT there is a model fitted on real tournaments applied to simulated passes and carries. The simulator was not tuned to this surface.
 
 ## Limits
 

@@ -61,6 +61,8 @@ moments:
   overload_min_share: 0.5
   turnover_window_s: 600
   turnover_min_count: 3
+  # Least xT a player must add in a half for the xT moment; chosen by hand (P8).
+  xt_leader_min: 0.1
 
 verifier:
   n_min: 6
@@ -69,6 +71,8 @@ verifier:
   tol_share_pp: 0.5
   tol_xg: 0.01
   tol_speed: 0.5
+  # xT added is stated to two decimals; chosen by hand like tol_xg.
+  tol_xt: 0.01
   # Player names in the text: a capitalised word within name_max_edits letter edits of a roster
   # surname (and not equal to one) is a misspelt name and rejects the claim. Only surnames of at
   # least name_min_length letters are compared, so short common words do not trigger it.

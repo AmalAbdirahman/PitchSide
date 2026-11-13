@@ -959,6 +959,72 @@
   "fact": {
    "fact_id": "f_000015",
    "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2699.9,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_11"
+    },
+    "metric": "xt_added",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 0.3
+   },
+   "text": {
+    "draft_en": "U. Kerridge added 0.30 xT with completed passes and carries in the first half.",
+    "canonical_en": "U. Kerridge added 0.30 xT with completed passes and carries in the first half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 0.3,
+      "unit": "xT"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     37,
+     39,
+     42,
+     43,
+     87,
+     97,
+     192,
+     229,
+     235,
+     238,
+     241,
+     254
+    ],
+    "players": [
+     "HAR_11"
+    ],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_016",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000016",
+   "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 3300.0,
    "injected": false,
@@ -1015,11 +1081,11 @@
   }
  },
  {
-  "id": "sc_016",
+  "id": "sc_017",
   "category": "good",
   "expect": "verified",
   "fact": {
-   "fact_id": "f_000016",
+   "fact_id": "f_000017",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 3300.0,
@@ -1080,11 +1146,11 @@
   }
  },
  {
-  "id": "sc_017",
+  "id": "sc_018",
   "category": "good",
   "expect": "verified",
   "fact": {
-   "fact_id": "f_000017",
+   "fact_id": "f_000018",
    "match_id": "nb_v_hr_hero",
    "kind": "moment",
    "created_t": 3445.0,
@@ -1135,11 +1201,11 @@
   }
  },
  {
-  "id": "sc_018",
+  "id": "sc_019",
   "category": "good",
   "expect": "verified",
   "fact": {
-   "fact_id": "f_000018",
+   "fact_id": "f_000019",
    "match_id": "nb_v_hr_hero",
    "kind": "score_event",
    "created_t": 3748.5,
@@ -1205,11 +1271,11 @@
   }
  },
  {
-  "id": "sc_019",
+  "id": "sc_020",
   "category": "good",
   "expect": "verified",
   "fact": {
-   "fact_id": "f_000019",
+   "fact_id": "f_000020",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 3900.0,
@@ -1272,11 +1338,11 @@
   }
  },
  {
-  "id": "sc_020",
+  "id": "sc_021",
   "category": "good",
   "expect": "verified",
   "fact": {
-   "fact_id": "f_000020",
+   "fact_id": "f_000021",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 4200.0,
@@ -1334,11 +1400,11 @@
   }
  },
  {
-  "id": "sc_021",
+  "id": "sc_022",
   "category": "good",
   "expect": "verified",
   "fact": {
-   "fact_id": "f_000021",
+   "fact_id": "f_000022",
    "match_id": "nb_v_hr_hero",
    "kind": "moment",
    "created_t": 4230.0,
@@ -1389,11 +1455,11 @@
   }
  },
  {
-  "id": "sc_022",
+  "id": "sc_023",
   "category": "good",
   "expect": "verified",
   "fact": {
-   "fact_id": "f_000022",
+   "fact_id": "f_000023",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 4800.0,
@@ -1451,11 +1517,11 @@
   }
  },
  {
-  "id": "sc_023",
+  "id": "sc_024",
   "category": "good",
   "expect": "verified",
   "fact": {
-   "fact_id": "f_000023",
+   "fact_id": "f_000024",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 5100.0,
@@ -1528,11 +1594,11 @@
   }
  },
  {
-  "id": "sc_024",
+  "id": "sc_025",
   "category": "good",
   "expect": "verified",
   "fact": {
-   "fact_id": "f_000024",
+   "fact_id": "f_000025",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 5400.0,
@@ -1597,11 +1663,11 @@
   }
  },
  {
-  "id": "sc_025",
+  "id": "sc_026",
   "category": "good",
   "expect": "verified",
   "fact": {
-   "fact_id": "f_000025",
+   "fact_id": "f_000026",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 5400.0,
@@ -1659,11 +1725,11 @@
   }
  },
  {
-  "id": "sc_026",
+  "id": "sc_027",
   "category": "good",
   "expect": "verified",
   "fact": {
-   "fact_id": "f_000026",
+   "fact_id": "f_000027",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 5400.0,
@@ -1775,11 +1841,11 @@
   }
  },
  {
-  "id": "sc_027",
+  "id": "sc_028",
   "category": "good",
   "expect": "verified",
   "fact": {
-   "fact_id": "f_000027",
+   "fact_id": "f_000028",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 5400.0,
@@ -1880,11 +1946,11 @@
   }
  },
  {
-  "id": "sc_028",
+  "id": "sc_029",
   "category": "good",
   "expect": "verified",
   "fact": {
-   "fact_id": "f_000028",
+   "fact_id": "f_000029",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 5400.0,
@@ -1937,11 +2003,11 @@
   }
  },
  {
-  "id": "sc_029",
+  "id": "sc_030",
   "category": "good",
   "expect": "verified",
   "fact": {
-   "fact_id": "f_000029",
+   "fact_id": "f_000030",
    "match_id": "nb_v_hr_hero",
    "kind": "milestone",
    "created_t": 5400.0,
@@ -1992,11 +2058,11 @@
   }
  },
  {
-  "id": "sc_030",
+  "id": "sc_031",
   "category": "good",
   "expect": "verified",
   "fact": {
-   "fact_id": "f_000030",
+   "fact_id": "f_000031",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 5400.0,
@@ -2050,11 +2116,11 @@
   }
  },
  {
-  "id": "sc_031",
+  "id": "sc_032",
   "category": "good",
   "expect": "verified",
   "fact": {
-   "fact_id": "f_000031",
+   "fact_id": "f_000032",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 5400.0,
@@ -2110,11 +2176,11 @@
   }
  },
  {
-  "id": "sc_032",
+  "id": "sc_033",
   "category": "good",
   "expect": "verified",
   "fact": {
-   "fact_id": "f_000032",
+   "fact_id": "f_000033",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 5400.0,
@@ -2164,7 +2230,75 @@
   }
  },
  {
-  "id": "sc_033",
+  "id": "sc_034",
+  "category": "good",
+  "expect": "verified",
+  "fact": {
+   "fact_id": "f_000034",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 5400.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_08"
+    },
+    "metric": "xt_added",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 0.28
+   },
+   "text": {
+    "draft_en": "E. Lindqvist added 0.28 xT with completed passes and carries in the second half.",
+    "canonical_en": "E. Lindqvist added 0.28 xT with completed passes and carries in the second half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 0.28,
+      "unit": "xT"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     336,
+     337,
+     358,
+     392,
+     400,
+     403,
+     455,
+     489,
+     544,
+     545,
+     560,
+     561,
+     594,
+     597
+    ],
+    "players": [
+     "NOR_08"
+    ],
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_035",
   "category": "wrong_number",
   "expect": "rejected",
   "fact": {
@@ -2226,7 +2360,7 @@
   }
  },
  {
-  "id": "sc_034",
+  "id": "sc_036",
   "category": "wrong_number",
   "expect": "rejected",
   "fact": {
@@ -2288,7 +2422,7 @@
   }
  },
  {
-  "id": "sc_035",
+  "id": "sc_037",
   "category": "wrong_number",
   "expect": "rejected",
   "fact": {
@@ -2346,7 +2480,7 @@
   }
  },
  {
-  "id": "sc_036",
+  "id": "sc_038",
   "category": "wrong_number",
   "expect": "rejected",
   "fact": {
@@ -2404,7 +2538,7 @@
   }
  },
  {
-  "id": "sc_037",
+  "id": "sc_039",
   "category": "wrong_number",
   "expect": "rejected",
   "fact": {
@@ -2462,7 +2596,7 @@
   }
  },
  {
-  "id": "sc_038",
+  "id": "sc_040",
   "category": "wrong_number",
   "expect": "rejected",
   "fact": {
@@ -2565,7 +2699,7 @@
   }
  },
  {
-  "id": "sc_039",
+  "id": "sc_041",
   "category": "wrong_number",
   "expect": "rejected",
   "fact": {
@@ -2620,7 +2754,7 @@
   }
  },
  {
-  "id": "sc_040",
+  "id": "sc_042",
   "category": "wrong_number",
   "expect": "rejected",
   "fact": {
@@ -2676,7 +2810,7 @@
   }
  },
  {
-  "id": "sc_041",
+  "id": "sc_043",
   "category": "wrong_number",
   "expect": "rejected",
   "fact": {
@@ -2746,11 +2880,77 @@
   }
  },
  {
-  "id": "sc_042",
-  "category": "wrong_player",
+  "id": "sc_044",
+  "category": "wrong_number",
   "expect": "rejected",
   "fact": {
    "fact_id": "f_900010",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2699.9,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_11"
+    },
+    "metric": "xt_added",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 0.42
+   },
+   "text": {
+    "draft_en": "U. Kerridge added 0.42 xT with completed passes and carries in the first half.",
+    "canonical_en": "U. Kerridge added 0.42 xT with completed passes and carries in the first half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 0.42,
+      "unit": "xT"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     37,
+     39,
+     42,
+     43,
+     87,
+     97,
+     192,
+     229,
+     235,
+     238,
+     241,
+     254
+    ],
+    "players": [
+     "HAR_11"
+    ],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_045",
+  "category": "wrong_player",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900011",
    "match_id": "nb_v_hr_hero",
    "kind": "score_event",
    "created_t": 3748.5,
@@ -2816,11 +3016,11 @@
   }
  },
  {
-  "id": "sc_043",
+  "id": "sc_046",
   "category": "wrong_player",
   "expect": "rejected",
   "fact": {
-   "fact_id": "f_900011",
+   "fact_id": "f_900012",
    "match_id": "nb_v_hr_hero",
    "kind": "score_event",
    "created_t": 3748.5,
@@ -2886,11 +3086,11 @@
   }
  },
  {
-  "id": "sc_044",
+  "id": "sc_047",
   "category": "wrong_player",
   "expect": "rejected",
   "fact": {
-   "fact_id": "f_900012",
+   "fact_id": "f_900013",
    "match_id": "nb_v_hr_hero",
    "kind": "milestone",
    "created_t": 2699.9,
@@ -2941,11 +3141,11 @@
   }
  },
  {
-  "id": "sc_045",
+  "id": "sc_048",
   "category": "wrong_player",
   "expect": "rejected",
   "fact": {
-   "fact_id": "f_900013",
+   "fact_id": "f_900014",
    "match_id": "nb_v_hr_hero",
    "kind": "milestone",
    "created_t": 5400.0,
@@ -2996,11 +3196,11 @@
   }
  },
  {
-  "id": "sc_046",
+  "id": "sc_049",
   "category": "wrong_player",
   "expect": "rejected",
   "fact": {
-   "fact_id": "f_900014",
+   "fact_id": "f_900015",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 2699.9,
@@ -3052,11 +3252,11 @@
   }
  },
  {
-  "id": "sc_047",
+  "id": "sc_050",
   "category": "wrong_player",
   "expect": "rejected",
   "fact": {
-   "fact_id": "f_900015",
+   "fact_id": "f_900016",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 5400.0,
@@ -3109,11 +3309,79 @@
   }
  },
  {
-  "id": "sc_048",
+  "id": "sc_051",
+  "category": "wrong_player",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900017",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 5400.0,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "NOR_10"
+    },
+    "metric": "xt_added",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 0.28
+   },
+   "text": {
+    "draft_en": "F. Moreau-Lake added 0.28 xT with completed passes and carries in the second half.",
+    "canonical_en": "F. Moreau-Lake added 0.28 xT with completed passes and carries in the second half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 0.28,
+      "unit": "xT"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     336,
+     337,
+     358,
+     392,
+     400,
+     403,
+     455,
+     489,
+     544,
+     545,
+     560,
+     561,
+     594,
+     597
+    ],
+    "players": [
+     "NOR_10"
+    ],
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_052",
   "category": "wrong_window",
   "expect": "rejected",
   "fact": {
-   "fact_id": "f_900016",
+   "fact_id": "f_900018",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 600.0,
@@ -3167,11 +3435,11 @@
   }
  },
  {
-  "id": "sc_049",
+  "id": "sc_053",
   "category": "wrong_window",
   "expect": "rejected",
   "fact": {
-   "fact_id": "f_900017",
+   "fact_id": "f_900019",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 1500.0,
@@ -3235,11 +3503,11 @@
   }
  },
  {
-  "id": "sc_050",
+  "id": "sc_054",
   "category": "wrong_window",
   "expect": "rejected",
   "fact": {
-   "fact_id": "f_900018",
+   "fact_id": "f_900020",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 5400.0,
@@ -3295,11 +3563,11 @@
   }
  },
  {
-  "id": "sc_051",
+  "id": "sc_055",
   "category": "wrong_window",
   "expect": "rejected",
   "fact": {
-   "fact_id": "f_900019",
+   "fact_id": "f_900021",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 5400.0,
@@ -3411,11 +3679,11 @@
   }
  },
  {
-  "id": "sc_052",
+  "id": "sc_056",
   "category": "wrong_window",
   "expect": "rejected",
   "fact": {
-   "fact_id": "f_900020",
+   "fact_id": "f_900022",
    "match_id": "nb_v_hr_hero",
    "kind": "score_event",
    "created_t": 3748.5,
@@ -3481,11 +3749,11 @@
   }
  },
  {
-  "id": "sc_053",
+  "id": "sc_057",
   "category": "wrong_window",
   "expect": "rejected",
   "fact": {
-   "fact_id": "f_900021",
+   "fact_id": "f_900023",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 5400.0,
@@ -3538,11 +3806,77 @@
   }
  },
  {
-  "id": "sc_054",
+  "id": "sc_058",
+  "category": "wrong_window",
+  "expect": "rejected",
+  "fact": {
+   "fact_id": "f_900024",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2699.9,
+   "injected": true,
+   "claim": {
+    "subject": {
+     "type": "player",
+     "id": "HAR_11"
+    },
+    "metric": "xt_added",
+    "window": {
+     "start_t": 0.0,
+     "end_t": -0.09999999999990905
+    },
+    "comparator": "eq",
+    "value": 0.3
+   },
+   "text": {
+    "draft_en": "U. Kerridge added 0.30 xT with completed passes and carries in the first half.",
+    "canonical_en": "U. Kerridge added 0.30 xT with completed passes and carries in the first half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 0.3,
+      "unit": "xT"
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     37,
+     39,
+     42,
+     43,
+     87,
+     97,
+     192,
+     229,
+     235,
+     238,
+     241,
+     254
+    ],
+    "players": [
+     "HAR_11"
+    ],
+    "window": {
+     "start_t": 0.0,
+     "end_t": -0.09999999999990905
+    }
+   },
+   "verification": {
+    "status": "pending",
+    "checks": []
+   },
+   "approval": {
+    "state": "not_routed"
+   }
+  }
+ },
+ {
+  "id": "sc_059",
   "category": "future_event",
   "expect": "rejected",
   "fact": {
-   "fact_id": "f_900022",
+   "fact_id": "f_900025",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 600.0,
@@ -3601,11 +3935,11 @@
   }
  },
  {
-  "id": "sc_055",
+  "id": "sc_060",
   "category": "future_event",
   "expect": "rejected",
   "fact": {
-   "fact_id": "f_900023",
+   "fact_id": "f_900026",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 2100.0,
@@ -3660,11 +3994,11 @@
   }
  },
  {
-  "id": "sc_056",
+  "id": "sc_061",
   "category": "future_event",
   "expect": "rejected",
   "fact": {
-   "fact_id": "f_900024",
+   "fact_id": "f_900027",
    "match_id": "nb_v_hr_hero",
    "kind": "score_event",
    "created_t": 3748.5,
@@ -3731,11 +4065,11 @@
   }
  },
  {
-  "id": "sc_057",
+  "id": "sc_062",
   "category": "future_event",
   "expect": "rejected",
   "fact": {
-   "fact_id": "f_900025",
+   "fact_id": "f_900028",
    "match_id": "nb_v_hr_hero",
    "kind": "score_event",
    "created_t": 3718.5,
@@ -3801,11 +4135,11 @@
   }
  },
  {
-  "id": "sc_058",
+  "id": "sc_063",
   "category": "future_event",
   "expect": "rejected",
   "fact": {
-   "fact_id": "f_900026",
+   "fact_id": "f_900029",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 2185.3,
@@ -3879,11 +4213,11 @@
   }
  },
  {
-  "id": "sc_059",
+  "id": "sc_064",
   "category": "future_event",
   "expect": "rejected",
   "fact": {
-   "fact_id": "f_900027",
+   "fact_id": "f_900030",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 1389.9,
@@ -3933,11 +4267,11 @@
   }
  },
  {
-  "id": "sc_060",
+  "id": "sc_065",
   "category": "intent_word",
   "expect": "corrected",
   "fact": {
-   "fact_id": "f_900028",
+   "fact_id": "f_900031",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 1500.0,
@@ -4001,11 +4335,11 @@
   }
  },
  {
-  "id": "sc_061",
+  "id": "sc_066",
   "category": "intent_word",
   "expect": "corrected",
   "fact": {
-   "fact_id": "f_900029",
+   "fact_id": "f_900032",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 4800.0,
@@ -4063,11 +4397,11 @@
   }
  },
  {
-  "id": "sc_062",
+  "id": "sc_067",
   "category": "intent_word",
   "expect": "corrected",
   "fact": {
-   "fact_id": "f_900030",
+   "fact_id": "f_900033",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 5400.0,
@@ -4117,11 +4451,11 @@
   }
  },
  {
-  "id": "sc_063",
+  "id": "sc_068",
   "category": "intent_word",
   "expect": "corrected",
   "fact": {
-   "fact_id": "f_900031",
+   "fact_id": "f_900034",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 600.0,
@@ -4175,11 +4509,11 @@
   }
  },
  {
-  "id": "sc_064",
+  "id": "sc_069",
   "category": "intent_word",
   "expect": "corrected",
   "fact": {
-   "fact_id": "f_900032",
+   "fact_id": "f_900035",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 2699.9,
@@ -4231,11 +4565,11 @@
   }
  },
  {
-  "id": "sc_065",
+  "id": "sc_070",
   "category": "intent_word",
   "expect": "corrected",
   "fact": {
-   "fact_id": "f_900033",
+   "fact_id": "f_900036",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
    "created_t": 2699.9,
@@ -4352,11 +4686,11 @@
   }
  },
  {
-  "id": "sc_066",
+  "id": "sc_071",
   "category": "small_sample",
   "expect": "hedge early or unverifiable",
   "fact": {
-   "fact_id": "f_900034",
+   "fact_id": "f_900037",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 3745.0,
@@ -4411,11 +4745,11 @@
   }
  },
  {
-  "id": "sc_067",
+  "id": "sc_072",
   "category": "small_sample",
   "expect": "hedge early or unverifiable",
   "fact": {
-   "fact_id": "f_900035",
+   "fact_id": "f_900038",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 360.0,
@@ -4470,11 +4804,11 @@
   }
  },
  {
-  "id": "sc_068",
+  "id": "sc_073",
   "category": "small_sample",
   "expect": "hedge early or unverifiable",
   "fact": {
-   "fact_id": "f_900036",
+   "fact_id": "f_900039",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 90.0,
@@ -4531,11 +4865,11 @@
   }
  },
  {
-  "id": "sc_069",
+  "id": "sc_074",
   "category": "small_sample",
   "expect": "hedge early or unverifiable",
   "fact": {
-   "fact_id": "f_900037",
+   "fact_id": "f_900040",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 2760.0,
@@ -4592,11 +4926,11 @@
   }
  },
  {
-  "id": "sc_070",
+  "id": "sc_075",
   "category": "small_sample",
   "expect": "hedge early or unverifiable",
   "fact": {
-   "fact_id": "f_900039",
+   "fact_id": "f_900042",
    "match_id": "nb_v_hr_hero",
    "kind": "tactical",
    "created_t": 5220.0,

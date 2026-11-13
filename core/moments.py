@@ -13,6 +13,7 @@ from core.events import Clock, Event
 from core.facts import Subject, Window
 from core.metrics import Metric, compute_metric, in_window, require_metric
 from core.winprob import win_probability
+from core.xt import completed_move
 
 
 def ordinal(n: int) -> str:
@@ -255,6 +256,7 @@ def half_moments(
                 )
             )
         out += _top_shooter(events, w, name, MetricContext.of(s))
+        out += _xt_leader(events, w, name, MetricContext.of(s), s.moments.xt_leader_min)
     return out
 
 
@@ -283,6 +285,30 @@ def _top_shooter(
             m,
             half=name,
             players=[pid],
+        )
+    ]
+
+
+def _xt_leader(
+    events: list[Event], w: Window, name: str, ctx: MetricContext, least: float
+) -> list[dict[str, Any]]:
+    """The player who added the most xT in the half, if at least `least`. The text states only
+    the player's own total, which the verifier recomputes; it makes no "most" claim."""
+    movers = sorted(
+        {e.player_id for e in in_window(events, w.start_t, w.end_t) if completed_move(e)}
+    )
+    best: tuple[Metric, str] | None = None
+    for pid in movers:
+        m = require_metric("xt_added", Subject(type="player", id=pid), w, events, ctx)
+        if best is None or m.value > best[0].value:
+            best = (m, pid)
+    if best is None or best[0].value < least:
+        return []
+    m, pid = best
+    subj = Subject(type="player", id=pid)
+    return [
+        _moment(
+            "stat", "xt_leader", "xt_added", subj, w.start_t, w.end_t, m, half=name, players=[pid]
         )
     ]
 

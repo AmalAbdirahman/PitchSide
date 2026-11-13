@@ -79,6 +79,7 @@ class Moments(_Section):
     overload_min_share: float
     turnover_window_s: int
     turnover_min_count: int
+    xt_leader_min: float
 
 
 class Verifier(_Section):
@@ -88,6 +89,7 @@ class Verifier(_Section):
     tol_share_pp: float
     tol_xg: float
     tol_speed: float
+    tol_xt: float
     name_max_edits: int
     name_min_length: int
     early_markers: tuple[str, ...]
@@ -184,13 +186,14 @@ class Settings(_Section):
 
 @dataclass(frozen=True)
 class MetricContext:
-    """What a metric needs besides the events: the pitch geometry."""
+    """What a metric needs besides the events: the pitch geometry and the xT surface."""
 
     pitch: Pitch
+    xt: Xt
 
     @classmethod
     def of(cls, s: Settings) -> MetricContext:
-        return cls(s.pitch)
+        return cls(s.pitch, s.xt)
 
 
 def load(path: Path = CONFIG_PATH) -> Settings:
