@@ -55,6 +55,8 @@ The hackathon is over. The goal now is a polished, honest portfolio project: cle
 python -m pip install -e ".[dev]"            # after P1
 pytest -q
 ruff check . && ruff format --check .
+node --test "tests/js/*.test.mjs"
+pytest -m e2e                                # browser smoke test; needs ".[e2e]" and playwright install chromium
 mypy core app
 python -m sim.generate --seed 7
 python -m app.build_bundle                    # offline, replays data/agent_cache.json

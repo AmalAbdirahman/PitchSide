@@ -18,6 +18,8 @@ data = ["pandas", "scipy", "scikit-learn", "kloppy", "statsbombpy", "matplotlib"
 # Only for `python -m app.build_bundle --foundry` and scripts/foundry_smoke.py.
 # brotli carried over from requirements-foundry.txt (added with the Scout agent, commit 100c01c).
 agents = ["azure-ai-projects>=2.3.0", "azure-identity", "python-dotenv", "brotli>=1.2"]
+# Browser smoke test of docs/ (tests/test_e2e.py). Also needs `python -m playwright install chromium`.
+e2e = ["playwright>=1.50"]
 
 [tool.setuptools]
 packages = ["app", "core", "sim"]
@@ -25,6 +27,9 @@ packages = ["app", "core", "sim"]
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
+markers = ["e2e: browser smoke test of the static site; run with `pytest -m e2e`"]
+# A plain `pytest` skips the browser test; `pytest -m e2e` overrides this (the last -m wins).
+addopts = "-m 'not e2e'"
 
 [tool.ruff]
 line-length = 100

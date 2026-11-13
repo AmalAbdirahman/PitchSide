@@ -18,3 +18,24 @@ jobs:
       - run: ruff format --check .
       - run: mypy core app
       - run: pytest -q
+
+  js:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      # Built-in node:test only; no npm packages. Same cases as tests/test_routing_cases.py.
+      - run: node --test "tests/js/*.test.mjs"
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e ".[dev,e2e]"
+      - run: python -m playwright install --with-deps chromium
+      - run: pytest -m e2e -q

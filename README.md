@@ -44,11 +44,20 @@ python -m pip install -e ".[dev]"                  # pydantic, pyyaml, jsonschem
 python -m http.server 8000 --directory docs        # then open http://localhost:8000
 pytest -q                                          # no network needed
 ruff check . && ruff format --check . && mypy core app
+node --test "tests/js/*.test.mjs"                 # routing cases against docs/js/routing.js (Node 22, no npm)
 python scripts/eval.py                             # verifier eval + Scout numbers from the cache
 python -m app.build_bundle                         # offline rebuild, replays data/agent_cache.json
 ```
 
-Dependency groups live in `pyproject.toml`: `dev` (tooling), `data` (open-data analysis, not yet used) and `agents` (the Foundry client). `pre-commit install` runs ruff and mypy before each commit.
+Dependency groups live in `pyproject.toml`: `dev` (tooling), `data` (open-data analysis, not yet used), `agents` (the Foundry client) and `e2e` (Playwright). `pre-commit install` runs ruff and mypy before each commit.
+
+Browser smoke test (serves `docs/` locally, plays to full time at 4x, vetoes one fact, approves one, lets one expire, and fails on any console error):
+
+```
+python -m pip install -e ".[dev,e2e]"
+python -m playwright install chromium
+pytest -m e2e
+```
 
 Rebuilding with the agent (needs a Foundry project and a local `.env` with `FOUNDRY_PROJECT_ENDPOINT` and `FOUNDRY_MODEL`):
 
@@ -63,7 +72,7 @@ Limits: 45 s per call, at most 40 calls per build (`config.yaml`). A `--foundry`
 
 - **Microsoft Foundry (Agent Service), `gpt-5-mini` deployment, at build time.** The Scout is created with `agents.create_version` (`PromptAgentDefinition`) and called through the project's OpenAI-compatible client. In the committed cache, all 33 calls went through the agent path (`foundry_agent`); none needed the plain-responses fallback.
 - **GitHub Pages** is the hosting target: the site is plain static files in `docs/`.
-- **GitHub Actions** runs `ruff`, `mypy core app` and `pytest -q` on Python 3.12 for every push and pull request (`.github/workflows/test.yml`). It installs only the runtime dependencies and the `dev` group, so the checks prove the build needs no Azure packages or network.
+- **GitHub Actions** runs `ruff`, `mypy core app` and `pytest -q` on Python 3.12 for every push and pull request (`.github/workflows/test.yml`). It installs only the runtime dependencies and the `dev` group, so the checks prove the build needs no Azure packages or network. Two more jobs run the routing cases under `node --test` and the Playwright browser smoke test.
 
 ## Results (from real runs)
 
