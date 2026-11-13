@@ -198,12 +198,16 @@ class AuditStep(_Strict):
     path: Literal["foundry_agent", "foundry_responses", "rules"] | None = None
     model: str | None = None
     ms: Annotated[int, Field(ge=0)] | None = None
+    mode: Literal["handed", "explore"] | None = None  # Scout steps only (P11)
+    tool_calls: Annotated[int, Field(ge=0)] | None = None  # read-only tool calls in this attempt
 
 
 class Audit(_Strict):
-    """Who drafted and checked this fact, in order (SPEC section 19)."""
+    """Who drafted and checked this fact, in order (SPEC section 19), and the facts the Scout was
+    shown as memory (P11)."""
 
     steps: list[AuditStep]
+    memory: list[str] | None = None
 
 
 class Fact(_Strict):

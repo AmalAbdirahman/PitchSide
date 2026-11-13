@@ -152,9 +152,9 @@ def make_cues(facts: list[Fact]) -> list[dict[str, Any]]:
     return [{"cue_id": f"c_{i:06d}", **c} for i, c in enumerate(cues, 1)]
 
 
-def make_scout(foundry: bool, s: Settings) -> Scout | None:
+def make_scout(foundry: bool, s: Settings, mode: str | None = None) -> Scout | None:
     """Live Scout with --foundry; otherwise replay the cache if there is one; otherwise no Scout."""
-    budget = s.agents.max_calls
+    budget = s.agents.budget(mode or s.agents.mode)
     if foundry:
         return Scout(FoundryCaller(s.agents), {}, budget, prior=load_cache())
     return Scout(None, load_cache(), budget) if CACHE_PATH.exists() else None
@@ -167,7 +167,7 @@ def checked_drafts(
     drafts = draft_facts(moments, match, league, s)
     good, injected = drafts[: len(moments)], drafts[len(moments) :]
     if scout:
-        first = run_scout(scout, moments, good, match, league, s)
+        first = run_scout(scout, moments, good, match, league, s, s.agents.mode)
     else:
         first = [verify_rules(d, match, league, s) for d in good]
     return first + [verify_rules(d, match, league, s) for d in injected]

@@ -168,11 +168,19 @@ data_card:
   hero_events: [550, 650]
 
 # Build-time Scout agent on Microsoft Foundry (SPEC section 19). Only used with --foundry.
+# The Scout (P11). mode: what the site's build uses, handed (the moment's numbers are given) or
+# explore (the Scout finds them with read-only tools). Budgets count model responses per build;
+# max_tool_rounds caps one conversation; max_events caps a list_events answer; memory_size is how many
+# aired facts each request carries. All chosen by hand.
 agents:
   scout_name: pitchside-scout
-  max_calls: 40
-  max_retries: 1
-  timeout_s: 45
+  mode: handed
+  max_calls: 100
+  explore_max_calls: 400
+  max_tool_rounds: 8
+  max_events: 40
+  memory_size: 6
+  timeout_s: 60
 
 # StatsBomb Open Data (P6). Raw files are downloaded into data/external/ (git-ignored) by
 # scripts/fetch_statsbomb.py and never committed. Licence: StatsBomb Public Data User Agreement.

@@ -164,9 +164,16 @@ class DataCard(_Section):
 
 class Agents(_Section):
     scout_name: str
+    mode: Literal["handed", "explore"]
     max_calls: int
-    max_retries: int
+    explore_max_calls: int
+    max_tool_rounds: int
+    max_events: int
+    memory_size: int
     timeout_s: int
+
+    def budget(self, mode: str) -> int:
+        return self.explore_max_calls if mode == "explore" else self.max_calls
 
 
 class StatsBomb(_Section):

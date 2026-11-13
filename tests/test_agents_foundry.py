@@ -9,9 +9,10 @@ from typing import Any
 
 import pytest
 
-from app.agents_foundry import Scout, run_scout, scout_metrics, scout_request
+from app.agents_foundry import CallResult, Scout, run_scout, scout_metrics
 from app.build_bundle import build
 from app.drafter import draft_facts, render
+from app.scout_requests import handed_request
 from core.config import load
 from core.events import Match
 from core.facts import AuditStep, Fact
@@ -53,7 +54,7 @@ def good_output(moments: list[Moment], match: Match) -> Callable[[dict[str, Any]
             "claim": claim,
             "text": {
                 "canonical_en": text,
-                "numbers": [n.model_dump(exclude_none=True) for n in nums],
+                "numbers": [{"unit": None, **n.model_dump(exclude_none=True)} for n in nums],
             },
             "evidence_ids": req["evidence_ids"],
         }
@@ -73,12 +74,13 @@ def wrong_number(out: dict[str, Any], bump: int = 5) -> dict[str, Any]:
 
 
 def fake_caller(answer: Callable[[dict[str, Any]], Any], log: list[dict[str, Any]] | None = None):
-    def call(user: str) -> tuple[str, str, str]:
+    def call(user: str, mode: str, tools: Any) -> CallResult:
         req = json.loads(user)
         if log is not None:
             log.append(req)
         out = answer(req)
-        return (out if isinstance(out, str) else json.dumps(out)), "foundry_agent", "fake-model"
+        text = out if isinstance(out, str) else json.dumps(out)
+        return CallResult(text, "foundry_agent", "fake-model", 1, [])
 
     return call
 
@@ -176,7 +178,9 @@ def test_cache_replays_the_same_bundle_with_no_client(moments: list[Moment], mat
 
 
 def test_request_holds_only_input_facts(moments: list[Moment], match: Match) -> None:
-    req = scout_request(turnovers(moments)[0], match, S.verifier)
+    req = handed_request(
+        turnovers(moments)[0], match, S.verifier, {"aired": [], "last_by_team": {}}
+    )
     assert set(req) == {
         "moment",
         "minutes",
@@ -186,6 +190,7 @@ def test_request_holds_only_input_facts(moments: list[Moment], match: Match) -> 
         "claim_value",
         "evidence_ids",
         "hedge",
+        "memory",
     }
     assert "impact" not in req["moment"]
 

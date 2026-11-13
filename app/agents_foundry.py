@@ -1,14 +1,18 @@
 """Scout: a drafting agent on Microsoft Foundry, run at build time only (SPEC section 19).
 
-The Scout turns one moment summary computed by core/ into a claim and English
-wording. The deterministic verifier is still the gate: a rejected claim goes
-back to the Scout once with the failed checks, and if it fails again it stays
-rejected and is logged. Any call failure falls back to the rule-based drafter
-for that moment, so the build always completes.
+The Scout drafts one claim and an English sentence per moment, in one of two modes (P11):
+- handed: it is given the moment's numbers and evidence, computed by code, and words them;
+- explore: it is given the match state and the moment as a lead, and finds numbers and evidence
+  itself with read-only tools backed by the metric registry (app/scout_tools.py).
+Its reply must follow a JSON Schema generated from Pydantic models (app/scout_schema.py); anything
+else is a typed error. The deterministic verifier is the gate: a rejected claim or an invalid reply
+goes back to the Scout once with the problem, and a second failure stays rejected (or, for an
+invalid reply, falls back to the rule-based drafter). Each request carries a compact memory of what
+has already aired (app/scout_memory.py), recorded in the audit trail.
 
-Every request and response is cached in data/agent_cache.json, so a build
-without --foundry replays the same agent output with no network. Azure
-packages are imported only when --foundry runs.
+Every request, response and tool call is cached in data/agent_cache.json, so a build without
+--foundry replays the same agent output with no network; replay re-runs each recorded tool call and
+refuses a record whose tool outputs no longer match. Azure packages are imported only with --foundry.
 """
 
 from __future__ import annotations
@@ -16,153 +20,61 @@ from __future__ import annotations
 import hashlib
 import json
 import os
-import re
 import time
 from collections.abc import Callable
-from dataclasses import dataclass, field
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any
 
-from app.drafter import Moment, claim_value, player_name, render, team_name
+from pydantic import ValidationError
+
+from app.drafter import Moment, render
+from app.scout_memory import ROUTABLE, memory_for, memory_ids
+from app.scout_prompts import EXPLORE, HANDED
+from app.scout_requests import Mode, explore_request, fact_from_output, handed_request
+from app.scout_schema import ScoutOutputError, as_dict, output_schema, parse_scout
+from app.scout_tools import TOOL_SPECS, ToolBox, ToolCall
 from app.verifier import verify
-from core.config import ROOT, Agents, Settings, Verifier
+from core.config import ROOT, Agents, MetricContext, Settings, Verifier
 from core.events import Match
-from core.facts import (
-    Audit,
-    AuditStep,
-    Claim,
-    Evidence,
-    Fact,
-    FactText,
-    Impact,
-    TextNumber,
-    validate_fact,
-)
+from core.facts import Audit, AuditStep, Fact, validate_fact
 from core.sources import League
 
-Record = dict[str, Any]  # one cache entry: the request and the raw response, as JSON
+Record = dict[str, Any]  # one cache entry: the request, the raw response and the tool calls
 Step = AuditStep
 CACHE_PATH = ROOT / "data" / "agent_cache.json"
-ROUTABLE = ("verified", "corrected")
-MOMENT_FIELDS = (
-    "rule",
-    "kind",
-    "metric",
-    "subject",
-    "window",
-    "team",
-    "lane",
-    "half",
-    "card",
-    "own_goal",
-    "n",
-    "k",
-)
-
-SCOUT_INSTRUCTIONS = """You are Scout, the drafting agent in a football match control room. The match is synthetic.
-The user message is JSON describing one moment computed from the event log. Reply with JSON only, no prose:
-{"claim": {"subject": {"type": ..., "id": ...}, "metric": ..., "window": {"start_t": ..., "end_t": ...},
- "comparator": "eq", "value": <number>},
- "text": {"canonical_en": "<one broadcast sentence, at most 200 characters>",
-          "numbers": [{"key": ..., "value": ..., "unit": ...}]},
- "evidence_ids": [<integers>]}
-Rules:
-- Claim only what is in the input. Copy subject, metric and window from the input moment.
-- claim.value is the input claim_value.
-- text.numbers must list exactly the input numbers, same keys. Every number written in the sentence must be one of them,
-  written the same way (minutes as ordinals like 63rd, percentages like 71%, xG with two decimals). Write no other digits.
-- Minutes are match minutes. since_minute is when the window starts; do not mention when it ends.
-- For attack_share_* metrics the value is the share of the team's OWN attacks that went down that lane:
-  write "71% of Northbridge attacks have gone down the right", never "71% of right-side attacks".
-- For top_shot_speed say it was the fastest shot of that half. Write xG with exactly two decimals (1.00, 0.30).
-- Use only the team and player names given in the input. Name no one else.
-- Cite only event ids from the input evidence_ids.
-- No intent words: never say deliberately, tried to, wanted to, decided to. Describe what happened, not why.
-- Respect the hedge: "clear" or "none" = plain statement; "suggests" = start with "The numbers suggest";
-  "early" = start with "Early sign:".
-- If the input has "feedback", your previous claim failed the verifier. Fix exactly what the feedback says."""
+INSTRUCTIONS: dict[str, str] = {"handed": HANDED, "explore": EXPLORE}
 
 
-# ---- requests and facts -----------------------------------------------------
+# ---- feedback and audit -------------------------------------------------------------
 
 
-def scout_request(m: Moment, match: Match, v: Verifier) -> dict[str, Any]:
-    """The JSON the Scout sees for one moment: facts computed by code, nothing else."""
-    _, nums = render(m, match, v)
-    teams = {tid: team_name(match, tid) for tid in match.meta.teams}
-    pids = set(m.get("players", [])) | (
-        {m["subject"]["id"]} if m["subject"]["type"] == "player" else set()
-    )
-    hedge = str(m["hedge"]) if m["rule"] == "overload" else "none"
-    return {
-        "moment": {k: m[k] for k in MOMENT_FIELDS if k in m},
-        "minutes": {
-            "window_start": match.meta.clock.minute(m["window"]["start_t"]),
-            "window_end": match.meta.clock.minute(m["window"]["end_t"]),
-        },
-        "teams": teams,
-        "players": {p: player_name(match, p) for p in sorted(pids)},
-        "numbers": [n.model_dump(exclude_none=True) for n in nums],
-        "claim_value": claim_value(m, nums),
-        "evidence_ids": list(m["evidence_ids"]),
-        "hedge": hedge,
-    }
+def feedback(checked: Fact) -> str:
+    failed = [f"{c.name}: {c.detail}" for c in checked.verification.checks if not c.passed]
+    return "Your claim failed the verifier. " + "; ".join(failed) + ". Revise using only the input."
 
 
-def parse_output(text: str) -> dict[str, Any]:
-    body = re.sub(r"^```(?:json)?\s*|\s*```$", "", text.strip())
-    out = json.loads(body)
-    if not isinstance(out, dict):
-        raise ValueError("Scout output is not a JSON object")
-    return out
+def step(
+    agent: str,
+    attempt: int,
+    outcome: str,
+    rec: Record | None = None,
+    path: str | None = None,
+    mode: Mode | None = None,
+) -> Step:
+    s: dict[str, Any] = {"agent": agent, "attempt": attempt, "outcome": outcome}
+    if rec and "path" in rec:
+        s.update(path=rec["path"], model=rec["model"], ms=rec["ms"])
+        s["tool_calls"] = len(rec.get("tool_calls", [])) if mode == "explore" else None
+    elif path:
+        s["path"] = path
+    if agent == "Scout":
+        s["mode"] = mode
+    return AuditStep.model_validate({k: v for k, v in s.items() if v is not None})
 
 
-def scout_fact(
-    out: dict[str, Any],
-    m: Moment,
-    match: Match,
-    fact_id: str,
-    required: list[str],
-    v: Verifier,
-) -> Fact:
-    """Build a draft fact from Scout output. Raises ValueError/KeyError/TypeError on malformed output.
-
-    The output is validated strictly (no "71" for 71), as the JSON Schema did before.
-    """
-    claim = Claim.model_validate(out["claim"], strict=True)
-    text = out["text"]
-    numbers = [TextNumber.model_validate(n, strict=True) for n in text["numbers"]]
-    keys = sorted(n.key for n in numbers)
-    if keys != sorted(required):
-        raise ValueError(f"numbers keys {keys} differ from the input keys {sorted(required)}")
-    if claim.metric.startswith("attack_share_"):
-        claim.baseline = float(m["baseline"])  # set by code, never by the model
-    fact = Fact.model_validate(
-        {
-            "fact_id": fact_id,
-            "match_id": match.meta.match_id,
-            "kind": m["kind"],
-            "created_t": m["created_t"],
-            "injected": False,
-            "claim": claim,
-            "text": FactText.model_validate(
-                {
-                    "draft_en": text["canonical_en"],
-                    "canonical_en": text["canonical_en"],
-                    "numbers": numbers,
-                },
-                strict=True,
-            ),
-            "evidence": Evidence(
-                event_ids=[int(i) for i in out["evidence_ids"]],
-                players=list(m.get("players", [])),
-                window=claim.window.model_copy(),
-            ),
-            "verification": {"status": "pending", "checks": []},
-            "approval": {"state": "not_routed"},
-            "impact": Impact.model_validate(m["impact"]) if "impact" in m else None,
-        }
-    )
+def with_audit(fact: Fact, steps: list[Step], memory: list[str] | None = None) -> Fact:
+    fact.audit = Audit(steps=steps, memory=memory)
     validate_fact(fact)
     return fact
 
@@ -175,33 +87,13 @@ def template_wording(draft: Fact, m: Moment, match: Match, v: Verifier) -> Fact:
     return draft
 
 
-def feedback(checked: Fact) -> str:
-    failed = [f"{c.name}: {c.detail}" for c in checked.verification.checks if not c.passed]
-    return "Your claim failed the verifier. " + "; ".join(failed) + ". Revise using only the input."
-
-
-# ---- audit ------------------------------------------------------------------------
-
-
-def step(
-    agent: str, attempt: int, outcome: str, rec: Record | None = None, path: str | None = None
-) -> Step:
-    s: dict[str, Any] = {"agent": agent, "attempt": attempt, "outcome": outcome}
-    if rec and "path" in rec:
-        s.update(path=rec["path"], model=rec["model"], ms=rec["ms"])
-    elif path:
-        s["path"] = path
-    return AuditStep.model_validate(s)
-
-
-def with_audit(fact: Fact, steps: list[Step]) -> Fact:
-    fact.audit = Audit(steps=steps)
-    validate_fact(fact)
-    return fact
-
-
 def verify_rules(
-    draft: Fact, match: Match, league: League, s: Settings, steps: list[Step] | None = None
+    draft: Fact,
+    match: Match,
+    league: League,
+    s: Settings,
+    steps: list[Step] | None = None,
+    memory: list[str] | None = None,
 ) -> Fact:
     """Verify a rule-based draft and record that the rules wrote it."""
     checked = verify(draft, match, league, s)
@@ -209,15 +101,23 @@ def verify_rules(
         step("Drafter", 1, "drafted", path="rules"),
         step("Verifier", 1, checked.verification.status, path="rules"),
     ]
-    return with_audit(checked, trail)
+    return with_audit(checked, trail, memory)
 
 
 # ---- cache and session --------------------------------------------------------------
 
 
-def cache_key(request: dict[str, Any]) -> str:
+def cache_key(request: dict[str, Any], mode: Mode) -> str:
     blob = json.dumps(
-        {"agent": "Scout", "instructions": SCOUT_INSTRUCTIONS, "input": request}, sort_keys=True
+        {
+            "agent": "Scout",
+            "mode": mode,
+            "instructions": INSTRUCTIONS[mode],
+            "schema": output_schema(),
+            "tools": TOOL_SPECS if mode == "explore" else [],
+            "input": request,
+        },
+        sort_keys=True,
     )
     return hashlib.sha256(blob.encode("utf-8")).hexdigest()
 
@@ -228,7 +128,7 @@ def load_cache(path: Path = CACHE_PATH) -> dict[str, Record]:
 
 def save_cache(entries: dict[str, Record], path: Path = CACHE_PATH) -> None:
     doc = {
-        "note": "Scout requests and responses from a --foundry build. Synthetic match data only.",
+        "note": "Scout requests, responses and tool calls from a --foundry build. Synthetic match data only.",
         "entries": entries,
     }
     path.write_text(
@@ -236,15 +136,33 @@ def save_cache(entries: dict[str, Record], path: Path = CACHE_PATH) -> None:
     )
 
 
-Caller = Callable[[str], tuple[str, str, str]]  # user JSON -> (response text, path, model)
+@dataclass(frozen=True)
+class CallResult:
+    text: str
+    path: str
+    model: str
+    rounds: int  # model responses in the conversation (1 + rounds of tool calls)
+    tool_calls: list[ToolCall]
+
+
+Caller = Callable[[str, Mode, ToolBox | None], CallResult]  # user JSON, mode, tools -> result
+
+
+def replay_ok(rec: Record, tools: ToolBox | None) -> bool:
+    """Re-run every recorded tool call; the record stands only if each output is unchanged."""
+    recorded = rec.get("tool_calls", [])
+    if tools is None:
+        return not recorded
+    return all(tools.call(c["name"], c["arguments"]) == c["output"] for c in recorded)
 
 
 @dataclass
 class Scout:
     """One build's Scout session. `caller` is None when replaying from the cache.
 
-    A live session reuses successful answers in `prior` for identical requests, so a re-run
-    after a network failure only repeats the failed calls.
+    A live session reuses successful answers in `prior` for identical requests, so a re-run after
+    a network failure only repeats the failed calls. The budget counts model responses, checked
+    before each conversation.
     """
 
     caller: Caller | None
@@ -253,102 +171,164 @@ class Scout:
     prior: dict[str, Record] = field(default_factory=dict)
     calls: int = 0
 
-    def ask(self, request: dict[str, Any]) -> tuple[str, Record | None]:
+    def ask(
+        self, request: dict[str, Any], mode: Mode, tools: ToolBox | None
+    ) -> tuple[str, Record | None]:
         """Outcome label and the cached or live record for one request."""
         if self.calls >= self.budget:
             return "no_budget", None
-        self.calls += 1
-        key = cache_key(request)
+        key = cache_key(request, mode)
+        stored = self.cache.get(key) if self.caller is None else self.prior.get(key)
+        if stored is not None and "error" not in stored:
+            self.calls += int(stored.get("rounds", 1))
+            if not replay_ok(stored, tools):
+                return "replay_mismatch", stored
+            self.cache[key] = stored
+            return "ok", stored
         if self.caller is None:
-            rec = self.cache.get(key)
-            return (
-                ("not_cached", None)
-                if rec is None
-                else (("call_failed" if "error" in rec else "ok"), rec)
-            )
-        if key in self.prior and "error" not in self.prior[key]:
-            self.cache[key] = self.prior[key]
-            return "ok", self.cache[key]
+            return ("not_cached", None) if stored is None else ("call_failed", stored)
+        return self._live(key, request, mode, tools)
+
+    def _live(
+        self, key: str, request: dict[str, Any], mode: Mode, tools: ToolBox | None
+    ) -> tuple[str, Record | None]:
+        assert self.caller is not None
         t0 = time.perf_counter()
         try:
-            text, path, model = self.caller(json.dumps(request, ensure_ascii=False))
-        except Exception as e:  # noqa: BLE001 - any failure falls back to the rules
+            res = self.caller(json.dumps(request, ensure_ascii=False), mode, tools)
+        except Exception as e:  # noqa: BLE001 - any failure falls back to the rules for this moment
             print(f"  Scout call failed: {type(e).__name__}: {str(e)[:200]}")
-            self.cache[key] = {"request": request, "error": type(e).__name__}
+            self.calls += 1
+            self.cache[key] = {"request": request, "mode": mode, "error": type(e).__name__}
             return "call_failed", self.cache[key]
-        rec = {
+        self.calls += res.rounds
+        self.cache[key] = {
             "request": request,
-            "response_text": text,
-            "path": path,
-            "model": model,
+            "mode": mode,
+            "response_text": res.text,
+            "path": res.path,
+            "model": res.model,
             "ms": round(1000 * (time.perf_counter() - t0)),
+            "rounds": res.rounds,
+            "tool_calls": [asdict(c) for c in res.tool_calls],
         }
-        self.cache[key] = rec
-        return "ok", rec
+        return "ok", self.cache[key]
 
 
-# ---- the Scout loop ------------------------------------------------------------------------
+# ---- one attempt -----------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class Attempt:
+    fact: Fact | None  # verified draft, or None
+    steps: list[Step]
+    output: Any = None  # what to show the Scout as previous_output on a retry
+    feedback: str | None = None  # set when a retry may help
+
+
+def toolbox(m: Moment, match: Match, mode: Mode, s: Settings) -> ToolBox | None:
+    if mode == "handed":
+        return None
+    return ToolBox(match, MetricContext.of(s), float(m["created_t"]), s.agents.max_events)
 
 
 def attempt(
     scout: Scout,
     request: dict[str, Any],
+    mode: Mode,
     m: Moment,
     match: Match,
     league: League,
     fact_id: str,
     n: int,
     s: Settings,
-) -> tuple[Fact | None, dict[str, Any] | None, list[Step]]:
-    """One Scout call. Returns (checked fact or None, parsed output or None, the steps taken)."""
-    outcome, rec = scout.ask(request)
+) -> Attempt:
+    """One Scout conversation, then the verifier."""
+    outcome, rec = scout.ask(request, mode, toolbox(m, match, mode, s))
     if outcome != "ok" or rec is None:
-        return None, None, [step("Scout", n, outcome, rec)]
+        return Attempt(None, [step("Scout", n, outcome, rec, mode=mode)])
+    required = [k["key"] for k in request["numbers"]] if mode == "handed" else None
     try:
-        out = parse_output(rec["response_text"])
-        keys = [k["key"] for k in request["numbers"]]
-        draft = scout_fact(out, m, match, fact_id, keys, s.verifier)
-    except (ValueError, KeyError, TypeError) as e:
-        return None, None, [step("Scout", n, f"invalid_output: {str(e)[:120]}", rec)]
-    steps = [step("Scout", n, "drafted", rec)]
-    if m["metric"] in s.router.t0_metrics:
+        out = parse_scout(rec["response_text"])
+        draft = fact_from_output(
+            out, m, match, league, fact_id, mode, required, s.router.t0_metrics
+        )
+    except (ScoutOutputError, ValidationError) as e:
+        problem = e.problems if isinstance(e, ScoutOutputError) else str(e)[:600]
+        bad = step("Scout", n, f"invalid_output: {problem[:120]}", rec, mode=mode)
+        fb = f"Your reply was invalid: {problem}. Reply again following the schema and the rules."
+        return Attempt(None, [bad], rec["response_text"], fb)
+    steps = [step("Scout", n, "drafted", rec, mode=mode)]
+    if draft.claim.metric in s.router.t0_metrics:
         draft = template_wording(draft, m, match, s.verifier)
         steps.append(step("Drafter", n, "template wording (T0)", path="rules"))
-    return verify(draft, match, league, s), out, steps
+    checked = verify(draft, match, league, s)
+    steps.append(step("Verifier", n, checked.verification.status, path="rules"))
+    retry = None if checked.verification.status in ROUTABLE else feedback(checked)
+    return Attempt(checked, steps, as_dict(out), retry)
 
 
-def scout_moment_first(
-    scout: Scout, m: Moment, rules_draft: Fact, match: Match, league: League, s: Settings
-) -> tuple[Fact, Any]:
-    request = scout_request(m, match, s.verifier)
-    checked, out, steps = attempt(scout, request, m, match, league, rules_draft.fact_id, 1, s)
-    if checked is None:
-        return verify_rules(rules_draft, match, league, s, steps), None
-    trail = steps + [step("Verifier", 1, checked.verification.status, path="rules")]
-    return with_audit(checked, trail), (request, out)
+# ---- the Scout loop ----------------------------------------------------------------------
 
 
-def scout_moment_retry(
+@dataclass(frozen=True)
+class Pending:
+    """A first attempt that may be retried once."""
+
+    request: dict[str, Any]
+    first: Attempt
+    rules_draft: Fact
+    memory: list[str]
+
+
+def request_for(
+    m: Moment, match: Match, mode: Mode, memory: dict[str, Any], s: Settings
+) -> dict[str, Any]:
+    if mode == "handed":
+        return handed_request(m, match, s.verifier, memory)
+    return explore_request(m, match, memory)
+
+
+def first_pass(
     scout: Scout,
     m: Moment,
-    first: Fact,
-    ctx: Any,
+    rules_draft: Fact,
     match: Match,
     league: League,
     s: Settings,
+    mode: Mode,
+    memory: dict[str, Any],
+) -> tuple[Fact, Pending]:
+    """The fact as it stands after one attempt (rules if the Scout gave nothing usable)."""
+    request = request_for(m, match, mode, memory, s)
+    a = attempt(scout, request, mode, m, match, league, rules_draft.fact_id, 1, s)
+    pending = Pending(request, a, rules_draft, memory_ids(memory))
+    if a.fact is None:
+        return verify_rules(rules_draft, match, league, s, a.steps, pending.memory), pending
+    return with_audit(a.fact, a.steps, pending.memory), pending
+
+
+def second_pass(
+    scout: Scout,
+    m: Moment,
+    current: Fact,
+    p: Pending,
+    match: Match,
+    league: League,
+    s: Settings,
+    mode: Mode,
 ) -> Fact:
-    """One retry for a Scout claim the verifier did not pass. Otherwise the fact is unchanged."""
-    if ctx is None or first.verification.status in ROUTABLE:
-        return first
-    request, out = ctx
-    retry_req = {**request, "previous_output": out, "feedback": feedback(first)}
-    checked, _, steps = attempt(scout, retry_req, m, match, league, first.fact_id, 2, s)
-    trail = (first.audit.steps if first.audit else []) + steps
-    if checked is None:
-        return with_audit(first, trail)
-    return with_audit(
-        checked, trail + [step("Verifier", 2, checked.verification.status, path="rules")]
-    )
+    """One retry for a rejected claim or an invalid reply. Otherwise the fact is unchanged."""
+    if p.first.feedback is None:
+        return current
+    retry_req = {**p.request, "previous_output": p.first.output, "feedback": p.first.feedback}
+    a = attempt(scout, retry_req, mode, m, match, league, current.fact_id, 2, s)
+    trail = p.first.steps + a.steps
+    if a.fact is not None:
+        return with_audit(a.fact, trail, p.memory)
+    if p.first.fact is None:  # invalid twice (or the retry failed): the rules draft stands
+        return verify_rules(p.rules_draft, match, league, s, trail, p.memory)
+    return with_audit(p.first.fact, trail, p.memory)
 
 
 def run_scout(
@@ -358,15 +338,20 @@ def run_scout(
     match: Match,
     league: League,
     s: Settings,
+    mode: Mode = "handed",
 ) -> list[Fact]:
-    """Pass 1: a Scout call per moment. Pass 2: one retry each for rejected claims, while budget lasts."""
-    first = [
-        scout_moment_first(scout, m, d, match, league, s)
-        for m, d in zip(moments, rules_drafts, strict=True)
-    ]
+    """Pass 1: a Scout call per moment, in time order, each with the memory of earlier facts.
+    Pass 2: one retry each for rejected claims and invalid replies, while the budget lasts."""
+    done: list[Fact] = []
+    pending: list[Pending] = []
+    for m, d in zip(moments, rules_drafts, strict=True):
+        memory = memory_for(done, float(m["created_t"]), match, s.agents.memory_size)
+        fact, p = first_pass(scout, m, d, match, league, s, mode, memory)
+        done.append(fact)
+        pending.append(p)
     return [
-        scout_moment_retry(scout, m, f, ctx, match, league, s)
-        for m, (f, ctx) in zip(moments, first, strict=True)
+        second_pass(scout, m, f, p, match, league, s, mode)
+        for m, f, p in zip(moments, done, pending, strict=True)
     ]
 
 
@@ -388,52 +373,112 @@ def scout_metrics(facts: list[Fact]) -> dict[str, int]:
 # ---- the live Foundry client (only with --foundry) ---------------------------------------
 
 
+def _text_format() -> dict[str, Any]:
+    return {
+        "type": "json_schema",
+        "name": "scout_output",
+        "schema": output_schema(),
+        "strict": True,
+    }
+
+
+def _function_tools() -> list[dict[str, Any]]:
+    return [{"type": "function", "strict": True, **spec} for spec in TOOL_SPECS]
+
+
 class FoundryCaller:
-    """Calls the Scout prompt agent; falls back to a plain responses call with the same instructions."""
+    """Calls the Scout prompt agent for each mode; falls back to plain responses calls with the
+    same instructions, schema and tools if the agent API is unavailable."""
 
     def __init__(self, cfg: Agents) -> None:
         from azure.ai.projects import AIProjectClient
-        from azure.ai.projects.models import PromptAgentDefinition
         from azure.identity import DefaultAzureCredential
         from dotenv import load_dotenv
 
         load_dotenv(ROOT / ".env")
-        self.model = os.environ["FOUNDRY_MODEL"]
+        self.model, self.max_rounds = os.environ["FOUNDRY_MODEL"], cfg.max_tool_rounds
         project = AIProjectClient(
             endpoint=os.environ["FOUNDRY_PROJECT_ENDPOINT"],
             credential=DefaultAzureCredential(),
             allow_preview=True,
         )
-        opts = {"timeout": cfg.timeout_s, "max_retries": 0}
-        self.plain = project.get_openai_client(**opts)
-        self.agent: Any = None
-        try:
-            project.agents.create_version(
-                cfg.scout_name,
-                definition=PromptAgentDefinition(model=self.model, instructions=SCOUT_INSTRUCTIONS),
-            )
-            self.agent = project.get_openai_client(agent_name=cfg.scout_name, **opts)
-        except Exception as e:  # noqa: BLE001
-            print(
-                f"  Scout agent unavailable ({type(e).__name__}: {str(e)[:200]}); using plain responses"
-            )
-
-    def __call__(self, user: str) -> tuple[str, str, str]:
-        if self.agent is not None:
+        self.opts = {"timeout": cfg.timeout_s, "max_retries": 0}
+        self.plain = project.get_openai_client(**self.opts)
+        self.agents: dict[str, Any] = {}
+        for mode in ("handed", "explore"):
+            name = cfg.scout_name if mode == "handed" else f"{cfg.scout_name}-explore"
             try:
-                return (
-                    self.agent.responses.create(input=user).output_text,
-                    "foundry_agent",
-                    self.model,
+                project.agents.create_version(name, definition=self._definition(mode))
+                self.agents[mode] = project.get_openai_client(agent_name=name, **self.opts)
+            except Exception as e:  # noqa: BLE001 - the plain responses path still works
+                print(
+                    f"  Scout agent {mode} unavailable ({type(e).__name__}: {str(e)[:200]}); using plain responses"
                 )
+
+    def _definition(self, mode: str) -> Any:
+        from azure.ai.projects.models import (
+            FunctionTool,
+            PromptAgentDefinition,
+            PromptAgentDefinitionTextOptions,
+            TextResponseFormatJsonSchema,
+        )
+
+        tools = (
+            [FunctionTool(strict=True, **spec) for spec in TOOL_SPECS]
+            if mode == "explore"
+            else None
+        )
+        fmt = TextResponseFormatJsonSchema(name="scout_output", schema=output_schema(), strict=True)
+        return PromptAgentDefinition(
+            model=self.model,
+            instructions=INSTRUCTIONS[mode],
+            tools=tools,
+            text=PromptAgentDefinitionTextOptions(format=fmt),
+        )
+
+    def __call__(self, user: str, mode: Mode, tools: ToolBox | None) -> CallResult:
+        agent = self.agents.get(mode)
+        if agent is not None:
+            try:
+                return self._converse(agent, {}, "foundry_agent", user, tools)
             except Exception as e:  # noqa: BLE001
                 if getattr(e, "status_code", None) is None:
                     raise  # network trouble, not the agent API: fail this call only
                 print(
-                    f"  Scout agent call failed ({type(e).__name__}: {str(e)[:200]}); using plain responses from now on"
+                    f"  Scout agent call failed ({type(e).__name__}: {str(e)[:200]}); using plain responses for {mode}"
                 )
-                self.agent = None
-        r = self.plain.responses.create(
-            model=self.model, instructions=SCOUT_INSTRUCTIONS, input=user
-        )
-        return r.output_text, "foundry_responses", self.model
+                self.agents.pop(mode)
+                if tools is not None:
+                    tools.calls.clear()
+        kw: dict[str, Any] = {
+            "model": self.model,
+            "instructions": INSTRUCTIONS[mode],
+            "text": {"format": _text_format()},
+        }
+        if mode == "explore":
+            kw["tools"] = _function_tools()
+        return self._converse(self.plain, kw, "foundry_responses", user, tools)
+
+    def _converse(
+        self, client: Any, kw: dict[str, Any], path: str, user: str, tools: ToolBox | None
+    ) -> CallResult:
+        """Run the conversation: answer each round of function calls until a final reply."""
+        resp, rounds = client.responses.create(input=user, **kw), 1
+        while True:
+            calls = [o for o in resp.output if getattr(o, "type", None) == "function_call"]
+            if not calls:
+                return CallResult(
+                    resp.output_text, path, self.model, rounds, list(tools.calls) if tools else []
+                )
+            if tools is None or rounds >= self.max_rounds:
+                raise RuntimeError(f"Scout asked for tools after {rounds} responses")
+            outputs = [
+                {
+                    "type": "function_call_output",
+                    "call_id": c.call_id,
+                    "output": tools.call(c.name, c.arguments),
+                }
+                for c in calls
+            ]
+            resp = client.responses.create(input=outputs, previous_response_id=resp.id, **kw)
+            rounds += 1
