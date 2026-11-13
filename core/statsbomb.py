@@ -25,6 +25,8 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from core.config import ROOT, Pitch, StatsBomb, Xg
 from core.events import Clock, Event, Match, Meta, Team
+from core.shares import pooled_lane_shares
+from core.sources import League
 from core.xg import ShotFeatures, xg_of
 from core.xt import Action
 
@@ -415,14 +417,16 @@ class StatsBombOpenSource:
         scale, provider = Scale.of(self.sb, self.pitch), self.sb.shot_xg == "statsbomb"
         return to_match(row, raw, lineups, scale, self.pitch, self.xg, provider)
 
-    def load(self) -> tuple[Match, float]:
-        """The match, and mu from the other downloaded matches of the season (never this one)."""
+    def load(self) -> tuple[Match, League]:
+        """The match, and mu and lane shares from other matches of the season (never this one)."""
         season = self._read(f"matches/{self.sb.competition_id}/{self.sb.season_id}.json")
         others = [
             self.match(mid) for mid in mu_match_ids(season, self.match_id, self.sb.mu_matches)
         ]
         totals = [xg_rate(m) for m in others]
-        return self.match(self.match_id), sum(x for x, _ in totals) / sum(n for _, n in totals)
+        mu = sum(x for x, _ in totals) / sum(n for _, n in totals)
+        shares = pooled_lane_shares((m.events for m in others), self.pitch)
+        return self.match(self.match_id), League(mu, shares)
 
 
 # ---- shots for fitting xG (P7) ----------------------------------------------------------

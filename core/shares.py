@@ -52,6 +52,20 @@ def attacks_by_lane(events: Iterable[Event], team: str, pitch: Pitch) -> dict[st
     return out
 
 
+def pooled_lane_shares(matches: Iterable[Iterable[Event]], pitch: Pitch) -> dict[str, float]:
+    """Share of all attacks per lane over many matches, both teams pooled (each team's events
+    attack left to right, so a lane means the same side for both)."""
+    counts = {lane: 0 for lane in LANES}
+    for events in matches:
+        for e in events:
+            if is_attack(e, pitch):
+                counts[attack_lane(e, pitch)] += 1
+    total = sum(counts.values())
+    if total == 0:
+        raise ValueError("no attacks to pool")
+    return {lane: c / total for lane, c in counts.items()}
+
+
 def lane_shares(events: Iterable[Event], team: str, pitch: Pitch) -> tuple[dict[str, float], int]:
     """Share of attacks per lane (0..1) and the total number of attacks."""
     groups = attacks_by_lane(events, team, pitch)

@@ -90,6 +90,14 @@ verifier:
     - '\s*\bdeliberately\b'
     - '\b(tried|wanted|decided) to\s+'
 
+# Beta-Binomial hedge for lane-share claims (P9, core/hedge.py). Prior: Beta centred on the league's
+# share for the lane, worth prior_strength attacks. "clear" needs P(share > league share +
+# min_effect) >= clear_prob. Starting values chosen by hand; P9's false-alarm study sets them.
+hedge:
+  prior_strength: 10
+  clear_prob: 0.95
+  min_effect: 0.0
+
 router:
   veto_window_s: 3
   t2_ttl_s: 12

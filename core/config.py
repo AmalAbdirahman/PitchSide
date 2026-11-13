@@ -97,6 +97,14 @@ class Verifier(_Section):
     intent_patterns: tuple[str, ...]
 
 
+class Hedge(_Section):
+    """Beta-Binomial hedge for share claims (core/hedge.py)."""
+
+    prior_strength: float
+    clear_prob: float
+    min_effect: float
+
+
 class Router(_Section):
     veto_window_s: int
     t2_ttl_s: int
@@ -174,6 +182,7 @@ class Settings(_Section):
     winprob: Winprob
     moments: Moments
     verifier: Verifier
+    hedge: Hedge
     router: Router
     renditions: Renditions
     data_card: DataCard

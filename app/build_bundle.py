@@ -37,7 +37,7 @@ from core.config import ROOT, Settings, load
 from core.events import Match
 from core.facts import Fact, validate_fact
 from core.moments import detect_moments
-from core.sources import EventSource, SyntheticSource
+from core.sources import EventSource, League, SyntheticSource
 from core.statsbomb import StatsBombOpenSource
 
 ROUTABLE = ("verified", "corrected")
@@ -92,8 +92,8 @@ CUE_SCHEMA: dict[str, Any] = {
 }
 
 
-def load_match() -> tuple[Match, float]:
-    """The synthetic match and its league xG rate (the default source)."""
+def load_match() -> tuple[Match, League]:
+    """The synthetic match and its league priors (the default source)."""
     return SyntheticSource().load()
 
 
@@ -193,7 +193,8 @@ def build(
     source: EventSource | None = None,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     source = source or SyntheticSource()
-    match, mu = source.load()
+    match, league = source.load()
+    mu = league.mu
     teams = (match.meta.home, match.meta.away)
     if scout is None and use_cache:
         scout = make_scout(False, s)

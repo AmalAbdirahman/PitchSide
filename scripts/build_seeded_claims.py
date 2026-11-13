@@ -32,7 +32,8 @@ def _ids() -> Iterator[str]:
 
 def build() -> list[dict[str, Any]]:
     settings = load()
-    match, mu = load_match()
+    match, league = load_match()
+    mu = league.mu
     good = [
         f
         for f in d.draft_facts(

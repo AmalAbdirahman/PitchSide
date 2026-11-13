@@ -335,7 +335,7 @@ REAL = RAW_DIR / "events" / f"{S.statsbomb.match_id}.json"
     not REAL.exists(), reason="run scripts/fetch_statsbomb.py to test the real match"
 )
 def test_real_match_goal_minutes(settings: Settings) -> None:
-    match, mu = StatsBombOpenSource(
+    match, league = StatsBombOpenSource(
         settings.statsbomb, settings.pitch, settings.xg, settings.statsbomb.match_id
     ).load()
     goals = [(match.meta.clock.minute(e.t), e.team, e.outcome) for e in _of(match, "goal")]
@@ -348,7 +348,8 @@ def test_real_match_goal_minutes(settings: Settings) -> None:
         (65, "FRA", None),
         (69, "CRO", None),
     ]
-    assert 0.005 < mu < 0.03
+    assert 0.005 < league.mu < 0.03
+    assert sum(league.lane_shares.values()) == pytest.approx(1)
 
 
 def _write_fixture(root: Path, sb: StatsBomb) -> None:

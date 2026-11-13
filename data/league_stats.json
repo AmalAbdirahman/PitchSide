@@ -1,5 +1,10 @@
 {
  "seed": 7,
  "league_matches": 50,
- "mu_xg_per_team_minute": 0.013948
+ "mu_xg_per_team_minute": 0.013948,
+ "lane_shares": {
+  "left": 0.3123,
+  "centre": 0.3562,
+  "right": 0.3315
+ }
 }
