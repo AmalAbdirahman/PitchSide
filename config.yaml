@@ -118,3 +118,16 @@ statsbomb:
   # StatsBomb pitch units, from the StatsBomb event data specification.
   source_length: 120
   source_width: 80
+
+# xG fit (P7): scripts/fit_xg.py fits core/xg.py's model on these StatsBomb Open Data seasons
+# (competition id, season id): men's World Cups 2018 and 2022, Euros 2020 and 2024. Chosen by hand:
+# recent, complete tournaments tagged the same way. Raw files stay in data/external/ (git-ignored).
+xg_fit:
+  seasons: [[43, 3], [43, 106], [55, 43], [55, 282]]
+  # Whole matches go to the test set, never single shots, so no match is in both sets.
+  test_fraction: 0.25
+  split_seed: 7
+  reliability_bins: 10
+  max_iter: 50
+  # Tiny L2 penalty that only keeps the Newton steps well posed; chosen by hand.
+  ridge: 1.0e-6

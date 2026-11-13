@@ -24,6 +24,7 @@ from core.statsbomb import (
     Scale,
     StatsBombOpenSource,
     make_clock,
+    shot_rows,
     team_code,
     to_match,
 )
@@ -351,3 +352,42 @@ def test_bundle_builds_from_statsbomb_files(tmp_path: Path, settings: Settings) 
 def test_real_bundles_never_go_to_docs(settings: Settings) -> None:
     with pytest.raises(SystemExit):
         real_source(settings, 99, ROOT / "docs" / "data")
+
+
+def test_shot_rows_carry_the_model_features() -> None:
+    raw = [SbEvent.model_validate(e) for e in RAW]
+    raw.append(
+        SbEvent.model_validate(
+            ev(
+                18,
+                2,
+                "00:10:00.000",
+                "Shot",
+                HOME,
+                7,
+                player=11,
+                location=[109.0, 40.0],
+                under_pressure=True,
+                shot={
+                    "end_location": [120.0, 40.0],
+                    "outcome": {"id": 98, "name": "Off T"},
+                    "statsbomb_xg": 0.05,
+                    "body_part": {"id": 37, "name": "Head"},
+                    "type": {"id": 62, "name": "Free Kick"},
+                },
+            )
+        )
+    )
+    rows = shot_rows(raw, 99, Scale.of(S.statsbomb, S.pitch))
+    assert len(rows) == 2, "the shoot-out shot is not a training row"
+    first, second = rows
+    assert (first.goal, first.statsbomb_xg, first.features.header) == (True, 0.31234, False)
+    f = second.features
+    assert (second.goal, f.header, f.free_kick, f.under_pressure, f.penalty) == (
+        False,
+        True,
+        True,
+        True,
+        False,
+    )
+    assert (f.x, f.y) == (95.4, 34.0)

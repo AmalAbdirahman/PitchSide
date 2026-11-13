@@ -25,6 +25,7 @@ from pydantic import BaseModel, ConfigDict, Field
 
 from core.config import ROOT, Pitch, StatsBomb
 from core.events import Clock, Event, Match, Meta, Team
+from core.xg import ShotFeatures
 
 RAW_DIR = ROOT / "data" / "external" / "statsbomb"
 LAST_PERIOD = 4  # periods 1-2 are halves, 3-4 extra time; 5 is the shoot-out
@@ -68,6 +69,8 @@ class SbShot(_Raw):
     end_location: list[float]
     outcome: Ref
     statsbomb_xg: float | None = None
+    body_part: Ref | None = None
+    type: Ref | None = None
 
 
 class SbSub(_Raw):
@@ -88,6 +91,7 @@ class SbEvent(_Raw):
     possession_team: Ref
     player: Ref | None = None
     location: list[float] | None = None
+    under_pressure: bool = False
     pass_: SbPass | None = Field(default=None, alias="pass")
     carry: SbCarry | None = None
     shot: SbShot | None = None
@@ -400,3 +404,48 @@ class StatsBombOpenSource:
         ]
         totals = [xg_rate(m) for m in others]
         return self.match(self.match_id), sum(x for x, _ in totals) / sum(n for _, n in totals)
+
+
+# ---- shots for fitting xG (P7) ----------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class ShotRow:
+    match_id: int
+    features: ShotFeatures
+    goal: bool
+    statsbomb_xg: float | None
+
+
+def shot_features(e: SbEvent, shot: SbShot, loc: list[float], scale: Scale) -> ShotFeatures:
+    """Body part Head -> header; anything but a foot or the head -> other_body. Shot type
+    Free Kick -> free_kick, Penalty -> penalty; Open Play, Corner and Kick Off are open play."""
+    body = shot.body_part.name if shot.body_part else "Right Foot"
+    kind = shot.type.name if shot.type else "Open Play"
+    x, y = scale.xy(loc)
+    return ShotFeatures(
+        x=x,
+        y=y,
+        header=body == "Head",
+        other_body=body not in ("Head", "Right Foot", "Left Foot"),
+        free_kick=kind == "Free Kick",
+        under_pressure=e.under_pressure,
+        penalty=kind == "Penalty",
+    )
+
+
+def shot_rows(raw: list[SbEvent], match_id: int, scale: Scale) -> list[ShotRow]:
+    """Every shot in periods 1-4 (the shoot-out is not open play)."""
+    out = []
+    for e in raw:
+        if e.type.name != "Shot" or e.shot is None or e.location is None or e.period > LAST_PERIOD:
+            continue
+        feats = shot_features(e, e.shot, e.location, scale)
+        out.append(ShotRow(match_id, feats, e.shot.outcome.name == "Goal", e.shot.statsbomb_xg))
+    return out
+
+
+def read_shots(raw_dir: Path, match_id: int, scale: Scale) -> list[ShotRow]:
+    path = raw_dir / "events" / f"{match_id}.json"
+    raw = [SbEvent.model_validate(e) for e in json.loads(path.read_text(encoding="utf-8"))]
+    return shot_rows(raw, match_id, scale)

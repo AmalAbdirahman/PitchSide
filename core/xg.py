@@ -14,6 +14,7 @@ Assumptions (stated, not fitted to real data):
 from __future__ import annotations
 
 import math
+from dataclasses import dataclass
 
 from core.config import Pitch, Xg
 
@@ -40,3 +41,36 @@ def xg(x: float, y: float, pitch: Pitch, coef: Xg) -> float:
         + coef.angle * goal_angle(x, y, pitch, coef.goal_width)
     )
     return 1 / (1 + math.exp(-logit))
+
+
+# ---- features for the fitted model (P7) ------------------------------------------------
+
+# Order of the design row and of the fitted coefficients.
+FEATURES = ("intercept", "dist", "angle", "header", "other_body", "free_kick", "under_pressure")
+
+
+@dataclass(frozen=True)
+class ShotFeatures:
+    """What the model knows about a shot. Defaults describe an open-play shot with the foot,
+    not under pressure, which is all the simulator can say about its shots."""
+
+    x: float
+    y: float
+    header: bool = False
+    other_body: bool = False  # neither foot nor head
+    free_kick: bool = False  # a direct free kick
+    under_pressure: bool = False
+    penalty: bool = False  # modelled apart from the logistic part
+
+
+def design_row(s: ShotFeatures, pitch: Pitch, goal_width: float) -> list[float]:
+    """The shot as numbers, in FEATURES order."""
+    return [
+        1.0,
+        goal_distance(s.x, s.y, pitch),
+        goal_angle(s.x, s.y, pitch, goal_width),
+        float(s.header),
+        float(s.other_body),
+        float(s.free_kick),
+        float(s.under_pressure),
+    ]

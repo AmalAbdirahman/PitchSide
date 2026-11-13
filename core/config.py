@@ -128,6 +128,15 @@ class StatsBomb(_Section):
     source_width: int
 
 
+class XgFit(_Section):
+    seasons: tuple[tuple[int, int], ...]
+    test_fraction: float
+    split_seed: int
+    reliability_bins: int
+    max_iter: int
+    ridge: float
+
+
 class Settings(_Section):
     seed: int
     pitch: Pitch
@@ -141,6 +150,7 @@ class Settings(_Section):
     data_card: DataCard
     agents: Agents
     statsbomb: StatsBomb
+    xg_fit: XgFit
 
 
 def load(path: Path = CONFIG_PATH) -> Settings:
