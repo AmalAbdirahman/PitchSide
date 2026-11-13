@@ -14,7 +14,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 from typing import Literal, Protocol
 
-from core.config import Pitch, Verifier
+from core.config import MetricContext, Verifier
 from core.events import Event
 from core.facts import Subject, Window
 from core.shares import LANES, attacks_by_lane
@@ -54,7 +54,7 @@ class MetricDef(Protocol):
     def value_matches(self, claimed: float, observed: float, v: Verifier) -> bool: ...
 
     def compute(
-        self, events: list[Event], subject: Subject, window: Window, pitch: Pitch
+        self, events: list[Event], subject: Subject, window: Window, ctx: MetricContext
     ) -> Metric | None: ...
 
     @property
@@ -63,7 +63,7 @@ class MetricDef(Protocol):
         ...
 
 
-Compute = Callable[[list[Event], Subject, Pitch], Metric | None]
+Compute = Callable[[list[Event], Subject, MetricContext], Metric | None]
 
 
 @dataclass(frozen=True)
@@ -87,12 +87,12 @@ class EventMetric:
         return self.kind == "share"
 
     def compute(
-        self, events: list[Event], subject: Subject, window: Window, pitch: Pitch
+        self, events: list[Event], subject: Subject, window: Window, ctx: MetricContext
     ) -> Metric | None:
         if subject.type not in self.subjects:
             return None
         return self.fn(
-            of_subject(in_window(events, window.start_t, window.end_t), subject), subject, pitch
+            of_subject(in_window(events, window.start_t, window.end_t), subject), subject, ctx
         )
 
 
@@ -140,18 +140,18 @@ def _speed(shot: Event) -> float:
 
 
 def _count_of(event_type: str) -> Compute:
-    def fn(evs: list[Event], _subject: Subject, _pitch: Pitch) -> Metric:
+    def fn(evs: list[Event], _subject: Subject, _ctx: MetricContext) -> Metric:
         return _count([e for e in evs if e.type == event_type])
 
     return fn
 
 
-def _xg_sum(evs: list[Event], _subject: Subject, _pitch: Pitch) -> Metric:
+def _xg_sum(evs: list[Event], _subject: Subject, _ctx: MetricContext) -> Metric:
     shots = _shots(evs)
     return Metric(sum(_xg(e) for e in shots), len(shots), len(shots), [e.id for e in shots])
 
 
-def _top_shot_speed(evs: list[Event], _subject: Subject, _pitch: Pitch) -> Metric | None:
+def _top_shot_speed(evs: list[Event], _subject: Subject, _ctx: MetricContext) -> Metric | None:
     # Only shots with a measured speed count; with none (open data has no speeds) there is no metric.
     timed = [e for e in _shots(evs) if e.shot_speed is not None]
     if not timed:
@@ -160,19 +160,19 @@ def _top_shot_speed(evs: list[Event], _subject: Subject, _pitch: Pitch) -> Metri
     return Metric(_speed(best), len(timed), 1, [best.id])
 
 
-def _turnovers_own_third(evs: list[Event], _subject: Subject, pitch: Pitch) -> Metric:
-    own = pitch.own_third_x
+def _turnovers_own_third(evs: list[Event], _subject: Subject, ctx: MetricContext) -> Metric:
+    own = ctx.pitch.own_third_x
     return _count([e for e in evs if e.type == "possession_change" and e.x < own])
 
 
-def _pass_accuracy(evs: list[Event], _subject: Subject, _pitch: Pitch) -> Metric:
+def _pass_accuracy(evs: list[Event], _subject: Subject, _ctx: MetricContext) -> Metric:
     passes = [e for e in evs if e.type == "pass"]
     return _share([e.id for e in passes if e.outcome == "success"], len(passes))
 
 
 def _attack_share(lane: str) -> Compute:
-    def fn(evs: list[Event], subject: Subject, pitch: Pitch) -> Metric:
-        groups = attacks_by_lane(evs, subject.id, pitch)
+    def fn(evs: list[Event], subject: Subject, ctx: MetricContext) -> Metric:
+        groups = attacks_by_lane(evs, subject.id, ctx.pitch)
         return _share(groups[lane], sum(len(v) for v in groups.values()))
 
     return fn
@@ -202,18 +202,18 @@ REGISTRY: dict[str, MetricDef] = {d.name: d for d in _DEFS}
 
 
 def compute_metric(
-    metric: str, subject: Subject, window: Window, events: list[Event], pitch: Pitch
+    metric: str, subject: Subject, window: Window, events: list[Event], ctx: MetricContext
 ) -> Metric | None:
     """Recompute a metric from the events in a window. None if not computable."""
     d = REGISTRY.get(metric)
-    return None if d is None else d.compute(events, subject, window, pitch)
+    return None if d is None else d.compute(events, subject, window, ctx)
 
 
 def require_metric(
-    metric: str, subject: Subject, window: Window, events: list[Event], pitch: Pitch
+    metric: str, subject: Subject, window: Window, events: list[Event], ctx: MetricContext
 ) -> Metric:
     """compute_metric for callers that only ask for metrics that are always computable."""
-    m = compute_metric(metric, subject, window, events, pitch)
+    m = compute_metric(metric, subject, window, events, ctx)
     if m is None:
         raise ValueError(f"{metric} is not computable for {subject} in {window}")
     return m

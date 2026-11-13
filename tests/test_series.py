@@ -8,7 +8,7 @@ from typing import Any
 import pytest
 
 from app.series import TEAM_METRICS, build_series, lanes_at
-from core.config import ROOT, load
+from core.config import ROOT, MetricContext, load
 from core.events import Match
 from core.facts import Subject, Window
 from core.metrics import compute_metric
@@ -72,7 +72,7 @@ def test_team_stats_equal_compute_metric(series: dict[str, Any], match: Match, m
             Subject(type="team", id="NOR"),
             Window(start_t=0.0, end_t=t),
             match.events,
-            S.pitch,
+            MetricContext.of(S),
         )
         assert m is not None
         assert series["teams"]["NOR"][metric][i] == pytest.approx(m.value, abs=0.001)

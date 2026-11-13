@@ -15,13 +15,14 @@ from app.checks import (
     check_sample,
 )
 from app.corrections import hedge_text, strip_intent
-from core.config import load
+from core.config import MetricContext, load
 from core.events import Match
 from core.facts import MetricName, Subject, Window
 from core.metrics import REGISTRY, compute_metric
 from tests.conftest import SeededClaim, seeded_of
 
 S = load()
+CTX = MetricContext.of(S)
 NOR = Subject(type="team", id="NOR")
 WHOLE = Window(start_t=0.0, end_t=5400.0)
 
@@ -46,7 +47,7 @@ def test_registry_lists_every_computable_metric() -> None:
 
 @pytest.mark.parametrize("name", sorted(set(get_args(MetricName)) - set(REGISTRY)))
 def test_metric_without_a_definition_is_not_computable(name: str, match: Match) -> None:
-    assert compute_metric(name, NOR, WHOLE, match.events, S.pitch) is None
+    assert compute_metric(name, NOR, WHOLE, match.events, CTX) is None
 
 
 def test_kinds_and_tolerances_come_from_config() -> None:
@@ -78,12 +79,12 @@ def test_value_matches_uses_the_tolerance() -> None:
 
 def test_attack_share_is_only_defined_for_teams(match: Match) -> None:
     player = Subject(type="player", id="NOR_09")
-    assert compute_metric("attack_share_left", player, WHOLE, match.events, S.pitch) is None
-    assert compute_metric("shots", player, WHOLE, match.events, S.pitch) is not None
+    assert compute_metric("attack_share_left", player, WHOLE, match.events, CTX) is None
+    assert compute_metric("shots", player, WHOLE, match.events, CTX) is not None
 
 
 def test_counts_match_the_event_log(match: Match) -> None:
-    m = compute_metric("goals", Subject(type="match", id="match"), WHOLE, match.events, S.pitch)
+    m = compute_metric("goals", Subject(type="match", id="match"), WHOLE, match.events, CTX)
     assert m is not None
     assert m.value == sum(e.type == "goal" for e in match.events)
 
@@ -97,9 +98,7 @@ def test_checks_and_corrections_do_not_change_the_fact(entry: SeededClaim, match
     before = fact.model_copy(deep=True)
     by_id = {e.id: e for e in match.events}
     d = REGISTRY[fact.claim.metric]
-    m = compute_metric(
-        fact.claim.metric, fact.claim.subject, fact.claim.window, match.events, S.pitch
-    )
+    m = compute_metric(fact.claim.metric, fact.claim.subject, fact.claim.window, match.events, CTX)
     assert m is not None
     check_evidence(fact, by_id)
     check_entities(fact, by_id, match, v)
@@ -115,9 +114,7 @@ def test_checks_and_corrections_do_not_change_the_fact(entry: SeededClaim, match
 def test_small_sample_is_restated_by_a_correction(match: Match) -> None:
     fact = seeded_of("small_sample")[0].fact
     d = REGISTRY[fact.claim.metric]
-    m = compute_metric(
-        fact.claim.metric, fact.claim.subject, fact.claim.window, match.events, S.pitch
-    )
+    m = compute_metric(fact.claim.metric, fact.claim.subject, fact.claim.window, match.events, CTX)
     assert m is not None
     fix = hedge_text(fact, m, assess_sample(fact.claim, m, d, S.verifier), match, S.verifier)
     assert fix is not None and fix.text.startswith("Early sign:")

@@ -20,7 +20,7 @@ from app.checks import (
     make_check,
 )
 from app.corrections import hedge_text, strip_intent
-from core.config import Settings
+from core.config import MetricContext, Settings
 from core.events import Match
 from core.facts import Check, Correction, Fact, Verification, validate_fact
 from core.metrics import REGISTRY, compute_metric
@@ -68,7 +68,7 @@ def verify(fact: Fact, match: Match, s: Settings) -> Fact:
     ]
     claim = out.claim
     d = REGISTRY.get(claim.metric)
-    m = compute_metric(claim.metric, claim.subject, claim.window, known, s.pitch)
+    m = compute_metric(claim.metric, claim.subject, claim.window, known, MetricContext.of(s))
     if m is not None and d is not None and d.checks_sample and m.n == 0:
         m = None  # a share of nothing cannot be stated
     if m is None or d is None:

@@ -9,7 +9,7 @@ from __future__ import annotations
 import math
 from typing import Any
 
-from core.config import Pitch, Settings
+from core.config import MetricContext, Settings
 from core.events import Event
 from core.facts import Subject, Window
 from core.metrics import compute_metric, require_metric
@@ -31,10 +31,12 @@ def grid(events: list[Event], step_s: int) -> list[float]:
     return [float(i * step_s) for i in range(math.ceil(last / step_s) + 1)]
 
 
-def team_stat(events: list[Event], team: str, metric: str, t: float, pitch: Pitch) -> float | None:
+def team_stat(
+    events: list[Event], team: str, metric: str, t: float, ctx: MetricContext
+) -> float | None:
     """A metric for a team from kick-off to t (None if not computable yet)."""
     subject, window = Subject(type="team", id=team), Window(start_t=0.0, end_t=t)
-    m = compute_metric(metric, subject, window, events, pitch)
+    m = compute_metric(metric, subject, window, events, ctx)
     return None if m is None or (metric == "pass_accuracy" and m.n == 0) else _r(m.value)
 
 
@@ -43,7 +45,7 @@ def win_prob_at(
 ) -> list[float]:
     """[home, draw, away] win probability (model estimate) at time t."""
     goals = score_at(events, t, teams)
-    xg = [team_stat(events, tm, "xg_sum", t, s.pitch) or 0.0 for tm in teams]
+    xg = [team_stat(events, tm, "xg_sum", t, MetricContext.of(s)) or 0.0 for tm in teams]
     home, draw, away = win_probability(
         t / 60, goals[teams[0]], goals[teams[1]], xg[0], xg[1], mu, s.winprob
     )
@@ -56,9 +58,10 @@ def lanes_at(events: list[Event], team: str, t: float, s: Settings) -> dict[str,
     window = Window(start_t=max(0.0, t - c.overload_window_s), end_t=t)
     out: dict[str, Any] = {}
     ci: dict[str, tuple[float, float]] = {}
+    ctx = MetricContext.of(s)
     for lane in LANES:
         subject = Subject(type="team", id=team)
-        m = require_metric(f"attack_share_{lane}", subject, window, events, s.pitch)
+        m = require_metric(f"attack_share_{lane}", subject, window, events, ctx)
         ci[lane] = wilson(m.k, m.n, v.z)
         out[lane] = {
             "k": m.k,
@@ -80,7 +83,7 @@ def build_series(
     events: list[Event], teams: tuple[str, str], mu: float, s: Settings
 ) -> dict[str, Any]:
     """Column-oriented series sampled every minute."""
-    step = 60
+    step, ctx = 60, MetricContext.of(s)
     ts = grid(events, step)
     return {
         "step_s": step,
@@ -89,7 +92,7 @@ def build_series(
         "t": ts,
         "win_prob": [win_prob_at(events, t, teams, mu, s) for t in ts],
         "teams": {
-            tm: {m: [team_stat(events, tm, m, t, s.pitch) for t in ts] for m in TEAM_METRICS}
+            tm: {m: [team_stat(events, tm, m, t, ctx) for t in ts] for m in TEAM_METRICS}
             for tm in teams
         },
         "lanes": {tm: [lanes_at(events, tm, t, s) for t in ts] for tm in teams},

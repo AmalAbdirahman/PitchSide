@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from core.config import Pitch, Settings, Winprob
+from core.config import MetricContext, Settings, Winprob
 from core.events import Clock, Event
 from core.facts import Subject, Window
 from core.metrics import Metric, compute_metric, in_window, require_metric
@@ -178,7 +178,9 @@ def overload_moments(
             start = _overload_start(events, team, cp, c.overload_window_s)
             w = Window(start_t=start, end_t=cp)
             shares = {
-                ln: require_metric(f"attack_share_{ln}", _team(team), w, events, s.pitch)
+                ln: require_metric(
+                    f"attack_share_{ln}", _team(team), w, events, MetricContext.of(s)
+                )
                 for ln in ("left", "centre", "right")
             }
             lane, m = max(shares.items(), key=lambda kv: kv[1].value)
@@ -211,7 +213,7 @@ def turnover_moments(
         for team in teams:
             start = cp - c.turnover_window_s
             w = Window(start_t=start, end_t=cp)
-            m = compute_metric("turnovers_own_third", _team(team), w, events, s.pitch)
+            m = compute_metric("turnovers_own_third", _team(team), w, events, MetricContext.of(s))
             if m and m.value >= c.turnover_min_count and cp >= next_ok[team]:
                 next_ok[team] = cp + c.turnover_window_s
                 out.append(
@@ -231,12 +233,12 @@ def half_moments(
         w = Window(start_t=start, end_t=end)
         for team in teams:
             for metric in ("xg_sum", "pass_accuracy"):
-                m = require_metric(metric, _team(team), w, events, s.pitch)
+                m = require_metric(metric, _team(team), w, events, MetricContext.of(s))
                 if not m.ids:  # no shots or passes in the half: nothing to cite, so no claim
                     continue
                 out.append(_moment("stat", metric, metric, _team(team), start, end, m, half=name))
         match_subject = Subject(type="match", id="match")
-        top = compute_metric("top_shot_speed", match_subject, w, events, s.pitch)
+        top = compute_metric("top_shot_speed", match_subject, w, events, MetricContext.of(s))
         if top:
             shooter = next(e for e in events if e.id == top.ids[0]).player_id
             out.append(
@@ -252,11 +254,13 @@ def half_moments(
                     players=[shooter],
                 )
             )
-        out += _top_shooter(events, w, name, s.pitch)
+        out += _top_shooter(events, w, name, MetricContext.of(s))
     return out
 
 
-def _top_shooter(events: list[Event], w: Window, name: str, pitch: Pitch) -> list[dict[str, Any]]:
+def _top_shooter(
+    events: list[Event], w: Window, name: str, ctx: MetricContext
+) -> list[dict[str, Any]]:
     shots = [e for e in in_window(events, w.start_t, w.end_t) if e.type == "shot"]
     if not shots:
         return []
@@ -267,7 +271,7 @@ def _top_shooter(events: list[Event], w: Window, name: str, pitch: Pitch) -> lis
     if counts[pid] < 2:
         return []
     subj = Subject(type="player", id=pid)
-    m = require_metric("shots", subj, w, events, pitch)
+    m = require_metric("shots", subj, w, events, ctx)
     return [
         _moment(
             "stat",

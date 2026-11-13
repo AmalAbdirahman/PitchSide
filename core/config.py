@@ -7,6 +7,7 @@ the file on import or looks the values up through a global.
 
 from __future__ import annotations
 
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Literal
 
@@ -158,6 +159,17 @@ class Settings(_Section):
     agents: Agents
     statsbomb: StatsBomb
     xg_fit: XgFit
+
+
+@dataclass(frozen=True)
+class MetricContext:
+    """What a metric needs besides the events: the pitch geometry."""
+
+    pitch: Pitch
+
+    @classmethod
+    def of(cls, s: Settings) -> MetricContext:
+        return cls(s.pitch)
 
 
 def load(path: Path = CONFIG_PATH) -> Settings:

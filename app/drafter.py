@@ -12,7 +12,7 @@ import re
 from collections.abc import Iterator
 from typing import Any
 
-from core.config import Settings, Verifier
+from core.config import MetricContext, Settings, Verifier
 from core.events import Match
 from core.facts import (
     Claim,
@@ -287,7 +287,7 @@ def small_sample_draft(
     """A lane-share claim over a window too short to support it, worded as a plain statement."""
     metric = f"attack_share_{lane}"
     subject, window = Subject(type="team", id=team), Window(start_t=start, end_t=end)
-    m: Metric | None = compute_metric(metric, subject, window, match.events, s.pitch)
+    m: Metric | None = compute_metric(metric, subject, window, match.events, MetricContext.of(s))
     if m is None or not min_n <= m.n < s.verifier.n_min or m.k == 0:
         return None
     moment = {
