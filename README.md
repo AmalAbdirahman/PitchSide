@@ -102,6 +102,10 @@ python -m live.dev --speed 20                      # or: everything in one proce
 - **Latency, event to fact-ready** (one synthetic match at 20x): on the compose stack in CI, median 26 ms and at most 63 ms during play, about 110 ms for the twelve summaries due at the final whistle (run 43534999209, commit 9158f7d). The Scout and Reader replay their caches here, so no model time is included.
 - The author's own laptop has no Docker; the stack has run only in CI. `python -m live.dev` was run locally (live page, a veto, the overlay, no console errors).
 
+## Azure design (not deployed)
+
+`docs/architecture/azure.md` maps the live stack to Azure: Event Hubs (Kafka endpoint), the worker on Container Apps scaled by KEDA on consumer lag, Azure Managed Redis, Web PubSub, Postgres for the audit log, Blob Storage, Foundry, Key Vault with managed identity, and Application Insights with OpenTelemetry. It covers partitioning by match, exactly-once decisions, back-pressure, what happens when the model is slow or down (with the recorded Scout and Reader call times), and a rough cost per match built from assumed list prices, not measured. **It is a design.** `infra/` holds Bicep for a thin slice (Event Hubs, the worker as one Container App, Redis) and `infra/deploy.ps1`, which by default only builds the Bicep. Tests build every Bicep file with no warnings, but the slice has never been deployed or run on Azure.
+
 ## Program output (overlay)
 
 `docs/overlay.html` is a clean program feed: a transparent 1920x1080 page with only the score bug and the graphic on air, nothing from the control room. The control room sends its state (minute, score, the on-air cue and its card, in the language selected) to the overlay over a `BroadcastChannel`, so the overlay shows exactly what the producer has put on air. There is no server and no network call; it works between tabs of one browser on the same origin.
@@ -181,11 +185,12 @@ app/      agents_foundry.py (Scout loop) and scout_*.py, reader.py (Reader), mea
           (orchestrates checks.py and corrections.py), router.py,
           renditions.py, templates_es.py, build_bundle.py
 docs/     static control room (index.html, styles.css, js/ ES modules), overlay.html (program output),
-          data/, methods/ and img/ — published by GitHub Pages
+          data/, methods/, architecture/ (Azure design) and img/ — published by GitHub Pages
           js/: data, routing (pure; reads meta.routing), state, pitch, queue, analysis, audit, main,
           cards (pure; overlay drawing), program (sends state to the overlay), overlay
 live/     live mode: replayer, worker (pipeline.py), api, ports (interfaces + in-memory), adapters
           (Redpanda, Redis, Postgres), dev (one process), static/ (live control room)
+infra/    Bicep for the thin Azure slice (main.bicep, modules/) and deploy.ps1; never deployed
 design/   prototype.html, the original design mockup (not published)
 data/     events.json, league_stats.json, agent_cache.json, reader_cache.json, xg_fit.json, xt_fit.json; external/ (git-ignored) for StatsBomb files
 tests/    seeded_claims.json, meaning_cases.json and pytest suites
@@ -202,6 +207,7 @@ See `SPEC.md` for the full contract, `data_card.md` for the simulator's realism 
 - **Real match on the site and a match selector.** Not done. Publishing a StatsBomb replay needs a decision on what the licence allows (the bundle holds the full event log) and the StatsBomb logo on the page. The front end also assumes simulator-only fields (speeds, pass difficulty) in its analyst labels.
 - **Scout on real data.** The agent's instructions and cache describe the synthetic match; real matches use the rule-based drafter.
 - **Switch win probability to poisson_v2.** Fitted and validated (`docs/methods/winprob.md`), not used: it would change every impact value and possibly which facts need a producer.
+- **Deploy the Azure slice.** Bicep written and built (`infra/`), never deployed. The rest of the Azure design (API, Web PubSub, Postgres, Key Vault, tracing, live model calls with deadlines) is not built (`docs/architecture/azure.md`).
 - The rest of the planned work, in order, is in `ROADMAP_PROMPTS.md`.
 
 ## How this was built

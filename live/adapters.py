@@ -6,23 +6,50 @@ ports on localhost):
   PITCHSIDE_BROKERS   localhost:19092
   PITCHSIDE_REDIS     redis://localhost:6379/0
   PITCHSIDE_POSTGRES  postgresql://pitchside:pitchside@localhost:5432/pitchside
+
+For the thin Azure slice (P15, infra/; not deployed) the same code takes, also from the environment:
+  PITCHSIDE_KAFKA_SASL_PASSWORD   set -> SASL_SSL with PLAIN (Event Hubs: its connection string)
+  PITCHSIDE_KAFKA_SASL_USERNAME   default "$ConnectionString", Event Hubs' fixed user name
+  PITCHSIDE_AUDIT                 "postgres" (default) or "stdout" (JSON lines, for the slice)
+  PITCHSIDE_REDIS                 rediss://:<key>@<host>:<port>/0 for TLS; redis-py reads it as is
 """
 
 from __future__ import annotations
 
 import json
 import os
+import ssl
+import sys
 import time
-from collections.abc import AsyncIterator
-from typing import Any
+from collections.abc import AsyncIterator, Mapping
+from typing import Any, TextIO
 
-from live.ports import AuditEntry, DecisionTaken, Json
+from live.ports import AuditEntry, AuditLog, DecisionTaken, InMemoryAudit, Json
 
 BROKERS = os.environ.get("PITCHSIDE_BROKERS", "localhost:19092")
 REDIS_URL = os.environ.get("PITCHSIDE_REDIS", "redis://localhost:6379/0")
 POSTGRES_URL = os.environ.get(
     "PITCHSIDE_POSTGRES", "postgresql://pitchside:pitchside@localhost:5432/pitchside"
 )
+
+
+def kafka_security(env: Mapping[str, str]) -> dict[str, Any]:
+    """aiokafka keyword arguments for the broker's security. None for Redpanda in docker compose;
+    SASL_SSL with PLAIN when a password is set (Azure Event Hubs' Kafka endpoint)."""
+    password = env.get("PITCHSIDE_KAFKA_SASL_PASSWORD", "")
+    if not password:
+        return {}
+    return {
+        "security_protocol": "SASL_SSL",
+        "sasl_mechanism": "PLAIN",
+        "sasl_plain_username": env.get("PITCHSIDE_KAFKA_SASL_USERNAME", "$ConnectionString"),
+        "sasl_plain_password": password,
+        "ssl_context": ssl.create_default_context(),
+    }
+
+
+def _kafka(**kwargs: Any) -> dict[str, Any]:
+    return {"bootstrap_servers": BROKERS, **kafka_security(os.environ), **kwargs}
 
 
 class KafkaBus:
@@ -36,9 +63,7 @@ class KafkaBus:
     async def subscribe(self, topic: str, group: str) -> AsyncIterator[Json]:
         from aiokafka import AIOKafkaConsumer
 
-        consumer = AIOKafkaConsumer(
-            topic, bootstrap_servers=BROKERS, group_id=group, auto_offset_reset="earliest"
-        )
+        consumer = AIOKafkaConsumer(topic, **_kafka(group_id=group, auto_offset_reset="earliest"))
         await consumer.start()
         self.consumers.append(consumer)
         async for record in consumer:
@@ -58,7 +83,7 @@ async def ensure_topics() -> None:
     from aiokafka.admin import AIOKafkaAdminClient, NewTopic
     from aiokafka.errors import TopicAlreadyExistsError
 
-    admin = AIOKafkaAdminClient(bootstrap_servers=BROKERS)
+    admin = AIOKafkaAdminClient(**_kafka())
     await admin.start()
     try:
         existing = set(await admin.list_topics())
@@ -78,7 +103,7 @@ async def kafka_bus() -> KafkaBus:
     from aiokafka import AIOKafkaProducer
 
     await ensure_topics()
-    producer = AIOKafkaProducer(bootstrap_servers=BROKERS, acks="all", enable_idempotence=True)
+    producer = AIOKafkaProducer(**_kafka(acks="all", enable_idempotence=True))
     await producer.start()
     return KafkaBus(producer)
 
@@ -187,5 +212,40 @@ async def postgres_audit() -> PostgresAudit:
     return PostgresAudit(conn)
 
 
-async def connect() -> tuple[KafkaBus, RedisState, PostgresAudit]:
-    return await kafka_bus(), await redis_state(), await postgres_audit()
+class StdoutAudit(InMemoryAudit):
+    """The audit log as JSON lines on standard output, for the thin Azure slice, which has no
+    Postgres (Container Apps sends the lines to Log Analytics). Same rules as the other logs
+    while the process runs; not durable, so a restarted worker forgets which facts it recorded.
+    The design (docs/architecture/azure.md) keeps Postgres."""
+
+    def __init__(self, out: TextIO | None = None) -> None:
+        super().__init__()
+        self.out = out if out is not None else sys.stdout
+
+    async def append(self, match_id: str, kind: str, fact_id: str | None, payload: Json) -> int:
+        before = len(self.rows)
+        seq = await super().append(match_id, kind, fact_id, payload)
+        if len(self.rows) > before:
+            row = self.rows[-1]
+            line = {"audit": True, "seq": seq, "match_id": match_id, "kind": kind}
+            line |= {"fact_id": fact_id, "payload": payload, "recorded_at": row.recorded_at}
+            print(json.dumps(line), file=self.out, flush=True)
+        return seq
+
+
+AUDIT_KINDS = ("postgres", "stdout")
+
+
+def audit_kind(env: Mapping[str, str]) -> str:
+    kind = env.get("PITCHSIDE_AUDIT", "postgres")
+    if kind not in AUDIT_KINDS:
+        raise ValueError(f"PITCHSIDE_AUDIT must be one of {AUDIT_KINDS}, not {kind!r}")
+    return kind
+
+
+async def audit_log() -> AuditLog:
+    return StdoutAudit() if audit_kind(os.environ) == "stdout" else await postgres_audit()
+
+
+async def connect() -> tuple[KafkaBus, RedisState, AuditLog]:
+    return await kafka_bus(), await redis_state(), await audit_log()
