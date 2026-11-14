@@ -1,0 +1,28 @@
+{
+  "run_date": "2026-11-14",
+  "commit": "69bfacb-dirty",
+  "setup": "in-process, in-memory adapters",
+  "speed": 20.0,
+  "machine": "Windows 11, Python 3.13.5",
+  "wall_s": 270.4,
+  "latency": {
+    "all": {
+      "n": 38,
+      "median_ms": 88.5,
+      "p95_ms": 172.1,
+      "max_ms": 172.2
+    },
+    "during_play": {
+      "n": 26,
+      "median_ms": 45.2,
+      "p95_ms": 89.4,
+      "max_ms": 89.5
+    },
+    "at_final_whistle": {
+      "n": 12,
+      "median_ms": 171.6,
+      "p95_ms": 172.2,
+      "max_ms": 172.2
+    }
+  }
+}

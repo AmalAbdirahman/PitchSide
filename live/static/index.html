@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PitchSide live</title>
+<!-- Live control room (P14), served by live/api.py with the docker compose stack. Not part of the
+     static site in docs/. Synthetic match; no crests, logos or broadcaster branding. -->
+<style>
+  :root { --bg: #0b1220; --panel: #121b2e; --line: #26324a; --ink: #eef2f8; --muted: #a9b4c6;
+    --green: #3ddc84; --amber: #ffc857; --red: #ff6b6b; --cyan: #04f5ff; --pink: #ff2d7e;
+    --font: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 var(--font); }
+  header { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+  h1 { margin: 0; font-size: 17px; letter-spacing: .04em; }
+  .bug { display: flex; gap: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .bug span { padding: 4px 10px; background: var(--panel); border: 1px solid var(--line); }
+  .bug .s { background: var(--ink); color: var(--bg); }
+  #conn { margin-left: auto; font-size: 13px; color: var(--muted); }
+  #conn.on { color: var(--green); }
+  a { color: var(--cyan); }
+  main { display: grid; grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr); gap: 16px; padding: 16px; }
+  @media (max-width: 860px) { main { grid-template-columns: 1fr; } }
+  section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; min-width: 0; }
+  h2 { margin: 0; padding: 10px 14px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); }
+  table { width: 100%; border-collapse: collapse; }
+  td, th { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  th { font-size: 12px; color: var(--muted); font-weight: 600; }
+  .tier { font-weight: 700; } .muted { color: var(--muted); }
+  .st-aired { color: var(--green); } .st-wait { color: var(--amber); } .st-no { color: var(--red); }
+  button { font: inherit; padding: 4px 10px; margin: 2px 4px 2px 0; border-radius: 5px; border: 1px solid var(--line); background: #1c2840; color: var(--ink); cursor: pointer; }
+  button:hover, button:focus-visible { border-color: var(--cyan); outline: 2px solid var(--cyan); outline-offset: 1px; }
+  #onair { padding: 14px; min-height: 120px; }
+  #onair .card { padding: 12px 14px; border-left: 4px solid var(--cyan); background: #0e1626; }
+  #log { list-style: none; margin: 0; padding: 8px 14px; max-height: 360px; overflow: auto; font-size: 13px; }
+  #log li { padding: 3px 0; border-bottom: 1px dashed var(--line); }
+  .tblwrap { overflow-x: auto; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+</style>
+</head>
+<body>
+<header>
+  <h1>PitchSide · live</h1>
+  <div class="bug" aria-label="Score"><span id="home">–</span><span class="s" id="score">0–0</span><span id="away">–</span><span id="minute">0'</span></div>
+  <a href="/docs/overlay.html" target="_blank" rel="noopener">Program output ↗</a>
+  <a href="/docs/">Static replay</a>
+  <span id="conn" role="status">connecting…</span>
+</header>
+<main>
+  <section aria-labelledby="facts-h">
+    <h2 id="facts-h">Facts from the worker</h2>
+    <div class="tblwrap"><table>
+      <caption class="sr-only">Facts in arrival order, newest first, with their routing state and the decisions open to the producer</caption>
+      <thead><tr><th>Min</th><th>Fact</th><th>Tier</th><th>Sentence</th><th>State</th><th>Decide</th></tr></thead>
+      <tbody id="rows"><tr><td colspan="6" class="muted">No facts yet. Start the replayer: <code>docker compose run --rm replayer</code></td></tr></tbody>
+    </table></div>
+  </section>
+  <div>
+    <section aria-labelledby="onair-h"><h2 id="onair-h">On air</h2><div id="onair" aria-live="polite"><p class="muted">Nothing on air.</p></div></section>
+    <section aria-labelledby="log-h" style="margin-top:16px"><h2 id="log-h">Log</h2><ol id="log"></ol></section>
+  </div>
+</main>
+<script type="module" src="live.js"></script>
+</body>
+</html>

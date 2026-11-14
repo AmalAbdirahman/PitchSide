@@ -29,6 +29,26 @@ jobs:
       # Built-in node:test only; no npm packages. Same cases as tests/test_routing_cases.py.
       - run: node --test "tests/js/*.test.mjs"
 
+  # Live mode (P14): types and API tests with the `live` extras, then the docker compose stack
+  # (Redpanda, Redis, Postgres, worker, API) and a full replay compared with the offline bundle.
+  live:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -e ".[dev,live]"
+      - run: mypy live
+      - run: pytest -q tests/test_live.py tests/test_live_api.py
+      - run: docker compose up -d --build --wait
+      - run: pytest -m stack -q
+        env:
+          PITCHSIDE_STACK: "1"
+      - run: python scripts/live_latency.py --from-postgres
+      - if: failure()
+        run: docker compose logs --tail 200
+
   e2e:
     runs-on: ubuntu-latest
     steps:

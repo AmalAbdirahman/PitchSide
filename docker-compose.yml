@@ -1,0 +1,76 @@
+# Live mode on a laptop (P14): Redpanda (Kafka API), Redis, Postgres, the worker and the API.
+#   docker compose up -d --build --wait        # infrastructure, worker and API
+#   open http://localhost:8001/                # live control room (overlay: /docs/overlay.html)
+#   docker compose run --rm replayer           # publish the synthetic match at SPEED x (default 10)
+#   docker compose down -v                     # stop and forget state (a second replay of the same
+#                                              # match is a no-op while Redis remembers it)
+# Synthetic match only; no secrets (local passwords below are for this throwaway stack).
+
+x-app: &app
+  build: .
+  environment:
+    PITCHSIDE_BROKERS: redpanda:9092
+    PITCHSIDE_REDIS: redis://redis:6379/0
+    PITCHSIDE_POSTGRES: postgresql://pitchside:pitchside@postgres:5432/pitchside
+  depends_on:
+    redpanda: { condition: service_healthy }
+    redis: { condition: service_healthy }
+    postgres: { condition: service_healthy }
+
+services:
+  redpanda:
+    image: docker.redpanda.com/redpandadata/redpanda:v24.2.7
+    command:
+      - redpanda
+      - start
+      - --mode=dev-container
+      - --smp=1
+      - --memory=1G
+      - --kafka-addr=internal://0.0.0.0:9092,external://0.0.0.0:19092
+      - --advertise-kafka-addr=internal://redpanda:9092,external://localhost:19092
+    ports: ["19092:19092"]
+    healthcheck:
+      test: ["CMD-SHELL", "rpk cluster health | grep -E 'Healthy:.+true' || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  redis:
+    image: redis:7.4-alpine
+    ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      retries: 20
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: pitchside
+      POSTGRES_PASSWORD: pitchside
+      POSTGRES_DB: pitchside
+    ports: ["5432:5432"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pitchside"]
+      interval: 3s
+      retries: 20
+
+  worker:
+    <<: *app
+    command: ["python", "-m", "live.worker"]
+    restart: unless-stopped
+
+  api:
+    <<: *app
+    command: ["python", "-m", "live.api"]
+    ports: ["8001:8001"]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8001/health')"]
+      interval: 3s
+      retries: 30
+
+  replayer:
+    <<: *app
+    command: ["sh", "-c", "python -m live.replayer --speed ${SPEED:-10}"]
+    profiles: ["replay"]
