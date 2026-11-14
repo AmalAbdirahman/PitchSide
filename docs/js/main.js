@@ -29,8 +29,8 @@ async function load() {
 /* ---------- static parts ---------- */
 function setupStatic() {
   const { home, away, teams } = D.meta;
-  $('#home-name').textContent = teams[home].name.toUpperCase();
-  $('#away-name').textContent = teams[away].name.toUpperCase();
+  $('#home-name').textContent = teams[home].name;
+  $('#away-name').textContent = teams[away].name;
   $('#home-ab').textContent = $('#bug-h').textContent = home;
   $('#away-ab').textContent = $('#bug-a').textContent = away;
   $('#wp-name').textContent = home;

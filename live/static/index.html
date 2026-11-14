@@ -7,32 +7,34 @@
 <!-- Live control room (P14), served by live/api.py with the docker compose stack. Not part of the
      static site in docs/. Synthetic match; no crests, logos or broadcaster branding. -->
 <style>
-  :root { --bg: #0b1220; --panel: #121b2e; --line: #26324a; --ink: #eef2f8; --muted: #a9b4c6;
-    --green: #3ddc84; --amber: #ffc857; --red: #ff6b6b; --cyan: #04f5ff; --pink: #ff2d7e;
+  :root { --bg: #121212; --panel: #1d1d1d; --panel2: #262626; --line: rgba(255,255,255,.08); --ink: #f5f5f5; --muted: #b3b3b3;
+    --green: #00c26e; --amber: #f5a524; --red: #ff5a5f; --cyan: #2dd4bf; --pink: #ff5a5f;
     --font: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif; }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 var(--font); }
   header { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--line); }
   h1 { margin: 0; font-size: 17px; letter-spacing: .04em; }
   .bug { display: flex; gap: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
-  .bug span { padding: 4px 10px; background: var(--panel); border: 1px solid var(--line); }
+  .bug { border-radius: 12px; overflow: hidden; }
+  .bug span { padding: 5px 12px; background: var(--panel); }
   .bug .s { background: var(--ink); color: var(--bg); }
   #conn { margin-left: auto; font-size: 13px; color: var(--muted); }
   #conn.on { color: var(--green); }
-  a { color: var(--cyan); }
+  a { color: var(--green); }
   main { display: grid; grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr); gap: 16px; padding: 16px; }
   @media (max-width: 860px) { main { grid-template-columns: 1fr; } }
-  section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; min-width: 0; }
-  h2 { margin: 0; padding: 10px 14px; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--line); }
+  section { background: var(--panel); border-radius: 16px; min-width: 0; overflow: hidden; }
+  h2 { margin: 0; padding: 12px 16px; font-size: 15px; color: var(--ink); border-bottom: 1px solid var(--line); }
   table { width: 100%; border-collapse: collapse; }
   td, th { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
   th { font-size: 12px; color: var(--muted); font-weight: 600; }
   .tier { font-weight: 700; } .muted { color: var(--muted); }
   .st-aired { color: var(--green); } .st-wait { color: var(--amber); } .st-no { color: var(--red); }
-  button { font: inherit; padding: 4px 10px; margin: 2px 4px 2px 0; border-radius: 5px; border: 1px solid var(--line); background: #1c2840; color: var(--ink); cursor: pointer; }
-  button:hover, button:focus-visible { border-color: var(--cyan); outline: 2px solid var(--cyan); outline-offset: 1px; }
+  button { font: inherit; padding: 4px 10px; margin: 2px 4px 2px 0; border-radius: 99px; border: 0; background: var(--panel2); color: var(--ink); cursor: pointer; }
+  button:hover { background: #303030; }
+  button:focus-visible { outline: 2px solid var(--green); outline-offset: 1px; }
   #onair { padding: 14px; min-height: 120px; }
-  #onair .card { padding: 12px 14px; border-left: 4px solid var(--cyan); background: #0e1626; }
+  #onair .card { padding: 12px 14px; border-left: 4px solid var(--green); border-radius: 12px; background: var(--panel2); }
   #log { list-style: none; margin: 0; padding: 8px 14px; max-height: 360px; overflow: auto; font-size: 13px; }
   #log li { padding: 3px 0; border-bottom: 1px dashed var(--line); }
   .tblwrap { overflow-x: auto; }

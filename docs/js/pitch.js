@@ -1,6 +1,6 @@
 /* Broadcast view: pitch, ball trail, lane overload zones, event feed, clock and win-probability ribbon. */
 
-import { D, S, UI, $, esc, clock, minute, nameOf, teamCol, idxAt, toScreen, HOME_COL, AWAY_COL, LANES } from './data.js';
+import { D, S, UI, $, esc, clock, minute, nameOf, teamCol, idxAt, toScreen, HOME_COL, AWAY_COL, LANES, COL } from './data.js';
 
 export function pitchLines(op) {
   const p = D.meta.pitch, L = p.length, W = p.width, my = W / 2;
@@ -12,17 +12,23 @@ export function pitchLines(op) {
     <rect x="-1.6" y="${my - 3.66}" width="1.6" height="7.32" ${s}/><rect x="${L}" y="${my - 3.66}" width="1.6" height="7.32" ${s}/>`;
 }
 
+/* Mowing stripes: ten bands across the length, alternate ones a shade lighter. */
+export function stripes(p) {
+  const w = p.length / 10;
+  return [1, 3, 5, 7, 9].map(k => `<rect x="${(k * w).toFixed(2)}" y="0" width="${w.toFixed(2)}" height="${p.width}" fill="${COL.stripe}"/>`).join('');
+}
+
 export function drawPitch() {
   const p = D.meta.pitch, d = 'stroke="rgba(255,255,255,.12)" stroke-dasharray="1 1" stroke-width=".25"';
   const grid = [p.own_third_x, p.final_third_x].map(x => `<line x1="${x}" y1="0" x2="${x}" y2="${p.width}" ${d}/>`)
     .concat([1, 2].map(k => `<line x1="0" y1="${p.width * k / 3}" x2="${p.length}" y2="${p.width * k / 3}" ${d}/>`)).join('');
-  $('#pitch').innerHTML = `<rect x="-2" y="-2" width="${p.length + 4}" height="${p.width + 4}" fill="#0d0617"/>
+  $('#pitch').innerHTML = `<rect x="-2" y="-2" width="${p.length + 4}" height="${p.width + 4}" fill="${COL.pitch}"/>${stripes(p)}
     <g id="zones"></g><g id="lanegrid" opacity="0">${grid}</g>${pitchLines(0.22)}
     <text x="${p.length - 1}" y="${p.width + 1.6}" text-anchor="end" font-size="1.6" font-weight="800" fill="${HOME_COL}">${esc(D.meta.home)} ATTACK ▶</text>
     <text x="1" y="${p.width + 1.6}" font-size="1.6" font-weight="800" fill="${AWAY_COL}">◀ ${esc(D.meta.away)} ATTACK</text>
-    <g id="trail"></g><circle id="ring" r="2.6" fill="none" stroke="#00ff85" stroke-width=".35" stroke-dasharray="1 .8" opacity="0"/>
+    <g id="trail"></g><circle id="ring" r="2.6" fill="none" stroke="${COL.accent}" stroke-width=".35" stroke-dasharray="1 .8" opacity="0"/>
     <circle id="ball" r=".75" fill="#fff" opacity="0"/>
-    <g id="tag" opacity="0"><rect id="tag-bg" height="3.4" fill="#38003c"/><rect width=".5" height="3.4" fill="#00ff85"/>
+    <g id="tag" opacity="0"><rect id="tag-bg" height="3.4" fill="${COL.tag}"/><rect width=".5" height="3.4" fill="${COL.accent}"/>
       <text id="tag-tx" x="1.3" y="2.35" font-size="1.8" font-weight="800" fill="#fff"></text></g>`;
 }
 
@@ -89,7 +95,7 @@ const ribX = t => 8 + (t / D.end) * 884;
 const ribY = p => 46 - p * 40;
 
 export function drawRibbon() {
-  const colour = { goal: '#ffd23f', substitution: '#04f5ff', card: '#ff2d7e' };
+  const colour = { goal: COL.warn, substitution: COL.info, card: COL.bad };
   const short = { goal: 'GOAL', substitution: 'SUB', card: 'CARD' };
   const wp = D.series.win_prob.map((r, i) => `${i ? 'L' : 'M'}${ribX(D.series.t[i]).toFixed(1)} ${ribY(r[0]).toFixed(1)}`).join('');
   let g = '<defs><clipPath id="rc"><rect id="rcr" x="0" y="0" width="8" height="52"/></clipPath></defs>';
@@ -100,8 +106,8 @@ export function drawRibbon() {
     g += `<line x1="${x}" x2="${x}" y1="1" y2="51" stroke="${colour[e.type]}" stroke-width="1.2" stroke-dasharray="2 2" vector-effect="non-scaling-stroke"/>`;
     g += `<text x="${+x + 3}" y="${y}" class="rl" style="fill:${colour[e.type]}">${short[e.type]} ${minute(e.t)}</text>`;
   });
-  g += `<path d="${wp}" fill="none" stroke="#f5f1f9" stroke-width="2" vector-effect="non-scaling-stroke"/></g>`;
-  g += '<line id="head" x1="8" x2="8" y1="0" y2="52" stroke="#00ff85" stroke-width="2" vector-effect="non-scaling-stroke"/>';
+  g += `<path d="${wp}" fill="none" stroke="${COL.text}" stroke-width="2" vector-effect="non-scaling-stroke"/></g>`;
+  g += `<line id="head" x1="8" x2="8" y1="0" y2="52" stroke="${COL.accent}" stroke-width="2" vector-effect="non-scaling-stroke"/>`;
   $('#ribbon').innerHTML = g;
 }
 

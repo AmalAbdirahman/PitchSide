@@ -1,7 +1,7 @@
 /* Analysis view. Draws the series the bundle carries; computes no statistics. */
 
-import { D, S, UI, $, esc, minute, fix, nameOf, teamCol, idxAt, toScreen, HOME_COL, AWAY_COL, LANES } from './data.js';
-import { pitchLines } from './pitch.js';
+import { D, S, UI, $, esc, minute, fix, nameOf, teamCol, idxAt, toScreen, HOME_COL, AWAY_COL, LANES, COL } from './data.js';
+import { pitchLines, stripes } from './pitch.js';
 
 let lastAnalysis = 0;
 export function maybeRenderAnalysis(now) {
@@ -43,21 +43,21 @@ function renderXgRace() {
   for (const e of D.events) {
     if (e.type !== 'goal' || e.t > S.t) continue;
     const y = Y(D.series.teams[e.team].xg_sum[Math.min(i, idxAt(e.t) + 1)] || 0);  // first sample after the goal
-    g += `<line x1="${X(e.t)}" x2="${X(e.t)}" y1="44" y2="${y}" stroke="#ffd23f" stroke-dasharray="2 3"/>`;
-    g += `<circle cx="${X(e.t)}" cy="${y}" r="6" fill="${teamCol(e.team)}" stroke="#07030d" stroke-width="2"/>`;
-    g += `<text x="${X(e.t)}" y="38" text-anchor="middle" fill="#ffd23f" font-size="11" font-weight="800">GOAL ${esc(e.player.toUpperCase())} ${minute(e.t)}</text>`;
+    g += `<line x1="${X(e.t)}" x2="${X(e.t)}" y1="44" y2="${y}" stroke="${COL.warn}" stroke-dasharray="2 3"/>`;
+    g += `<circle cx="${X(e.t)}" cy="${y}" r="6" fill="${teamCol(e.team)}" stroke="${COL.bg}" stroke-width="2"/>`;
+    g += `<text x="${X(e.t)}" y="38" text-anchor="middle" fill="${COL.warn}" font-size="11" font-weight="800">GOAL ${esc(e.player.toUpperCase())} ${minute(e.t)}</text>`;
   }
   $('#xgrace').innerHTML = g;
 }
 
 function renderShots() {
   const p = D.meta.pitch;
-  let g = `<rect x="0" y="0" width="${p.length}" height="${p.width}" rx="2" fill="#0a0412"/>${pitchLines(0.18)}`;
+  let g = `<rect x="0" y="0" width="${p.length}" height="${p.width}" rx="2" fill="${COL.pitch}"/>${stripes(p)}${pitchLines(0.18)}`;
   for (const e of D.events) {
     if (e.type !== 'shot' || e.t > S.t) continue;
     const [x, y] = toScreen(e.team, e.x, e.y), col = teamCol(e.team), r = 0.8 + Math.sqrt(e.xg) * 4.2;
     const hi = UI.follow && e.player_id === UI.follow;
-    g += `<circle cx="${x}" cy="${y}" r="${r.toFixed(2)}" fill="${col}" fill-opacity="${e.outcome === 'goal' ? 1 : 0.2}" stroke="${hi ? '#00ff85' : col}" stroke-width="${hi ? 0.7 : 0.3}">` +
+    g += `<circle cx="${x}" cy="${y}" r="${r.toFixed(2)}" fill="${col}" fill-opacity="${e.outcome === 'goal' ? 1 : 0.2}" stroke="${hi ? COL.accent : col}" stroke-width="${hi ? 0.7 : 0.3}">` +
       `<title>${esc(e.player)} ${minute(e.t)} · xG ${e.xg.toFixed(2)} · ${e.shot_speed} km/h · ${esc(e.outcome.replace('_', ' '))}</title></circle>`;
   }
   g += `<text x="${p.length - 1}" y="${p.width - 1.5}" text-anchor="end" font-size="2.2" fill="${HOME_COL}" font-weight="800">${esc(D.meta.home)} ATTACK ▶</text>`;
@@ -69,7 +69,7 @@ function renderShots() {
 
 function compareRow(name, a, b, digits) {
   const va = a || 0, vb = b || 0, sum = va + vb || 1;
-  return `<div class="r"><span class="v c-cyan">${fix(a, digits)}</span><span class="n">${name}</span><span class="v c-pink">${fix(b, digits)}</span>` +
+  return `<div class="r"><span class="v c-nor">${fix(a, digits)}</span><span class="n">${name}</span><span class="v c-har">${fix(b, digits)}</span>` +
     `<div class="bars"><i style="width:${(va / sum) * 100}%;background:${HOME_COL}"></i><i style="width:${(vb / sum) * 100}%;background:${AWAY_COL}"></i></div></div>`;
 }
 
@@ -88,18 +88,18 @@ function renderCompare() {
 
 const HEDGE_TEXT = {
   early: ['EARLY', 'c-amber', 'Too few attacks to say much. Any caption must say "early sign".'],
-  suggests: ['SUGGESTS', 'c-cyan', 'Not yet clear of the league share once clustered attacks are allowed for. A caption must say "suggests".'],
+  suggests: ['SUGGESTS', 'c-info', 'Not yet clear of the league share once clustered attacks are allowed for. A caption must say "suggests".'],
   clear: ['CLEAR', 'c-green', 'Clearly above the league share once clustered attacks are allowed for. A plain statement is allowed.'],
 };
 
 function laneRow(name, lane, base, col) {
   const W = 600, X = v => v * W;
-  const bracket = `<line x1="${X(lane.lo)}" x2="${X(lane.hi)}" y1="11" y2="11" stroke="#f5f1f9" stroke-width="2"/>` +
-    `<line x1="${X(lane.lo)}" x2="${X(lane.lo)}" y1="5" y2="17" stroke="#f5f1f9" stroke-width="2"/><line x1="${X(lane.hi)}" x2="${X(lane.hi)}" y1="5" y2="17" stroke="#f5f1f9" stroke-width="2"/>`;
+  const bracket = `<line x1="${X(lane.lo)}" x2="${X(lane.hi)}" y1="11" y2="11" stroke="${COL.text}" stroke-width="2"/>` +
+    `<line x1="${X(lane.lo)}" x2="${X(lane.lo)}" y1="5" y2="17" stroke="${COL.text}" stroke-width="2"/><line x1="${X(lane.hi)}" x2="${X(lane.hi)}" y1="5" y2="17" stroke="${COL.text}" stroke-width="2"/>`;
   return `<div class="lane"><span class="lbl">${name}</span>
     <svg viewBox="0 0 ${W} 22" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="6" width="${W}" height="10" fill="rgba(255,255,255,.06)" rx="5"/>
       <rect x="0" y="6" width="${X(lane.share)}" height="10" fill="${col}" rx="5"/>${bracket}
-      <line x1="${X(base)}" x2="${X(base)}" y1="0" y2="22" stroke="#ffd23f" stroke-dasharray="3 2" stroke-width="1.5"/></svg>
+      <line x1="${X(base)}" x2="${X(base)}" y1="0" y2="22" stroke="${COL.warn}" stroke-dasharray="3 2" stroke-width="1.5"/></svg>
     <span class="val">${lane.k} · ${Math.round(lane.share * 100)}% <span class="c-muted">[${Math.round(lane.lo * 100)}–${Math.round(lane.hi * 100)}] · P ${Math.round(lane.p_above * 100)}%</span></span></div>`;
 }
 
@@ -107,7 +107,7 @@ function lanePanel(team, i) {
   const L = D.series.lanes[team][i], prior = D.series.lane_prior;
   let h = `<h3 style="color:${teamCol(team)}">${esc(D.meta.teams[team].name)} · ${L.n} attacks</h3>`;
   if (!L.n) return h + '<p class="note">No attacks in the window yet.</p>';
-  h += LANES.map(ln => laneRow(ln[0].toUpperCase() + ln.slice(1), L[ln], prior[ln], ln === L.top ? teamCol(team) : '#7d6c94')).join('');
+  h += LANES.map(ln => laneRow(ln[0].toUpperCase() + ln.slice(1), L[ln], prior[ln], ln === L.top ? teamCol(team) : COL.dim)).join('');
   const [word, cls, why] = HEDGE_TEXT[L.hedge];
   const over = L.overload ? ` Flagged as a ${L.overload}-lane overload.` : '';
   const top = L[L.top], p = Math.round(top.p_above * 100), lg = Math.round(prior[L.top] * 100);
@@ -129,7 +129,7 @@ const TOP_MOVES = 5;
 function threatPitch(team) {
   const p = D.meta.pitch, X = D.series.xt, cw = p.length / X.cols, ch = p.width / X.rows;
   const top = Math.max(...X.surface.flat()), col = teamCol(team);
-  let g = `<rect x="0" y="0" width="${p.length}" height="${p.width}" fill="#0a0412"/>`;
+  let g = `<rect x="0" y="0" width="${p.length}" height="${p.width}" fill="${COL.pitch}"/>`;
   X.surface.forEach((row, r) => row.forEach((v, c) => {
     g += `<rect x="${(c * cw).toFixed(2)}" y="${(r * ch).toFixed(2)}" width="${cw.toFixed(2)}" height="${ch.toFixed(2)}" fill="${col}" fill-opacity="${(Math.sqrt(v / top) * 0.7).toFixed(3)}"><title>xT ${v.toFixed(3)}</title></rect>`;
   }));
@@ -137,11 +137,11 @@ function threatPitch(team) {
   const moves = X.moves[team].filter(([id]) => D.byId.get(id).t <= S.t)
     .sort((a, b) => b[1] - a[1]).slice(0, TOP_MOVES);
   moves.forEach(([id, gain], k) => {
-    const e = D.byId.get(id), ink = UI.follow && e.player_id === UI.follow ? '#00ff85' : '#f5f1f9';
+    const e = D.byId.get(id), ink = UI.follow && e.player_id === UI.follow ? COL.accent : COL.text;
     g += `<g><title>${esc(nameOf(e.player_id))} ${minute(e.t)} · ${esc(e.type)} · xT +${gain.toFixed(3)}</title>` +
       `<line x1="${e.x}" y1="${e.y}" x2="${e.end_x}" y2="${e.end_y}" stroke="${ink}" stroke-width=".6"/>` +
-      `<circle cx="${e.end_x}" cy="${e.end_y}" r="1.6" fill="#07030d" stroke="${ink}" stroke-width=".4"/>` +
-      `<text x="${e.end_x}" y="${e.end_y + 0.7}" text-anchor="middle" font-size="2" font-weight="800" fill="#f5f1f9">${k + 1}</text></g>`;
+      `<circle cx="${e.end_x}" cy="${e.end_y}" r="1.6" fill="${COL.bg}" stroke="${ink}" stroke-width=".4"/>` +
+      `<text x="${e.end_x}" y="${e.end_y + 0.7}" text-anchor="middle" font-size="2" font-weight="800" fill="${COL.text}">${k + 1}</text></g>`;
   });
   g += `<text x="${p.length - 1}" y="${p.width - 1.5}" text-anchor="end" font-size="2.4" font-weight="800" fill="${col}">${esc(team)} ATTACK ▶</text>`;
   const list = moves.length ? moves.map(([id, gain], k) => {
@@ -161,7 +161,7 @@ function renderThreat() {
 
 /* Pass network: the bundle's network for the current half at the last 5-minute sample before the
    replay clock. Positions, degree, betweenness and groups all come from the bundle. */
-const GROUP_COLS = ['#ffd23f', '#00ff85', '#b28cff', '#ff8a3d', '#7fd1ff'];
+const GROUP_COLS = [COL.warn, COL.accent, '#a3e635', '#f472b6', '#e5e5e5'];
 
 function netAt() {
   const N = D.series.network;
@@ -177,19 +177,19 @@ function networkPitch(team, snap) {
   snap.edges.forEach(([a, b, k]) => { const key = a < b ? a + '|' + b : b + '|' + a; pair[key] = (pair[key] || 0) + k; });
   const top = snap.nodes.reduce((best, n) => (n[4] > best[4] ? n : best));
   const unique = snap.nodes.filter(n => n[4] === top[4]).length === 1;
-  let g = `<rect x="0" y="0" width="${p.length}" height="${p.width}" fill="#0a0412"/>` + pitchLines(0.25);
+  let g = `<rect x="0" y="0" width="${p.length}" height="${p.width}" fill="${COL.pitch}"/>` + stripes(p) + pitchLines(0.25);
   Object.entries(pair).forEach(([key, k]) => {
     const [a, b] = key.split('|').map(id => at[id]);
-    g += `<line x1="${a[1]}" y1="${a[2]}" x2="${b[1]}" y2="${b[2]}" stroke="#f5f1f9" stroke-opacity="${Math.min(0.85, 0.2 + 0.12 * k).toFixed(2)}" stroke-width="${(0.25 + 0.2 * k).toFixed(2)}"><title>${esc(nameOf(a[0]))} – ${esc(nameOf(b[0]))}: ${k} passes</title></line>`;
+    g += `<line x1="${a[1]}" y1="${a[2]}" x2="${b[1]}" y2="${b[2]}" stroke="${COL.text}" stroke-opacity="${Math.min(0.85, 0.2 + 0.12 * k).toFixed(2)}" stroke-width="${(0.25 + 0.2 * k).toFixed(2)}"><title>${esc(nameOf(a[0]))} – ${esc(nameOf(b[0]))}: ${k} passes</title></line>`;
   });
   // Larger circles first, so smaller ones stay visible on top; the most central player last.
   const order = [...snap.nodes].sort((a, b) => (unique && a[0] === top[0]) - (unique && b[0] === top[0]) || b[3] - a[3]);
   order.forEach(([id, x, y, deg, btw, grp]) => {
     const r = 1.1 + Math.sqrt(deg) * 0.4, ring = unique && id === top[0];
-    const ink = UI.follow && id === UI.follow ? '#00ff85' : '#07030d';
+    const ink = UI.follow && id === UI.follow ? COL.accent : COL.bg;
     g += `<g><title>${esc(nameOf(id))}: ${deg} passes made or received · betweenness ${btw.toFixed(2)}</title>` +
       `<circle cx="${x}" cy="${y}" r="${r.toFixed(2)}" fill="${GROUP_COLS[grp % GROUP_COLS.length]}" stroke="${ring ? '#ffffff' : ink}" stroke-width="${ring ? 0.8 : 0.4}"/>` +
-      `<text x="${x}" y="${(y + 0.8).toFixed(2)}" text-anchor="middle" font-size="2.2" font-weight="800" fill="#07030d">${esc(id.split('_').pop())}</text></g>`;
+      `<text x="${x}" y="${(y + 0.8).toFixed(2)}" text-anchor="middle" font-size="2.2" font-weight="800" fill="${COL.bg}">${esc(id.split('_').pop())}</text></g>`;
   });
   g += `<text x="${p.length - 1}" y="${p.width - 1.5}" text-anchor="end" font-size="2.4" font-weight="800" fill="${col}">${esc(team)} ATTACK ▶</text>`;
   const ranked = [...snap.nodes].sort((a, b) => b[4] - a[4]).slice(0, 3)

@@ -61,7 +61,7 @@ function auditRow(it) {
   }).join('');
   const st = it.status === 'verified' ? 'c-green' : it.status === 'corrected' ? 'c-amber' : 'c-red';
   return `<tr><td class="num">${clock(it.t)}</td><td><span style="font-family:var(--mono);font-size:11px">${esc(it.id)}</span>` +
-    `${it.f.injected ? '<br><span class="tag c-pink">injected</span>' : ''}</td><td>${esc(it.f.text.draft_en)}</td>` +
+    `${it.f.injected ? '<br><span class="tag c-bad">injected</span>' : ''}</td><td>${esc(it.f.text.draft_en)}</td>` +
     `<td class="trace">${agentTrace(it.f)}</td>${cells}` +
     `<td><span class="tag ${st}">${esc(it.status)}</span></td><td class="${ph[1]}">${ph[0]}</td></tr>`;
 }

@@ -4,7 +4,7 @@
 import { D, S, UI, CUES, $, esc, clock, minute, rend } from './data.js';
 import { PHASE, actionable, producerDecisions, tierRule, timeLeft } from './state.js';
 
-const TIER_CLS = { T0: 'c-green', T1: 'c-cyan', T2: 'c-amber' };
+const TIER_CLS = { T0: 'c-green', T1: 'c-info', T2: 'c-amber' };
 
 function ltLabel(it) {
   const es = UI.lang === 'es';
@@ -71,7 +71,7 @@ function rowHead(it, rt, fol) {
   h += `<span class="st ${ph[1]}">${ph[0]}${by}</span>`;
   if (it.status === 'corrected') h += '<span class="tag c-amber">corrected</span>';
   if (it.hedge !== 'none') h += `<span class="tag c-muted">${esc(it.hedge)}</span>`;
-  if (UI.depth === 'analyst' && it.f.injected) h += '<span class="tag c-pink">injected</span>';
+  if (UI.depth === 'analyst' && it.f.injected) h += '<span class="tag c-bad">injected</span>';
   if (fol) h += '<span class="tag c-green">following</span>';
   return `<div class="h">${h}<span class="t">${minute(it.t)}</span></div>`;
 }
@@ -155,7 +155,7 @@ export function renderTimers() {
     if (bar) bar.style.transform = `scaleX(${Math.max(0, left / it.ttl)})`;
     if (cd) {
       cd.textContent = `${airs ? 'airs in' : 'expires in'} ${Math.max(0, Math.ceil(left))} s${S.playing || S.t >= D.end ? '' : ' (paused)'}`;
-      cd.className = 'cd ' + (airs ? 'c-cyan' : 'c-amber');
+      cd.className = 'cd ' + (airs ? 'c-info' : 'c-amber');
     }
   }
 }

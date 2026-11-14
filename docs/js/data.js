@@ -4,7 +4,13 @@
 
 export const MATCH_S_PER_S = 40;  // at 1x, one match minute passes every 1.5 real seconds
 export const LANES = ['left', 'centre', 'right'];
-export const HOME_COL = '#04f5ff', AWAY_COL = '#ff2d7e';
+/* Colours for SVG drawings; the same values as the tokens in styles.css (keep in step). */
+export const COL = {
+  bg: '#121212', card: '#1d1d1d', tag: '#121212', text: '#f5f5f5', dim: '#6b6b6b',
+  accent: '#00c26e', info: '#2dd4bf', warn: '#f5a524', bad: '#ff5a5f',
+  pitch: '#17261c', stripe: '#1a2b20', nor: '#3d8bfd', har: '#ff7a45',
+};
+export const HOME_COL = COL.nor, AWAY_COL = COL.har;
 
 export let D = null;      // bundle: meta (with routing), events, items, players, end
 export let CUES = [];     // docs/data/cues.json

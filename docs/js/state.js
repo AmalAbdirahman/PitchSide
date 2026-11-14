@@ -7,7 +7,7 @@ import { D, S, UI, MATCH_S_PER_S, rend } from './data.js';
 import { resolve } from './routing.js';
 
 export const PHASE = {
-  veto: ['Veto window', 'c-cyan'], queued: ['Awaiting producer', 'c-amber'], aired: ['Aired', 'c-green'],
+  veto: ['Veto window', 'c-info'], queued: ['Awaiting producer', 'c-amber'], aired: ['Aired', 'c-green'],
   vetoed: ['Vetoed', 'c-red'], onair: ['On air now', 'c-green'], declined: ['Rejected by producer', 'c-red'], expired: ['Expired · not aired', 'c-red'],
   rejected: ['Rejected by verifier', 'c-red'],
 };
@@ -68,7 +68,7 @@ function update(it) {
 
 function announce(it, from, state, by) {
   const id = it.id;
-  if (state === 'veto_window') return log(`${id} routed ${it.tier}: ${it.ttl} s veto window`, 'c-cyan');
+  if (state === 'veto_window') return log(`${id} routed ${it.tier}: ${it.ttl} s veto window`, 'c-info');
   if (state === 'queued') return log(`${id} routed ${it.tier}: waiting for producer, ${it.ttl} s`, 'c-amber');
   if (state === 'vetoed') { S.c.vetoed++; return log(`Producer vetoed ${id}; it will not air`, 'c-red'); }
   if (state === 'rejected') { S.c.declined++; return log(`Producer rejected ${id}; it will not air`, 'c-red'); }
