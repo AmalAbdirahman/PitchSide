@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any
+
 import pytest
 from pydantic import BaseModel, ConfigDict, TypeAdapter
 
@@ -58,3 +60,25 @@ def seeded_of(category: str) -> list[SeededClaim]:
 @pytest.fixture(scope="session")
 def settings() -> Settings:
     return load()
+
+
+@pytest.fixture(scope="session")
+def replayed() -> tuple[Any, Any, Any]:
+    """P14: the whole synthetic match through the live worker on the in-memory ports (no Docker).
+    Returns (bus, state, audit)."""
+    import asyncio
+
+    from live.ports import InMemoryAudit, InMemoryBus, InMemoryState
+    from live.replayer import replay
+    from live.worker import Worker, scout_for
+
+    s = load()
+    bus, state, audit = InMemoryBus(), InMemoryState(), InMemoryAudit()
+    match, league = SyntheticSource().load()
+
+    async def run() -> None:
+        worker = Worker(bus, state, audit, s, scout_for(s))
+        await asyncio.gather(replay(bus, match, league, 0), worker.run(once=True))
+
+    asyncio.run(run())
+    return bus, state, audit

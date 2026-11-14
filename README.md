@@ -8,7 +8,7 @@ A producer-first control room for a replayed, synthetic football match. Python b
 
 - **Synthetic data on the site.** The published replay's clubs (Northbridge, Harlow), players and events come from a seeded simulator. No real match data, names or logos are on the site.
 - **Real open data, locally only.** The pipeline also runs on a real match from StatsBomb Open Data (rule-based drafter, no agent). Raw files and the built bundle stay in git-ignored folders and are not published, because StatsBomb's user agreement does not allow redistributing the data. See `data_sources.md` for the licence, every mapping decision and the dropped event types.
-- **Replay, not live.** The page replays a pre-built bundle. It has no server and makes no network calls.
+- **The site is a replay.** The published page replays a pre-built bundle. It has no server and makes no network calls. A live mode exists only as a local `docker compose` stack (below); it is not deployed.
 - **The model runs at build time only.** Drafts for each moment come from the Scout, a prompt agent on Microsoft Foundry, called by `python -m app.build_bundle --foundry`. Its answers are cached in `data/agent_cache.json`, so the normal build and the site never call a model.
 - **The Scout uses structured output, and tools in explore mode.** Its reply must follow a JSON Schema generated from Pydantic models. In explore mode it gets no numbers, only the match state and a flagged moment, and finds numbers and evidence with three read-only tools backed by the metric registry (`list_metrics`, `compute_metric`, `list_events`), which cannot see past the moment. Measured in a live run on 2026-11-13: handed mode 36/38 claims passed first time and none was rejected; explore mode 24/38 first time and 7/38 still rejected after a retry, all for wrongly written numbers that the verifier caught (`docs/methods/scout.md`). The site uses handed mode.
 - **A two-agent pipeline, with code as the judge.** A second agent, the Reader, sees only each Scout sentence and the roster and writes down the claim it understood; code compares that with the Scout's claim, and a mismatch fails the verifier's `meaning_matches` check and sends the Scout back once. On 75 hand-labelled sentences (34 with the right numbers but the wrong meaning) the check flagged 27 of the 34 (recall 0.79) and 4 of the 41 correct ones (precision 0.87), in one live run on 2026-11-13 (`docs/methods/meaning.md`). It misses qualifiers such as "on target" or "conceded". Neither agent decides what airs.
@@ -85,6 +85,22 @@ python -m app.build_bundle --source statsbomb      # writes data/external/bundle
 ```
 
 Limits: 45 s per call, at most 40 calls per build (`config.yaml`). A `--foundry` run reuses cached successful answers to identical requests and only calls for the rest.
+
+## Live mode (local stack)
+
+The same pipeline also runs on a stream of events, on a laptop: a replayer publishes the match to Redpanda (Kafka API), a worker keeps match state in Redis and drafts, verifies, routes and renders facts as their moments fall due, a FastAPI service pushes them over a WebSocket to a live control room and the overlay and takes producer decisions, and facts and decisions go into an event-sourced audit log in Postgres. It is not deployed; the static site does not use it. Details, diagram and limits: `docs/methods/live.md`.
+
+```
+python -m pip install -e ".[live]"
+docker compose up -d --build --wait                # Redpanda, Redis, Postgres, worker, API
+docker compose run --rm replayer                   # publish the match at 10x (SPEED=20 for 20x)
+                                                   # live control room: http://localhost:8001/
+python -m live.dev --speed 20                      # or: everything in one process, no Docker
+```
+
+- **Same facts as the offline build.** A full replay through the worker ends with an audit log whose facts equal the bundle's, field for field (the six planted test errors aside, which need the whole match). Tested on in-memory adapters (`tests/test_live.py`) and on the docker compose stack in CI (`tests/test_live_stack.py`, job `live`).
+- **Latency, event to fact-ready** (one synthetic match at 20x): on the compose stack in CI, median 26 ms and at most 63 ms during play, about 110 ms for the twelve summaries due at the final whistle (run 43534999209, commit 9158f7d). The Scout and Reader replay their caches here, so no model time is included.
+- The author's own laptop has no Docker; the stack has run only in CI. `python -m live.dev` was run locally (live page, a veto, the overlay, no console errors).
 
 ## Program output (overlay)
 
@@ -168,6 +184,8 @@ docs/     static control room (index.html, styles.css, js/ ES modules), overlay.
           data/, methods/ and img/ — published by GitHub Pages
           js/: data, routing (pure; reads meta.routing), state, pitch, queue, analysis, audit, main,
           cards (pure; overlay drawing), program (sends state to the overlay), overlay
+live/     live mode: replayer, worker (pipeline.py), api, ports (interfaces + in-memory), adapters
+          (Redpanda, Redis, Postgres), dev (one process), static/ (live control room)
 design/   prototype.html, the original design mockup (not published)
 data/     events.json, league_stats.json, agent_cache.json, reader_cache.json, xg_fit.json, xt_fit.json; external/ (git-ignored) for StatsBomb files
 tests/    seeded_claims.json, meaning_cases.json and pytest suites
