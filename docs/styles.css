@@ -268,6 +268,22 @@ tbody tr:hover{background:color-mix(in srgb,var(--text) 3%,transparent)}
 kbd{font:600 10.5px var(--mono);background:var(--card-2);border:1px solid var(--line);border-radius:4px;padding:1px 6px;color:var(--muted)}
 #ribbon{width:100%;height:44px;display:block}
 .rl{font-size:9px;fill:var(--muted);font-family:var(--mono)}
+/* R3 match stats (docs/js/stats.js): Broadcast bottom row and Analysis. */
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}
+.an .stats{margin-top:0}
+.stint{display:block;width:100%;height:auto}
+.key{display:flex;gap:12px;flex-wrap:wrap;font-size:11.5px;color:var(--muted)}
+.key i{display:inline-block;width:9px;height:9px;border-radius:2px;vertical-align:-1px;margin-right:5px}
+.pad .key{margin-top:12px}
+.so+.so{margin-top:14px}
+.so p{margin:0;font-size:12.5px;color:var(--muted)}
+.so-h b{color:var(--text);font-weight:600}
+.so-bar,.rp-bar{display:flex;height:10px;margin:6px 0 4px;border-radius:3px;overflow:hidden;background:var(--inset)}
+.so-bar i,.rp-bar i{display:block;height:100%}
+.so-bar i+i,.rp-bar i+i{box-shadow:inset 1px 0 0 var(--card)}
+.rp-bar{height:22px;margin-top:2px}
+.rp-n{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:8px 0 10px;font-size:13px;color:var(--muted)}
+.rp-n b{font-weight:600;color:var(--text)}
 .legend{display:flex;gap:16px;font-size:11.5px;color:var(--muted);margin-bottom:1px;flex-wrap:wrap}
 .legend i{display:inline-block;width:12px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
 dialog .body .ctl{margin-bottom:6px}
@@ -291,7 +307,7 @@ dialog .ck{margin:4px 0;font-size:12.5px}
   .foot svg{display:block}
   .foot .built{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
   .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .bc,.au,.an,.lanes2{grid-template-columns:1fr}
+  .bc,.au,.an,.lanes2,.stats{grid-template-columns:1fr}
   .feed{grid-template-columns:repeat(2,minmax(0,1fr))}
   .queue{max-height:none}
   .out{grid-template-columns:1fr}

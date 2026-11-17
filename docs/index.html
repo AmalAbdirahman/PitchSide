@@ -112,6 +112,14 @@
     <div class="queue" role="region" aria-label="Drafted facts"><div class="rows" id="rows"></div></div>
   </div>
  </div>
+ <div class="stats">
+  <div class="panel"><div class="ph"><h2>npxG by 15-minute interval</h2><span class="sp key" id="st-key-bc"></span></div>
+    <div class="pad"><svg id="st-int-bc" class="stint" viewBox="0 0 300 132" role="img" aria-label="npxG by 15-minute interval"></svg></div></div>
+  <div class="panel"><div class="ph"><h2>Shot outcomes</h2><span class="sp lbl" id="st-so-t-bc">to 1'</span></div>
+    <div class="pad"><div id="st-so-bc"></div><div class="key" id="st-so-k-bc"></div></div></div>
+  <div class="panel"><div class="ph"><h2>Result probability</h2><span class="sp lbl">Model estimate</span></div>
+    <div class="pad"><div id="st-rp-bc"></div><p class="note">Home win, draw and away win from the Poisson model (poisson_v1) on the score, the time left and each side&rsquo;s xG so far, blended with the league scoring rate early on. Rounded to whole per cent. A model estimate, not a prediction about real football.</p></div></div>
+ </div>
 </section>
 
 <!-- ===================== 02 ANALYSIS ===================== -->
@@ -123,6 +131,14 @@
     <div class="pad"><svg id="shotmap" viewBox="-2 -2 109 72" role="img" aria-label="Shot locations up to the replay clock"></svg><div class="note" id="shot-note"></div></div></div>
   <div class="panel"><div class="ph"><h2>Team comparison</h2><span class="sp lbl" id="cmp-t">to 0'</span></div>
     <div class="pad"><div class="cmp" id="cmp"></div><div class="note">Counts and xG come from the synthetic event log; win probability is a model estimate.</div></div></div>
+  <div class="wide"><div class="stats">
+    <div class="panel"><div class="ph"><h2>npxG by 15-minute interval</h2><span class="sp key" id="st-key-an"></span></div>
+      <div class="pad"><svg id="st-int-an" class="stint" viewBox="0 0 300 132" role="img" aria-label="npxG by 15-minute interval"></svg></div></div>
+    <div class="panel"><div class="ph"><h2>Shot outcomes</h2><span class="sp lbl" id="st-so-t-an">to 1'</span></div>
+      <div class="pad"><div id="st-so-an"></div><div class="key" id="st-so-k-an"></div></div></div>
+    <div class="panel"><div class="ph"><h2>Result probability</h2><span class="sp lbl">Model estimate</span></div>
+      <div class="pad"><div id="st-rp-an"></div><p class="note">Home win, draw and away win from the Poisson model (poisson_v1) on the score, the time left and each side&rsquo;s xG so far, blended with the league scoring rate early on. Rounded to whole per cent. A model estimate, not a prediction about real football.</p></div></div>
+   </div></div>
   <div class="panel wide"><div class="ph"><h2>Attack lanes</h2><span class="sp lbl long" id="lanes-t">Trailing window · Beta-Binomial hedge, Wilson for comparison</span></div>
     <div class="pad lanes2"><div id="lanes-h"></div><div id="lanes-a"></div></div></div>
   <div class="panel wide"><div class="ph"><h2>Threat map</h2><span class="sp lbl">Expected threat (xT) · model · top 5 gains so far</span></div>

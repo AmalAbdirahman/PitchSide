@@ -8,6 +8,7 @@ import { renderAudit, renderLog } from './audit.js';
 import { maybeRenderAnalysis } from './analysis.js';
 import { publishProgram, startProgram } from './program.js';
 import { renderKpis, setupKpis } from './kpi.js';
+import { renderStats } from './matchstats.js';
 
 async function load() {
   try {
@@ -103,6 +104,7 @@ function frame(now) {
     S.zoneIdx = idxAt(S.t);
     renderZones();
     renderKpis();
+    renderStats();
   }
   if (UI.view === 'an') maybeRenderAnalysis(now);
   renderClock();
@@ -120,6 +122,7 @@ function renderAll() {
   renderPitch();
   renderZones();
   renderKpis();
+  renderStats();
   S.anKey = null;
 }
 

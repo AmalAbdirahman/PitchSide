@@ -56,7 +56,8 @@ function renderTilt(i, home) {
 
 function renderWinProb(i, home) {
   const wp = D.series.win_prob.map(r => r[0] * 100);
-  $('#k-wp').textContent = pct(wp[i]);
+  // The whole percentage the result-probability bar shows (series.result_pct), so both agree.
+  $('#k-wp').textContent = D.series.result_pct[i][0] + '%';
   $('#k-wp-s').textContent = `${home} · model estimate`;
   spark('#sp-wp', [[wp, COL.text]], i, 0, 100);
 }
