@@ -7,6 +7,7 @@ import { openEvidence, renderOnAir, renderQueue, renderTimers } from './queue.js
 import { renderAudit, renderLog } from './audit.js';
 import { maybeRenderAnalysis } from './analysis.js';
 import { publishProgram, startProgram } from './program.js';
+import { renderKpis, setupKpis } from './kpi.js';
 
 async function load() {
   try {
@@ -35,6 +36,7 @@ function setupStatic() {
   $('#home-ab').textContent = $('#bug-h').textContent = home;
   $('#away-ab').textContent = $('#bug-a').textContent = away;
   $('#wp-name').textContent = home;
+  setupKpis();
   drawPitch();
   drawRibbon();
   fillFollow();
@@ -100,6 +102,7 @@ function frame(now) {
   if (idxAt(S.t) !== S.zoneIdx) {
     S.zoneIdx = idxAt(S.t);
     renderZones();
+    renderKpis();
   }
   if (UI.view === 'an') maybeRenderAnalysis(now);
   renderClock();
@@ -116,6 +119,7 @@ function renderAll() {
   renderAudit();
   renderPitch();
   renderZones();
+  renderKpis();
   S.anKey = null;
 }
 
@@ -124,6 +128,7 @@ function setPlayButton() {
   const b = $('#play');
   b.textContent = S.playing ? '❚❚' : '▶';
   b.setAttribute('aria-label', S.playing ? 'Pause' : 'Play');
+  document.body.classList.toggle('playing', S.playing);
 }
 
 function restart() {
@@ -155,7 +160,7 @@ const KEY_DECISION = { a: 'approve', r: 'reject', v: 'veto' };
 
 function onKey(e) {
   if (e.ctrlKey || e.metaKey || e.altKey || /SELECT|INPUT|TEXTAREA/.test(e.target.tagName)) return;
-  if ($('#drawer').open || $('#aboutdlg').open) return;
+  if ($$('dialog').some(d => d.open)) return;
   const k = e.key.toLowerCase();
   if (e.code === 'Space' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'A') { e.preventDefault(); togglePlay(); }
   else if (KEY_DECISION[k]) { const it = oldestFor(KEY_DECISION[k]); if (it) act(it.id, KEY_DECISION[k]); }
@@ -164,23 +169,56 @@ function onKey(e) {
   else if (k === '3') setView('au');
 }
 
-function press(sel, fn) {
-  $$(sel).forEach(b => b.addEventListener('click', () => {
-    $$(sel).forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-    fn(b);
-    S.dirty = true;
-  }));
+/* A header pill that steps through values: shows the current one and names the next. */
+function cycle(sel, values, label, apply) {
+  const b = $(sel);
+  let k = 0;
+  const show = () => {
+    const [value, text] = values[k], next = values[(k + 1) % values.length][1];
+    b.querySelector('b').textContent = text;
+    b.setAttribute('aria-label', `${label}: ${text}. Switch to ${next}.`);
+    apply(value);
+  };
+  b.addEventListener('click', () => { k = (k + 1) % values.length; show(); S.dirty = true; });
+  show();
+}
+
+function showLatestEvidence() {
+  const it = S.lastAired || [...D.items].reverse().find(x => S.rt[x.id]);
+  if (it) return openEvidence(it.id);
+  $('#dr-t').textContent = 'Evidence';
+  $('#dr-b').innerHTML = '<p class="note">Nothing drafted yet. Press play, then open the evidence for a fact.</p>';
+  $('#drawer').showModal();
+  $('#dr-x').focus();
+}
+
+function openDialog(id, close) {
+  $(id).showModal();
+  $(close).focus();
 }
 
 function wire() {
   $('#play').addEventListener('click', togglePlay);
   $('#restart').addEventListener('click', () => { restart(); S.playing = true; setPlayButton(); });
-  press('[data-speed]', b => { UI.speed = Number(b.dataset.speed); });
-  press('[data-depth]', b => { UI.depth = b.dataset.depth; document.body.dataset.mode = UI.depth; });
-  press('[data-lang]', b => { UI.lang = b.dataset.lang; });
+  cycle('#speed', [[1, '1×'], [2, '2×'], [4, '4×']], 'Replay speed', v => { UI.speed = v; $('#speed').dataset.speed = v; });
+  cycle('#depth', [['casual', 'Casual'], ['analyst', 'Analyst']], 'Viewer depth', v => { UI.depth = v; document.body.dataset.mode = v; });
+  cycle('#lang', [['en', 'EN'], ['es', 'ES']], 'Language', v => { UI.lang = v; });
   $$('nav.views button').forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
   $('#follow').addEventListener('change', e => { UI.follow = e.target.value; S.dirty = true; });
-  $('#auto').addEventListener('change', e => setAutopilot(e.target.checked));
+  $('#auto').addEventListener('click', () => {
+    const on = !UI.auto;
+    $('#auto').setAttribute('aria-pressed', String(on));
+    $('#auto b').textContent = on ? 'On' : 'Off';
+    setAutopilot(on);
+  });
+  $('#go-cues').addEventListener('click', () => {
+    setView('bc');
+    $('#cues').scrollIntoView({ block: 'center' });
+    $('#cues').focus({ preventScroll: true });
+  });
+  $('#go-ev').addEventListener('click', showLatestEvidence);
+  $('#go-set').addEventListener('click', () => openDialog('#setdlg', '#set-x'));
+  $('#set-x').addEventListener('click', () => $('#setdlg').close());
   $('#rows').addEventListener('click', e => {
     const b = e.target.closest('button[data-act]');
     if (!b) return;
@@ -189,7 +227,7 @@ function wire() {
   });
   $('#lt-why').addEventListener('click', () => { if (S.lastAired) openEvidence(S.lastAired.id); });
   $('#dr-x').addEventListener('click', () => $('#drawer').close());
-  $('#about').addEventListener('click', () => { $('#aboutdlg').showModal(); $('#ab-x').focus(); });
+  $('#about').addEventListener('click', () => openDialog('#aboutdlg', '#ab-x'));
   $('#ab-x').addEventListener('click', () => $('#aboutdlg').close());
   $('#speak').addEventListener('click', speak);
   document.addEventListener('keydown', onKey);

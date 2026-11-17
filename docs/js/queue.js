@@ -136,9 +136,7 @@ export function renderQueue() {
     : `<div class="empty">${S.next ? 'No facts name this player yet.' : 'Nothing drafted yet. Press play on the replay strip.'}</div>`;
   if (key.act && key.id) restoreFocus(key.act, key.id);
   const waiting = D.items.filter(actionable).length;
-  $('#qhead').innerHTML = `<div><span class="lbl">Waiting</span><b class="${waiting ? 'c-corrected' : ''}">${waiting}</b></div>` +
-    `<div><span class="lbl">Aired</span><b class="c-verified">${S.c.aired}</b></div>` +
-    `<div><span class="lbl">Caught</span><b class="c-rejected">${S.c.rejected + S.c.corrected}</b></div>`;
+  $('#qhead').innerHTML = `<b class="${waiting ? 'c-corrected' : ''}">${waiting}</b> waiting`;
 }
 
 function restoreFocus(act, id) {

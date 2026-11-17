@@ -8,7 +8,7 @@ export const LANES = ['left', 'centre', 'right'];
    main.js calls it at start and on every theme change, then redraws. */
 const TOKENS = {
   bg: '--bg', card: '--card', line: '--line', line2: '--line-2', text: '--text', muted: '--muted',
-  accent: '--accent', home: '--home', away: '--away', homeText: '--home-text', awayText: '--away-text',
+  accent: '--accent', verified: '--verified', home: '--home', away: '--away', homeText: '--home-text', awayText: '--away-text',
   pitch: '--pitch', pitchLine: '--pitch-line',
   grp1: '--grp-1', grp2: '--grp-2', grp3: '--grp-3', grp4: '--grp-4', grp5: '--grp-5', grpInk: '--grp-ink',
   airBg: '--air-bg', airText: '--air-text', airAccent: '--air-accent',

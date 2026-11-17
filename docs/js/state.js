@@ -19,7 +19,7 @@ const PHASE_OF = {
 export function freshState() {
   return {
     t: 0, playing: false, next: 0, evNext: 0, rt: {}, seen: new Set(), log: [], fx: [],
-    airQ: [], onAir: null, lastAired: null, dirty: true, feedDirty: true,
+    airQ: [], onAir: null, lastAired: null, dirty: true, feedDirty: true, airedAt: [],
     c: { drafts: 0, verified: 0, corrected: 0, rejected: 0, aired: 0, vetoed: 0, declined: 0, expired: 0 },
   };
 }
@@ -81,6 +81,7 @@ function announce(it, from, state, by) {
 
 function air(it, by) {
   S.c.aired++;
+  S.airedAt.push(S.t);
   S.airQ.push(it);
   log(`Aired ${it.id} (${by})`, 'c-verified');
   // One lower-third slot: if facts pile up, the newest waiting one replaces older waiting ones on screen.

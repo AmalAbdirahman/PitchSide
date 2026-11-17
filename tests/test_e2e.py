@@ -64,9 +64,15 @@ def _flow(page: Any) -> dict[str, int]:
     return {name: int(value) for name, value in tiles}
 
 
+def _fast(pg: Any) -> None:
+    """The Replay pill steps 1x -> 2x -> 4x."""
+    while pg.get_attribute("#speed", "data-speed") != "4":
+        pg.click("#speed")
+
+
 def test_play_to_full_time_with_decisions(page: Any) -> None:
     assert len(T2) == 2, "the scenario needs two T2 facts: one to approve, one to let expire"
-    page.click('[data-speed="4"]')
+    _fast(page)
     page.click("#play")
     page.locator('#rows button[data-act="veto"]').first.click(timeout=20_000)
     page.locator(f'#rows button[data-act="approve"][data-id="{T2[0]}"]').click(timeout=20_000)
@@ -172,7 +178,7 @@ def test_overlay_follows_the_control_room(site: str) -> None:
         room = _watch(context.new_page())
         room.goto(site)
         room.wait_for_selector("#qhead b")
-        room.click('[data-speed="4"]')
+        _fast(room)
         room.click("#play")
         overlay.wait_for_selector("#graphic .g", timeout=30_000)
         assert not overlay.is_visible("#hint")
@@ -197,3 +203,53 @@ def test_overlay_demo_draws_each_layout(page: Any, site: str, layout: str, css: 
     page.wait_for_selector(css)
     assert page.is_visible("#bug") and not page.is_visible("#hint")
     assert page.problems == []
+
+
+def test_shell_views_keys_and_kpis(page: Any) -> None:
+    """R2: sidebar tabs and keys 1-3 switch views; the KPI row follows the replay clock."""
+    page.click("#v-an")
+    assert page.is_visible("#view-an") and not page.is_visible("#view-bc")
+    page.keyboard.press("3")
+    assert page.get_attribute("#v-au", "aria-selected") == "true" and page.is_visible("#view-au")
+    page.keyboard.press("1")
+    assert page.is_visible("#view-bc")
+    assert page.inner_text("#built") == HERO["meta"]["built"]
+    assert page.inner_text("#k-npxg-h") == "0.00" and page.inner_text("#k-ver") == "0"
+    _fast(page)
+    page.click("#play")
+    page.wait_for_function("document.querySelector('#k-ver').textContent !== '0'", timeout=30_000)
+    page.click("#play")
+    assert page.inner_text("#k-wp").endswith("%")
+    assert page.inner_text("#k-ver-n").startswith("/ ")
+    assert page.locator("#sp-wp path").count() == 1
+    page.click("#go-set")
+    assert page.is_visible("#setdlg") and page.is_visible("#follow")
+    page.keyboard.press("Escape")
+    page.click("#go-ev")
+    assert page.is_visible("#drawer")
+    assert page.problems == []
+
+
+@pytest.mark.parametrize(("width", "side"), [(1000, "icons"), (390, "bottom")])
+def test_narrow_layouts_keep_the_nav_and_never_scroll_sideways(
+    site: str, width: int, side: str
+) -> None:
+    with sync_api.sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        context = browser.new_context(
+            reduced_motion="reduce", viewport={"width": width, "height": 860}
+        )
+        pg = _watch(context.new_page())
+        pg.goto(site)
+        pg.wait_for_selector("#qhead b")
+        assert pg.evaluate("document.documentElement.scrollWidth") <= width
+        label = pg.locator("#v-an span").bounding_box()
+        assert label is not None and label["width"] <= 1  # collapsed to the icon, kept for readers
+        assert pg.get_by_role("tab", name="Analysis").count() == 1  # still named for screen readers
+        box = pg.locator(".side").bounding_box()
+        if side == "bottom":
+            assert box is not None and box["y"] > 700  # pinned to the bottom of the viewport
+        pg.click("#v-an")
+        assert pg.is_visible("#view-an")
+        browser.close()
+        assert pg.problems == []

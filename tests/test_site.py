@@ -103,3 +103,28 @@ def test_cue_feed_has_t0_t1_in_both_languages_and_no_t2(hero: dict[str, Any]) ->
     for fact in hero["facts"]:
         expected = {"en", "es"} if fact["risk"]["tier"] in ("T0", "T1") else None
         assert langs.get(fact["fact_id"]) == expected, fact["fact_id"]
+
+
+def test_shell_has_the_sidebar_header_and_kpi_row() -> None:
+    """R2 (design/redesign_mockup.png): three view tabs, the Replay group, header pills and the
+    five KPI cards. Ask PitchSide is not listed until it exists (R5)."""
+    html = (DOCS / "index.html").read_text(encoding="utf-8")
+    tabs = re.findall(r'role="tab"[^>]*data-view="(\w+)"', html)
+    assert tabs == ["bc", "an", "au"]
+    assert "Ask PitchSide" not in html
+    for id_ in [
+        "go-cues",
+        "go-ev",
+        "go-set",
+        "built",
+        "speed",
+        "depth",
+        "lang",
+        "auto",
+        "theme",
+        "dl",
+    ]:
+        assert f'id="{id_}"' in html, id_
+    cards = re.findall(r'<div class="kpi" id="kpi-(\w+)"', html)
+    assert cards == ["npxg", "tilt", "wp", "ver", "air"]
+    assert "model estimate" in html

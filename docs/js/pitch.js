@@ -116,7 +116,7 @@ function scoreAt(t) {
 export function renderClock() {
   const sc = scoreAt(S.t);
   if ($('#score').textContent !== sc) $('#score').textContent = $('#bug-s').textContent = sc;
-  $('#clock').textContent = $('#clk2').textContent = clock(S.t);
+  $('#clock').textContent = clock(S.t);
   $('#bug-m').textContent = minute(S.t);
   const x = ribX(S.t);
   $('#rcr').setAttribute('width', x);

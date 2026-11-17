@@ -62,6 +62,8 @@ python -m app.build_bundle                         # offline rebuild, replays da
 
 Dependency groups live in `pyproject.toml`: `dev` (tooling), `data` (open-data analysis; matplotlib draws the xT figures), `agents` (the Foundry client) and `e2e` (Playwright). `pre-commit install` runs ruff and mypy before each commit.
 
+The control room has a sidebar (Broadcast, Analysis and Audit views; cue feed, evidence and settings), a header with the score, clock and replay controls, and a row of five indicators with sparklines up to the replay clock: npxG, field tilt (a team's share of both teams' final-third passes over the last 15 minutes), win probability (model estimate), facts that passed the verifier, and facts aired. npxG and field tilt are registry metrics, so the verifier can recompute them; the simulator awards no penalties, so on the synthetic match npxG equals xG. Below 1100px the sidebar collapses to icons and below 700px it becomes a bottom bar.
+
 The control room follows the system's light or dark setting; the Theme button in the header overrides it, and the browser remembers the choice. Colours are CSS tokens in `docs/styles.css` (the pitch and charts read the same tokens), text colours pass WCAG AA in both themes (`tests/test_theme.py`), and the on-air score bug and lower third stay dark in both.
 
 Browser smoke test (serves `docs/` locally, plays to full time at 4x, vetoes one fact, approves one, lets one expire, switches the theme, and fails on any console error):
