@@ -28,6 +28,8 @@ from core.metrics import REGISTRY, compute_metric
 Lang = str
 LABELS: dict[str, tuple[str, str]] = {  # metric -> (en, es)
     "xg_sum": ("Expected goals (xG)", "Goles esperados (xG)"),
+    "npxg_sum": ("Non-penalty xG (npxG)", "xG sin penaltis (npxG)"),
+    "shots_on_target": ("Shots on target", "Disparos a puerta"),
     "pass_accuracy": ("Pass accuracy", "Precisión de pase"),
     "shots": ("Shots", "Disparos"),
     "xt_added": ("Expected threat added (xT)", "Amenaza esperada añadida (xT)"),

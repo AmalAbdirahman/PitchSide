@@ -12,6 +12,7 @@ from core.config import MetricContext, Settings, Winprob
 from core.events import Clock, Event
 from core.facts import Subject, Window
 from core.hedge import judge_share
+from core.intervals import intervals
 from core.metrics import Metric, compute_metric, in_window, require_metric
 from core.network import betweenness, pass_links, rank, weights
 from core.sources import League
@@ -352,6 +353,62 @@ def _pass_hub(
     ]
 
 
+def npxg_interval_moments(
+    events: list[Event], teams: tuple[str, str], s: Settings, clock: Clock
+) -> list[dict[str, Any]]:
+    """A team's npxG in one fixed interval (15-minute block), if at least npxg_interval_min. The
+    moment is due when the interval ends; the claim is the interval's npxG."""
+    c, ctx, out = s.moments, MetricContext.of(s), []
+    for iv in intervals(clock, c.interval_minutes):
+        w = Window(start_t=iv.start_t, end_t=iv.end_t)
+        for team in teams:
+            m = require_metric("npxg_sum", _team(team), w, events, ctx)
+            if m.ids and m.value >= c.npxg_interval_min:
+                out.append(
+                    _moment(
+                        "stat",
+                        "npxg_interval",
+                        "npxg_sum",
+                        _team(team),
+                        iv.start_t,
+                        iv.end_t,
+                        m,
+                        interval=iv.label,
+                    )  # fmt: skip
+                )
+    return out
+
+
+def shot_outcome_moments(
+    events: list[Event], teams: tuple[str, str], s: Settings, clock: Clock
+) -> list[dict[str, Any]]:
+    """A team's shots on target out of all its shots in a half, if it took at least
+    shot_outcomes_min_shots. The claim is the on-target count; the text's total is the metric's n."""
+    half, end_t, ctx = float(clock.half_t), float(clock.end_t), MetricContext.of(s)
+    out = []
+    # As in half_moments: first-half events are at least 0.1 s before the second half starts.
+    for name, (start, end) in zip(
+        ("first", "second"), ((0.0, half - 0.1), (half, end_t)), strict=True
+    ):
+        w = Window(start_t=start, end_t=end)
+        for team in teams:
+            m = require_metric("shots_on_target", _team(team), w, events, ctx)
+            if m.n >= s.moments.shot_outcomes_min_shots:
+                out.append(
+                    _moment(
+                        "stat",
+                        "shot_outcomes",
+                        "shots_on_target",
+                        _team(team),
+                        start,
+                        end,
+                        m,
+                        half=name,
+                    )  # fmt: skip
+                )
+    return out
+
+
 def detect_moments(
     events: list[Event], teams: tuple[str, str], league: League, s: Settings, clock: Clock
 ) -> list[dict[str, Any]]:
@@ -362,5 +419,7 @@ def detect_moments(
         + overload_moments(events, teams, league, s, clock)
         + turnover_moments(events, teams, s, clock)
         + half_moments(events, teams, s, clock)
+        + npxg_interval_moments(events, teams, s, clock)
+        + shot_outcome_moments(events, teams, s, clock)
     )
     return sorted(moments, key=lambda m: (m["created_t"], m["rule"]))

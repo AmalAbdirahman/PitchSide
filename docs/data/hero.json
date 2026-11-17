@@ -10283,6 +10283,191 @@
    ]
   },
   {
+   "fact_id": "f_500001",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 1799.999,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "npxg_sum",
+    "window": {
+     "start_t": 900.0,
+     "end_t": 1799.999
+    },
+    "comparator": "eq",
+    "value": 0.3
+   },
+   "text": {
+    "draft_en": "Harlow have generated 0.30 npxG since the 16th minute.",
+    "canonical_en": "Harlow have generated 0.30 npxG since the 16th minute.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 0.3,
+      "unit": "xG"
+     },
+     {
+      "key": "since_minute",
+      "value": 16
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     188,
+     193
+    ],
+    "players": [],
+    "window": {
+     "start_t": 900.0,
+     "end_t": 1799.999
+    }
+   },
+   "verification": {
+    "status": "verified",
+    "checks": [
+     {
+      "name": "intent_stripped",
+      "passed": true,
+      "detail": "no intent words"
+     },
+     {
+      "name": "evidence_exists",
+      "passed": true,
+      "detail": "all cited events exist, in window, in the past"
+     },
+     {
+      "name": "entities",
+      "passed": true,
+      "detail": "teams and players match the cited events"
+     },
+     {
+      "name": "recompute",
+      "passed": true,
+      "detail": "claimed eq 0.3, recomputed 0.305 from 2 events"
+     },
+     {
+      "name": "sample_size",
+      "passed": true,
+      "detail": "plain value from the event log; no inference"
+     },
+     {
+      "name": "numbers_match",
+      "passed": true,
+      "detail": "every number traced to the event log"
+     }
+    ]
+   },
+   "approval": {
+    "state": "veto_window",
+    "valid_from_t": 1799.999,
+    "ttl_s": 3
+   },
+   "uncertainty": {
+    "n": 2,
+    "ci_method": "none",
+    "hedge": "none"
+   },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Drafter",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "rules"
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
+   "risk": {
+    "tier": "T1",
+    "reasons": [
+     "verified, no corrections, impact 0.00, hedge none"
+    ]
+   },
+   "renditions": [
+    {
+     "kind": "cue",
+     "lang": "en",
+     "text": "Harlow have generated 0.30 npxG since the 16th minute.",
+     "layout": "stat_comparison",
+     "duration_s": 8,
+     "start_t": 1802.999,
+     "numbers_preserved": true,
+     "card": {
+      "layout": "stat_comparison",
+      "label": "Non-penalty xG (npxG)",
+      "period": "",
+      "subject": "HAR",
+      "home": {
+       "team": "NOR",
+       "name": "Northbridge",
+       "shown": "0.27"
+      },
+      "away": {
+       "team": "HAR",
+       "name": "Harlow",
+       "shown": "0.30"
+      },
+      "text": "Harlow have generated 0.30 npxG since the 16th minute."
+     }
+    },
+    {
+     "kind": "cue",
+     "lang": "es",
+     "text": "Harlow ha generado 0,30 de npxG desde el minuto 16.",
+     "layout": "stat_comparison",
+     "duration_s": 8,
+     "start_t": 1802.999,
+     "numbers_preserved": true,
+     "card": {
+      "layout": "stat_comparison",
+      "label": "xG sin penaltis (npxG)",
+      "period": "",
+      "subject": "HAR",
+      "home": {
+       "team": "NOR",
+       "name": "Northbridge",
+       "shown": "0,27"
+      },
+      "away": {
+       "team": "HAR",
+       "name": "Harlow",
+       "shown": "0,30"
+      },
+      "text": "Harlow ha generado 0,30 de npxG desde el minuto 16."
+     }
+    },
+    {
+     "kind": "caption",
+     "lang": "en",
+     "text": "Harlow have generated 0.30 npxG since the 16th minute.",
+     "numbers_preserved": true
+    },
+    {
+     "kind": "caption",
+     "lang": "es",
+     "text": "Harlow ha generado 0,30 de npxG desde el minuto 16.",
+     "numbers_preserved": true
+    },
+    {
+     "kind": "audio_script",
+     "lang": "en",
+     "text": "Harlow have generated nought point three nought npexpected goals since the sixteenth minute.",
+     "numbers_preserved": true
+    }
+   ]
+  },
+  {
    "fact_id": "f_000006",
    "match_id": "nb_v_hr_hero",
    "kind": "stat",
@@ -12967,6 +13152,353 @@
      "kind": "audio_script",
      "lang": "en",
      "text": "U. Kerridge added nought point three nought xT in the first half.",
+     "numbers_preserved": true
+    }
+   ]
+  },
+  {
+   "fact_id": "f_500002",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2699.9,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "shots_on_target",
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    },
+    "comparator": "eq",
+    "value": 3
+   },
+   "text": {
+    "draft_en": "Harlow put 3 of their 6 shots on target in the first half.",
+    "canonical_en": "Harlow put 3 of their 6 shots on target in the first half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 3
+     },
+     {
+      "key": "n",
+      "value": 6
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     99,
+     193,
+     248
+    ],
+    "players": [],
+    "window": {
+     "start_t": 0.0,
+     "end_t": 2699.9
+    }
+   },
+   "verification": {
+    "status": "verified",
+    "checks": [
+     {
+      "name": "intent_stripped",
+      "passed": true,
+      "detail": "no intent words"
+     },
+     {
+      "name": "evidence_exists",
+      "passed": true,
+      "detail": "all cited events exist, in window, in the past"
+     },
+     {
+      "name": "entities",
+      "passed": true,
+      "detail": "teams and players match the cited events"
+     },
+     {
+      "name": "recompute",
+      "passed": true,
+      "detail": "claimed eq 3, recomputed 3 from 6 events"
+     },
+     {
+      "name": "sample_size",
+      "passed": true,
+      "detail": "plain value from the event log; no inference"
+     },
+     {
+      "name": "numbers_match",
+      "passed": true,
+      "detail": "every number traced to the event log"
+     }
+    ]
+   },
+   "approval": {
+    "state": "veto_window",
+    "valid_from_t": 2699.9,
+    "ttl_s": 3
+   },
+   "uncertainty": {
+    "n": 6,
+    "ci_method": "none",
+    "hedge": "none"
+   },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Drafter",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "rules"
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
+   "risk": {
+    "tier": "T1",
+    "reasons": [
+     "verified, no corrections, impact 0.00, hedge none"
+    ]
+   },
+   "renditions": [
+    {
+     "kind": "cue",
+     "lang": "en",
+     "text": "Harlow put 3 of their 6 shots on target in the first half.",
+     "layout": "stat_comparison",
+     "duration_s": 8,
+     "start_t": 2702.9,
+     "numbers_preserved": true,
+     "card": {
+      "layout": "stat_comparison",
+      "label": "Shots on target",
+      "period": "First half",
+      "subject": "HAR",
+      "home": {
+       "team": "NOR",
+       "name": "Northbridge",
+       "shown": "0"
+      },
+      "away": {
+       "team": "HAR",
+       "name": "Harlow",
+       "shown": "3"
+      },
+      "text": "Harlow put 3 of their 6 shots on target in the first half."
+     }
+    },
+    {
+     "kind": "cue",
+     "lang": "es",
+     "text": "Harlow remató a puerta 3 de sus 6 disparos en la primera parte.",
+     "layout": "stat_comparison",
+     "duration_s": 8,
+     "start_t": 2702.9,
+     "numbers_preserved": true,
+     "card": {
+      "layout": "stat_comparison",
+      "label": "Disparos a puerta",
+      "period": "Primera parte",
+      "subject": "HAR",
+      "home": {
+       "team": "NOR",
+       "name": "Northbridge",
+       "shown": "0"
+      },
+      "away": {
+       "team": "HAR",
+       "name": "Harlow",
+       "shown": "3"
+      },
+      "text": "Harlow remató a puerta 3 de sus 6 disparos en la primera parte."
+     }
+    },
+    {
+     "kind": "caption",
+     "lang": "en",
+     "text": "Harlow put 3 of their 6 shots on target in the first half.",
+     "numbers_preserved": true
+    },
+    {
+     "kind": "caption",
+     "lang": "es",
+     "text": "Harlow remató a puerta 3 de sus 6 disparos en la primera parte.",
+     "numbers_preserved": true
+    },
+    {
+     "kind": "audio_script",
+     "lang": "en",
+     "text": "Harlow put three of their six shots on target in the first half.",
+     "numbers_preserved": true
+    }
+   ]
+  },
+  {
+   "fact_id": "f_500003",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 2699.999,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "HAR"
+    },
+    "metric": "npxg_sum",
+    "window": {
+     "start_t": 1800.0,
+     "end_t": 2699.999
+    },
+    "comparator": "eq",
+    "value": 0.38
+   },
+   "text": {
+    "draft_en": "Harlow have generated 0.38 npxG since the 31st minute.",
+    "canonical_en": "Harlow have generated 0.38 npxG since the 31st minute.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 0.38,
+      "unit": "xG"
+     },
+     {
+      "key": "since_minute",
+      "value": 31
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     225,
+     248,
+     255
+    ],
+    "players": [],
+    "window": {
+     "start_t": 1800.0,
+     "end_t": 2699.999
+    }
+   },
+   "verification": {
+    "status": "verified",
+    "checks": [
+     {
+      "name": "intent_stripped",
+      "passed": true,
+      "detail": "no intent words"
+     },
+     {
+      "name": "evidence_exists",
+      "passed": true,
+      "detail": "all cited events exist, in window, in the past"
+     },
+     {
+      "name": "entities",
+      "passed": true,
+      "detail": "teams and players match the cited events"
+     },
+     {
+      "name": "recompute",
+      "passed": true,
+      "detail": "claimed eq 0.38, recomputed 0.383 from 3 events"
+     },
+     {
+      "name": "sample_size",
+      "passed": true,
+      "detail": "plain value from the event log; no inference"
+     },
+     {
+      "name": "numbers_match",
+      "passed": true,
+      "detail": "every number traced to the event log"
+     }
+    ]
+   },
+   "approval": {
+    "state": "veto_window",
+    "valid_from_t": 2699.999,
+    "ttl_s": 3
+   },
+   "uncertainty": {
+    "n": 3,
+    "ci_method": "none",
+    "hedge": "none"
+   },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Drafter",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "rules"
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
+   "risk": {
+    "tier": "T1",
+    "reasons": [
+     "verified, no corrections, impact 0.00, hedge none"
+    ]
+   },
+   "renditions": [
+    {
+     "kind": "cue",
+     "lang": "en",
+     "text": "Harlow have generated 0.38 npxG since the 31st minute.",
+     "layout": "lower_third",
+     "duration_s": 6,
+     "start_t": 2702.999,
+     "numbers_preserved": true,
+     "card": {
+      "layout": "lower_third",
+      "label": "Harlow",
+      "text": "Harlow have generated 0.38 npxG since the 31st minute."
+     }
+    },
+    {
+     "kind": "cue",
+     "lang": "es",
+     "text": "Harlow ha generado 0,38 de npxG desde el minuto 31.",
+     "layout": "lower_third",
+     "duration_s": 6,
+     "start_t": 2702.999,
+     "numbers_preserved": true,
+     "card": {
+      "layout": "lower_third",
+      "label": "Harlow",
+      "text": "Harlow ha generado 0,38 de npxG desde el minuto 31."
+     }
+    },
+    {
+     "kind": "caption",
+     "lang": "en",
+     "text": "Harlow have generated 0.38 npxG since the 31st minute.",
+     "numbers_preserved": true
+    },
+    {
+     "kind": "caption",
+     "lang": "es",
+     "text": "Harlow ha generado 0,38 de npxG desde el minuto 31.",
+     "numbers_preserved": true
+    },
+    {
+     "kind": "audio_script",
+     "lang": "en",
+     "text": "Harlow have generated nought point three eight npexpected goals since the thirty-first minute.",
      "numbers_preserved": true
     }
    ]
@@ -17671,6 +18203,355 @@
      "numbers_preserved": true
     }
    ]
+  },
+  {
+   "fact_id": "f_500004",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 5400.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "npxg_sum",
+    "window": {
+     "start_t": 4500.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 1.73
+   },
+   "text": {
+    "draft_en": "Northbridge have generated 1.73 npxG since the 76th minute.",
+    "canonical_en": "Northbridge have generated 1.73 npxG since the 76th minute.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 1.73,
+      "unit": "xG"
+     },
+     {
+      "key": "since_minute",
+      "value": 76
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     510,
+     562,
+     581
+    ],
+    "players": [],
+    "window": {
+     "start_t": 4500.0,
+     "end_t": 5400.0
+    }
+   },
+   "verification": {
+    "status": "verified",
+    "checks": [
+     {
+      "name": "intent_stripped",
+      "passed": true,
+      "detail": "no intent words"
+     },
+     {
+      "name": "evidence_exists",
+      "passed": true,
+      "detail": "all cited events exist, in window, in the past"
+     },
+     {
+      "name": "entities",
+      "passed": true,
+      "detail": "teams and players match the cited events"
+     },
+     {
+      "name": "recompute",
+      "passed": true,
+      "detail": "claimed eq 1.73, recomputed 1.728 from 3 events"
+     },
+     {
+      "name": "sample_size",
+      "passed": true,
+      "detail": "plain value from the event log; no inference"
+     },
+     {
+      "name": "numbers_match",
+      "passed": true,
+      "detail": "every number traced to the event log"
+     }
+    ]
+   },
+   "approval": {
+    "state": "veto_window",
+    "valid_from_t": 5400.0,
+    "ttl_s": 3
+   },
+   "uncertainty": {
+    "n": 3,
+    "ci_method": "none",
+    "hedge": "none"
+   },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Drafter",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "rules"
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
+   "risk": {
+    "tier": "T1",
+    "reasons": [
+     "verified, no corrections, impact 0.00, hedge none"
+    ]
+   },
+   "renditions": [
+    {
+     "kind": "cue",
+     "lang": "en",
+     "text": "Northbridge have generated 1.73 npxG since the 76th minute.",
+     "layout": "lower_third",
+     "duration_s": 6,
+     "start_t": 5403.0,
+     "numbers_preserved": true,
+     "card": {
+      "layout": "lower_third",
+      "label": "Northbridge",
+      "text": "Northbridge have generated 1.73 npxG since the 76th minute."
+     }
+    },
+    {
+     "kind": "cue",
+     "lang": "es",
+     "text": "Northbridge ha generado 1,73 de npxG desde el minuto 76.",
+     "layout": "lower_third",
+     "duration_s": 6,
+     "start_t": 5403.0,
+     "numbers_preserved": true,
+     "card": {
+      "layout": "lower_third",
+      "label": "Northbridge",
+      "text": "Northbridge ha generado 1,73 de npxG desde el minuto 76."
+     }
+    },
+    {
+     "kind": "caption",
+     "lang": "en",
+     "text": "Northbridge have generated 1.73 npxG since the 76th minute.",
+     "numbers_preserved": true
+    },
+    {
+     "kind": "caption",
+     "lang": "es",
+     "text": "Northbridge ha generado 1,73 de npxG desde el minuto 76.",
+     "numbers_preserved": true
+    },
+    {
+     "kind": "audio_script",
+     "lang": "en",
+     "text": "Northbridge have generated one point seven three npexpected goals since the seventy-sixth minute.",
+     "numbers_preserved": true
+    }
+   ]
+  },
+  {
+   "fact_id": "f_500005",
+   "match_id": "nb_v_hr_hero",
+   "kind": "stat",
+   "created_t": 5400.0,
+   "injected": false,
+   "claim": {
+    "subject": {
+     "type": "team",
+     "id": "NOR"
+    },
+    "metric": "shots_on_target",
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    },
+    "comparator": "eq",
+    "value": 5
+   },
+   "text": {
+    "draft_en": "Northbridge put 5 of their 8 shots on target in the second half.",
+    "canonical_en": "Northbridge put 5 of their 8 shots on target in the second half.",
+    "numbers": [
+     {
+      "key": "value",
+      "value": 5
+     },
+     {
+      "key": "n",
+      "value": 8
+     }
+    ]
+   },
+   "evidence": {
+    "event_ids": [
+     341,
+     370,
+     418,
+     510,
+     581
+    ],
+    "players": [],
+    "window": {
+     "start_t": 2700.0,
+     "end_t": 5400.0
+    }
+   },
+   "verification": {
+    "status": "verified",
+    "checks": [
+     {
+      "name": "intent_stripped",
+      "passed": true,
+      "detail": "no intent words"
+     },
+     {
+      "name": "evidence_exists",
+      "passed": true,
+      "detail": "all cited events exist, in window, in the past"
+     },
+     {
+      "name": "entities",
+      "passed": true,
+      "detail": "teams and players match the cited events"
+     },
+     {
+      "name": "recompute",
+      "passed": true,
+      "detail": "claimed eq 5, recomputed 5 from 8 events"
+     },
+     {
+      "name": "sample_size",
+      "passed": true,
+      "detail": "plain value from the event log; no inference"
+     },
+     {
+      "name": "numbers_match",
+      "passed": true,
+      "detail": "every number traced to the event log"
+     }
+    ]
+   },
+   "approval": {
+    "state": "veto_window",
+    "valid_from_t": 5400.0,
+    "ttl_s": 3
+   },
+   "uncertainty": {
+    "n": 8,
+    "ci_method": "none",
+    "hedge": "none"
+   },
+   "audit": {
+    "steps": [
+     {
+      "agent": "Drafter",
+      "attempt": 1,
+      "outcome": "drafted",
+      "path": "rules"
+     },
+     {
+      "agent": "Verifier",
+      "attempt": 1,
+      "outcome": "verified",
+      "path": "rules"
+     }
+    ]
+   },
+   "risk": {
+    "tier": "T1",
+    "reasons": [
+     "verified, no corrections, impact 0.00, hedge none"
+    ]
+   },
+   "renditions": [
+    {
+     "kind": "cue",
+     "lang": "en",
+     "text": "Northbridge put 5 of their 8 shots on target in the second half.",
+     "layout": "stat_comparison",
+     "duration_s": 8,
+     "start_t": 5403.0,
+     "numbers_preserved": true,
+     "card": {
+      "layout": "stat_comparison",
+      "label": "Shots on target",
+      "period": "Second half",
+      "subject": "NOR",
+      "home": {
+       "team": "NOR",
+       "name": "Northbridge",
+       "shown": "5"
+      },
+      "away": {
+       "team": "HAR",
+       "name": "Harlow",
+       "shown": "0"
+      },
+      "text": "Northbridge put 5 of their 8 shots on target in the second half."
+     }
+    },
+    {
+     "kind": "cue",
+     "lang": "es",
+     "text": "Northbridge remató a puerta 5 de sus 8 disparos en la segunda parte.",
+     "layout": "stat_comparison",
+     "duration_s": 8,
+     "start_t": 5403.0,
+     "numbers_preserved": true,
+     "card": {
+      "layout": "stat_comparison",
+      "label": "Disparos a puerta",
+      "period": "Segunda parte",
+      "subject": "NOR",
+      "home": {
+       "team": "NOR",
+       "name": "Northbridge",
+       "shown": "5"
+      },
+      "away": {
+       "team": "HAR",
+       "name": "Harlow",
+       "shown": "0"
+      },
+      "text": "Northbridge remató a puerta 5 de sus 8 disparos en la segunda parte."
+     }
+    },
+    {
+     "kind": "caption",
+     "lang": "en",
+     "text": "Northbridge put 5 of their 8 shots on target in the second half.",
+     "numbers_preserved": true
+    },
+    {
+     "kind": "caption",
+     "lang": "es",
+     "text": "Northbridge remató a puerta 5 de sus 8 disparos en la segunda parte.",
+     "numbers_preserved": true
+    },
+    {
+     "kind": "audio_script",
+     "lang": "en",
+     "text": "Northbridge put five of their eight shots on target in the second half.",
+     "numbers_preserved": true
+    }
+   ]
   }
  ],
  "log": [
@@ -18133,16 +19014,16 @@
   }
  ],
  "metrics": {
-  "drafts": 44,
+  "drafts": 49,
   "injected_drafts": 6,
   "injected_not_verified": 6,
   "by_status": {
-   "verified": 38,
+   "verified": 43,
    "rejected": 4,
    "corrected": 2
   },
   "by_tier": {
-   "T1": 34,
+   "T1": 39,
    "T2": 2,
    "T0": 4
   },
@@ -18151,7 +19032,7 @@
    "first_pass": 31,
    "after_retry": 7,
    "rejected": 0,
-   "rules": 0
+   "rules": 5
   }
  },
  "series": {
@@ -18715,6 +19596,495 @@
     0.0
    ]
   ],
+  "result_pct": [
+   [
+    36,
+    27,
+    37
+   ],
+   [
+    36,
+    28,
+    36
+   ],
+   [
+    36,
+    29,
+    35
+   ],
+   [
+    35,
+    30,
+    35
+   ],
+   [
+    35,
+    31,
+    34
+   ],
+   [
+    34,
+    32,
+    34
+   ],
+   [
+    33,
+    33,
+    34
+   ],
+   [
+    33,
+    34,
+    33
+   ],
+   [
+    33,
+    35,
+    32
+   ],
+   [
+    32,
+    36,
+    32
+   ],
+   [
+    32,
+    37,
+    31
+   ],
+   [
+    31,
+    38,
+    31
+   ],
+   [
+    30,
+    39,
+    31
+   ],
+   [
+    30,
+    40,
+    30
+   ],
+   [
+    30,
+    41,
+    29
+   ],
+   [
+    22,
+    35,
+    43
+   ],
+   [
+    22,
+    36,
+    42
+   ],
+   [
+    22,
+    37,
+    41
+   ],
+   [
+    21,
+    38,
+    41
+   ],
+   [
+    24,
+    38,
+    38
+   ],
+   [
+    24,
+    39,
+    37
+   ],
+   [
+    23,
+    40,
+    37
+   ],
+   [
+    23,
+    41,
+    36
+   ],
+   [
+    23,
+    42,
+    35
+   ],
+   [
+    36,
+    37,
+    27
+   ],
+   [
+    36,
+    37,
+    27
+   ],
+   [
+    35,
+    38,
+    27
+   ],
+   [
+    35,
+    39,
+    26
+   ],
+   [
+    33,
+    40,
+    27
+   ],
+   [
+    26,
+    34,
+    40
+   ],
+   [
+    26,
+    35,
+    39
+   ],
+   [
+    25,
+    36,
+    39
+   ],
+   [
+    25,
+    37,
+    38
+   ],
+   [
+    25,
+    38,
+    37
+   ],
+   [
+    24,
+    38,
+    38
+   ],
+   [
+    23,
+    39,
+    38
+   ],
+   [
+    23,
+    40,
+    37
+   ],
+   [
+    23,
+    40,
+    37
+   ],
+   [
+    19,
+    37,
+    44
+   ],
+   [
+    18,
+    35,
+    47
+   ],
+   [
+    18,
+    36,
+    46
+   ],
+   [
+    17,
+    37,
+    46
+   ],
+   [
+    17,
+    38,
+    45
+   ],
+   [
+    17,
+    39,
+    44
+   ],
+   [
+    17,
+    40,
+    43
+   ],
+   [
+    17,
+    41,
+    42
+   ],
+   [
+    16,
+    42,
+    42
+   ],
+   [
+    15,
+    40,
+    45
+   ],
+   [
+    14,
+    41,
+    45
+   ],
+   [
+    14,
+    42,
+    44
+   ],
+   [
+    14,
+    43,
+    43
+   ],
+   [
+    14,
+    44,
+    42
+   ],
+   [
+    15,
+    45,
+    40
+   ],
+   [
+    15,
+    46,
+    39
+   ],
+   [
+    14,
+    47,
+    39
+   ],
+   [
+    14,
+    48,
+    38
+   ],
+   [
+    17,
+    48,
+    35
+   ],
+   [
+    17,
+    49,
+    34
+   ],
+   [
+    17,
+    50,
+    33
+   ],
+   [
+    16,
+    52,
+    32
+   ],
+   [
+    16,
+    53,
+    31
+   ],
+   [
+    16,
+    54,
+    30
+   ],
+   [
+    15,
+    55,
+    30
+   ],
+   [
+    73,
+    22,
+    5
+   ],
+   [
+    73,
+    22,
+    5
+   ],
+   [
+    74,
+    21,
+    5
+   ],
+   [
+    75,
+    21,
+    4
+   ],
+   [
+    75,
+    21,
+    4
+   ],
+   [
+    76,
+    20,
+    4
+   ],
+   [
+    77,
+    19,
+    4
+   ],
+   [
+    78,
+    19,
+    3
+   ],
+   [
+    79,
+    18,
+    3
+   ],
+   [
+    80,
+    17,
+    3
+   ],
+   [
+    81,
+    17,
+    2
+   ],
+   [
+    82,
+    16,
+    2
+   ],
+   [
+    83,
+    15,
+    2
+   ],
+   [
+    86,
+    13,
+    1
+   ],
+   [
+    87,
+    12,
+    1
+   ],
+   [
+    87,
+    12,
+    1
+   ],
+   [
+    88,
+    11,
+    1
+   ],
+   [
+    89,
+    10,
+    1
+   ],
+   [
+    90,
+    9,
+    1
+   ],
+   [
+    91,
+    8,
+    1
+   ],
+   [
+    92,
+    8,
+    0
+   ],
+   [
+    94,
+    6,
+    0
+   ],
+   [
+    95,
+    5,
+    0
+   ],
+   [
+    96,
+    4,
+    0
+   ],
+   [
+    97,
+    3,
+    0
+   ],
+   [
+    98,
+    2,
+    0
+   ],
+   [
+    99,
+    1,
+    0
+   ],
+   [
+    100,
+    0,
+    0
+   ]
+  ],
+  "intervals": [
+   {
+    "start_t": 0.0,
+    "end_t": 899.999,
+    "label": "1–15"
+   },
+   {
+    "start_t": 900.0,
+    "end_t": 1799.999,
+    "label": "16–30"
+   },
+   {
+    "start_t": 1800.0,
+    "end_t": 2699.999,
+    "label": "31–45+"
+   },
+   {
+    "start_t": 2700.0,
+    "end_t": 3599.999,
+    "label": "46–60"
+   },
+   {
+    "start_t": 3600.0,
+    "end_t": 4499.999,
+    "label": "61–75"
+   },
+   {
+    "start_t": 4500.0,
+    "end_t": 5400.0,
+    "label": "76–90+"
+   }
+  ],
   "teams": {
    "NOR": {
     "shots": [
@@ -18995,6 +20365,285 @@
      2.386,
      2.386,
      2.386
+    ],
+    "shots_on_target": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     5,
+     5,
+     5,
+     5,
+     5
+    ],
+    "shots_off_target": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4,
+     4
+    ],
+    "shots_blocked": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1
     ],
     "pass_accuracy": [
      null,
@@ -19460,6 +21109,511 @@
      81.25,
      82.353,
      82.353
+    ],
+    "npxg_by_interval": [
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      0.043
+     ],
+     [
+      0,
+      0.043
+     ],
+     [
+      0,
+      0.043
+     ],
+     [
+      0,
+      0.043
+     ],
+     [
+      0,
+      0.043
+     ],
+     [
+      0,
+      0.274
+     ],
+     [
+      0,
+      0.274
+     ],
+     [
+      0,
+      0.274
+     ],
+     [
+      0,
+      0.274
+     ],
+     [
+      0,
+      0.274
+     ],
+     [
+      0,
+      0.274
+     ],
+     [
+      0,
+      0.274,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.044
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.044
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.044
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.044
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.178
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.178
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.178
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.178
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.178
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.178
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.178
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.178
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.178
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.178
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.178
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.187
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.187,
+      0
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.187,
+      0.814
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.187,
+      0.814
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.187,
+      0.814
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.187,
+      0.814
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.187,
+      0.814
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.187,
+      0.814
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.187,
+      0.814
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.187,
+      0.814
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.187,
+      1.615
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.187,
+      1.615
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.187,
+      1.728
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.187,
+      1.728
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.187,
+      1.728
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.187,
+      1.728
+     ],
+     [
+      0,
+      0.274,
+      0,
+      0.197,
+      0.187,
+      1.728
+     ]
     ]
    },
    "HAR": {
@@ -19741,6 +21895,285 @@
      1.08,
      1.08,
      1.08
+    ],
+    "shots_on_target": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3
+    ],
+    "shots_off_target": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3,
+     3
+    ],
+    "shots_blocked": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     1,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2,
+     2
     ],
     "pass_accuracy": [
      null,
@@ -20206,6 +22639,511 @@
      18.75,
      17.647,
      17.647
+    ],
+    "npxg_by_interval": [
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0
+     ],
+     [
+      0.17,
+      0
+     ],
+     [
+      0.17,
+      0
+     ],
+     [
+      0.17,
+      0
+     ],
+     [
+      0.17,
+      0
+     ],
+     [
+      0.17,
+      0
+     ],
+     [
+      0.17,
+      0
+     ],
+     [
+      0.17,
+      0
+     ],
+     [
+      0.17,
+      0
+     ],
+     [
+      0.17,
+      0
+     ],
+     [
+      0.17,
+      0
+     ],
+     [
+      0.17,
+      0
+     ],
+     [
+      0.17,
+      0
+     ],
+     [
+      0.17,
+      0
+     ],
+     [
+      0.17,
+      0.02
+     ],
+     [
+      0.17,
+      0.305
+     ],
+     [
+      0.17,
+      0.305,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.04
+     ],
+     [
+      0.17,
+      0.305,
+      0.04
+     ],
+     [
+      0.17,
+      0.305,
+      0.04
+     ],
+     [
+      0.17,
+      0.305,
+      0.04
+     ],
+     [
+      0.17,
+      0.305,
+      0.28
+     ],
+     [
+      0.17,
+      0.305,
+      0.383
+     ],
+     [
+      0.17,
+      0.305,
+      0.383
+     ],
+     [
+      0.17,
+      0.305,
+      0.383
+     ],
+     [
+      0.17,
+      0.305,
+      0.383
+     ],
+     [
+      0.17,
+      0.305,
+      0.383
+     ],
+     [
+      0.17,
+      0.305,
+      0.383
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038,
+      0
+     ],
+     [
+      0.17,
+      0.305,
+      0.383,
+      0.184,
+      0.038,
+      0
+     ]
     ]
    }
   },
@@ -26564,7 +29502,7 @@
     5100.0,
     5400.0
    ],
-   "half_t": 2700,
+   "half_t": 2700.0,
    "teams": {
     "NOR": [
      {

@@ -15,6 +15,7 @@ from typing import Any
 from core.config import MetricContext, Settings, Verifier
 from core.events import Match
 from core.facts import (
+    AGENT_METRICS,
     Claim,
     Evidence,
     Fact,
@@ -84,6 +85,18 @@ def _text_turnovers(m: Moment, match: Match) -> Text:
     return text, [_num("value", c), _num("since_minute", since)]
 
 
+def _text_npxg_interval(m: Moment, match: Match) -> Text:
+    x, since = round(m["value"], 2), match.meta.clock.minute(m["window"]["start_t"])
+    text = f"{team_name(match, m['subject']['id'])} have generated {x:.2f} npxG since the {ordinal(since)} minute."
+    return text, [_num("value", x, "xG"), _num("since_minute", since)]
+
+
+def _text_shot_outcomes(m: Moment, match: Match) -> Text:
+    k, n = int(m["value"]), int(m["n"])
+    text = f"{team_name(match, m['subject']['id'])} put {k} of their {n} shots on target in the {m['half']} half."
+    return text, [_num("value", k), _num("n", n)]
+
+
 def _text_half(m: Moment, match: Match) -> Text:
     rule, half = m["rule"], m["half"]
     if rule == "xg_sum":
@@ -145,6 +158,10 @@ def render(m: Moment, match: Match, v: Verifier, force_plain: bool = False) -> T
         return _text_overload(m, match, v, force_plain)
     if m["rule"] == "turnovers":
         return _text_turnovers(m, match)
+    if m["rule"] == "npxg_interval":
+        return _text_npxg_interval(m, match)
+    if m["rule"] == "shot_outcomes":
+        return _text_shot_outcomes(m, match)
     return _text_half(m, match)
 
 
@@ -388,8 +405,21 @@ def first_small_sample(
     return None
 
 
+# A moment whose metric the Scout cannot name (AgentMetricName) is drafted by rules only. Its fact
+# is numbered from here, so adding such a rule leaves every Scout fact's id, and with it the Scout's
+# memory and cache keys, unchanged.
+RULES_ONLY_FIRST_ID = 500001
+
+
+def scout_can_draft(m: Moment) -> bool:
+    return m["metric"] in AGENT_METRICS
+
+
 def draft_facts(moments: list[Moment], match: Match, league: League, s: Settings) -> list[Fact]:
-    """Good drafts for every moment, followed by the injected drafts."""
-    ids = _ids(1)
-    good = [to_fact(m, match, next(ids), s.verifier) for m in moments]
+    """Good drafts for every moment (in moment order), followed by the injected drafts."""
+    ids, rule_ids = _ids(1), _ids(RULES_ONLY_FIRST_ID)
+    good = [
+        to_fact(m, match, next(ids if scout_can_draft(m) else rule_ids), s.verifier)
+        for m in moments
+    ]
     return good + injected_drafts(good, match, ids, league, s)

@@ -8,7 +8,7 @@ Run `python scripts/write_schema.py` after changing a model.
 
 from __future__ import annotations
 
-from typing import Annotated, Any, Literal
+from typing import Annotated, Any, Literal, get_args
 
 from pydantic import AliasChoices, BaseModel, ConfigDict, Field, WithJsonSchema, model_validator
 from pydantic.json_schema import GenerateJsonSchema, JsonSchemaValue
@@ -51,7 +51,11 @@ AgentMetricName = Literal[
     "cards",
 ]
 # Every metric a fact may claim; each has a REGISTRY entry (tests/test_metrics.py).
-MetricName = Literal[AgentMetricName, Literal["npxg_sum", "field_tilt"]]
+MetricName = Literal[
+    AgentMetricName,
+    Literal["npxg_sum", "field_tilt", "shots_on_target", "shots_off_target", "shots_blocked"],
+]
+AGENT_METRICS: frozenset[str] = frozenset(get_args(AgentMetricName))
 Hedge = Literal["none", "early", "suggests", "clear"]
 Status = Literal["pending", "verified", "corrected", "rejected", "unverifiable"]
 Tier = Literal["T0", "T1", "T2"]

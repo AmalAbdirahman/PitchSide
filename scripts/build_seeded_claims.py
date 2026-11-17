@@ -45,7 +45,13 @@ def build() -> list[dict[str, Any]]:
     ]
 
     def find(metric: str) -> list[Fact]:
-        return [f for f in good if f.claim.metric.startswith(metric)]
+        """Facts on this metric; a name ending in _ is a prefix (the attack-share lanes)."""
+        return [
+            f
+            for f in good
+            if f.claim.metric == metric
+            or (metric.endswith("_") and f.claim.metric.startswith(metric))
+        ]
 
     goal, over, turn = find("goals")[0], find("attack_share_"), find("turnovers_own_third")
     xg, acc, top, shots = (
@@ -55,6 +61,7 @@ def build() -> list[dict[str, Any]]:
         find("shots"),
     )
     xt, hub = find("xt_added"), find("most_central_player")
+    npxg, on_target = find("npxg_sum"), find("shots_on_target")  # R3
     ids, out = _ids(), []
 
     def add(cat: str, expect: str, fact: Fact) -> None:
@@ -80,6 +87,10 @@ def build() -> list[dict[str, Any]]:
         (shots[0], 1),
         (goal, -2),
         (xt[0], 0.12),
+        (npxg[0], 0.1),
+        (npxg[2], -0.25),
+        (on_target[0], 1),
+        (on_target[1], -2),
     ]:
         add("wrong_number", "rejected", d.inject_wrong_number(base, next(ids), bump))
     mates = [p for p in match.meta.teams["NOR"].players if p not in ("NOR_01", "NOR_09")]
@@ -102,6 +113,8 @@ def build() -> list[dict[str, Any]]:
         (goal, 120),
         (shots[1], 2700),
         (xt[0], 2700),
+        (npxg[1], -900),
+        (on_target[1], -2700),
     ]:
         add("wrong_window", "rejected", d.inject_wrong_window(base, next(ids), shift))
     for base, mode in [

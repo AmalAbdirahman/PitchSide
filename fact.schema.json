@@ -173,7 +173,10 @@
             "substitutions",
             "cards",
             "npxg_sum",
-            "field_tilt"
+            "field_tilt",
+            "shots_on_target",
+            "shots_off_target",
+            "shots_blocked"
           ],
           "type": "string"
         },

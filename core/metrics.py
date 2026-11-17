@@ -230,6 +230,27 @@ def _npxg_sum(evs: list[Event], _subject: Subject, _ctx: MetricContext) -> Metri
     return Metric(sum(_xg(e) for e in shots), len(shots), len(shots), [e.id for e in shots])
 
 
+# Shot outcomes as the sources label them (sim/generate.py, core/statsbomb.SHOT_OUTCOME). A goal is
+# a shot on target.
+SHOT_OUTCOMES: dict[str, frozenset[str]] = {
+    "shots_on_target": frozenset({"on_target", "goal"}),
+    "shots_off_target": frozenset({"off_target"}),
+    "shots_blocked": frozenset({"blocked"}),
+}
+
+
+def _shot_outcome(metric: str) -> Compute:
+    """The subject's shots with this outcome: value and k count them, n is all their shots."""
+    wanted = SHOT_OUTCOMES[metric]
+
+    def fn(evs: list[Event], _subject: Subject, _ctx: MetricContext) -> Metric:
+        shots = _shots(evs)
+        hits = [e.id for e in shots if e.outcome in wanted]
+        return Metric(len(hits), len(shots), len(hits), hits)
+
+    return fn
+
+
 def _top_shot_speed(evs: list[Event], _subject: Subject, _ctx: MetricContext) -> Metric | None:
     # Only shots with a measured speed count; with none (open data has no speeds) there is no metric.
     timed = [e for e in _shots(evs) if e.shot_speed is not None]
@@ -270,6 +291,7 @@ _DEFS: list[EventMetric] = [
     EventMetric("substitutions", "count", "exact", _count_of("substitution")),
     EventMetric("cards", "count", "exact", _count_of("card")),
     EventMetric("turnovers_own_third", "count", "exact", _turnovers_own_third),
+    *(EventMetric(name, "count", "exact", _shot_outcome(name)) for name in SHOT_OUTCOMES),
     EventMetric("xg_sum", "sum", "tol_xg", _xg_sum),
     EventMetric("npxg_sum", "sum", "tol_xg", _npxg_sum),
     EventMetric("top_shot_speed", "max", "tol_speed", _top_shot_speed),

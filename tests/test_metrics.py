@@ -44,6 +44,9 @@ def test_registry_lists_every_computable_metric() -> None:
         "xt_added",
         "most_central_player",
         "field_tilt",
+        "shots_on_target",
+        "shots_off_target",
+        "shots_blocked",
     }
     assert set(REGISTRY) <= set(get_args(MetricName))
     assert all(name == d.name for name, d in REGISTRY.items())

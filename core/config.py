@@ -95,6 +95,9 @@ class Moments(_Section):
     turnover_min_count: int
     xt_leader_min: float
     hub_min_passes: int
+    interval_minutes: int
+    npxg_interval_min: float
+    shot_outcomes_min_shots: int
 
 
 class Series(_Section):

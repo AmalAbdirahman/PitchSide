@@ -10,9 +10,10 @@ import math
 from typing import Any
 
 from core.config import MetricContext, Settings
-from core.events import Event
+from core.events import Clock, Event
 from core.facts import Subject, Window
 from core.hedge import ShareJudgement, judge_share
+from core.intervals import Interval, intervals
 from core.metrics import compute_metric, require_metric
 from core.moments import score_at
 from core.network import betweenness, communities, degree, pass_links, weights
@@ -26,6 +27,9 @@ TEAM_METRICS = (
     "shots",
     "xg_sum",
     "npxg_sum",
+    "shots_on_target",
+    "shots_off_target",
+    "shots_blocked",
     "pass_accuracy",
     "turnovers_own_third",
     "top_shot_speed",
@@ -61,16 +65,53 @@ def tilt_at(
     return None if m.n == 0 else _r(m.value)
 
 
+def _win_prob(
+    events: list[Event], t: float, teams: tuple[str, str], mu: float, s: Settings
+) -> tuple[float, float, float]:
+    goals = score_at(events, t, teams)
+    xg = [team_stat(events, tm, "xg_sum", t, MetricContext.of(s)) or 0.0 for tm in teams]
+    return win_probability(t / 60, goals[teams[0]], goals[teams[1]], xg[0], xg[1], mu, s.winprob)
+
+
 def win_prob_at(
     events: list[Event], t: float, teams: tuple[str, str], mu: float, s: Settings
 ) -> list[float]:
     """[home, draw, away] win probability (model estimate) at time t."""
-    goals = score_at(events, t, teams)
-    xg = [team_stat(events, tm, "xg_sum", t, MetricContext.of(s)) or 0.0 for tm in teams]
-    home, draw, away = win_probability(
-        t / 60, goals[teams[0]], goals[teams[1]], xg[0], xg[1], mu, s.winprob
-    )
-    return [_r(home), _r(draw), _r(away)]
+    return [_r(p) for p in _win_prob(events, t, teams, mu, s)]
+
+
+def _upto(b: Interval, t: float) -> Window:
+    return Window(start_t=b.start_t, end_t=min(t, b.end_t))
+
+
+def whole_percent(probs: tuple[float, ...]) -> list[int]:
+    """Probabilities as whole percentages that add up to 100 (largest remainder; a tie goes to
+    the earlier outcome)."""
+    raw = [100 * p / sum(probs) for p in probs]
+    out = [math.floor(x) for x in raw]
+    by_rest = sorted(range(len(raw)), key=lambda i: (-(raw[i] - out[i]), i))
+    for i in by_rest[: 100 - sum(out)]:
+        out[i] += 1
+    return out
+
+
+def result_pct_at(
+    events: list[Event], t: float, teams: tuple[str, str], mu: float, s: Settings
+) -> list[int]:
+    """[home win, draw, away win] in whole per cent (model estimate) at time t."""
+    return whole_percent(_win_prob(events, t, teams, mu, s))
+
+
+def npxg_by_interval(
+    events: list[Event], team: str, t: float, blocks: list[Interval], ctx: MetricContext
+) -> list[float]:
+    """The team's npxG in each interval that has started by t, counted up to t."""
+    subject = Subject(type="team", id=team)
+    return [
+        _r(require_metric("npxg_sum", subject, _upto(b, t), events, ctx).value)
+        for b in blocks
+        if b.start_t <= t
+    ]
 
 
 def lanes_at(
@@ -180,11 +221,12 @@ def network_panel(events: list[Event], teams: tuple[str, str], half_t: float) ->
 
 
 def build_series(
-    events: list[Event], teams: tuple[str, str], league: League, s: Settings, half_t: float
+    events: list[Event], teams: tuple[str, str], league: League, s: Settings, clock: Clock
 ) -> dict[str, Any]:
     """Column-oriented series sampled every minute."""
     step, ctx = 60, MetricContext.of(s)
     ts = grid(events, step)
+    blocks = intervals(clock, s.moments.interval_minutes)
     return {
         "step_s": step,
         "lane_window_s": s.moments.overload_window_s,
@@ -194,12 +236,15 @@ def build_series(
         "tilt_window_s": s.series.tilt_window_s,
         "t": ts,
         "win_prob": [win_prob_at(events, t, teams, league.mu, s) for t in ts],
+        "result_pct": [result_pct_at(events, t, teams, league.mu, s) for t in ts],
+        "intervals": [{"start_t": b.start_t, "end_t": b.end_t, "label": b.label} for b in blocks],
         "teams": {
             tm: {m: [team_stat(events, tm, m, t, ctx) for t in ts] for m in TEAM_METRICS}
             | {"field_tilt": [tilt_at(events, tm, t, s.series.tilt_window_s, ctx) for t in ts]}
+            | {"npxg_by_interval": [npxg_by_interval(events, tm, t, blocks, ctx) for t in ts]}
             for tm in teams
         },
         "lanes": {tm: [lanes_at(events, tm, t, league, s) for t in ts] for tm in teams},
         "xt": xt_panel(events, teams, ctx),
-        "network": network_panel(events, teams, half_t),
+        "network": network_panel(events, teams, float(clock.half_t)),
     }

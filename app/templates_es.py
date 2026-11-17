@@ -120,6 +120,16 @@ def caption_es(fact: Fact, match: Match) -> str:
         return (
             f"{meta.team_name(subj.id)} generó {es_number(n['value'], 2)} de xG en la {half} parte."
         )
+    if metric == "npxg_sum":
+        return (
+            f"{meta.team_name(subj.id)} ha generado {es_number(n['value'], 2)} de npxG desde el "
+            f"minuto {int(n['since_minute'])}."
+        )
+    if metric == "shots_on_target":
+        return (
+            f"{meta.team_name(subj.id)} remató a puerta {int(n['value'])} de sus {int(n['n'])} "
+            f"disparos en la {half} parte."
+        )
     if metric == "top_shot_speed":
         shooter = meta.player_name(_players(fact)[0])
         return f"Disparo más rápido de la {half} parte: {int(n['value'])} km/h, de {shooter}."

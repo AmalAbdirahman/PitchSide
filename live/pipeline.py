@@ -19,7 +19,7 @@ from dataclasses import dataclass, field
 from typing import Any, Literal
 
 from app.agents_foundry import Scout, first_pass, second_pass, verify_rules
-from app.drafter import Moment, to_fact
+from app.drafter import RULES_ONLY_FIRST_ID, Moment, scout_can_draft, to_fact
 from app.renditions import with_renditions
 from app.router import route
 from app.scout_memory import ROUTABLE, memory_for
@@ -61,6 +61,13 @@ class LivePipeline:
         p.first_passes = [Fact.model_validate(f) for f in state["first_pass"]]
         return p
 
+    def fact_id(self, m: Moment) -> str:
+        """The id the offline build gives this moment (drafter.draft_facts): Scout moments count
+        from 1 and rule-only moments from RULES_ONLY_FIRST_ID, each in the order they were seen."""
+        mine = scout_can_draft(m)
+        n = sum(scout_can_draft(json.loads(k)) == mine for k in self.seen)
+        return f"f_{(n if mine else RULES_ONLY_FIRST_ID + n - 1):06d}"
+
     def match(self) -> Match:
         return Match.model_construct(meta=self.meta, events=list(self.events))
 
@@ -83,9 +90,9 @@ class LivePipeline:
     def handle(self, m: Moment) -> Outcome:
         """One moment, as app/build_bundle.checked_drafts and build handle it."""
         match, s = self.match(), self.s
-        draft = to_fact(m, match, f"f_{len(self.seen):06d}", s.verifier)
+        draft = to_fact(m, match, self.fact_id(m), s.verifier)
         first: Fact | None = None
-        if self.scout is None:
+        if self.scout is None or not scout_can_draft(m):
             fact = verify_rules(draft, match, self.league, s)
         else:
             memory = memory_for(

@@ -82,6 +82,15 @@ moments:
   # Least linked passes a team needs in a half before its most central player is named (P10;
   # chosen by hand: a smaller network ranks players on a handful of passes).
   hub_min_passes: 20
+  # R3. Length of the fixed match intervals for npxG by interval (core/intervals.py); 15 minutes
+  # is the usual broadcast split, chosen by hand.
+  interval_minutes: 15
+  # Least npxG a team must build in one interval before the moment fires; chosen by hand (about
+  # one good chance; on the seed-7 match it names 3 of the 12 team intervals).
+  npxg_interval_min: 0.3
+  # Least shots a team needs in a half before its shots on target are stated; chosen by hand so
+  # the claim is not about one or two shots.
+  shot_outcomes_min_shots: 5
 
 # Chart and KPI series in hero.json (app/series.py).
 series:
@@ -168,7 +177,8 @@ renditions:
   # P13 graphics, chosen by hand. A team claim on a comparison metric shows both teams side by
   # side; a player claim on a player-card metric gets a player card. Both win over the ticker.
   card_duration_s: 8
-  comparison_metrics: [xg_sum, pass_accuracy]
+  # R3: npxG by interval and shots on target compare both teams over the same window.
+  comparison_metrics: [xg_sum, pass_accuracy, npxg_sum, shots_on_target]
   player_card_metrics: [shots, xt_added, most_central_player]
 
 data_card:

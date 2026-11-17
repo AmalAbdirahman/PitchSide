@@ -30,7 +30,7 @@ from typing import Any
 
 from pydantic import ValidationError
 
-from app.drafter import Moment, render
+from app.drafter import Moment, render, scout_can_draft
 from app.reader import Outcome, Reader
 from app.scout_memory import ROUTABLE, memory_for, memory_ids
 from app.scout_prompts import EXPLORE, HANDED
@@ -359,17 +359,24 @@ def run_scout(
     mode: Mode = "handed",
 ) -> list[Fact]:
     """Pass 1: a Scout call per moment, in time order, each with the memory of earlier facts.
-    Pass 2: one retry each for rejected claims and invalid replies, while the budget lasts."""
+    Pass 2: one retry each for rejected claims and invalid replies, while the budget lasts.
+    A moment the Scout cannot draft (drafter.scout_can_draft) keeps its rules draft and stays out
+    of the Scout's memory."""
     done: list[Fact] = []
     pending: list[Pending] = []
-    for m, d in zip(moments, rules_drafts, strict=True):
+    asked = [(m, d) for m, d in zip(moments, rules_drafts, strict=True) if scout_can_draft(m)]
+    for m, d in asked:
         memory = memory_for(done, float(m["created_t"]), match, s.agents.memory_size)
         fact, p = first_pass(scout, m, d, match, league, s, mode, memory)
         done.append(fact)
         pending.append(p)
-    return [
+    scouted = iter(
         second_pass(scout, m, f, p, match, league, s, mode)
-        for m, f, p in zip(moments, done, pending, strict=True)
+        for (m, _), f, p in zip(asked, done, pending, strict=True)
+    )
+    return [
+        next(scouted) if scout_can_draft(m) else verify_rules(d, match, league, s)
+        for m, d in zip(moments, rules_drafts, strict=True)
     ]
 
 

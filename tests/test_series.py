@@ -32,7 +32,7 @@ def mu() -> float:
 
 @pytest.fixture(scope="module")
 def series(match: Match) -> dict[str, Any]:
-    return build_series(match.events, TEAMS, LEAGUE, S, match.meta.clock.half_t)
+    return build_series(match.events, TEAMS, LEAGUE, S, match.meta.clock)
 
 
 def test_grid_covers_the_match(series: dict[str, Any], match: Match) -> None:
