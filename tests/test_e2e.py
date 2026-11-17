@@ -130,17 +130,18 @@ def test_theme_toggle_switches_redraws_and_is_remembered(site: str) -> None:
         pg.goto(site)
         pg.wait_for_selector("#qhead b")
         assert _theme(pg) == "system" and _token(pg, "--bg") == "#F5F6F8"  # the system is light
-        assert _pitch_fill(pg) == _token(pg, "--pitch")
+        light_pitch = _pitch_fill(pg)
+        assert light_pitch == _token(pg, "--pitch")
         bug = _bug_score_bg(pg)
         pg.click("#theme")
         assert _theme(pg) == "light" and pg.inner_text("#theme-v") == "Light"
         pg.click("#theme")
         assert _theme(pg) == "dark" and _token(pg, "--bg") == "#0B0D10"
-        assert _pitch_fill(pg) == "#17261C"  # redrawn with the dark pitch token
+        assert _pitch_fill(pg) == _token(pg, "--pitch") != light_pitch  # redrawn, dark token
         assert _bug_score_bg(pg) == bug  # on-air graphics do not change with the theme
         pg.reload()
         pg.wait_for_selector("#qhead b")
-        assert _theme(pg) == "dark" and _pitch_fill(pg) == "#17261C"
+        assert _theme(pg) == "dark" and _pitch_fill(pg) == _token(pg, "--pitch")
         pg.click("#theme")
         assert _theme(pg) == "system" and _token(pg, "--bg") == "#F5F6F8"
         browser.close()

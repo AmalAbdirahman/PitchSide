@@ -1,7 +1,7 @@
 /* Analysis view. Draws the series the bundle carries; computes no statistics. */
 
 import { D, S, UI, $, esc, minute, fix, nameOf, teamCol, teamInk, teamSide, idxAt, toScreen, LANES, COL } from './data.js';
-import { pitchLines, stripes } from './pitch.js';
+import { pitchLines } from './pitch.js';
 
 let lastAnalysis = 0;
 export function maybeRenderAnalysis(now) {
@@ -52,7 +52,7 @@ function renderXgRace() {
 
 function renderShots() {
   const p = D.meta.pitch;
-  let g = `<rect x="0" y="0" width="${p.length}" height="${p.width}" rx="2" fill="${COL.pitch}"/>${stripes(p)}${pitchLines(0.18)}`;
+  let g = `<rect x="0" y="0" width="${p.length}" height="${p.width}" rx="2" fill="${COL.pitch}"/>${pitchLines(0.18)}`;
   for (const e of D.events) {
     if (e.type !== 'shot' || e.t > S.t) continue;
     const [x, y] = toScreen(e.team, e.x, e.y), col = teamCol(e.team), r = 0.8 + Math.sqrt(e.xg) * 4.2;
@@ -178,7 +178,7 @@ function networkPitch(team, snap) {
   snap.edges.forEach(([a, b, k]) => { const key = a < b ? a + '|' + b : b + '|' + a; pair[key] = (pair[key] || 0) + k; });
   const top = snap.nodes.reduce((best, n) => (n[4] > best[4] ? n : best));
   const unique = snap.nodes.filter(n => n[4] === top[4]).length === 1;
-  let g = `<rect x="0" y="0" width="${p.length}" height="${p.width}" fill="${COL.pitch}"/>` + stripes(p) + pitchLines(0.25);
+  let g = `<rect x="0" y="0" width="${p.length}" height="${p.width}" fill="${COL.pitch}"/>` + pitchLines(0.25);
   Object.entries(pair).forEach(([key, k]) => {
     const [a, b] = key.split('|').map(id => at[id]);
     g += `<line x1="${a[1]}" y1="${a[2]}" x2="${b[1]}" y2="${b[2]}" stroke="${COL.text}" stroke-opacity="${Math.min(0.85, 0.2 + 0.12 * k).toFixed(2)}" stroke-width="${(0.25 + 0.2 * k).toFixed(2)}"><title>${esc(nameOf(a[0]))} – ${esc(nameOf(b[0]))}: ${k} passes</title></line>`;

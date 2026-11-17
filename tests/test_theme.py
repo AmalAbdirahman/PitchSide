@@ -130,3 +130,19 @@ def test_light_team_colours_fail_as_text_so_text_uses_the_darker_variants() -> N
 def test_theme_script_runs_before_the_stylesheet() -> None:
     assert INDEX.index('<script src="js/theme.js"></script>') < INDEX.index('href="styles.css"')
     assert "localStorage" in (DOCS / "js" / "theme.js").read_text(encoding="utf-8")
+
+
+def test_every_css_variable_used_is_defined() -> None:
+    defined = set(re.findall(r"(--[\w-]+)\s*:", CSS))
+    # The control room only: overlay.html and overlay.js have their own variables.
+    css = re.sub(r"/\*.*?\*/", "", CSS, flags=re.DOTALL)
+    sources = {"styles.css": css, "index.html": INDEX} | {
+        p.name: p.read_text(encoding="utf-8") for p in SCRIPTS if p.name != "overlay.js"
+    }
+    missing = {
+        f"{name}: {var}"
+        for name, text in sources.items()
+        for var in re.findall(r"var\((--[\w-]+)", text) + re.findall(r"'(--[\w-]+)'", text)
+        if var not in defined
+    }
+    assert not missing, sorted(missing)
