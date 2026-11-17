@@ -1,6 +1,6 @@
 /* Pitchside control room entry point: loads the bundle, runs the frame loop and wires the controls. */
 
-import { D, S, UI, $, $$, esc, idxAt, loadBundle, setState } from './data.js';
+import { D, S, UI, $, $$, esc, idxAt, loadBundle, readColours, setState } from './data.js';
 import { advance, decide, freshState, oldestFor, setAutopilot, tickOnAir, tickTimers } from './state.js';
 import { drawPitch, drawRibbon, flash, popScore, renderClock, renderFeed, renderPitch, renderZones } from './pitch.js';
 import { openEvidence, renderOnAir, renderQueue, renderTimers } from './queue.js';
@@ -19,6 +19,7 @@ async function load() {
     return;
   }
   setState(freshState());
+  readColours();
   startProgram();
   setupStatic();
   wire();
@@ -192,6 +193,17 @@ function wire() {
   $('#ab-x').addEventListener('click', () => $('#aboutdlg').close());
   $('#speak').addEventListener('click', speak);
   document.addEventListener('keydown', onKey);
+  document.addEventListener('themechange', redrawForTheme);
+}
+
+/* SVG drawings take their colours from the CSS tokens when drawn, so a theme change redraws them. */
+function redrawForTheme() {
+  readColours();
+  drawPitch();
+  drawRibbon();
+  renderFeed();
+  renderAll();
+  renderClock();
 }
 
 load();

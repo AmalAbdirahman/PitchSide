@@ -1,6 +1,6 @@
 /* Analysis view. Draws the series the bundle carries; computes no statistics. */
 
-import { D, S, UI, $, esc, minute, fix, nameOf, teamCol, idxAt, toScreen, HOME_COL, AWAY_COL, LANES, COL } from './data.js';
+import { D, S, UI, $, esc, minute, fix, nameOf, teamCol, teamInk, teamSide, idxAt, toScreen, LANES, COL } from './data.js';
 import { pitchLines, stripes } from './pitch.js';
 
 let lastAnalysis = 0;
@@ -27,25 +27,25 @@ function renderXgRace() {
   const i = idxAt(S.t), ts = D.series.t;
   let g = '';
   for (let v = 0; v <= top + 1e-9; v += 0.5) {
-    g += `<line x1="44" x2="804" y1="${Y(v)}" y2="${Y(v)}" stroke="rgba(255,255,255,.07)"/><text x="36" y="${Y(v) + 3}" text-anchor="end" class="rl" style="font-size:10px">${v.toFixed(1)}</text>`;
+    g += `<line x1="44" x2="804" y1="${Y(v)}" y2="${Y(v)}" stroke="${COL.line}"/><text x="36" y="${Y(v) + 3}" text-anchor="end" class="rl" style="font-size:10px">${v.toFixed(1)}</text>`;
   }
   for (let m = 0; m * 60 <= D.end; m += 15) g += `<text x="${X(m * 60)}" y="218" text-anchor="middle" class="rl" style="font-size:10px">${m}'</text>`;
   const ht = D.events.find(e => e.period === 2);
-  if (ht) g += `<line x1="${X(ht.t)}" x2="${X(ht.t)}" y1="16" y2="200" stroke="rgba(255,255,255,.14)" stroke-dasharray="3 3"/><text x="${X(ht.t) + 4}" y="26" class="rl" style="font-size:10px">2ND HALF</text>`;
+  if (ht) g += `<line x1="${X(ht.t)}" x2="${X(ht.t)}" y1="16" y2="200" stroke="${COL.line2}" stroke-dasharray="3 3"/><text x="${X(ht.t) + 4}" y="26" class="rl" style="font-size:10px">2ND HALF</text>`;
   for (const team of [D.meta.home, D.meta.away]) {
     const col = D.series.teams[team].xg_sum;
     let d = `M${X(0)} ${Y(0)}`;
     for (let k = 1; k <= i; k++) d += ` H${X(ts[k]).toFixed(1)} V${Y(col[k] || 0).toFixed(1)}`;
     d += ` H${X(Math.min(S.t, D.end)).toFixed(1)}`;
     g += `<path d="${d}" fill="none" stroke="${teamCol(team)}" stroke-width="2.5" stroke-linejoin="round"/>`;
-    g += `<text x="${X(Math.min(S.t, D.end)) + 6}" y="${Y(col[i] || 0) + 4}" fill="${teamCol(team)}" font-size="12" font-weight="800" font-family="ui-monospace,monospace">${team} ${fix(col[i] || 0, 2)}</text>`;
+    g += `<text x="${X(Math.min(S.t, D.end)) + 6}" y="${Y(col[i] || 0) + 4}" fill="${teamInk(team)}" font-size="12" font-weight="800" font-family="ui-monospace,monospace">${team} ${fix(col[i] || 0, 2)}</text>`;
   }
   for (const e of D.events) {
     if (e.type !== 'goal' || e.t > S.t) continue;
     const y = Y(D.series.teams[e.team].xg_sum[Math.min(i, idxAt(e.t) + 1)] || 0);  // first sample after the goal
-    g += `<line x1="${X(e.t)}" x2="${X(e.t)}" y1="44" y2="${y}" stroke="${COL.warn}" stroke-dasharray="2 3"/>`;
+    g += `<line x1="${X(e.t)}" x2="${X(e.t)}" y1="44" y2="${y}" stroke="${COL.muted}" stroke-dasharray="2 3"/>`;
     g += `<circle cx="${X(e.t)}" cy="${y}" r="6" fill="${teamCol(e.team)}" stroke="${COL.bg}" stroke-width="2"/>`;
-    g += `<text x="${X(e.t)}" y="38" text-anchor="middle" fill="${COL.warn}" font-size="11" font-weight="800">GOAL ${esc(e.player.toUpperCase())} ${minute(e.t)}</text>`;
+    g += `<text x="${X(e.t)}" y="38" text-anchor="middle" fill="${teamInk(e.team)}" font-size="11" font-weight="800">GOAL ${esc(e.player.toUpperCase())} ${minute(e.t)}</text>`;
   }
   $('#xgrace').innerHTML = g;
 }
@@ -60,17 +60,17 @@ function renderShots() {
     g += `<circle cx="${x}" cy="${y}" r="${r.toFixed(2)}" fill="${col}" fill-opacity="${e.outcome === 'goal' ? 1 : 0.2}" stroke="${hi ? COL.accent : col}" stroke-width="${hi ? 0.7 : 0.3}">` +
       `<title>${esc(e.player)} ${minute(e.t)} · xG ${e.xg.toFixed(2)} · ${e.shot_speed} km/h · ${esc(e.outcome.replace('_', ' '))}</title></circle>`;
   }
-  g += `<text x="${p.length - 1}" y="${p.width - 1.5}" text-anchor="end" font-size="2.2" fill="${HOME_COL}" font-weight="800">${esc(D.meta.home)} ATTACK ▶</text>`;
-  g += `<text x="1" y="${p.width - 1.5}" font-size="2.2" fill="${AWAY_COL}" font-weight="800">◀ ${esc(D.meta.away)} ATTACK</text>`;
+  g += `<text x="${p.length - 1}" y="${p.width - 1.5}" text-anchor="end" font-size="2.2" fill="${COL.homeText}" font-weight="800">${esc(D.meta.home)} ATTACK ▶</text>`;
+  g += `<text x="1" y="${p.width - 1.5}" font-size="2.2" fill="${COL.awayText}" font-weight="800">◀ ${esc(D.meta.away)} ATTACK</text>`;
   $('#shotmap').innerHTML = g;
-  $('#shot-note').textContent = UI.follow ? `${nameOf(UI.follow)}'s shots are outlined in green. Hover a shot for details.`
+  $('#shot-note').textContent = UI.follow ? `${nameOf(UI.follow)}'s shots are outlined in the accent colour. Hover a shot for details.`
     : 'Pick a player in Follow to outline their shots. Hover a shot for details.';
 }
 
 function compareRow(name, a, b, digits) {
   const va = a || 0, vb = b || 0, sum = va + vb || 1;
-  return `<div class="r"><span class="v c-nor">${fix(a, digits)}</span><span class="n">${name}</span><span class="v c-har">${fix(b, digits)}</span>` +
-    `<div class="bars"><i style="width:${(va / sum) * 100}%;background:${HOME_COL}"></i><i style="width:${(vb / sum) * 100}%;background:${AWAY_COL}"></i></div></div>`;
+  return `<div class="r"><span class="v c-home">${fix(a, digits)}</span><span class="n">${name}</span><span class="v c-away">${fix(b, digits)}</span>` +
+    `<div class="bars"><i style="width:${(va / sum) * 100}%;background:${COL.home}"></i><i style="width:${(vb / sum) * 100}%;background:${COL.away}"></i></div></div>`;
 }
 
 function renderCompare() {
@@ -86,10 +86,11 @@ function renderCompare() {
   $('#cmp-t').textContent = `${D.meta.home} vs ${D.meta.away} · to ${minute(S.t)} · draw ${Math.round(wp[1] * 100)}%`;
 }
 
+/* Hedge words are wording rules, not verifier outcomes, so they get neutral tags. */
 const HEDGE_TEXT = {
-  early: ['EARLY', 'c-amber', 'Too few attacks to say much. Any caption must say "early sign".'],
-  suggests: ['SUGGESTS', 'c-info', 'Not yet clear of the league share once clustered attacks are allowed for. A caption must say "suggests".'],
-  clear: ['CLEAR', 'c-green', 'Clearly above the league share once clustered attacks are allowed for. A plain statement is allowed.'],
+  early: ['EARLY', 'c-muted', 'Too few attacks to say much. Any caption must say "early sign".'],
+  suggests: ['SUGGESTS', 'c-muted', 'Not yet clear of the league share once clustered attacks are allowed for. A caption must say "suggests".'],
+  clear: ['CLEAR', 'c-text', 'Clearly above the league share once clustered attacks are allowed for. A plain statement is allowed.'],
 };
 
 function laneRow(name, lane, base, col) {
@@ -97,17 +98,17 @@ function laneRow(name, lane, base, col) {
   const bracket = `<line x1="${X(lane.lo)}" x2="${X(lane.hi)}" y1="11" y2="11" stroke="${COL.text}" stroke-width="2"/>` +
     `<line x1="${X(lane.lo)}" x2="${X(lane.lo)}" y1="5" y2="17" stroke="${COL.text}" stroke-width="2"/><line x1="${X(lane.hi)}" x2="${X(lane.hi)}" y1="5" y2="17" stroke="${COL.text}" stroke-width="2"/>`;
   return `<div class="lane"><span class="lbl">${name}</span>
-    <svg viewBox="0 0 ${W} 22" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="6" width="${W}" height="10" fill="rgba(255,255,255,.06)" rx="5"/>
+    <svg viewBox="0 0 ${W} 22" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="6" width="${W}" height="10" fill="${COL.line}" rx="5"/>
       <rect x="0" y="6" width="${X(lane.share)}" height="10" fill="${col}" rx="5"/>${bracket}
-      <line x1="${X(base)}" x2="${X(base)}" y1="0" y2="22" stroke="${COL.warn}" stroke-dasharray="3 2" stroke-width="1.5"/></svg>
+      <line x1="${X(base)}" x2="${X(base)}" y1="0" y2="22" stroke="${COL.accent}" stroke-dasharray="3 2" stroke-width="1.5"/></svg>
     <span class="val">${lane.k} · ${Math.round(lane.share * 100)}% <span class="c-muted">[${Math.round(lane.lo * 100)}–${Math.round(lane.hi * 100)}] · P ${Math.round(lane.p_above * 100)}%</span></span></div>`;
 }
 
 function lanePanel(team, i) {
   const L = D.series.lanes[team][i], prior = D.series.lane_prior;
-  let h = `<h3 style="color:${teamCol(team)}">${esc(D.meta.teams[team].name)} · ${L.n} attacks</h3>`;
+  let h = `<h3 class="c-${teamSide(team)}">${esc(D.meta.teams[team].name)} · ${L.n} attacks</h3>`;
   if (!L.n) return h + '<p class="note">No attacks in the window yet.</p>';
-  h += LANES.map(ln => laneRow(ln[0].toUpperCase() + ln.slice(1), L[ln], prior[ln], ln === L.top ? teamCol(team) : COL.dim)).join('');
+  h += LANES.map(ln => laneRow(ln[0].toUpperCase() + ln.slice(1), L[ln], prior[ln], ln === L.top ? teamCol(team) : COL.muted)).join('');
   const [word, cls, why] = HEDGE_TEXT[L.hedge];
   const over = L.overload ? ` Flagged as a ${L.overload}-lane overload.` : '';
   const top = L[L.top], p = Math.round(top.p_above * 100), lg = Math.round(prior[L.top] * 100);
@@ -143,13 +144,13 @@ function threatPitch(team) {
       `<circle cx="${e.end_x}" cy="${e.end_y}" r="1.6" fill="${COL.bg}" stroke="${ink}" stroke-width=".4"/>` +
       `<text x="${e.end_x}" y="${e.end_y + 0.7}" text-anchor="middle" font-size="2" font-weight="800" fill="${COL.text}">${k + 1}</text></g>`;
   });
-  g += `<text x="${p.length - 1}" y="${p.width - 1.5}" text-anchor="end" font-size="2.4" font-weight="800" fill="${col}">${esc(team)} ATTACK ▶</text>`;
+  g += `<text x="${p.length - 1}" y="${p.width - 1.5}" text-anchor="end" font-size="2.4" font-weight="800" fill="${teamInk(team)}">${esc(team)} ATTACK ▶</text>`;
   const list = moves.length ? moves.map(([id, gain], k) => {
     const e = D.byId.get(id);
     return `<li>${k + 1}. ${esc(nameOf(e.player_id))} · ${minute(e.t)} · ${esc(e.type)} · <b class="num">+${gain.toFixed(3)}</b></li>`;
   }).join('') : '<li>No completed passes or carries yet.</li>';
   const name = esc(D.meta.teams[team].name);
-  return `<h3 style="color:${col}">${name}</h3>` +
+  return `<h3 class="c-${teamSide(team)}">${name}</h3>` +
     `<svg viewBox="-2 -2 109 72" role="img" aria-label="${name}: xT surface and the ${TOP_MOVES} largest xT gains so far">${g}</svg>` +
     `<ol class="xtlist">${list}</ol>`;
 }
@@ -161,7 +162,7 @@ function renderThreat() {
 
 /* Pass network: the bundle's network for the current half at the last 5-minute sample before the
    replay clock. Positions, degree, betweenness and groups all come from the bundle. */
-const GROUP_COLS = [COL.warn, COL.accent, '#a3e635', '#f472b6', '#e5e5e5'];
+const GROUPS = ['grp1', 'grp2', 'grp3', 'grp4', 'grp5'];  // keys of COL
 
 function netAt() {
   const N = D.series.network;
@@ -170,8 +171,8 @@ function netAt() {
 }
 
 function networkPitch(team, snap) {
-  const p = D.meta.pitch, name = esc(D.meta.teams[team].name), col = teamCol(team);
-  if (!snap.nodes.length) return `<h3 style="color:${col}">${name}</h3><p class="note">No linked passes in this half yet.</p>`;
+  const p = D.meta.pitch, name = esc(D.meta.teams[team].name);
+  if (!snap.nodes.length) return `<h3 class="c-${teamSide(team)}">${name}</h3><p class="note">No linked passes in this half yet.</p>`;
   const at = Object.fromEntries(snap.nodes.map(n => [n[0], n]));
   const pair = {};
   snap.edges.forEach(([a, b, k]) => { const key = a < b ? a + '|' + b : b + '|' + a; pair[key] = (pair[key] || 0) + k; });
@@ -186,16 +187,16 @@ function networkPitch(team, snap) {
   const order = [...snap.nodes].sort((a, b) => (unique && a[0] === top[0]) - (unique && b[0] === top[0]) || b[3] - a[3]);
   order.forEach(([id, x, y, deg, btw, grp]) => {
     const r = 1.1 + Math.sqrt(deg) * 0.4, ring = unique && id === top[0];
-    const ink = UI.follow && id === UI.follow ? COL.accent : COL.bg;
+    const ink = UI.follow && id === UI.follow ? COL.accent : COL.pitch;
     g += `<g><title>${esc(nameOf(id))}: ${deg} passes made or received · betweenness ${btw.toFixed(2)}</title>` +
-      `<circle cx="${x}" cy="${y}" r="${r.toFixed(2)}" fill="${GROUP_COLS[grp % GROUP_COLS.length]}" stroke="${ring ? '#ffffff' : ink}" stroke-width="${ring ? 0.8 : 0.4}"/>` +
-      `<text x="${x}" y="${(y + 0.8).toFixed(2)}" text-anchor="middle" font-size="2.2" font-weight="800" fill="${COL.bg}">${esc(id.split('_').pop())}</text></g>`;
+      `<circle cx="${x}" cy="${y}" r="${r.toFixed(2)}" fill="${COL[GROUPS[grp % GROUPS.length]]}" stroke="${ring ? COL.text : ink}" stroke-width="${ring ? 0.8 : 0.4}"/>` +
+      `<text x="${x}" y="${(y + 0.8).toFixed(2)}" text-anchor="middle" font-size="2.2" font-weight="800" fill="${COL.grpInk}">${esc(id.split('_').pop())}</text></g>`;
   });
-  g += `<text x="${p.length - 1}" y="${p.width - 1.5}" text-anchor="end" font-size="2.4" font-weight="800" fill="${col}">${esc(team)} ATTACK ▶</text>`;
+  g += `<text x="${p.length - 1}" y="${p.width - 1.5}" text-anchor="end" font-size="2.4" font-weight="800" fill="${teamInk(team)}">${esc(team)} ATTACK ▶</text>`;
   const ranked = [...snap.nodes].sort((a, b) => b[4] - a[4]).slice(0, 3)
     .map(n => `${esc(nameOf(n[0]))} <b class="num">${n[4].toFixed(2)}</b>`).join(' · ');
   const lead = unique ? `Most central: <b>${esc(nameOf(top[0]))}</b>.` : 'No single most central player (tie).';
-  return `<h3 style="color:${col}">${name} · ${snap.n} linked passes</h3>` +
+  return `<h3 class="c-${teamSide(team)}">${name} · ${snap.n} linked passes</h3>` +
     `<svg viewBox="-2 -2 109 72" role="img" aria-label="${name}: pass network for this half, ${snap.n} linked passes">${g}</svg>` +
     `<p class="netlist">${lead} Betweenness: ${ranked}</p>`;
 }

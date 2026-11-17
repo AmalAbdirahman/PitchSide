@@ -62,7 +62,9 @@ python -m app.build_bundle                         # offline rebuild, replays da
 
 Dependency groups live in `pyproject.toml`: `dev` (tooling), `data` (open-data analysis; matplotlib draws the xT figures), `agents` (the Foundry client) and `e2e` (Playwright). `pre-commit install` runs ruff and mypy before each commit.
 
-Browser smoke test (serves `docs/` locally, plays to full time at 4x, vetoes one fact, approves one, lets one expire, and fails on any console error):
+The control room follows the system's light or dark setting; the Theme button in the header overrides it, and the browser remembers the choice. Colours are CSS tokens in `docs/styles.css` (the pitch and charts read the same tokens), text colours pass WCAG AA in both themes (`tests/test_theme.py`), and the on-air score bug and lower third stay dark in both.
+
+Browser smoke test (serves `docs/` locally, plays to full time at 4x, vetoes one fact, approves one, lets one expire, switches the theme, and fails on any console error):
 
 ```
 python -m pip install -e ".[dev,e2e]"

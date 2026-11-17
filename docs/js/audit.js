@@ -4,7 +4,7 @@ import { D, S, $, esc, clock } from './data.js';
 import { PHASE } from './state.js';
 
 const CHECK_ORDER = ['recompute', 'evidence_exists', 'entities', 'numbers_match', 'intent_stripped', 'sample_size', 'meaning_matches'];
-const VERDICT = { verified: ['c-green', '✓'], corrected: ['c-amber', '✎ corrected'] };
+const VERDICT = { verified: ['c-verified', '✓'], corrected: ['c-corrected', '✎ corrected'] };
 
 export function renderLog() {
   $('#log').innerHTML = S.log.length
@@ -42,7 +42,7 @@ function readingText(r) {
 function agentTrace(f) {
   return ((f.audit || {}).steps || []).map(s => {
     if (s.agent === 'Verifier') {
-      const [cls, mark] = VERDICT[s.outcome] || ['c-red', '✗'];
+      const [cls, mark] = VERDICT[s.outcome] || ['c-rejected', '✗'];
       return `Verifier <span class="${cls}">${mark}</span>`;
     }
     if (s.agent === 'Reader') return `<span title="Reader understood: ${esc(readingText(s.reading))}">Reader${s.outcome === 'read' ? '' : ' ' + esc(s.outcome)}</span>`;
@@ -57,11 +57,11 @@ function auditRow(it) {
   const cells = CHECK_ORDER.map(n => {
     const c = byName[n];
     if (!c) return '<td class="ic c-muted">–</td>';
-    return `<td class="ic ${c.passed ? 'c-green' : 'c-red'}" title="${esc(c.detail)}">${c.passed ? '✓' : '✗'}<span class="sr-only">${c.passed ? 'passed' : 'failed'}</span></td>`;
+    return `<td class="ic ${c.passed ? 'c-verified' : 'c-rejected'}" title="${esc(c.detail)}">${c.passed ? '✓' : '✗'}<span class="sr-only">${c.passed ? 'passed' : 'failed'}</span></td>`;
   }).join('');
-  const st = it.status === 'verified' ? 'c-green' : it.status === 'corrected' ? 'c-amber' : 'c-red';
+  const st = it.status === 'verified' ? 'c-verified' : it.status === 'corrected' ? 'c-corrected' : 'c-rejected';
   return `<tr><td class="num">${clock(it.t)}</td><td><span style="font-family:var(--mono);font-size:11px">${esc(it.id)}</span>` +
-    `${it.f.injected ? '<br><span class="tag c-bad">injected</span>' : ''}</td><td>${esc(it.f.text.draft_en)}</td>` +
+    `${it.f.injected ? '<br><span class="tag c-rejected">injected</span>' : ''}</td><td>${esc(it.f.text.draft_en)}</td>` +
     `<td class="trace">${agentTrace(it.f)}</td>${cells}` +
     `<td><span class="tag ${st}">${esc(it.status)}</span></td><td class="${ph[1]}">${ph[0]}</td></tr>`;
 }

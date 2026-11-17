@@ -7,9 +7,9 @@ import { D, S, UI, MATCH_S_PER_S, rend } from './data.js';
 import { resolve } from './routing.js';
 
 export const PHASE = {
-  veto: ['Veto window', 'c-info'], queued: ['Awaiting producer', 'c-amber'], aired: ['Aired', 'c-green'],
-  vetoed: ['Vetoed', 'c-red'], onair: ['On air now', 'c-green'], declined: ['Rejected by producer', 'c-red'], expired: ['Expired · not aired', 'c-red'],
-  rejected: ['Rejected by verifier', 'c-red'],
+  veto: ['Veto window', 'c-verified'], queued: ['Awaiting producer', 'c-corrected'], aired: ['Aired', 'c-verified'],
+  vetoed: ['Vetoed', 'c-rejected'], onair: ['On air now', 'c-verified'], declined: ['Rejected by producer', 'c-rejected'], expired: ['Expired · not aired', 'c-rejected'],
+  rejected: ['Rejected by verifier', 'c-rejected'],
 };
 const PHASE_OF = {
   auto_approved: 'aired', approved: 'aired', veto_window: 'veto', queued: 'queued',
@@ -68,21 +68,21 @@ function update(it) {
 
 function announce(it, from, state, by) {
   const id = it.id;
-  if (state === 'veto_window') return log(`${id} routed ${it.tier}: ${it.ttl} s veto window`, 'c-info');
-  if (state === 'queued') return log(`${id} routed ${it.tier}: waiting for producer, ${it.ttl} s`, 'c-amber');
-  if (state === 'vetoed') { S.c.vetoed++; return log(`Producer vetoed ${id}; it will not air`, 'c-red'); }
-  if (state === 'rejected') { S.c.declined++; return log(`Producer rejected ${id}; it will not air`, 'c-red'); }
-  if (state === 'expired') { S.c.expired++; return log(`${id} expired unanswered and was never aired`, 'c-red'); }
+  if (state === 'veto_window') return log(`${id} routed ${it.tier}: ${it.ttl} s veto window`, 'c-verified');
+  if (state === 'queued') return log(`${id} routed ${it.tier}: waiting for producer, ${it.ttl} s`, 'c-corrected');
+  if (state === 'vetoed') { S.c.vetoed++; return log(`Producer vetoed ${id}; it will not air`, 'c-rejected'); }
+  if (state === 'rejected') { S.c.declined++; return log(`Producer rejected ${id}; it will not air`, 'c-rejected'); }
+  if (state === 'expired') { S.c.expired++; return log(`${id} expired unanswered and was never aired`, 'c-rejected'); }
   if (from === 'veto_window') log(`Veto window closed for ${id}`);
-  else if (by === 'producer') log(`Producer approved ${id}`, 'c-green');
-  else if (by === 'autopilot') log(`Autopilot approved ${id}`, 'c-green');
+  else if (by === 'producer') log(`Producer approved ${id}`, 'c-verified');
+  else if (by === 'autopilot') log(`Autopilot approved ${id}`, 'c-verified');
   air(it, by);
 }
 
 function air(it, by) {
   S.c.aired++;
   S.airQ.push(it);
-  log(`Aired ${it.id} (${by})`, 'c-green');
+  log(`Aired ${it.id} (${by})`, 'c-verified');
   // One lower-third slot: if facts pile up, the newest waiting one replaces older waiting ones on screen.
   while (S.airQ.length > 1) {
     const old = S.airQ.shift();
@@ -97,15 +97,15 @@ function admit(it) {
   if (it.rejected) {
     S.rt[it.id].phase = 'rejected';
     S.c.rejected++;
-    log(`Verifier rejected ${it.id}: ${it.f.verification.reject_reason}`, 'c-red');
+    log(`Verifier rejected ${it.id}: ${it.f.verification.reject_reason}`, 'c-rejected');
     return;
   }
   if (it.status === 'corrected') {
     S.c.corrected++;
-    log(`Verifier corrected ${it.id}: ${it.f.verification.corrections.map(c => c.reason).join('; ')}`, 'c-amber');
+    log(`Verifier corrected ${it.id}: ${it.f.verification.corrections.map(c => c.reason).join('; ')}`, 'c-corrected');
   } else {
     S.c.verified++;
-    log(`Verifier passed ${it.id}`, 'c-green');
+    log(`Verifier passed ${it.id}`, 'c-verified');
   }
   if (UI.auto) take(it, 'autopilot');
   update(it);

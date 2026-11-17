@@ -4,13 +4,20 @@
 
 export const MATCH_S_PER_S = 40;  // at 1x, one match minute passes every 1.5 real seconds
 export const LANES = ['left', 'centre', 'right'];
-/* Colours for SVG drawings; the same values as the tokens in styles.css (keep in step). */
-export const COL = {
-  bg: '#121212', card: '#1d1d1d', tag: '#121212', text: '#f5f5f5', dim: '#6b6b6b',
-  accent: '#00c26e', info: '#2dd4bf', warn: '#f5a524', bad: '#ff5a5f',
-  pitch: '#17261c', stripe: '#1a2b20', nor: '#3d8bfd', har: '#ff7a45',
+/* Colours for SVG drawings, read from the CSS tokens in styles.css. readColours() refills COL;
+   main.js calls it at start and on every theme change, then redraws. */
+const TOKENS = {
+  bg: '--bg', card: '--card', line: '--line', line2: '--line-2', text: '--text', muted: '--muted',
+  accent: '--accent', home: '--home', away: '--away', homeText: '--home-text', awayText: '--away-text',
+  pitch: '--pitch', stripe: '--pitch-2', pitchLine: '--pitch-line',
+  grp1: '--grp-1', grp2: '--grp-2', grp3: '--grp-3', grp4: '--grp-4', grp5: '--grp-5', grpInk: '--grp-ink',
+  airBg: '--air-bg', airText: '--air-text', airAccent: '--air-accent',
 };
-export const HOME_COL = COL.nor, AWAY_COL = COL.har;
+export const COL = {};
+export function readColours() {
+  const css = getComputedStyle(document.documentElement);
+  for (const [key, token] of Object.entries(TOKENS)) COL[key] = css.getPropertyValue(token).trim();
+}
 
 export let D = null;      // bundle: meta (with routing), events, items, players, end
 export let CUES = [];     // docs/data/cues.json
@@ -35,7 +42,9 @@ export const clock = t => pad(Math.floor(t / 60)) + ':' + pad(Math.floor(t % 60)
 export const minute = t => Math.floor(t / 60) + 1 + "'";
 export const nameOf = id => (D.players[id] ? D.players[id].name : id || '');
 export const rend = (f, kind, lang) => f.renditions.find(r => r.kind === kind && r.lang === lang) || null;
-export const teamCol = team => (team === D.meta.home ? HOME_COL : AWAY_COL);
+export const teamCol = team => (team === D.meta.home ? COL.home : COL.away);    // marks
+export const teamInk = team => (team === D.meta.home ? COL.homeText : COL.awayText);  // text
+export const teamSide = team => (team === D.meta.home ? 'home' : 'away');      // CSS class
 export const idxAt = t => Math.min(D.series.t.length - 1, Math.floor(t / D.series.step_s));
 export const fix = (v, d) => (v === null || v === undefined ? '–' : Number(v).toFixed(d));
 

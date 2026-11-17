@@ -4,7 +4,7 @@
 import { D, S, UI, CUES, $, esc, clock, minute, rend } from './data.js';
 import { PHASE, actionable, producerDecisions, tierRule, timeLeft } from './state.js';
 
-const TIER_CLS = { T0: 'c-green', T1: 'c-info', T2: 'c-amber' };
+const TIER_CLS = { T0: 'c-verified', T1: 'c-verified', T2: 'c-corrected' };
 
 function ltLabel(it) {
   const es = UI.lang === 'es';
@@ -52,7 +52,7 @@ function renderOutputs(it) {
   $('#cap-t').textContent = cap.text;
   $('#cap-t').lang = UI.lang;
   badge.textContent = cap.numbers_preserved ? 'numbers ✓' : 'numbers ✗';
-  badge.className = 'tag ' + (cap.numbers_preserved ? 'c-green' : 'c-red');
+  badge.className = 'tag ' + (cap.numbers_preserved ? 'c-verified' : 'c-rejected');
   $('#aud-t').textContent = audio ? audio.text : '';
   $('#aud-n').textContent = UI.lang === 'es' ? 'Spanish audio script is not built yet (roadmap); showing English.' : '';
   const cue = CUES.find(c => c.fact_id === it.id && c.lang === UI.lang);
@@ -67,12 +67,12 @@ function rowHead(it, rt, fol) {
   const ph = PHASE[live ? 'onair' : rt.phase] || ['', ''];
   let by = rt.phase === 'aired' && rt.by !== 'auto' ? ' · ' + rt.by : '';
   if (rt.superseded) by += ' · not shown on screen (newer fact)';
-  let h = it.rejected ? '<span class="tag c-red">REJ</span>' : `<span class="tag ${TIER_CLS[it.tier]}">${it.tier}</span>`;
+  let h = it.rejected ? '<span class="tag c-rejected">REJ</span>' : `<span class="tag ${TIER_CLS[it.tier]}">${it.tier}</span>`;
   h += `<span class="st ${ph[1]}">${ph[0]}${by}</span>`;
-  if (it.status === 'corrected') h += '<span class="tag c-amber">corrected</span>';
+  if (it.status === 'corrected') h += '<span class="tag c-corrected">corrected</span>';
   if (it.hedge !== 'none') h += `<span class="tag c-muted">${esc(it.hedge)}</span>`;
-  if (UI.depth === 'analyst' && it.f.injected) h += '<span class="tag c-bad">injected</span>';
-  if (fol) h += '<span class="tag c-green">following</span>';
+  if (UI.depth === 'analyst' && it.f.injected) h += '<span class="tag c-rejected">injected</span>';
+  if (fol) h += '<span class="tag c-accent">following</span>';
   return `<div class="h">${h}<span class="t">${minute(it.t)}</span></div>`;
 }
 
@@ -136,9 +136,9 @@ export function renderQueue() {
     : `<div class="empty">${S.next ? 'No facts name this player yet.' : 'Nothing drafted yet. Press play on the replay strip.'}</div>`;
   if (key.act && key.id) restoreFocus(key.act, key.id);
   const waiting = D.items.filter(actionable).length;
-  $('#qhead').innerHTML = `<div><span class="lbl">Waiting</span><b class="${waiting ? 'c-amber' : ''}">${waiting}</b></div>` +
-    `<div><span class="lbl">Aired</span><b class="c-green">${S.c.aired}</b></div>` +
-    `<div><span class="lbl">Caught</span><b class="c-red">${S.c.rejected + S.c.corrected}</b></div>`;
+  $('#qhead').innerHTML = `<div><span class="lbl">Waiting</span><b class="${waiting ? 'c-corrected' : ''}">${waiting}</b></div>` +
+    `<div><span class="lbl">Aired</span><b class="c-verified">${S.c.aired}</b></div>` +
+    `<div><span class="lbl">Caught</span><b class="c-rejected">${S.c.rejected + S.c.corrected}</b></div>`;
 }
 
 function restoreFocus(act, id) {
@@ -155,18 +155,18 @@ export function renderTimers() {
     if (bar) bar.style.transform = `scaleX(${Math.max(0, left / it.ttl)})`;
     if (cd) {
       cd.textContent = `${airs ? 'airs in' : 'expires in'} ${Math.max(0, Math.ceil(left))} s${S.playing || S.t >= D.end ? '' : ' (paused)'}`;
-      cd.className = 'cd ' + (airs ? 'c-info' : 'c-amber');
+      cd.className = 'cd ' + (airs ? 'c-verified' : 'c-corrected');
     }
   }
 }
 
 /* ---------- evidence drawer ---------- */
 function evidenceRow(e, f, id) {
-  if (!e) return `<tr><td>${id}</td><td colspan="5"><span class="tag c-red">not in the event log</span></td></tr>`;
+  if (!e) return `<tr><td>${id}</td><td colspan="5"><span class="tag c-rejected">not in the event log</span></td></tr>`;
   const w = f.evidence.window || f.claim.window;
   let flag = '';
-  if (e.t > f.created_t) flag = ' <span class="tag c-red">after claim time</span>';
-  else if (w && (e.t < w.start_t || e.t > w.end_t)) flag = ' <span class="tag c-red">outside window</span>';
+  if (e.t > f.created_t) flag = ' <span class="tag c-rejected">after claim time</span>';
+  else if (w && (e.t < w.start_t || e.t > w.end_t)) flag = ' <span class="tag c-rejected">outside window</span>';
   return `<tr><td class="num">${e.id}</td><td class="num">${clock(e.t)}${flag}</td><td>${esc(e.type.replace('_', ' '))}</td>` +
     `<td>${esc(e.team)}</td><td>${esc(e.player)}</td><td>${esc((e.outcome || '').replace('_', ' '))}</td></tr>`;
 }
@@ -176,9 +176,9 @@ export function openEvidence(id) {
   $('#dr-t').textContent = 'Evidence · ' + id;
   const rows = f.evidence.event_ids.map(eid => evidenceRow(D.byId.get(eid), f, eid)).join('');
   const checks = f.verification.checks
-    .map(c => `<p class="ck"><span class="${c.passed ? 'c-green' : 'c-red'}">${c.passed ? '✓' : '✗'} ${esc(c.name)}</span> <span class="c-muted">${esc(c.detail)}</span></p>`).join('');
+    .map(c => `<p class="ck"><span class="${c.passed ? 'c-verified' : 'c-rejected'}">${c.passed ? '✓' : '✗'} ${esc(c.name)}</span> <span class="c-muted">${esc(c.detail)}</span></p>`).join('');
   const corr = (f.verification.corrections || [])
-    .map(c => `<p><span class="c-red" style="text-decoration:line-through">${esc(c.from)}</span><br>→ <span class="c-green">${esc(c.to)}</span><br><span class="c-muted">${esc(c.reason)}</span></p>`).join('');
+    .map(c => `<p><span class="c-rejected" style="text-decoration:line-through">${esc(c.from)}</span><br>→ <span class="c-verified">${esc(c.to)}</span><br><span class="c-muted">${esc(c.reason)}</span></p>`).join('');
   const claim = it.rejected ? f.text.draft_en : rend(f, 'cue', UI.lang).text;
   $('#dr-b').innerHTML = `<p class="claim">${esc(claim)}</p>` +
     `<p class="note">Claim made at ${clock(f.created_t)}. Status: ${esc(it.status)}${it.tier ? ', tier ' + it.tier : ''}.</p>${checks}` +

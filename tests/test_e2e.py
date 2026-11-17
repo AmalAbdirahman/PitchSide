@@ -103,6 +103,50 @@ def test_routing_cases_in_the_browser(page: Any) -> None:
     assert page.problems == []
 
 
+def _token(pg: Any, name: str) -> str:
+    js = "t => getComputedStyle(document.documentElement).getPropertyValue(t).trim()"
+    return str(pg.evaluate(js, name)).upper()
+
+
+def _theme(pg: Any) -> str:
+    return str(pg.evaluate("document.documentElement.dataset.theme || 'system'"))
+
+
+def _pitch_fill(pg: Any) -> str:
+    return str(pg.get_attribute("#pitch rect", "fill")).upper()
+
+
+def _bug_score_bg(pg: Any) -> str:
+    return str(pg.evaluate("getComputedStyle(document.querySelector('#bug-s')).backgroundColor"))
+
+
+def test_theme_toggle_switches_redraws_and_is_remembered(site: str) -> None:
+    """R1: System -> Light -> Dark -> System. The pitch SVG redraws from the tokens; the on-air
+    score bug keeps its dark tokens in both themes; the choice survives a reload."""
+    with sync_api.sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        context = browser.new_context(reduced_motion="reduce", color_scheme="light")
+        pg = _watch(context.new_page())
+        pg.goto(site)
+        pg.wait_for_selector("#qhead b")
+        assert _theme(pg) == "system" and _token(pg, "--bg") == "#F5F6F8"  # the system is light
+        assert _pitch_fill(pg) == _token(pg, "--pitch")
+        bug = _bug_score_bg(pg)
+        pg.click("#theme")
+        assert _theme(pg) == "light" and pg.inner_text("#theme-v") == "Light"
+        pg.click("#theme")
+        assert _theme(pg) == "dark" and _token(pg, "--bg") == "#0B0D10"
+        assert _pitch_fill(pg) == "#17261C"  # redrawn with the dark pitch token
+        assert _bug_score_bg(pg) == bug  # on-air graphics do not change with the theme
+        pg.reload()
+        pg.wait_for_selector("#qhead b")
+        assert _theme(pg) == "dark" and _pitch_fill(pg) == "#17261C"
+        pg.click("#theme")
+        assert _theme(pg) == "system" and _token(pg, "--bg") == "#F5F6F8"
+        browser.close()
+        assert pg.problems == []
+
+
 def _watch(pg: Any) -> Any:
     pg.problems = []
     pg.on("console", lambda m: m.type == "error" and pg.problems.append(m.text))
