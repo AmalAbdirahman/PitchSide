@@ -12,7 +12,7 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, ValidationError
 
-from core.facts import MetricName
+from core.facts import AgentMetricName
 
 MAX_SENTENCE = 200
 
@@ -33,7 +33,7 @@ class OutWindow(_Out):
 
 class OutClaim(_Out):
     subject: OutSubject
-    metric: MetricName
+    metric: AgentMetricName
     window: OutWindow
     comparator: Literal["eq", "gt", "lt"]
     value: float

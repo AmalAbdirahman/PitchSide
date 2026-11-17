@@ -35,6 +35,7 @@ def test_registry_lists_every_computable_metric() -> None:
         "cards",
         "turnovers_own_third",
         "xg_sum",
+        "npxg_sum",
         "top_shot_speed",
         "pass_accuracy",
         "attack_share_left",
@@ -42,6 +43,7 @@ def test_registry_lists_every_computable_metric() -> None:
         "attack_share_right",
         "xt_added",
         "most_central_player",
+        "field_tilt",
     }
     assert set(REGISTRY) <= set(get_args(MetricName))
     assert all(name == d.name for name, d in REGISTRY.items())
@@ -67,6 +69,7 @@ def test_kinds_and_tolerances_come_from_config() -> None:
         assert (REGISTRY[name].kind, REGISTRY[name].tolerance(v)) == (kind, tol)
     assert {n for n, d in REGISTRY.items() if d.checks_sample} == {
         "pass_accuracy",
+        "field_tilt",
         "attack_share_left",
         "attack_share_centre",
         "attack_share_right",

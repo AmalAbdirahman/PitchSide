@@ -97,6 +97,10 @@ class Moments(_Section):
     hub_min_passes: int
 
 
+class Series(_Section):
+    tilt_window_s: int
+
+
 class Verifier(_Section):
     n_min: int
     z: float
@@ -228,6 +232,7 @@ class Settings(_Section):
     winprob: Winprob
     winprob_eval: WinprobEval
     moments: Moments
+    series: Series
     verifier: Verifier
     hedge: Hedge
     hedge_eval: HedgeEval

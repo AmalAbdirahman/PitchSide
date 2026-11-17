@@ -83,6 +83,12 @@ moments:
   # chosen by hand: a smaller network ranks players on a handful of passes).
   hub_min_passes: 20
 
+# Chart and KPI series in hero.json (app/series.py).
+series:
+  # Field tilt is shown over a trailing window, as broadcasts usually quote it; 15 minutes is
+  # chosen by hand to match the attack-lane window above.
+  tilt_window_s: 900
+
 verifier:
   n_min: 6
   z: 1.96

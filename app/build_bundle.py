@@ -14,6 +14,7 @@ from __future__ import annotations
 import argparse
 import json
 from collections import Counter
+from datetime import date
 from pathlib import Path
 from typing import Any
 
@@ -37,6 +38,7 @@ from app.reader import save_cache as save_reads
 from app.renditions import all_preserved, with_renditions
 from app.router import route, routing_rules
 from app.series import build_series
+from app.stamp import previous, stamp
 from core.config import ROOT, Settings, load
 from core.events import Match
 from core.facts import Fact, validate_fact
@@ -56,6 +58,7 @@ EVENT_EXTRAS = (
     "end_y",
     "outcome",
     "xg",
+    "penalty",
     "shot_speed",
     "ball_speed",
     "player_speed",
@@ -268,6 +271,7 @@ def write(
             save_reads({**load_reads(), **scout.reader.cache})
             print(f"Reader calls: {scout.reader.calls}")
     out_dir.mkdir(parents=True, exist_ok=True)
+    hero = stamp(hero, previous(out_dir / "hero.json"), date.today())
     (out_dir / "hero.json").write_text(
         json.dumps(hero, ensure_ascii=False, indent=1), encoding="utf-8"
     )

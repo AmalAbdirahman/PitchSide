@@ -30,7 +30,10 @@ Delta = Annotated[
 ]
 NonNegative = Annotated[int | float, Field(ge=0), WithJsonSchema({"type": "number", "minimum": 0})]
 
-MetricName = Literal[
+# Metrics the Scout and the Reader may name. Their output schemas use this list, and both agent
+# caches key on those schemas, so growing it changes every cached request: extend it only together
+# with a --foundry run. The verifier's list, MetricName, may hold more.
+AgentMetricName = Literal[
     "goals",
     "shots",
     "xg_sum",
@@ -47,6 +50,8 @@ MetricName = Literal[
     "substitutions",
     "cards",
 ]
+# Every metric a fact may claim; each has a REGISTRY entry (tests/test_metrics.py).
+MetricName = Literal[AgentMetricName, Literal["npxg_sum", "field_tilt"]]
 Hedge = Literal["none", "early", "suggests", "clear"]
 Status = Literal["pending", "verified", "corrected", "rejected", "unverifiable"]
 Tier = Literal["T0", "T1", "T2"]
@@ -270,7 +275,7 @@ class Reading(_Strict):
     `metric` is None when no listed metric says what the sentence says."""
 
     subject: ReadSubject
-    metric: MetricName | None = None
+    metric: AgentMetricName | None = None
     window: ReadWindow
     value: float
 

@@ -171,7 +171,9 @@
             "xt_added",
             "most_central_player",
             "substitutions",
-            "cards"
+            "cards",
+            "npxg_sum",
+            "field_tilt"
           ],
           "type": "string"
         },

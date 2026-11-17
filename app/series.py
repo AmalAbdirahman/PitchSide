@@ -25,6 +25,7 @@ from core.xt import completed_move, gain
 TEAM_METRICS = (
     "shots",
     "xg_sum",
+    "npxg_sum",
     "pass_accuracy",
     "turnovers_own_third",
     "top_shot_speed",
@@ -49,6 +50,15 @@ def team_stat(
     subject, window = Subject(type="team", id=team), Window(start_t=0.0, end_t=t)
     m = compute_metric(metric, subject, window, events, ctx)
     return None if m is None or (metric == "pass_accuracy" and m.n == 0) else _r(m.value)
+
+
+def tilt_at(
+    events: list[Event], team: str, t: float, window_s: int, ctx: MetricContext
+) -> float | None:
+    """Field tilt (%) over the trailing window ending at t; None with no final-third passes."""
+    window = Window(start_t=max(0.0, t - window_s), end_t=t)
+    m = require_metric("field_tilt", Subject(type="team", id=team), window, events, ctx)
+    return None if m.n == 0 else _r(m.value)
 
 
 def win_prob_at(
@@ -181,10 +191,12 @@ def build_series(
         "lane_prior": {k: round(v, 4) for k, v in league.lane_shares.items()},
         "lane_deff": round(league.attack_deff, 3),
         "hedge_clear_prob": s.hedge.clear_prob,
+        "tilt_window_s": s.series.tilt_window_s,
         "t": ts,
         "win_prob": [win_prob_at(events, t, teams, league.mu, s) for t in ts],
         "teams": {
             tm: {m: [team_stat(events, tm, m, t, ctx) for t in ts] for m in TEAM_METRICS}
+            | {"field_tilt": [tilt_at(events, tm, t, s.series.tilt_window_s, ctx) for t in ts]}
             for tm in teams
         },
         "lanes": {tm: [lanes_at(events, tm, t, league, s) for t in ts] for tm in teams},

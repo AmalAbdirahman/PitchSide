@@ -36,6 +36,7 @@ class Event(_Frozen):
     pass_difficulty: Number | None = None
     ball_speed: Number | None = None
     xg: Number | None = None
+    penalty: bool | None = None  # True on a penalty kick (shots only); None otherwise
     shot_speed: Number | None = None
     card: str | None = None
     player_off: str | None = None

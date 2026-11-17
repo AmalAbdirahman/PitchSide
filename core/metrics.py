@@ -133,6 +133,41 @@ class CentralityRank:
         return Metric(float(rank(scores, subject.id)), len(links), len(mine), mine)
 
 
+@dataclass(frozen=True)
+class FieldTilt:
+    """field_tilt: the team's share (%) of both teams' passes that start in the final third they
+    attack, over the window. Coordinates are per team, attacking left to right, so one threshold
+    (pitch.final_third_x) serves both. Needs the opponent's passes, so it is not an EventMetric.
+    n is both teams' final-third passes, k and ids the subject team's."""
+
+    name: str = "field_tilt"
+    kind: Kind = "share"
+    subjects: frozenset[SubjectType] = frozenset({"team"})
+
+    def tolerance(self, v: Verifier) -> float:
+        return v.tol_share_pp
+
+    def value_matches(self, claimed: float, observed: float, v: Verifier) -> bool:
+        return abs(observed - claimed) <= v.tol_share_pp + EPS
+
+    @property
+    def checks_sample(self) -> bool:
+        return True
+
+    def compute(
+        self, events: list[Event], subject: Subject, window: Window, ctx: MetricContext
+    ) -> Metric | None:
+        if subject.type != "team":
+            return None
+        line = ctx.pitch.final_third_x
+        passes = [
+            e
+            for e in in_window(events, window.start_t, window.end_t)
+            if e.type == "pass" and e.x >= line
+        ]
+        return _share([e.id for e in passes if e.team == subject.id], len(passes))
+
+
 # ---- event selection -----------------------------------------------------------------
 
 
@@ -188,6 +223,13 @@ def _xg_sum(evs: list[Event], _subject: Subject, _ctx: MetricContext) -> Metric:
     return Metric(sum(_xg(e) for e in shots), len(shots), len(shots), [e.id for e in shots])
 
 
+def _npxg_sum(evs: list[Event], _subject: Subject, _ctx: MetricContext) -> Metric:
+    # Non-penalty xG: every shot but penalty kicks. The simulator awards no penalties, so on a
+    # synthetic match this equals xg_sum; StatsBomb marks penalties (core/statsbomb.py).
+    shots = [e for e in _shots(evs) if not e.penalty]
+    return Metric(sum(_xg(e) for e in shots), len(shots), len(shots), [e.id for e in shots])
+
+
 def _top_shot_speed(evs: list[Event], _subject: Subject, _ctx: MetricContext) -> Metric | None:
     # Only shots with a measured speed count; with none (open data has no speeds) there is no metric.
     timed = [e for e in _shots(evs) if e.shot_speed is not None]
@@ -229,6 +271,7 @@ _DEFS: list[EventMetric] = [
     EventMetric("cards", "count", "exact", _count_of("card")),
     EventMetric("turnovers_own_third", "count", "exact", _turnovers_own_third),
     EventMetric("xg_sum", "sum", "tol_xg", _xg_sum),
+    EventMetric("npxg_sum", "sum", "tol_xg", _npxg_sum),
     EventMetric("top_shot_speed", "max", "tol_speed", _top_shot_speed),
     EventMetric("xt_added", "sum", "tol_xt", _xt_added, frozenset({"team", "player"})),
     EventMetric("pass_accuracy", "share", "tol_share_pp", _pass_accuracy),
@@ -243,7 +286,7 @@ _DEFS: list[EventMetric] = [
         for lane in LANES
     ),
 ]
-_ALL: list[MetricDef] = [*_DEFS, CentralityRank()]
+_ALL: list[MetricDef] = [*_DEFS, CentralityRank(), FieldTilt()]
 REGISTRY: dict[str, MetricDef] = {d.name: d for d in _ALL}
 
 

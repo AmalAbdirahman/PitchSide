@@ -268,7 +268,10 @@ class Mapper:
     def _shot(self, e: SbEvent, s: SbShot, loc: list[float]) -> list[dict[str, Any]]:
         xy, (ex, ey) = self.scale.xy(loc), self.scale.xy(s.end_location)
         outcome = SHOT_OUTCOME[s.outcome.name]
-        shot = self.base(e, "shot", xy, end_x=ex, end_y=ey, outcome=outcome, xg=self.xg(e, s, loc))
+        pen = True if s.type is not None and s.type.name == "Penalty" else None
+        shot = self.base(
+            e, "shot", xy, end_x=ex, end_y=ey, outcome=outcome, xg=self.xg(e, s, loc), penalty=pen
+        )
         return [shot, self.base(e, "goal", xy)] if outcome == "goal" else [shot]
 
     def xg(self, e: SbEvent, s: SbShot, loc: list[float]) -> float:
