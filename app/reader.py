@@ -180,7 +180,7 @@ class FoundryReader:
             credential=DefaultAzureCredential(),
             allow_preview=True,
         )
-        opts = {"timeout": cfg.timeout_s, "max_retries": 0}
+        opts: dict[str, Any] = {"timeout": cfg.timeout_s, "max_retries": 0}
         self.plain = project.get_openai_client(**opts)
         self.agent: Any = None
         try:
@@ -214,7 +214,12 @@ class FoundryReader:
                     raise  # network trouble, not the agent API: fail this call only
                 print(f"  Reader agent call failed ({type(e).__name__}); using plain responses")
                 self.agent = None
-        fmt = {"type": "json_schema", "name": "reading", "schema": reader_schema(), "strict": True}
+        fmt: Any = {
+            "type": "json_schema",
+            "name": "reading",
+            "schema": reader_schema(),
+            "strict": True,
+        }
         resp = self.plain.responses.create(
             model=self.model, instructions=INSTRUCTIONS, input=user, text={"format": fmt}
         )

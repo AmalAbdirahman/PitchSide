@@ -427,7 +427,7 @@ class FoundryCaller:
             credential=DefaultAzureCredential(),
             allow_preview=True,
         )
-        self.opts = {"timeout": cfg.timeout_s, "max_retries": 0}
+        self.opts: dict[str, Any] = {"timeout": cfg.timeout_s, "max_retries": 0}
         self.plain = project.get_openai_client(**self.opts)
         self.agents: dict[str, Any] = {}
         for mode in ("handed", "explore"):
@@ -448,7 +448,7 @@ class FoundryCaller:
             TextResponseFormatJsonSchema,
         )
 
-        tools = (
+        tools: list[Any] | None = (
             [FunctionTool(strict=True, **spec) for spec in TOOL_SPECS]
             if mode == "explore"
             else None
