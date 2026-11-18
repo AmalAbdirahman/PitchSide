@@ -292,3 +292,36 @@ def test_glass_frame_time_at_4x(site: str) -> None:
     for glass, (mean, p50, p95, n) in stats.items():
         print(f"glass={glass}: mean {mean:.2f} ms, p50 {p50:.2f}, p95 {p95:.2f}, {n} frames")
     assert stats[True][0] <= stats[False][0] * 1.5 + 2, "glass makes frames noticeably slower"
+
+
+ASK = json.loads((DOCS / "data" / "ask.json").read_text(encoding="utf-8"))["answers"]
+
+
+def test_ask_panel_opens_questions_with_the_clock_and_shows_checked_answers(page: Any) -> None:
+    """R5: suggested questions open at their minute; an answer shows ticks, chips and the count,
+    or the refusal, or that it was not built. The free-text box stays disabled."""
+    first = min(ASK, key=lambda a: a["at_t"])
+    button = f'#ask-qs button[data-q="{first["question_id"]}"]'
+    assert page.is_disabled(button) and page.is_disabled("#ask-text")
+    assert page.locator("#askt tbody tr").count() == len(ASK)
+    page.click("#go-ask")
+    assert page.evaluate("document.activeElement.id") == "ask"
+    _fast(page)
+    page.click("#play")
+    page.wait_for_selector(f"{button}:not([disabled])", timeout=60_000)
+    page.click("#play")
+    page.click(button)
+    answer = page.locator("#ask-thread .a").last
+    assert first["question"] in page.inner_text("#ask-thread")
+    if first["status"] == "verified":
+        n = len(first["numbers"])
+        assert answer.locator(".tick").count() >= n > 0
+        assert f"{n}/{n} numbers verified" in answer.inner_text()
+        if first["evidence_ids"]:
+            answer.locator("button[data-ev]").first.click()
+            assert page.is_visible("#drawer")
+    elif first["status"] == "refused":
+        assert "can't verify" in answer.inner_text()
+    else:
+        assert "No answer has been built" in answer.inner_text()
+    assert page.problems == []

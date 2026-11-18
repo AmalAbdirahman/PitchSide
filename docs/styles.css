@@ -80,7 +80,7 @@ button,select{font:inherit;color:inherit}
 .err code{font-family:var(--mono);color:var(--text)}
 
 /* ---------- shell: sidebar and main column (design/redesign_mockup.png) ---------- */
-.app{display:grid;grid-template-columns:220px minmax(0,1fr);min-height:100vh}
+.app{display:grid;min-height:100vh}
 .side{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:18px;padding:18px 12px;background:var(--card);border-right:1px solid var(--line);overflow:auto}
 .main{padding:18px 22px 40px;min-width:0;max-width:1520px;width:100%}
 .main:focus{outline:none}
@@ -320,6 +320,40 @@ dialog .ck{margin:4px 0;font-size:12.5px}
 .bug,.lt{background:var(--air-panel);-webkit-backdrop-filter:none;backdrop-filter:none}
 #drawer,#aboutdlg{background:var(--card);-webkit-backdrop-filter:none;backdrop-filter:none}}
 
+/* ---------- Ask PitchSide (R5): right-hand panel; below 1400px it moves under the main column ---------- */
+.app{grid-template-columns:220px minmax(0,1fr) 340px}
+.ask{position:sticky;top:0;height:100vh;overflow:auto;display:flex;flex-direction:column;gap:12px;padding:18px 16px;background:var(--card);border-left:1px solid var(--line)}
+.ask:focus{outline:none}
+.ask:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.ask-top{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+.ask-top h2{margin:0;font:700 15px var(--disp)}
+.ask .note{margin:0}
+.ask h3{margin:6px 0 0}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line-2);border-radius:var(--r-sm);overflow:hidden}
+.seg button{background:none;border:0;padding:6px 8px;font-size:12.5px;font-weight:600;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.seg button:disabled{color:var(--muted);cursor:not-allowed}
+.thread{display:flex;flex-direction:column;gap:10px}
+.thread .q{align-self:flex-end;max-width:90%;background:var(--accent);color:var(--accent-ink);border-radius:12px;padding:8px 12px;font-weight:600;font-size:13px}
+.thread .a{background:var(--inset);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;font-size:13px}
+.thread .a p{margin:0}
+.tick{color:var(--verified);font-weight:700;margin-left:2px}
+.chips{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px}
+.chip{font:500 11px var(--mono);color:var(--muted);background:var(--card);border:1px solid var(--line-2);border-radius:var(--r-xs);padding:1px 7px;cursor:pointer}
+.chip:hover{color:var(--text)}
+.sqs{display:flex;flex-direction:column;gap:6px}
+.sq{text-align:left;background:none;border:1px solid var(--line);border-radius:var(--r-sm);padding:8px 10px;font-size:12.5px;color:var(--text);cursor:pointer}
+.sq:hover{border-color:var(--line-2);background:var(--card-2)}
+.sq:disabled{color:var(--muted);cursor:default;background:none}
+.ask-in{margin-top:auto;display:grid;gap:4px}
+.ask-in input{width:100%;background:var(--inset);border:1px solid var(--line-2);border-radius:var(--r-sm);padding:9px 12px;color:var(--text);font:inherit}
+.ask-in input:disabled{cursor:not-allowed}
+@media (max-width:1400px){
+  .app{grid-template-columns:220px minmax(0,1fr)}
+  .ask{grid-column:2;position:static;height:auto;margin:0 22px 40px;border:1px solid var(--line);border-radius:var(--r)}
+  .ask-in{margin-top:4px}
+}
+
 /* Below 1100px the sidebar collapses to icons; the labels stay for screen readers. */
 @media (max-width:1100px){
   .app{grid-template-columns:64px minmax(0,1fr)}
@@ -346,7 +380,8 @@ dialog .ck{margin:4px 0;font-size:12.5px}
   .brand{display:none}
   .views,.grp{flex-direction:row;gap:0}
   .foot{margin:0;background:none;border-color:transparent}
-  .main{padding:12px 12px 76px}
+  .main{padding:12px 12px 16px}
+  .ask{margin:0 12px 76px}
   .top h1{font-size:18px}
   .top .tm>span{display:none}
   .top .ab{display:inline}

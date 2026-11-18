@@ -30,6 +30,9 @@ from app.agents_foundry import (
     scout_metrics,
     verify_rules,
 )
+from app.ask import build_ask, load_questions, make_analyst
+from app.ask import load_cache as load_asks
+from app.ask import save_cache as save_asks
 from app.drafter import Moment, draft_facts
 from app.reader import CACHE_PATH as READ_PATH
 from app.reader import FoundryReader, Reader
@@ -278,7 +281,26 @@ def write(
     (out_dir / "cues.json").write_text(
         json.dumps(cues, ensure_ascii=False, indent=1), encoding="utf-8"
     )
+    if source is None:
+        write_ask(s, hero, out_dir, foundry)
     return hero, cues
+
+
+def write_ask(s: Settings, hero: dict[str, Any], out_dir: Path, foundry: bool) -> None:
+    """R5: answer the suggested questions (live Analyst with --foundry, else the cache) and
+    write ask.json. Synthetic match only."""
+    match, _ = load_match()
+    analyst = make_analyst(foundry, s)
+    facts = [Fact.model_validate(f) for f in hero["facts"]]
+    ask = build_ask(match, facts, s, analyst, load_questions())
+    if foundry:
+        save_asks({**load_asks(), **analyst.cache})  # add, never drop, as for the Scout
+        print(f"Analyst calls: {analyst.calls}")
+    by = Counter(a["status"] for a in ask["answers"])
+    print(f"ask: {dict(by)}")
+    (out_dir / "ask.json").write_text(
+        json.dumps(ask, ensure_ascii=False, indent=1), encoding="utf-8"
+    )
 
 
 def real_source(s: Settings, match_id: int | None, out: Path | None) -> tuple[EventSource, Path]:

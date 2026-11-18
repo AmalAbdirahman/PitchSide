@@ -208,6 +208,16 @@ agents:
   # 60+ labelled sentences of scripts/eval_meaning.py, with room to spare.
   reader_max_calls: 200
 
+# R5 Ask PitchSide: the Analyst answers data/ask_questions.json at build time with the Scout's tools;
+# app/ask_checks.py decides whether each answer is shown (app/ask.py).
+ask:
+  analyst_name: pitchside-analyst
+  # Chosen by hand: 7 questions, each answered at most twice, up to 4 model responses per answer
+  # (one per round of tool calls), with room to spare.
+  max_calls: 80
+  # From REDESIGN_PROMPTS.md R5: one retry with the failure reasons.
+  retries: 1
+
 # StatsBomb Open Data (P6). Raw files are downloaded into data/external/ (git-ignored) by
 # scripts/fetch_statsbomb.py and never committed. Licence: StatsBomb Public Data User Agreement.
 statsbomb:

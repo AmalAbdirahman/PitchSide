@@ -1,0 +1,138 @@
+{
+ "note": "Suggested answers were generated at build time by the Analyst agent and checked by the verifier. Synthetic match data only.",
+ "answers": [
+  {
+   "question_id": "q1",
+   "question": "How many shots did D. Varga take after 60'?",
+   "at_t": 3972.0,
+   "at_minute": 67,
+   "status": "not_built",
+   "text": "",
+   "numbers": [],
+   "evidence_ids": [],
+   "closest_fact": null,
+   "attempts": [
+    {
+     "attempt": 1,
+     "outcome": "not_cached",
+     "checks": []
+    }
+   ],
+   "model": null
+  },
+  {
+   "question_id": "q2",
+   "question": "How much npxG had Northbridge created by half-time?",
+   "at_t": 2730.0,
+   "at_minute": 46,
+   "status": "not_built",
+   "text": "",
+   "numbers": [],
+   "evidence_ids": [],
+   "closest_fact": null,
+   "attempts": [
+    {
+     "attempt": 1,
+     "outcome": "not_cached",
+     "checks": []
+    }
+   ],
+   "model": null
+  },
+  {
+   "question_id": "q3",
+   "question": "Who scored, and in which minute?",
+   "at_t": 3840.0,
+   "at_minute": 65,
+   "status": "not_built",
+   "text": "",
+   "numbers": [],
+   "evidence_ids": [],
+   "closest_fact": null,
+   "attempts": [
+    {
+     "attempt": 1,
+     "outcome": "not_cached",
+     "checks": []
+    }
+   ],
+   "model": null
+  },
+  {
+   "question_id": "q4",
+   "question": "Did Harlow's pass accuracy change after their yellow card?",
+   "at_t": 3600.0,
+   "at_minute": 61,
+   "status": "not_built",
+   "text": "",
+   "numbers": [],
+   "evidence_ids": [],
+   "closest_fact": null,
+   "attempts": [
+    {
+     "attempt": 1,
+     "outcome": "not_cached",
+     "checks": []
+    }
+   ],
+   "model": null
+  },
+  {
+   "question_id": "q5",
+   "question": "How many times have Harlow lost the ball in their own third since 75'?",
+   "at_t": 5400.0,
+   "at_minute": 91,
+   "status": "not_built",
+   "text": "",
+   "numbers": [],
+   "evidence_ids": [],
+   "closest_fact": null,
+   "attempts": [
+    {
+     "attempt": 1,
+     "outcome": "not_cached",
+     "checks": []
+    }
+   ],
+   "model": null
+  },
+  {
+   "question_id": "q6",
+   "question": "Who has taken the most shots in the match?",
+   "at_t": 5400.0,
+   "at_minute": 91,
+   "status": "not_built",
+   "text": "",
+   "numbers": [],
+   "evidence_ids": [],
+   "closest_fact": null,
+   "attempts": [
+    {
+     "attempt": 1,
+     "outcome": "not_cached",
+     "checks": []
+    }
+   ],
+   "model": null
+  },
+  {
+   "question_id": "q7",
+   "question": "How far has C. Nkemelu run in the first half?",
+   "at_t": 2730.0,
+   "at_minute": 46,
+   "status": "not_built",
+   "text": "",
+   "numbers": [],
+   "evidence_ids": [],
+   "closest_fact": null,
+   "attempts": [
+    {
+     "attempt": 1,
+     "outcome": "not_cached",
+     "checks": []
+    }
+   ],
+   "model": null
+  }
+ ]
+}

@@ -1,0 +1,12 @@
+{
+ "note": "Suggested questions for Ask PitchSide (R5) about the synthetic hero match. at_t is the replay time (match seconds) at which each is asked; the Analyst's tools never look past it. q7 needs data the event log does not hold (distance run), so its answer must be a refusal.",
+ "questions": [
+  {"id": "q1", "text": "How many shots did D. Varga take after 60'?", "at_t": 3972},
+  {"id": "q2", "text": "How much npxG had Northbridge created by half-time?", "at_t": 2730},
+  {"id": "q3", "text": "Who scored, and in which minute?", "at_t": 3840},
+  {"id": "q4", "text": "Did Harlow's pass accuracy change after their yellow card?", "at_t": 3600},
+  {"id": "q5", "text": "How many times have Harlow lost the ball in their own third since 75'?", "at_t": 5400},
+  {"id": "q6", "text": "Who has taken the most shots in the match?", "at_t": 5400},
+  {"id": "q7", "text": "How far has C. Nkemelu run in the first half?", "at_t": 2730}
+ ]
+}

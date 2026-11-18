@@ -9,10 +9,12 @@ import { maybeRenderAnalysis } from './analysis.js';
 import { publishProgram, startProgram } from './program.js';
 import { renderKpis, setupKpis } from './kpi.js';
 import { renderStats } from './matchstats.js';
+import { loadAsk, renderAsk, renderAskAudit, wireAsk } from './ask.js';
 
 async function load() {
   try {
     await loadBundle();
+    await loadAsk();
   } catch (err) {
     const box = $('#load-error');
     box.hidden = false;
@@ -43,6 +45,7 @@ function setupStatic() {
   fillFollow();
   fillRules();
   setupSpeech();
+  renderAskAudit();
 }
 
 function fillFollow() {
@@ -107,6 +110,7 @@ function frame(now) {
     renderStats();
   }
   if (UI.view === 'an') maybeRenderAnalysis(now);
+  renderAsk();
   renderClock();
   renderTimers();
   publishProgram();
@@ -123,6 +127,7 @@ function renderAll() {
   renderZones();
   renderKpis();
   renderStats();
+  renderAsk();
   S.anKey = null;
 }
 
@@ -219,6 +224,11 @@ function wire() {
     $('#cues').scrollIntoView({ block: 'center' });
     $('#cues').focus({ preventScroll: true });
   });
+  $('#go-ask').addEventListener('click', () => {
+    $('#ask').scrollIntoView({ block: 'nearest' });
+    $('#ask').focus({ preventScroll: true });
+  });
+  wireAsk();
   $('#go-ev').addEventListener('click', showLatestEvidence);
   $('#go-set').addEventListener('click', () => openDialog('#setdlg', '#set-x'));
   $('#set-x').addEventListener('click', () => $('#setdlg').close());

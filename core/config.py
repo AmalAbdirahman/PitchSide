@@ -188,6 +188,12 @@ class Agents(_Section):
         return self.explore_max_calls if mode == "explore" else self.max_calls
 
 
+class Ask(_Section):
+    analyst_name: str
+    max_calls: int
+    retries: int
+
+
 class StatsBomb(_Section):
     base_url: str
     competition_id: int
@@ -243,6 +249,7 @@ class Settings(_Section):
     renditions: Renditions
     data_card: DataCard
     agents: Agents
+    ask: Ask
     statsbomb: StatsBomb
     xg_fit: XgFit
     xt: Xt

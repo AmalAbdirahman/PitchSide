@@ -28,6 +28,7 @@
     <button type="button" class="nav" role="tab" aria-selected="false" aria-controls="view-an" data-view="an" id="v-an"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 16V9M10 16V4M16 16v-5"/></svg><span>Analysis</span></button>
     <button type="button" class="nav" role="tab" aria-selected="false" aria-controls="view-au" data-view="au" id="v-au"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3.5h10v13H5z"/><path d="M7.5 8l1.5 1.5L12.5 6M7.5 13h5"/></svg><span>Audit</span></button>
   </nav>
+  <button type="button" class="nav" id="go-ask" aria-controls="ask"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 4.5h13v8.5h-7l-3.5 3v-3h-2.5z"/></svg><span>Ask PitchSide</span></button>
   <div class="grp" role="group" aria-labelledby="grp-replay">
     <h2 class="lbl" id="grp-replay">Replay</h2>
     <button type="button" class="nav" id="go-cues"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 5h12M4 10h12M4 15h8"/></svg><span>Cue feed</span></button>
@@ -167,6 +168,9 @@
       <tr><td><span class="tag c-corrected">T2</span></td><td>Corrected, impact 0.10 or more, names a player negatively, or hedge early</td><td id="rule-t2">Producer approves before expiry or it is dropped</td></tr>
       <tr><td><span class="tag c-rejected">REJ</span></td><td>Fails recompute, evidence or entity checks</td><td>Never reaches the router</td></tr>
     </tbody></table></div>
+    <div class="ph"><h2>Ask runs</h2><span class="sp lbl">Build time · Analyst agent, checked by code</span></div>
+    <div class="tblwrap"><table id="askt"><caption class="sr-only">Each suggested question's build-time attempts and the checks on them</caption>
+      <thead><tr><th>Asked at</th><th>Question</th><th>Attempts and checks</th><th>Result</th></tr></thead><tbody></tbody></table></div>
     <p class="note" style="padding:0 16px 12px">Veto and expiry timers count real seconds and pause with the replay, so a producer can react at any replay speed.</p>
   </div>
   <div class="panel"><div class="ph"><h2>Decision log</h2><span class="sp lbl">Newest first</span></div><ul class="log" id="log"></ul></div>
@@ -174,6 +178,24 @@
 </section>
 
 </div>
+
+<!-- ===================== ASK PITCHSIDE (R5) ===================== -->
+<aside class="ask" id="ask" aria-labelledby="ask-h" tabindex="-1">
+  <div class="ask-top"><h2 id="ask-h">Ask PitchSide</h2><span class="lbl">Verified answers</span></div>
+  <div class="seg" role="group" aria-label="Answer source">
+    <button type="button" aria-pressed="true" id="ask-built">Suggested (built)</button>
+    <button type="button" aria-pressed="false" id="ask-live" disabled aria-describedby="ask-hint">Live (local)</button>
+  </div>
+  <p class="note">Suggested answers were generated at build time and checked by the verifier.</p>
+  <div class="thread" id="ask-thread" aria-live="polite"></div>
+  <h3 class="lbl">Suggested</h3>
+  <div class="sqs" id="ask-qs"></div>
+  <div class="ask-in">
+    <label class="sr-only" for="ask-text">Ask about this match</label>
+    <input type="text" id="ask-text" placeholder="Ask about this match…" disabled aria-describedby="ask-hint">
+    <p class="note" id="ask-hint">Live questions run locally. Not built yet.</p>
+  </div>
+</aside>
 </div>
 
 <dialog id="setdlg" aria-labelledby="set-t">
@@ -191,6 +213,7 @@
   <div class="body"><ul class="facts">
     <li><b>Synthetic data.</b> Clubs, players and events come from a seeded simulator. No real match data.</li>
     <li><b>Replay, not live.</b> The page replays a pre-built bundle. No server and no network calls.</li>
+    <li><b>Ask PitchSide's suggested answers were built at build time</b> by a third agent, the Analyst, and checked by code: every number, name, time window and cited event. An answer that fails is replaced by a refusal. The page never calls a model.</li>
     <li><b>Drafts come from an agent on Microsoft Foundry, run at build time.</b> A deterministic verifier checks every claim before it can air. The replay never calls a model. Six drafts with planted errors come from a rule-based drafter, as test cases for the verifier.</li>
     <li><b>Spanish</b> comes from templates and a glossary and has not been reviewed by a native speaker.</li>
     <li><b>Win probability</b> is a simple Poisson model with stated assumptions, not a prediction about real football.</li>

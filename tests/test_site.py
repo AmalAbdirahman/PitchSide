@@ -107,12 +107,16 @@ def test_cue_feed_has_t0_t1_in_both_languages_and_no_t2(hero: dict[str, Any]) ->
 
 def test_shell_has_the_sidebar_header_and_kpi_row() -> None:
     """R2 (design/redesign_mockup.png): three view tabs, the Replay group, header pills and the
-    five KPI cards. Ask PitchSide is not listed until it exists (R5)."""
+    five KPI cards, and (R5) the Ask PitchSide entry and panel with its build-time label."""
     html = (DOCS / "index.html").read_text(encoding="utf-8")
     tabs = re.findall(r'role="tab"[^>]*data-view="(\w+)"', html)
     assert tabs == ["bc", "an", "au"]
-    assert "Ask PitchSide" not in html
+    assert "Suggested answers were generated at build time and checked by the verifier" in html
+    assert "Live questions run locally" in html and "chatbot" not in html.lower()
+    assert re.search(r'id="ask-text"[^>]*disabled', html)
     for id_ in [
+        "go-ask",
+        "ask",
         "go-cues",
         "go-ev",
         "go-set",
