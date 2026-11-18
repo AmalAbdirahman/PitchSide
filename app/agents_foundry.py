@@ -31,6 +31,7 @@ from typing import Any
 from pydantic import ValidationError
 
 from app.drafter import Moment, render, scout_can_draft
+from app.foundry_loop import converse
 from app.reader import Outcome, Reader
 from app.scout_memory import ROUTABLE, memory_for, memory_ids
 from app.scout_prompts import EXPLORE, HANDED
@@ -487,23 +488,5 @@ class FoundryCaller:
     def _converse(
         self, client: Any, kw: dict[str, Any], path: str, user: str, tools: ToolBox | None
     ) -> CallResult:
-        """Run the conversation: answer each round of function calls until a final reply."""
-        resp, rounds = client.responses.create(input=user, **kw), 1
-        while True:
-            calls = [o for o in resp.output if getattr(o, "type", None) == "function_call"]
-            if not calls:
-                return CallResult(
-                    resp.output_text, path, self.model, rounds, list(tools.calls) if tools else []
-                )
-            if tools is None or rounds >= self.max_rounds:
-                raise RuntimeError(f"Scout asked for tools after {rounds} responses")
-            outputs = [
-                {
-                    "type": "function_call_output",
-                    "call_id": c.call_id,
-                    "output": tools.call(c.name, c.arguments),
-                }
-                for c in calls
-            ]
-            resp = client.responses.create(input=outputs, previous_response_id=resp.id, **kw)
-            rounds += 1
+        c = converse(client, kw, user, tools, self.max_rounds, "Scout")
+        return CallResult(c.text, path, self.model, c.rounds, c.tool_calls)
