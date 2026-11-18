@@ -253,3 +253,42 @@ def test_narrow_layouts_keep_the_nav_and_never_scroll_sideways(
         assert pg.is_visible("#view-an")
         browser.close()
         assert pg.problems == []
+
+
+SOLID = """.bug,.lt{background:var(--air-panel)!important;backdrop-filter:none!important;
+-webkit-backdrop-filter:none!important}"""
+FRAMES = """ms => new Promise(done => {
+  const t = []; let last = performance.now(); const end = last + ms;
+  requestAnimationFrame(function f(now) { t.push(now - last); last = now;
+    if (now < end) requestAnimationFrame(f); else done(t); });
+})"""
+
+
+def _frame_times(site: str, glass: bool) -> list[float]:
+    """Frame times (ms) over 4 s of replay at 4x with a lower third on air."""
+    with sync_api.sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        pg = browser.new_context(viewport={"width": 1440, "height": 900}).new_page()
+        pg.goto(site)
+        pg.wait_for_selector("#qhead b")
+        if not glass:
+            pg.add_style_tag(content=SOLID)
+        _fast(pg)
+        pg.click("#play")
+        pg.wait_for_selector("#lt.show", timeout=30_000)
+        blur = pg.evaluate("getComputedStyle(document.querySelector('#lt')).backdropFilter")
+        assert ("blur" in blur) == glass, blur
+        times: list[float] = pg.evaluate(FRAMES, 4000)
+        browser.close()
+    return sorted(times[1:])
+
+
+def test_glass_frame_time_at_4x(site: str) -> None:
+    """R4: frame time with the glass on, against the same page with solid overlays."""
+    stats = {}
+    for glass in (False, True):
+        t = _frame_times(site, glass)
+        stats[glass] = (sum(t) / len(t), t[len(t) // 2], t[int(len(t) * 0.95)], len(t))
+    for glass, (mean, p50, p95, n) in stats.items():
+        print(f"glass={glass}: mean {mean:.2f} ms, p50 {p50:.2f}, p95 {p95:.2f}, {n} frames")
+    assert stats[True][0] <= stats[False][0] * 1.5 + 2, "glass makes frames noticeably slower"

@@ -68,6 +68,8 @@ Under the on-air preview (and again in the Analysis view) three charts follow th
 
 The control room follows the system's light or dark setting; the Theme button in the header overrides it, and the browser remembers the choice. Colours are CSS tokens in `docs/styles.css` (the pitch and charts read the same tokens), text colours pass WCAG AA in both themes (`tests/test_theme.py`), and the on-air score bug and lower third stay dark in both.
 
+Four elements use a glass style (a translucent tint, a backdrop blur, a thin light border): the score bug and lower third in the preview, the evidence drawer and the About dialog. Everything else stays solid, and so does the program output page (`overlay.html`), because a transparent OBS layer has nothing behind it to blur. Each tint's opacity is the lowest value that keeps the text at WCAG AA over the worst backdrop (a white pitch line for the overlays, the dimmed page for the dialogs), plus a margin; the coloured and muted on-air text (minute, kicker, footer) keeps solid strips. Browsers without `backdrop-filter`, and the `prefers-reduced-transparency` setting, get solid panels. Frame time with the replay at 4x and a lower third on air (headless Chromium, 1440x900, 4 s, `tests/test_e2e.py`, run on 2026-11-18 on top of 5e95e9a): 16.67 ms mean and 16.70 ms p95 with the glass, 16.67 ms and 16.70 ms with the overlays forced solid. Headless Chromium holds 60 fps either way, so this shows no measurable cost there; it says nothing about slower GPUs. The blur stays at 16px.
+
 Browser smoke test (serves `docs/` locally, plays to full time at 4x, vetoes one fact, approves one, lets one expire, switches the theme, and fails on any console error):
 
 ```

@@ -22,6 +22,11 @@
   --air-bg:#0B0D10; --air-panel:#13161B; --air-panel-2:#181C22; --air-inset:#0F1216;
   --air-text:#E9ECF1; --air-muted:#8B94A1; --air-accent:#3B82F6; --air-accent-ink:#0B0D10;
   --air-verified:#22C55E; --air-home:#38BDF8; --air-away:#F472B6;
+  /* Glass (R4), on the score bug, lower third, evidence drawer and About dialog only. Opacities are
+     the lowest round values that keep text at WCAG AA over the worst backdrop, plus a margin
+     (tests/test_theme.py): white text on the on-air tint needs 61% over a white pitch line; dialog
+     text needs 89% (dark) and 95% (light) over the dimmed page. Blur and saturation: chosen. */
+  --glass-air:72%; --glass-panel:90%; --glass-blur:16px; --glass-sat:160%; --glass-edge:#FFFFFF;
   color-scheme:dark;
   --disp:"Segoe UI Variable Display","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
   --body:"Segoe UI Variable","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
@@ -42,6 +47,7 @@
   --pitch:#E6ECE8; --pitch-line:#3F5A48;
   --grp-1:#0F766E; --grp-2:#64748B; --grp-3:#4F46E5; --grp-4:#14171C; --grp-5:#8A6D3B; --grp-ink:#FFFFFF;
   --shadow:#0F172A;
+  --glass-panel:96%; --glass-edge:#FFFFFF;
   color-scheme:light;
 }
 }
@@ -55,6 +61,7 @@
   --pitch:#E6ECE8; --pitch-line:#3F5A48;
   --grp-1:#0F766E; --grp-2:#64748B; --grp-3:#4F46E5; --grp-4:#14171C; --grp-5:#8A6D3B; --grp-ink:#FFFFFF;
   --shadow:#0F172A;
+  --glass-panel:96%; --glass-edge:#FFFFFF;
   color-scheme:light;
 }
 body[data-mode="analyst"]{--r:8px;--r-sm:6px}
@@ -156,10 +163,10 @@ select{background:var(--card);border:1px solid var(--line-2);border-radius:var(-
 .stage svg{display:block;width:100%;height:100%}
 /* On-air graphics use --air-* only: dark in both themes. */
 .bug{position:absolute;left:2cqw;top:2cqw;display:flex;align-items:stretch;font:700 1.8cqw var(--disp);color:var(--air-text);border-radius:.8cqw;overflow:hidden;box-shadow:0 .4cqw 1.6cqw color-mix(in srgb,var(--shadow) 35%,transparent)}
-.bug span{padding:.6cqw 1.1cqw;display:flex;align-items:center;gap:.7cqw;background:color-mix(in srgb,var(--air-bg) 92%,transparent)}
+.bug span{padding:.6cqw 1.1cqw;display:flex;align-items:center;gap:.7cqw}
 .bug span i{width:.8cqw;height:.8cqw;border-radius:50%}
 .bug .s{background:var(--air-text);color:var(--air-bg)}
-.bug .m{color:var(--air-accent);font-family:var(--mono);font-weight:600}
+.bug .m{background:var(--air-panel-2);color:var(--air-accent);font-family:var(--mono);font-weight:600}
 .live{position:absolute;right:2cqw;top:2cqw;font:600 1.3cqw var(--body);padding:.5cqw 1.1cqw;border-radius:99px;color:var(--air-text);background:color-mix(in srgb,var(--air-bg) 80%,transparent);display:flex;gap:.6cqw;align-items:center}
 .live b{color:var(--air-accent)}
 .feed{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:0;padding:10px 18px;list-style:none;font:500 12px var(--body);color:var(--muted);border-bottom:1px solid var(--line);min-height:44px}
@@ -170,7 +177,7 @@ select{background:var(--card);border:1px solid var(--line-2);border-radius:var(-
 .lt.show{opacity:1;visibility:visible;transform:none;transition:opacity .35s,transform .45s var(--ease)}
 .lt .k{display:flex;background:var(--air-panel);color:var(--air-verified);font:700 1.25cqw var(--body);padding:1cqw 1.7cqw 0}
 .lt .k.goal{color:var(--air-accent)}
-.lt .b{background:var(--air-panel);padding:.5cqw 1.7cqw 1.2cqw}
+.lt .b{padding:.5cqw 1.7cqw 1.2cqw}
 .lt .b p{margin:0;font:700 2.3cqw var(--disp);line-height:1.25}
 .lt .f{display:flex;justify-content:space-between;align-items:center;gap:1cqw;background:var(--air-panel-2);padding:.6cqw 1.7cqw;font:500 1.2cqw var(--body);color:var(--air-muted)}
 .lt .f button{font:inherit;background:var(--air-inset);border:0;color:var(--air-text);padding:.25cqw 1cqw;cursor:pointer;border-radius:99px}
@@ -294,6 +301,24 @@ dialog::backdrop{background:color-mix(in srgb,var(--shadow) 70%,transparent)}
 dialog .body{padding:18px;max-height:70vh;overflow:auto}
 dialog .claim{font:700 16px var(--disp);margin:0 0 14px;line-height:1.45}
 dialog .ck{margin:4px 0;font-size:12.5px}
+
+/* ---------- glass (R4): score bug, lower third, evidence drawer and About dialog only ----------
+   A translucent tint, a backdrop blur and saturate, a thin light border and an inner highlight.
+   Cards, tables, charts and the other dialogs stay solid. On air, only the white text sits on the
+   glass; the minute, the kicker and the footer keep solid strips because accent, verified and
+   muted text would need 82-97% opacity over a white pitch line. */
+.bug,.lt{background:color-mix(in srgb,var(--air-bg) var(--glass-air),transparent);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));border:1px solid color-mix(in srgb,var(--glass-edge) 16%,transparent)}
+.bug{box-shadow:inset 0 1px 0 color-mix(in srgb,var(--glass-edge) 22%,transparent),0 .4cqw 1.6cqw color-mix(in srgb,var(--shadow) 35%,transparent)}
+.lt{box-shadow:inset 0 1px 0 color-mix(in srgb,var(--glass-edge) 22%,transparent),0 .8cqw 3cqw color-mix(in srgb,var(--shadow) 45%,transparent)}
+#drawer,#aboutdlg{background:color-mix(in srgb,var(--card) var(--glass-panel),transparent);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));box-shadow:inset 0 1px 0 color-mix(in srgb,var(--glass-edge) 10%,transparent),0 20px 60px color-mix(in srgb,var(--shadow) 60%,transparent)}
+/* No backdrop-filter: a solid panel. */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+.bug,.lt{background:var(--air-panel)}
+#drawer,#aboutdlg{background:var(--card)}}
+/* Reduced transparency: solid, no blur. */
+@media (prefers-reduced-transparency:reduce){
+.bug,.lt{background:var(--air-panel);-webkit-backdrop-filter:none;backdrop-filter:none}
+#drawer,#aboutdlg{background:var(--card);-webkit-backdrop-filter:none;backdrop-filter:none}}
 
 /* Below 1100px the sidebar collapses to icons; the labels stay for screen readers. */
 @media (max-width:1100px){

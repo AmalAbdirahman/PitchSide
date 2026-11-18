@@ -146,3 +146,92 @@ def test_every_css_variable_used_is_defined() -> None:
         if var not in defined
     }
     assert not missing, sorted(missing)
+
+
+# ---------- R4: glass on the score bug, lower third, evidence drawer and About dialog only ----------
+GLASS = {".bug", ".lt", "#drawer", "#aboutdlg"}
+PCT = re.compile(r"--(glass-[\w-]+)\s*:\s*(\d+)%")
+NO_COMMENTS = re.sub(r"/\*.*?\*/", "", CSS, flags=re.DOTALL)
+WHITE, BLACK = "#FFFFFF", "#000000"
+
+
+def _pct(block: str) -> dict[str, float]:
+    return {name: int(value) / 100 for name, value in PCT.findall(block)}
+
+
+GLASS_PCT = {
+    "dark": _pct(_block(":root")),
+    "light": {**_pct(_block(":root")), **_pct(_block(':root[data-theme="light"]'))},
+}
+
+
+def over(top: str, alpha: float, under: str) -> str:
+    """Source-over compositing in sRGB, as the browser draws a translucent panel."""
+    a, b = ([int(c[i : i + 2], 16) for i in (1, 3, 5)] for c in (top, under))
+    return "#" + "".join(
+        f"{round(alpha * x + (1 - alpha) * y):02X}" for x, y in zip(a, b, strict=True)
+    )
+
+
+def _selectors(pattern: str) -> set[str]:
+    rules = re.findall(r"([^{}]+)\{[^{}]*" + pattern, NO_COMMENTS)
+    return {s.strip() for rule in rules for s in rule.split(",")}
+
+
+def test_glass_is_on_the_four_overlays_and_nothing_else() -> None:
+    assert _selectors(r"(?<!-webkit-)backdrop-filter:blur") == GLASS
+    assert _selectors(r"-webkit-backdrop-filter:blur") == GLASS
+
+
+@pytest.mark.parametrize("query", ["@supports not", "@media (prefers-reduced-transparency:reduce)"])
+def test_glass_falls_back_to_solid_panels(query: str) -> None:
+    start = NO_COMMENTS.index(query)
+    block = NO_COMMENTS[start : NO_COMMENTS.index("}}", start)]
+    solid = {
+        s.strip()
+        for rule in re.findall(r"\{?([^{}]+)\{background:var\(--[\w-]+\)", block)
+        for s in rule.split(",")
+    }
+    assert solid == GLASS, f"{query} must give all four overlays a solid token background"
+
+
+def test_coloured_and_muted_on_air_text_sits_on_solid_strips() -> None:
+    # Accent, verified and muted text need 82-97% opacity over a white pitch line, so these
+    # strips stay solid; only the white text sits directly on the glass.
+    for selector, token in [
+        (".bug .m", "air-panel-2"),
+        (".lt .k", "air-panel"),
+        (".lt .f", "air-panel-2"),
+    ]:
+        assert f"background:var(--{token})" in _block(selector), selector
+
+
+@pytest.mark.parametrize("theme", THEMES)
+def test_on_air_glass_text_passes_aa_over_the_brightest_pitch_mark(theme: str) -> None:
+    # The stage behind the bug and lower third holds nothing brighter than white (pitch lines);
+    # blurring only averages it, so white is the worst case in both themes.
+    tok, alpha = THEMES[theme], GLASS_PCT[theme]["glass-air"]
+    assert contrast(tok["air-text"], over(tok["air-bg"], alpha, WHITE)) >= AA
+
+
+@pytest.mark.parametrize("theme", THEMES)
+def test_glass_dialog_text_passes_aa_over_any_page(theme: str) -> None:
+    # Behind a dialog: the page, dimmed by dialog::backdrop. Check both extremes of the page.
+    tok, alpha = THEMES[theme], GLASS_PCT[theme]["glass-panel"]
+    dim = (
+        int(
+            re.search(
+                r"dialog::backdrop\{background:color-mix\(in srgb,var\(--shadow\) (\d+)%",
+                NO_COMMENTS,
+            ).group(1)
+        )
+        / 100
+    )  # type: ignore[union-attr]
+    fails = [
+        f"{fg} over {page}: {contrast(tok[fg], panel):.2f}"
+        for page in (WHITE, BLACK)
+        for panel in [over(tok["card"], alpha, over(tok["shadow"], dim, page))]
+        for fg in TEXT
+        if contrast(tok[fg], panel) < AA
+    ]
+    assert not fails, fails
