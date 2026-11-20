@@ -50,6 +50,10 @@ TRUE = compute_metric(
 )
 assert TRUE is not None
 SHOTS = int(TRUE.value)
+TRUE_ALL = {  # each player's shot event ids over the match
+    p: [e.id for e in MATCH.events if e.type == "shot" and e.player_id == p]
+    for p in ("NOR_09", "HAR_09", "HAR_11")
+}
 assert SHOTS == 2 and TRUE.ids  # 55' and 63'
 
 Script = Callable[[dict[str, Any], ToolBox], dict[str, Any]]
@@ -223,6 +227,29 @@ def test_a_misspelt_or_unseen_name_fails() -> None:
         ]
         is True
     )
+
+
+def _shots_all(pid: str) -> tuple[str, dict[str, Any]]:
+    args = {**SHOTS_ARGS, "subject_id": pid, "start_t": 0, "end_t": 5400}
+    return ("compute_metric", args)
+
+
+def test_a_name_must_belong_to_a_number_or_cited_event() -> None:
+    """From the first live Analyst run (q6): every number was right and every name appeared in
+    some tool call, but the answer gave the second top scorer's 4 shots to a player with 1."""
+    calls = [_shots_all(p) for p in ("NOR_09", "HAR_09", "HAR_11")]
+    ev = {p: TRUE_ALL[p] for p in ("NOR_09", "HAR_09")}
+    nums = [_num("shots", 4, "k", call=0)]
+    ids = ev["NOR_09"] + ev["HAR_09"]
+    wrong = "C. Nkemelu and U. Kerridge have each taken the most shots (4)."
+    right = "C. Nkemelu and T. Brannock have each taken the most shots (4)."
+    assert _checked(wrong, nums, ids, calls, now=5400)["entities"] is False
+    assert _checked(right, nums, ids, calls, now=5400)["entities"] is True
+    # A name with no number and no cited event is not enough, even if a call asked about them.
+    assert _checked(right, nums, ev["NOR_09"], calls, now=5400)["entities"] is False
+    # A team is anchored by a player of theirs behind a number or event.
+    team = "Harlow's T. Brannock took 4 shots."
+    assert _checked(team, [_num("shots", 4, "k", call=1)], [], calls, now=5400)["entities"] is True
 
 
 def test_evidence_must_come_from_a_tool_call_and_not_from_the_future() -> None:

@@ -7,7 +7,10 @@ output. The checks:
 - numbers_match: every listed number equals the field of the tool call it names, at the precision
   written in the text (a minute may name either side of a window boundary: "after 60'" is a window
   starting at 60:00, which is in the 61st minute);
-- entities: players and teams named in the text appear in the tool calls, and no name is misspelt;
+- entities: every player and team named in the text is behind one of the answer's numbers (the
+  subject of the call it comes from, or the player of its event) or a cited evidence event, and no
+  name is misspelt. Appearing in some tool call is not enough: in the first live run the Analyst
+  gave one player's 4 shots to another player it had also asked about;
 - window: no tool call looks past the question's time;
 - evidence: every evidence id exists, is not later than the question, and came back from a call.
 """
@@ -132,41 +135,46 @@ def check_numbers(
     ], numbers
 
 
-def _seen(calls: list[Recorded], match: Match) -> tuple[set[str], set[str]]:
-    """Players and teams the tool calls asked about or returned."""
+def _anchored(out: AnalystOutput, calls: list[Recorded], match: Match) -> tuple[set[str], set[str]]:
+    """Players and teams that one of the answer's numbers or cited events is about."""
     by_id = {e.id: e for e in match.events}
     team_of = {pid: k for k, t in match.meta.teams.items() for pid in t.players}
     players: set[str] = set()
     teams: set[str] = set()
-    for c in calls:
-        if "error" in c.out:
-            continue
-        kind = c.args.get("subject_type")
-        if c.name == "compute_metric" and kind in ("player", "team"):
-            (players if kind == "player" else teams).add(str(c.args.get("subject_id")))
-        players |= {str(c.args["player_id"])} if c.args.get("player_id") else set()
-        teams |= {str(c.args["team"])} if c.args.get("team") else set()
-        players |= {by_id[i].player_id for i in c.ids if i in by_id}
-        teams |= {by_id[i].team for i in c.ids if i in by_id}
+    for num in out.numbers:
+        c = calls[num.call] if 0 <= num.call < len(calls) else None
+        if c is not None and "error" not in c.out and c.name == "compute_metric":
+            kind = c.args.get("subject_type")
+            if kind in ("player", "team"):
+                (players if kind == "player" else teams).add(str(c.args.get("subject_id")))
+    ids = set(out.evidence_ids) | {n.event_id for n in out.numbers if n.event_id is not None}
+    for e in (by_id[i] for i in ids if i in by_id):
+        players |= {e.player_id} if e.player_id else set()
+        teams.add(e.team)
     return players, teams | {team_of[p] for p in players if p in team_of}
 
 
-def check_entities(text: str, calls: list[Recorded], match: Match, v: Verifier) -> AskCheck:
+def check_entities(
+    out: AnalystOutput, calls: list[Recorded], match: Match, v: Verifier
+) -> AskCheck:
+    text = out.text
     squad, names = roster(match.meta), {t.name: k for k, t in match.meta.teams.items()}
-    players, teams = _seen(calls, match)
+    players, teams = _anchored(out, calls, match)
     problems = [
-        f"text names {p.full}, who is in no tool call"
+        f"text names {p.full}, but no listed number or cited event is about them"
         for p in squad
         if p.pid in named_players(text, squad) and p.pid not in players
     ]
     words = {w for w in WORD.findall(text)}
     problems += [
-        f"text names {n}, which is in no tool call"
+        f"text names {n}, but no listed number or cited event is about them"
         for n, k in names.items()
         if n in words and k not in teams
     ]
     problems += name_problems(text, squad, set(names), v.name_max_edits, v.name_min_length)
-    return _check("entities", problems, "players and teams named appear in the tool calls")
+    return _check(
+        "entities", problems, "every player and team named is behind a number or cited event"
+    )
 
 
 def check_window(calls: list[Recorded], now: float) -> AskCheck:
@@ -194,7 +202,7 @@ def check_answer(
     rec = parse_calls(calls)
     checks, numbers = check_numbers(out, rec, match, now)
     checks += [
-        check_entities(out.text, rec, match, v),
+        check_entities(out, rec, match, v),
         check_window(rec, now),
         check_evidence(out.evidence_ids, rec, match, now),
     ]
