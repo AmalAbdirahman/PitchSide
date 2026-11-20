@@ -1,4 +1,726 @@
 {
- "entries": {},
+ "entries": {
+  "1bf6ec978946d67281fd1356c5b46af036019a68c4da6f20476835757967e282": {
+   "model": "gpt-5-mini",
+   "ms": 10341,
+   "path": "foundry_agent",
+   "request": {
+    "feedback": "numbers_listed: 63 in the text is not in numbers; numbers_match: minute=60 does not match event 419: minute",
+    "match_clock": {
+     "end_t": 5400,
+     "half_starts": [
+      0,
+      2700
+     ]
+    },
+    "now_minute": 65,
+    "now_t": 3840.0,
+    "previous_output": "{\"answerable\":true,\"text\":\"C. Nkemelu scored for Northbridge, 63'.\",\"numbers\":[{\"key\":\"minute\",\"value\":60,\"call\":0,\"field\":\"event_minute\",\"event_id\":419,\"scale\":1}],\"evidence_ids\":[419]}",
+    "question": "Who scored, and in which minute?",
+    "roster": {
+     "HAR_01": "G. Pell",
+     "HAR_02": "N. Ostrander",
+     "HAR_03": "H. Quarry",
+     "HAR_04": "V. Seddon",
+     "HAR_05": "I. Marchetti-Holt",
+     "HAR_06": "W. Abara",
+     "HAR_07": "Y. Castell",
+     "HAR_08": "O. Fenwick",
+     "HAR_09": "T. Brannock",
+     "HAR_10": "Z. Halloran",
+     "HAR_11": "U. Kerridge",
+     "HAR_12": "A. Somerby",
+     "NOR_01": "R. Ashdown",
+     "NOR_02": "L. Corrigan",
+     "NOR_03": "M. Dube",
+     "NOR_04": "S. Kettering",
+     "NOR_05": "J. Whitlow",
+     "NOR_06": "P. Okonjo",
+     "NOR_07": "D. Varga",
+     "NOR_08": "E. Lindqvist",
+     "NOR_09": "C. Nkemelu",
+     "NOR_10": "F. Moreau-Lake",
+     "NOR_11": "K. Tamsin",
+     "NOR_12": "B. Adeyemi-Ross"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"answerable\":true,\"text\":\"C. Nkemelu scored for Northbridge, 63'.\",\"numbers\":[{\"key\":\"minute\",\"value\":63,\"call\":0,\"field\":\"event_minute\",\"event_id\":419,\"scale\":1}],\"evidence_ids\":[419]}",
+   "rounds": 2,
+   "tool_calls": [
+    {
+     "arguments": "{\"type\":\"goal\",\"team\":null,\"player_id\":null,\"start_t\":0,\"end_t\":3840}",
+     "name": "list_events",
+     "output": "{\"events\": [{\"id\": 419, \"minute\": 63, \"player_id\": \"NOR_09\", \"t\": 3748.5, \"team\": \"NOR\", \"type\": \"goal\"}], \"shown\": 1, \"total\": 1}"
+    }
+   ]
+  },
+  "34ef1800541ced792cf5598561a6ba99b10dcd702793267d49ff32b0986cc6aa": {
+   "model": "gpt-5-mini",
+   "ms": 6105,
+   "path": "foundry_agent",
+   "request": {
+    "match_clock": {
+     "end_t": 5400,
+     "half_starts": [
+      0,
+      2700
+     ]
+    },
+    "now_minute": 46,
+    "now_t": 2730.0,
+    "question": "How far has C. Nkemelu run in the first half?",
+    "roster": {
+     "HAR_01": "G. Pell",
+     "HAR_02": "N. Ostrander",
+     "HAR_03": "H. Quarry",
+     "HAR_04": "V. Seddon",
+     "HAR_05": "I. Marchetti-Holt",
+     "HAR_06": "W. Abara",
+     "HAR_07": "Y. Castell",
+     "HAR_08": "O. Fenwick",
+     "HAR_09": "T. Brannock",
+     "HAR_10": "Z. Halloran",
+     "HAR_11": "U. Kerridge",
+     "HAR_12": "A. Somerby",
+     "NOR_01": "R. Ashdown",
+     "NOR_02": "L. Corrigan",
+     "NOR_03": "M. Dube",
+     "NOR_04": "S. Kettering",
+     "NOR_05": "J. Whitlow",
+     "NOR_06": "P. Okonjo",
+     "NOR_07": "D. Varga",
+     "NOR_08": "E. Lindqvist",
+     "NOR_09": "C. Nkemelu",
+     "NOR_10": "F. Moreau-Lake",
+     "NOR_11": "K. Tamsin",
+     "NOR_12": "B. Adeyemi-Ross"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"answerable\":false,\"text\":\"I can’t answer that: the event log doesn’t include player distance-run data.\",\"numbers\":[],\"evidence_ids\":[]}",
+   "rounds": 2,
+   "tool_calls": [
+    {
+     "arguments": "{}",
+     "name": "list_metrics",
+     "output": "{\"metrics\": [{\"kind\": \"share\", \"name\": \"attack_share_centre\", \"subjects\": [\"team\"]}, {\"kind\": \"share\", \"name\": \"attack_share_left\", \"subjects\": [\"team\"]}, {\"kind\": \"share\", \"name\": \"attack_share_right\", \"subjects\": [\"team\"]}, {\"kind\": \"count\", \"name\": \"cards\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"share\", \"name\": \"field_tilt\", \"subjects\": [\"team\"]}, {\"kind\": \"count\", \"name\": \"goals\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"rank\", \"name\": \"most_central_player\", \"subjects\": [\"player\"]}, {\"kind\": \"sum\", \"name\": \"npxg_sum\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"share\", \"name\": \"pass_accuracy\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"count\", \"name\": \"shots\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"count\", \"name\": \"shots_blocked\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"count\", \"name\": \"shots_off_target\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"count\", \"name\": \"shots_on_target\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"count\", \"name\": \"substitutions\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"max\", \"name\": \"top_shot_speed\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"count\", \"name\": \"turnovers_own_third\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"sum\", \"name\": \"xg_sum\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"sum\", \"name\": \"xt_added\", \"subjects\": [\"player\", \"team\"]}]}"
+    }
+   ]
+  },
+  "4bb58acdf57ed65dbca1e4fc238093adc2ed3bceb43a156c277ed7386143bc1f": {
+   "model": "gpt-5-mini",
+   "ms": 15929,
+   "path": "foundry_agent",
+   "request": {
+    "match_clock": {
+     "end_t": 5400,
+     "half_starts": [
+      0,
+      2700
+     ]
+    },
+    "now_minute": 46,
+    "now_t": 2730.0,
+    "question": "How much npxG had Northbridge created by half-time?",
+    "roster": {
+     "HAR_01": "G. Pell",
+     "HAR_02": "N. Ostrander",
+     "HAR_03": "H. Quarry",
+     "HAR_04": "V. Seddon",
+     "HAR_05": "I. Marchetti-Holt",
+     "HAR_06": "W. Abara",
+     "HAR_07": "Y. Castell",
+     "HAR_08": "O. Fenwick",
+     "HAR_09": "T. Brannock",
+     "HAR_10": "Z. Halloran",
+     "HAR_11": "U. Kerridge",
+     "HAR_12": "A. Somerby",
+     "NOR_01": "R. Ashdown",
+     "NOR_02": "L. Corrigan",
+     "NOR_03": "M. Dube",
+     "NOR_04": "S. Kettering",
+     "NOR_05": "J. Whitlow",
+     "NOR_06": "P. Okonjo",
+     "NOR_07": "D. Varga",
+     "NOR_08": "E. Lindqvist",
+     "NOR_09": "C. Nkemelu",
+     "NOR_10": "F. Moreau-Lake",
+     "NOR_11": "K. Tamsin",
+     "NOR_12": "B. Adeyemi-Ross"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"answerable\":true,\"text\":\"Northbridge had 0.27 npxG by half-time (45').\",\"numbers\":[{\"key\":\"npxg\",\"value\":0.27,\"call\":0,\"field\":\"value\",\"event_id\":null,\"scale\":1},{\"key\":\"half\",\"value\":45,\"call\":0,\"field\":\"end_minute\",\"event_id\":null,\"scale\":1}],\"evidence_ids\":[128,166]}",
+   "rounds": 2,
+   "tool_calls": [
+    {
+     "arguments": "{\"metric\":\"npxg_sum\",\"subject_type\":\"team\",\"subject_id\":\"NOR\",\"start_t\":0,\"end_t\":2700}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [128, 166], \"k\": 2, \"n\": 2, \"value\": 0.274}"
+    }
+   ]
+  },
+  "6496514b99b6ee4cc81edc2df2be6bec071e91a8742a8c52269196d2fdf15af4": {
+   "model": "gpt-5-mini",
+   "ms": 19042,
+   "path": "foundry_agent",
+   "request": {
+    "match_clock": {
+     "end_t": 5400,
+     "half_starts": [
+      0,
+      2700
+     ]
+    },
+    "now_minute": 91,
+    "now_t": 5400.0,
+    "question": "How many times have Harlow lost the ball in their own third since 75'?",
+    "roster": {
+     "HAR_01": "G. Pell",
+     "HAR_02": "N. Ostrander",
+     "HAR_03": "H. Quarry",
+     "HAR_04": "V. Seddon",
+     "HAR_05": "I. Marchetti-Holt",
+     "HAR_06": "W. Abara",
+     "HAR_07": "Y. Castell",
+     "HAR_08": "O. Fenwick",
+     "HAR_09": "T. Brannock",
+     "HAR_10": "Z. Halloran",
+     "HAR_11": "U. Kerridge",
+     "HAR_12": "A. Somerby",
+     "NOR_01": "R. Ashdown",
+     "NOR_02": "L. Corrigan",
+     "NOR_03": "M. Dube",
+     "NOR_04": "S. Kettering",
+     "NOR_05": "J. Whitlow",
+     "NOR_06": "P. Okonjo",
+     "NOR_07": "D. Varga",
+     "NOR_08": "E. Lindqvist",
+     "NOR_09": "C. Nkemelu",
+     "NOR_10": "F. Moreau-Lake",
+     "NOR_11": "K. Tamsin",
+     "NOR_12": "B. Adeyemi-Ross"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"answerable\":true,\"text\":\"Harlow have lost the ball in their own third 8 times since 75'.\",\"numbers\":[{\"key\":\"count\",\"value\":8,\"call\":1,\"field\":\"value\",\"event_id\":null,\"scale\":1},{\"key\":\"since\",\"value\":75,\"call\":1,\"field\":\"start_minute\",\"event_id\":null,\"scale\":1}],\"evidence_ids\":[504,509,512,519,527,558,568,579]}",
+   "rounds": 3,
+   "tool_calls": [
+    {
+     "arguments": "{}",
+     "name": "list_metrics",
+     "output": "{\"metrics\": [{\"kind\": \"share\", \"name\": \"attack_share_centre\", \"subjects\": [\"team\"]}, {\"kind\": \"share\", \"name\": \"attack_share_left\", \"subjects\": [\"team\"]}, {\"kind\": \"share\", \"name\": \"attack_share_right\", \"subjects\": [\"team\"]}, {\"kind\": \"count\", \"name\": \"cards\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"share\", \"name\": \"field_tilt\", \"subjects\": [\"team\"]}, {\"kind\": \"count\", \"name\": \"goals\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"rank\", \"name\": \"most_central_player\", \"subjects\": [\"player\"]}, {\"kind\": \"sum\", \"name\": \"npxg_sum\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"share\", \"name\": \"pass_accuracy\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"count\", \"name\": \"shots\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"count\", \"name\": \"shots_blocked\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"count\", \"name\": \"shots_off_target\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"count\", \"name\": \"shots_on_target\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"count\", \"name\": \"substitutions\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"max\", \"name\": \"top_shot_speed\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"count\", \"name\": \"turnovers_own_third\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"sum\", \"name\": \"xg_sum\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"sum\", \"name\": \"xt_added\", \"subjects\": [\"player\", \"team\"]}]}"
+    },
+    {
+     "arguments": "{\"metric\":\"turnovers_own_third\",\"subject_type\":\"team\",\"subject_id\":\"HAR\",\"start_t\":4440,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [504, 509, 512, 519, 527, 558, 568, 579], \"k\": 8, \"n\": 8, \"value\": 8}"
+    }
+   ]
+  },
+  "7a8ac2a3e39f2f89834f032da89137ac2597acbc885983a1584525d53f5a3cff": {
+   "model": "gpt-5-mini",
+   "ms": 27394,
+   "path": "foundry_agent",
+   "request": {
+    "feedback": "entities: text names U. Kerridge, but no listed number or cited event is about them",
+    "match_clock": {
+     "end_t": 5400,
+     "half_starts": [
+      0,
+      2700
+     ]
+    },
+    "now_minute": 91,
+    "now_t": 5400.0,
+    "previous_output": "{\"answerable\":true,\"text\":\"C. Nkemelu and U. Kerridge have each taken the most shots (4).\",\"numbers\":[{\"key\":\"shots\",\"value\":4,\"call\":10,\"field\":\"k\",\"event_id\":null,\"scale\":1}],\"evidence_ids\":[370,418,510,562,99,193,248,437]}",
+    "question": "Who has taken the most shots in the match?",
+    "roster": {
+     "HAR_01": "G. Pell",
+     "HAR_02": "N. Ostrander",
+     "HAR_03": "H. Quarry",
+     "HAR_04": "V. Seddon",
+     "HAR_05": "I. Marchetti-Holt",
+     "HAR_06": "W. Abara",
+     "HAR_07": "Y. Castell",
+     "HAR_08": "O. Fenwick",
+     "HAR_09": "T. Brannock",
+     "HAR_10": "Z. Halloran",
+     "HAR_11": "U. Kerridge",
+     "HAR_12": "A. Somerby",
+     "NOR_01": "R. Ashdown",
+     "NOR_02": "L. Corrigan",
+     "NOR_03": "M. Dube",
+     "NOR_04": "S. Kettering",
+     "NOR_05": "J. Whitlow",
+     "NOR_06": "P. Okonjo",
+     "NOR_07": "D. Varga",
+     "NOR_08": "E. Lindqvist",
+     "NOR_09": "C. Nkemelu",
+     "NOR_10": "F. Moreau-Lake",
+     "NOR_11": "K. Tamsin",
+     "NOR_12": "B. Adeyemi-Ross"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"answerable\":true,\"text\":\"C. Nkemelu and T. Brannock have each taken the most shots (4).\",\"numbers\":[{\"key\":\"shots\",\"value\":4,\"call\":1,\"field\":\"k\",\"event_id\":null,\"scale\":1}],\"evidence_ids\":[370,418,510,562,99,193,248,437]}",
+   "rounds": 4,
+   "tool_calls": [
+    {
+     "arguments": "{\"type\":\"shot\",\"team\":null,\"player_id\":null,\"start_t\":0,\"end_t\":5400}",
+     "name": "list_events",
+     "output": "{\"events\": [{\"id\": 99, \"minute\": 15, \"outcome\": \"on_target\", \"player_id\": \"HAR_09\", \"t\": 848.7, \"team\": \"HAR\", \"type\": \"shot\", \"xg\": 0.17}, {\"id\": 128, \"minute\": 19, \"outcome\": \"off_target\", \"player_id\": \"NOR_07\", \"t\": 1116.0, \"team\": \"NOR\", \"type\": \"shot\", \"xg\": 0.043}, {\"id\": 166, \"minute\": 24, \"outcome\": \"blocked\", \"player_id\": \"NOR_08\", \"t\": 1419.9, \"team\": \"NOR\", \"type\": \"shot\", \"xg\": 0.231}, {\"id\": 188, \"minute\": 28, \"outcome\": \"off_target\", \"player_id\": \"HAR_11\", \"t\": 1638.9, \"team\": \"HAR\", \"type\": \"shot\", \"xg\": 0.02}, {\"id\": 193, \"minute\": 29, \"outcome\": \"on_target\", \"player_id\": \"HAR_09\", \"t\": 1684.6, \"team\": \"HAR\", \"type\": \"shot\", \"xg\": 0.285}, {\"id\": 225, \"minute\": 34, \"outcome\": \"off_target\", \"player_id\": \"HAR_07\", \"t\": 1997.1, \"team\": \"HAR\", \"type\": \"shot\", \"xg\": 0.04}, {\"id\": 248, \"minute\": 38, \"outcome\": \"on_target\", \"player_id\": \"HAR_09\", \"t\": 2247.9, \"team\": \"HAR\", \"type\": \"shot\", \"xg\": 0.24}, {\"id\": 255, \"minute\": 39, \"outcome\": \"blocked\", \"player_id\": \"HAR_06\", \"t\": 2334.1, \"team\": \"HAR\", \"type\": \"shot\", \"xg\": 0.103}, {\"id\": 314, \"minute\": 47, \"outcome\": \"off_target\", \"player_id\": \"HAR_07\", \"t\": 2789.7, \"team\": \"HAR\", \"type\": \"shot\", \"xg\": 0.184}, {\"id\": 341, \"minute\": 52, \"outcome\": \"on_target\", \"player_id\": \"NOR_08\", \"t\": 3090.8, \"team\": \"NOR\", \"type\": \"shot\", \"xg\": 0.044}, {\"id\": 366, \"minute\": 56, \"outcome\": \"off_target\", \"player_id\": \"NOR_07\", \"t\": 3307.9, \"team\": \"NOR\", \"type\": \"shot\", \"xg\": 0.071}, {\"id\": 370, \"minute\": 56, \"outcome\": \"on_target\", \"player_id\": \"NOR_09\", \"t\": 3328.0, \"team\": \"NOR\", \"type\": \"shot\", \"xg\": 0.082}, {\"id\": 418, \"minute\": 63, \"outcome\": \"goal\", \"player_id\": \"NOR_09\", \"t\": 3748.0, \"team\": \"NOR\", \"type\": \"shot\", \"xg\": 0.178}, {\"id\": 437, \"minute\": 66, \"outcome\": \"blocked\", \"player_id\": \"HAR_09\", \"t\": 3943.8, \"team\": \"HAR\", \"type\": \"shot\", \"xg\": 0.038}, {\"id\": 490, \"minute\": 74, \"outcome\": \"off_target\", \"player_id\": \"NOR_12\", \"t\": 4386.8, \"team\": \"NOR\", \"type\": \"shot\", \"xg\": 0.009}, {\"id\": 510, \"minute\": 76, \"outcome\": \"on_target\", \"player_id\": \"NOR_09\", \"t\": 4559.6, \"team\": \"NOR\", \"type\": \"shot\", \"xg\": 0.814}, {\"id\": 562, \"minute\": 84, \"outcome\": \"off_target\", \"player_id\": \"NOR_09\", \"t\": 4980.5, \"team\": \"NOR\", \"type\": \"shot\", \"xg\": 0.801}, {\"id\": 581, \"minute\": 86, \"outcome\": \"on_target\", \"player_id\": \"NOR_10\", \"t\": 5147.3, \"team\": \"NOR\", \"type\": \"shot\", \"xg\": 0.113}], \"shown\": 18, \"total\": 18}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"NOR_09\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [370, 418, 510, 562], \"k\": 4, \"n\": 4, \"value\": 4}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"HAR_09\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [99, 193, 248, 437], \"k\": 4, \"n\": 4, \"value\": 4}"
+    }
+   ]
+  },
+  "886875a4d991005c700c0f45a7578139402f1b1bae19359f8d30d45effde9b74": {
+   "model": "gpt-5-mini",
+   "ms": 33145,
+   "path": "foundry_agent",
+   "request": {
+    "match_clock": {
+     "end_t": 5400,
+     "half_starts": [
+      0,
+      2700
+     ]
+    },
+    "now_minute": 91,
+    "now_t": 5400.0,
+    "question": "Who has taken the most shots in the match?",
+    "roster": {
+     "HAR_01": "G. Pell",
+     "HAR_02": "N. Ostrander",
+     "HAR_03": "H. Quarry",
+     "HAR_04": "V. Seddon",
+     "HAR_05": "I. Marchetti-Holt",
+     "HAR_06": "W. Abara",
+     "HAR_07": "Y. Castell",
+     "HAR_08": "O. Fenwick",
+     "HAR_09": "T. Brannock",
+     "HAR_10": "Z. Halloran",
+     "HAR_11": "U. Kerridge",
+     "HAR_12": "A. Somerby",
+     "NOR_01": "R. Ashdown",
+     "NOR_02": "L. Corrigan",
+     "NOR_03": "M. Dube",
+     "NOR_04": "S. Kettering",
+     "NOR_05": "J. Whitlow",
+     "NOR_06": "P. Okonjo",
+     "NOR_07": "D. Varga",
+     "NOR_08": "E. Lindqvist",
+     "NOR_09": "C. Nkemelu",
+     "NOR_10": "F. Moreau-Lake",
+     "NOR_11": "K. Tamsin",
+     "NOR_12": "B. Adeyemi-Ross"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"answerable\":true,\"text\":\"C. Nkemelu and U. Kerridge have each taken the most shots (4).\",\"numbers\":[{\"key\":\"shots\",\"value\":4,\"call\":10,\"field\":\"k\",\"event_id\":null,\"scale\":1}],\"evidence_ids\":[370,418,510,562,99,193,248,437]}",
+   "rounds": 3,
+   "tool_calls": [
+    {
+     "arguments": "{}",
+     "name": "list_metrics",
+     "output": "{\"metrics\": [{\"kind\": \"share\", \"name\": \"attack_share_centre\", \"subjects\": [\"team\"]}, {\"kind\": \"share\", \"name\": \"attack_share_left\", \"subjects\": [\"team\"]}, {\"kind\": \"share\", \"name\": \"attack_share_right\", \"subjects\": [\"team\"]}, {\"kind\": \"count\", \"name\": \"cards\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"share\", \"name\": \"field_tilt\", \"subjects\": [\"team\"]}, {\"kind\": \"count\", \"name\": \"goals\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"rank\", \"name\": \"most_central_player\", \"subjects\": [\"player\"]}, {\"kind\": \"sum\", \"name\": \"npxg_sum\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"share\", \"name\": \"pass_accuracy\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"count\", \"name\": \"shots\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"count\", \"name\": \"shots_blocked\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"count\", \"name\": \"shots_off_target\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"count\", \"name\": \"shots_on_target\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"count\", \"name\": \"substitutions\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"max\", \"name\": \"top_shot_speed\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"count\", \"name\": \"turnovers_own_third\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"sum\", \"name\": \"xg_sum\", \"subjects\": [\"match\", \"player\", \"team\"]}, {\"kind\": \"sum\", \"name\": \"xt_added\", \"subjects\": [\"player\", \"team\"]}]}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"NOR_01\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [], \"k\": 0, \"n\": 0, \"value\": 0}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"NOR_02\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [], \"k\": 0, \"n\": 0, \"value\": 0}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"NOR_03\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [], \"k\": 0, \"n\": 0, \"value\": 0}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"NOR_04\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [], \"k\": 0, \"n\": 0, \"value\": 0}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"NOR_05\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [], \"k\": 0, \"n\": 0, \"value\": 0}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"NOR_06\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [], \"k\": 0, \"n\": 0, \"value\": 0}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"NOR_07\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [128, 366], \"k\": 2, \"n\": 2, \"value\": 2}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"NOR_08\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [166, 341], \"k\": 2, \"n\": 2, \"value\": 2}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"NOR_10\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [581], \"k\": 1, \"n\": 1, \"value\": 1}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"NOR_09\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [370, 418, 510, 562], \"k\": 4, \"n\": 4, \"value\": 4}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"NOR_11\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [], \"k\": 0, \"n\": 0, \"value\": 0}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"NOR_12\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [490], \"k\": 1, \"n\": 1, \"value\": 1}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"HAR_01\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [], \"k\": 0, \"n\": 0, \"value\": 0}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"HAR_02\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [], \"k\": 0, \"n\": 0, \"value\": 0}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"HAR_03\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [], \"k\": 0, \"n\": 0, \"value\": 0}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"HAR_04\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [], \"k\": 0, \"n\": 0, \"value\": 0}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"HAR_05\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [], \"k\": 0, \"n\": 0, \"value\": 0}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"HAR_06\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [255], \"k\": 1, \"n\": 1, \"value\": 1}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"HAR_08\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [], \"k\": 0, \"n\": 0, \"value\": 0}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"HAR_10\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [], \"k\": 0, \"n\": 0, \"value\": 0}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"HAR_07\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [225, 314], \"k\": 2, \"n\": 2, \"value\": 2}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"HAR_09\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [99, 193, 248, 437], \"k\": 4, \"n\": 4, \"value\": 4}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"HAR_11\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [188], \"k\": 1, \"n\": 1, \"value\": 1}"
+    },
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"HAR_12\",\"start_t\":0,\"end_t\":5400}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [], \"k\": 0, \"n\": 0, \"value\": 0}"
+    }
+   ]
+  },
+  "90956886615ebf5a09846915e732271573ecdcad0a0b4f4cb9318665b7c679e7": {
+   "model": "gpt-5-mini",
+   "ms": 8467,
+   "path": "foundry_agent",
+   "request": {
+    "match_clock": {
+     "end_t": 5400,
+     "half_starts": [
+      0,
+      2700
+     ]
+    },
+    "now_minute": 65,
+    "now_t": 3840.0,
+    "question": "Who scored, and in which minute?",
+    "roster": {
+     "HAR_01": "G. Pell",
+     "HAR_02": "N. Ostrander",
+     "HAR_03": "H. Quarry",
+     "HAR_04": "V. Seddon",
+     "HAR_05": "I. Marchetti-Holt",
+     "HAR_06": "W. Abara",
+     "HAR_07": "Y. Castell",
+     "HAR_08": "O. Fenwick",
+     "HAR_09": "T. Brannock",
+     "HAR_10": "Z. Halloran",
+     "HAR_11": "U. Kerridge",
+     "HAR_12": "A. Somerby",
+     "NOR_01": "R. Ashdown",
+     "NOR_02": "L. Corrigan",
+     "NOR_03": "M. Dube",
+     "NOR_04": "S. Kettering",
+     "NOR_05": "J. Whitlow",
+     "NOR_06": "P. Okonjo",
+     "NOR_07": "D. Varga",
+     "NOR_08": "E. Lindqvist",
+     "NOR_09": "C. Nkemelu",
+     "NOR_10": "F. Moreau-Lake",
+     "NOR_11": "K. Tamsin",
+     "NOR_12": "B. Adeyemi-Ross"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"answerable\":true,\"text\":\"C. Nkemelu scored for Northbridge, 63'.\",\"numbers\":[{\"key\":\"minute\",\"value\":60,\"call\":0,\"field\":\"event_minute\",\"event_id\":419,\"scale\":1}],\"evidence_ids\":[419]}",
+   "rounds": 2,
+   "tool_calls": [
+    {
+     "arguments": "{\"type\":\"goal\",\"team\":null,\"player_id\":null,\"start_t\":0,\"end_t\":3840.0}",
+     "name": "list_events",
+     "output": "{\"events\": [{\"id\": 419, \"minute\": 63, \"player_id\": \"NOR_09\", \"t\": 3748.5, \"team\": \"NOR\", \"type\": \"goal\"}], \"shown\": 1, \"total\": 1}"
+    }
+   ]
+  },
+  "984a3b1bf71e5eb412a3879e590b87697e43ee32b812b6935fe1e6f4326d296f": {
+   "model": "gpt-5-mini",
+   "ms": 28964,
+   "path": "foundry_agent",
+   "request": {
+    "feedback": "numbers_match: before_pct=77 does not match compute_metric pass_accuracy for HAR, 0-2692 s: value; after_pct=77 does not match compute_metric pass_accuracy for HAR, 2693-3600 s: value",
+    "match_clock": {
+     "end_t": 5400,
+     "half_starts": [
+      0,
+      2700
+     ]
+    },
+    "now_minute": 61,
+    "now_t": 3600.0,
+    "previous_output": "{\"answerable\":true,\"text\":\"No — Harlow's pass accuracy was 77% both before and after I. Marchetti-Holt's 45' yellow.\",\"numbers\":[{\"key\":\"before_pct\",\"value\":77,\"call\":1,\"field\":\"value\",\"event_id\":null,\"scale\":100},{\"key\":\"after_pct\",\"value\":77,\"call\":2,\"field\":\"value\",\"event_id\":null,\"scale\":100},{\"key\":\"card_min\",\"value\":45,\"call\":0,\"field\":\"event_minute\",\"event_id\":301,\"scale\":1}],\"evidence_ids\":[301,16,17,18,19,27,304,306,307,312,322]}",
+    "question": "Did Harlow's pass accuracy change after their yellow card?",
+    "roster": {
+     "HAR_01": "G. Pell",
+     "HAR_02": "N. Ostrander",
+     "HAR_03": "H. Quarry",
+     "HAR_04": "V. Seddon",
+     "HAR_05": "I. Marchetti-Holt",
+     "HAR_06": "W. Abara",
+     "HAR_07": "Y. Castell",
+     "HAR_08": "O. Fenwick",
+     "HAR_09": "T. Brannock",
+     "HAR_10": "Z. Halloran",
+     "HAR_11": "U. Kerridge",
+     "HAR_12": "A. Somerby",
+     "NOR_01": "R. Ashdown",
+     "NOR_02": "L. Corrigan",
+     "NOR_03": "M. Dube",
+     "NOR_04": "S. Kettering",
+     "NOR_05": "J. Whitlow",
+     "NOR_06": "P. Okonjo",
+     "NOR_07": "D. Varga",
+     "NOR_08": "E. Lindqvist",
+     "NOR_09": "C. Nkemelu",
+     "NOR_10": "F. Moreau-Lake",
+     "NOR_11": "K. Tamsin",
+     "NOR_12": "B. Adeyemi-Ross"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"answerable\":true,\"text\":\"No — Harlow's pass accuracy was 77% both before and after I. Marchetti-Holt's 45' yellow.\",\"numbers\":[{\"key\":\"before_pct\",\"value\":77,\"call\":1,\"field\":\"value\",\"event_id\":null,\"scale\":100},{\"key\":\"after_pct\",\"value\":77,\"call\":2,\"field\":\"value\",\"event_id\":null,\"scale\":100},{\"key\":\"card_min\",\"value\":45,\"call\":0,\"field\":\"event_minute\",\"event_id\":301,\"scale\":1}],\"evidence_ids\":[16,17,18,19,27,28,36,37,38,39,40,301]}",
+   "rounds": 3,
+   "tool_calls": [
+    {
+     "arguments": "{\"type\":\"card\",\"team\":\"HAR\",\"player_id\":null,\"start_t\":0,\"end_t\":3600}",
+     "name": "list_events",
+     "output": "{\"events\": [{\"id\": 301, \"minute\": 45, \"player_id\": \"HAR_05\", \"t\": 2692.0, \"team\": \"HAR\", \"type\": \"card\"}], \"shown\": 1, \"total\": 1}"
+    },
+    {
+     "arguments": "{\"metric\":\"pass_accuracy\",\"subject_type\":\"team\",\"subject_id\":\"HAR\",\"start_t\":0,\"end_t\":2691}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [16, 17, 18, 19, 27, 28, 36, 37, 38, 39, 40, 42, 43, 51, 62, 72, 86, 89, 96, 97, 98, 110, 111, 117, 129, 131, 132, 133, 134, 153, 168, 169, 170, 178, 179, 180, 181, 192, 204, 205, 206, 207, 208, 209, 210, 218, 220, 222, 223, 230, 232, 233, 234, 235, 236, 237, 238, 239, 241, 254, 270, 271, 272, 274, 283, 284, 286, 289, 295], \"k\": 69, \"n\": 90, \"value\": 76.6667}"
+    },
+    {
+     "arguments": "{\"metric\":\"pass_accuracy\",\"subject_type\":\"team\",\"subject_id\":\"HAR\",\"start_t\":2693,\"end_t\":3600}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [304, 306, 307, 312, 322, 323, 325, 326, 343, 345, 346, 348, 372, 373, 374, 376, 381, 384, 396, 397], \"k\": 20, \"n\": 26, \"value\": 76.9231}"
+    }
+   ]
+  },
+  "a7b3ca07349a095a298bee6df6aec1d1147b6bc491be54fca34e954ae288801f": {
+   "model": "gpt-5-mini",
+   "ms": 22323,
+   "path": "foundry_agent",
+   "request": {
+    "match_clock": {
+     "end_t": 5400,
+     "half_starts": [
+      0,
+      2700
+     ]
+    },
+    "now_minute": 61,
+    "now_t": 3600.0,
+    "question": "Did Harlow's pass accuracy change after their yellow card?",
+    "roster": {
+     "HAR_01": "G. Pell",
+     "HAR_02": "N. Ostrander",
+     "HAR_03": "H. Quarry",
+     "HAR_04": "V. Seddon",
+     "HAR_05": "I. Marchetti-Holt",
+     "HAR_06": "W. Abara",
+     "HAR_07": "Y. Castell",
+     "HAR_08": "O. Fenwick",
+     "HAR_09": "T. Brannock",
+     "HAR_10": "Z. Halloran",
+     "HAR_11": "U. Kerridge",
+     "HAR_12": "A. Somerby",
+     "NOR_01": "R. Ashdown",
+     "NOR_02": "L. Corrigan",
+     "NOR_03": "M. Dube",
+     "NOR_04": "S. Kettering",
+     "NOR_05": "J. Whitlow",
+     "NOR_06": "P. Okonjo",
+     "NOR_07": "D. Varga",
+     "NOR_08": "E. Lindqvist",
+     "NOR_09": "C. Nkemelu",
+     "NOR_10": "F. Moreau-Lake",
+     "NOR_11": "K. Tamsin",
+     "NOR_12": "B. Adeyemi-Ross"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"answerable\":true,\"text\":\"No — Harlow's pass accuracy was 77% both before and after I. Marchetti-Holt's 45' yellow.\",\"numbers\":[{\"key\":\"before_pct\",\"value\":77,\"call\":1,\"field\":\"value\",\"event_id\":null,\"scale\":100},{\"key\":\"after_pct\",\"value\":77,\"call\":2,\"field\":\"value\",\"event_id\":null,\"scale\":100},{\"key\":\"card_min\",\"value\":45,\"call\":0,\"field\":\"event_minute\",\"event_id\":301,\"scale\":1}],\"evidence_ids\":[301,16,17,18,19,27,304,306,307,312,322]}",
+   "rounds": 4,
+   "tool_calls": [
+    {
+     "arguments": "{\"type\":\"card\",\"team\":\"HAR\",\"player_id\":null,\"start_t\":null,\"end_t\":3600}",
+     "name": "list_events",
+     "output": "{\"events\": [{\"id\": 301, \"minute\": 45, \"player_id\": \"HAR_05\", \"t\": 2692.0, \"team\": \"HAR\", \"type\": \"card\"}], \"shown\": 1, \"total\": 1}"
+    },
+    {
+     "arguments": "{\"metric\":\"pass_accuracy\",\"subject_type\":\"team\",\"subject_id\":\"HAR\",\"start_t\":0,\"end_t\":2692}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [16, 17, 18, 19, 27, 28, 36, 37, 38, 39, 40, 42, 43, 51, 62, 72, 86, 89, 96, 97, 98, 110, 111, 117, 129, 131, 132, 133, 134, 153, 168, 169, 170, 178, 179, 180, 181, 192, 204, 205, 206, 207, 208, 209, 210, 218, 220, 222, 223, 230, 232, 233, 234, 235, 236, 237, 238, 239, 241, 254, 270, 271, 272, 274, 283, 284, 286, 289, 295], \"k\": 69, \"n\": 90, \"value\": 76.6667}"
+    },
+    {
+     "arguments": "{\"metric\":\"pass_accuracy\",\"subject_type\":\"team\",\"subject_id\":\"HAR\",\"start_t\":2693,\"end_t\":3600}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [304, 306, 307, 312, 322, 323, 325, 326, 343, 345, 346, 348, 372, 373, 374, 376, 381, 384, 396, 397], \"k\": 20, \"n\": 26, \"value\": 76.9231}"
+    }
+   ]
+  },
+  "cf36e47ff2ba9bae585d3542072141c7c41db5c6834a9af7bc9491fe4b48a747": {
+   "model": "gpt-5-mini",
+   "ms": 23965,
+   "path": "foundry_agent",
+   "request": {
+    "match_clock": {
+     "end_t": 5400,
+     "half_starts": [
+      0,
+      2700
+     ]
+    },
+    "now_minute": 67,
+    "now_t": 3972.0,
+    "question": "How many shots did D. Varga take after 60'?",
+    "roster": {
+     "HAR_01": "G. Pell",
+     "HAR_02": "N. Ostrander",
+     "HAR_03": "H. Quarry",
+     "HAR_04": "V. Seddon",
+     "HAR_05": "I. Marchetti-Holt",
+     "HAR_06": "W. Abara",
+     "HAR_07": "Y. Castell",
+     "HAR_08": "O. Fenwick",
+     "HAR_09": "T. Brannock",
+     "HAR_10": "Z. Halloran",
+     "HAR_11": "U. Kerridge",
+     "HAR_12": "A. Somerby",
+     "NOR_01": "R. Ashdown",
+     "NOR_02": "L. Corrigan",
+     "NOR_03": "M. Dube",
+     "NOR_04": "S. Kettering",
+     "NOR_05": "J. Whitlow",
+     "NOR_06": "P. Okonjo",
+     "NOR_07": "D. Varga",
+     "NOR_08": "E. Lindqvist",
+     "NOR_09": "C. Nkemelu",
+     "NOR_10": "F. Moreau-Lake",
+     "NOR_11": "K. Tamsin",
+     "NOR_12": "B. Adeyemi-Ross"
+    },
+    "teams": {
+     "HAR": "Harlow",
+     "NOR": "Northbridge"
+    }
+   },
+   "response_text": "{\"answerable\":true,\"text\":\"D. Varga took 0 shots — none since 61'.\",\"numbers\":[{\"key\":\"shots\",\"value\":0,\"call\":0,\"field\":\"value\",\"event_id\":null,\"scale\":1},{\"key\":\"since\",\"value\":61,\"call\":0,\"field\":\"start_minute\",\"event_id\":null,\"scale\":1}],\"evidence_ids\":[]}",
+   "rounds": 2,
+   "tool_calls": [
+    {
+     "arguments": "{\"metric\":\"shots\",\"subject_type\":\"player\",\"subject_id\":\"NOR_07\",\"start_t\":3600,\"end_t\":3972}",
+     "name": "compute_metric",
+     "output": "{\"evidence_ids\": [], \"k\": 0, \"n\": 0, \"value\": 0}"
+    }
+   ]
+  }
+ },
  "note": "Analyst requests, responses and tool calls from a --foundry build. Synthetic match data only."
 }

@@ -6,133 +6,461 @@
    "question": "How many shots did D. Varga take after 60'?",
    "at_t": 3972.0,
    "at_minute": 67,
-   "status": "not_built",
-   "text": "",
-   "numbers": [],
+   "status": "verified",
+   "text": "D. Varga took 0 shots — none since 61'.",
+   "numbers": [
+    {
+     "key": "shots",
+     "value": 0.0,
+     "verified": true,
+     "source": "compute_metric shots for NOR_07, 3600-3972 s: value"
+    },
+    {
+     "key": "since",
+     "value": 61.0,
+     "verified": true,
+     "source": "compute_metric: start_minute"
+    }
+   ],
    "evidence_ids": [],
    "closest_fact": null,
    "attempts": [
     {
      "attempt": 1,
-     "outcome": "not_cached",
-     "checks": []
+     "outcome": "verified",
+     "checks": [
+      {
+       "name": "numbers_listed",
+       "passed": true,
+       "detail": "every number in the text is listed"
+      },
+      {
+       "name": "numbers_match",
+       "passed": true,
+       "detail": "every number traced to a tool call"
+      },
+      {
+       "name": "entities",
+       "passed": true,
+       "detail": "every player and team named is behind a number or cited event"
+      },
+      {
+       "name": "window",
+       "passed": true,
+       "detail": "no tool call looks past the question"
+      },
+      {
+       "name": "evidence",
+       "passed": true,
+       "detail": "every evidence id came from a tool call"
+      }
+     ]
     }
    ],
-   "model": null
+   "model": "gpt-5-mini"
   },
   {
    "question_id": "q2",
    "question": "How much npxG had Northbridge created by half-time?",
    "at_t": 2730.0,
    "at_minute": 46,
-   "status": "not_built",
-   "text": "",
-   "numbers": [],
-   "evidence_ids": [],
+   "status": "verified",
+   "text": "Northbridge had 0.27 npxG by half-time (45').",
+   "numbers": [
+    {
+     "key": "npxg",
+     "value": 0.27,
+     "verified": true,
+     "source": "compute_metric npxg_sum for NOR, 0-2700 s: value"
+    },
+    {
+     "key": "half",
+     "value": 45.0,
+     "verified": true,
+     "source": "compute_metric: end_minute"
+    }
+   ],
+   "evidence_ids": [
+    128,
+    166
+   ],
    "closest_fact": null,
    "attempts": [
     {
      "attempt": 1,
-     "outcome": "not_cached",
-     "checks": []
+     "outcome": "verified",
+     "checks": [
+      {
+       "name": "numbers_listed",
+       "passed": true,
+       "detail": "every number in the text is listed"
+      },
+      {
+       "name": "numbers_match",
+       "passed": true,
+       "detail": "every number traced to a tool call"
+      },
+      {
+       "name": "entities",
+       "passed": true,
+       "detail": "every player and team named is behind a number or cited event"
+      },
+      {
+       "name": "window",
+       "passed": true,
+       "detail": "no tool call looks past the question"
+      },
+      {
+       "name": "evidence",
+       "passed": true,
+       "detail": "every evidence id came from a tool call"
+      }
+     ]
     }
    ],
-   "model": null
+   "model": "gpt-5-mini"
   },
   {
    "question_id": "q3",
    "question": "Who scored, and in which minute?",
    "at_t": 3840.0,
    "at_minute": 65,
-   "status": "not_built",
-   "text": "",
-   "numbers": [],
-   "evidence_ids": [],
+   "status": "verified",
+   "text": "C. Nkemelu scored for Northbridge, 63'.",
+   "numbers": [
+    {
+     "key": "minute",
+     "value": 63.0,
+     "verified": true,
+     "source": "event 419: minute"
+    }
+   ],
+   "evidence_ids": [
+    419
+   ],
    "closest_fact": null,
    "attempts": [
     {
      "attempt": 1,
-     "outcome": "not_cached",
-     "checks": []
+     "outcome": "failed",
+     "checks": [
+      {
+       "name": "numbers_listed",
+       "passed": false,
+       "detail": "63 in the text is not in numbers"
+      },
+      {
+       "name": "numbers_match",
+       "passed": false,
+       "detail": "minute=60 does not match event 419: minute"
+      },
+      {
+       "name": "entities",
+       "passed": true,
+       "detail": "every player and team named is behind a number or cited event"
+      },
+      {
+       "name": "window",
+       "passed": true,
+       "detail": "no tool call looks past the question"
+      },
+      {
+       "name": "evidence",
+       "passed": true,
+       "detail": "every evidence id came from a tool call"
+      }
+     ]
+    },
+    {
+     "attempt": 2,
+     "outcome": "verified",
+     "checks": [
+      {
+       "name": "numbers_listed",
+       "passed": true,
+       "detail": "every number in the text is listed"
+      },
+      {
+       "name": "numbers_match",
+       "passed": true,
+       "detail": "every number traced to a tool call"
+      },
+      {
+       "name": "entities",
+       "passed": true,
+       "detail": "every player and team named is behind a number or cited event"
+      },
+      {
+       "name": "window",
+       "passed": true,
+       "detail": "no tool call looks past the question"
+      },
+      {
+       "name": "evidence",
+       "passed": true,
+       "detail": "every evidence id came from a tool call"
+      }
+     ]
     }
    ],
-   "model": null
+   "model": "gpt-5-mini"
   },
   {
    "question_id": "q4",
    "question": "Did Harlow's pass accuracy change after their yellow card?",
    "at_t": 3600.0,
    "at_minute": 61,
-   "status": "not_built",
-   "text": "",
+   "status": "refused",
+   "text": "I can't verify that from the event log.",
    "numbers": [],
    "evidence_ids": [],
-   "closest_fact": null,
+   "closest_fact": {
+    "fact_id": "f_000019",
+    "text": "The numbers suggest 57% of Harlow attacks have gone down the centre since the 41st minute."
+   },
    "attempts": [
     {
      "attempt": 1,
-     "outcome": "not_cached",
-     "checks": []
+     "outcome": "failed",
+     "checks": [
+      {
+       "name": "numbers_listed",
+       "passed": true,
+       "detail": "every number in the text is listed"
+      },
+      {
+       "name": "numbers_match",
+       "passed": false,
+       "detail": "before_pct=77 does not match compute_metric pass_accuracy for HAR, 0-2692 s: value; after_pct=77 does not match compute_metric pass_accuracy for HAR, 2693-3600 s: value"
+      },
+      {
+       "name": "entities",
+       "passed": true,
+       "detail": "every player and team named is behind a number or cited event"
+      },
+      {
+       "name": "window",
+       "passed": true,
+       "detail": "no tool call looks past the question"
+      },
+      {
+       "name": "evidence",
+       "passed": true,
+       "detail": "every evidence id came from a tool call"
+      }
+     ]
+    },
+    {
+     "attempt": 2,
+     "outcome": "failed",
+     "checks": [
+      {
+       "name": "numbers_listed",
+       "passed": true,
+       "detail": "every number in the text is listed"
+      },
+      {
+       "name": "numbers_match",
+       "passed": false,
+       "detail": "before_pct=77 does not match compute_metric pass_accuracy for HAR, 0-2691 s: value; after_pct=77 does not match compute_metric pass_accuracy for HAR, 2693-3600 s: value"
+      },
+      {
+       "name": "entities",
+       "passed": true,
+       "detail": "every player and team named is behind a number or cited event"
+      },
+      {
+       "name": "window",
+       "passed": true,
+       "detail": "no tool call looks past the question"
+      },
+      {
+       "name": "evidence",
+       "passed": true,
+       "detail": "every evidence id came from a tool call"
+      }
+     ]
     }
    ],
-   "model": null
+   "model": "gpt-5-mini"
   },
   {
    "question_id": "q5",
    "question": "How many times have Harlow lost the ball in their own third since 75'?",
    "at_t": 5400.0,
    "at_minute": 91,
-   "status": "not_built",
-   "text": "",
-   "numbers": [],
-   "evidence_ids": [],
+   "status": "verified",
+   "text": "Harlow have lost the ball in their own third 8 times since 75'.",
+   "numbers": [
+    {
+     "key": "count",
+     "value": 8.0,
+     "verified": true,
+     "source": "compute_metric turnovers_own_third for HAR, 4440-5400 s: value"
+    },
+    {
+     "key": "since",
+     "value": 75.0,
+     "verified": true,
+     "source": "compute_metric: start_minute"
+    }
+   ],
+   "evidence_ids": [
+    504,
+    509,
+    512,
+    519,
+    527,
+    558,
+    568,
+    579
+   ],
    "closest_fact": null,
    "attempts": [
     {
      "attempt": 1,
-     "outcome": "not_cached",
-     "checks": []
+     "outcome": "verified",
+     "checks": [
+      {
+       "name": "numbers_listed",
+       "passed": true,
+       "detail": "every number in the text is listed"
+      },
+      {
+       "name": "numbers_match",
+       "passed": true,
+       "detail": "every number traced to a tool call"
+      },
+      {
+       "name": "entities",
+       "passed": true,
+       "detail": "every player and team named is behind a number or cited event"
+      },
+      {
+       "name": "window",
+       "passed": true,
+       "detail": "no tool call looks past the question"
+      },
+      {
+       "name": "evidence",
+       "passed": true,
+       "detail": "every evidence id came from a tool call"
+      }
+     ]
     }
    ],
-   "model": null
+   "model": "gpt-5-mini"
   },
   {
    "question_id": "q6",
    "question": "Who has taken the most shots in the match?",
    "at_t": 5400.0,
    "at_minute": 91,
-   "status": "not_built",
-   "text": "",
-   "numbers": [],
-   "evidence_ids": [],
+   "status": "verified",
+   "text": "C. Nkemelu and T. Brannock have each taken the most shots (4).",
+   "numbers": [
+    {
+     "key": "shots",
+     "value": 4.0,
+     "verified": true,
+     "source": "compute_metric shots for NOR_09, 0-5400 s: k"
+    }
+   ],
+   "evidence_ids": [
+    370,
+    418,
+    510,
+    562,
+    99,
+    193,
+    248,
+    437
+   ],
    "closest_fact": null,
    "attempts": [
     {
      "attempt": 1,
-     "outcome": "not_cached",
-     "checks": []
+     "outcome": "failed",
+     "checks": [
+      {
+       "name": "numbers_listed",
+       "passed": true,
+       "detail": "every number in the text is listed"
+      },
+      {
+       "name": "numbers_match",
+       "passed": true,
+       "detail": "every number traced to a tool call"
+      },
+      {
+       "name": "entities",
+       "passed": false,
+       "detail": "text names U. Kerridge, but no listed number or cited event is about them"
+      },
+      {
+       "name": "window",
+       "passed": true,
+       "detail": "no tool call looks past the question"
+      },
+      {
+       "name": "evidence",
+       "passed": true,
+       "detail": "every evidence id came from a tool call"
+      }
+     ]
+    },
+    {
+     "attempt": 2,
+     "outcome": "verified",
+     "checks": [
+      {
+       "name": "numbers_listed",
+       "passed": true,
+       "detail": "every number in the text is listed"
+      },
+      {
+       "name": "numbers_match",
+       "passed": true,
+       "detail": "every number traced to a tool call"
+      },
+      {
+       "name": "entities",
+       "passed": true,
+       "detail": "every player and team named is behind a number or cited event"
+      },
+      {
+       "name": "window",
+       "passed": true,
+       "detail": "no tool call looks past the question"
+      },
+      {
+       "name": "evidence",
+       "passed": true,
+       "detail": "every evidence id came from a tool call"
+      }
+     ]
     }
    ],
-   "model": null
+   "model": "gpt-5-mini"
   },
   {
    "question_id": "q7",
    "question": "How far has C. Nkemelu run in the first half?",
    "at_t": 2730.0,
    "at_minute": 46,
-   "status": "not_built",
-   "text": "",
+   "status": "refused",
+   "text": "I can't verify that from the event log.",
    "numbers": [],
    "evidence_ids": [],
    "closest_fact": null,
    "attempts": [
     {
      "attempt": 1,
-     "outcome": "not_cached",
+     "outcome": "unanswerable",
      "checks": []
     }
    ],
-   "model": null
+   "model": "gpt-5-mini"
   }
  ]
 }
