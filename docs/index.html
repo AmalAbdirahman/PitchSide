@@ -221,7 +221,7 @@
   <div class="ph"><h2 id="ab-t">About this replay</h2><button type="button" class="btn xs sp" id="ab-x">Close</button></div>
   <div class="body"><ul class="facts">
     <li><b>Synthetic data.</b> Clubs, players and events come from a seeded simulator. No real match data.</li>
-    <li><b>Replay, not live.</b> The page replays a pre-built bundle. No server and no network calls.</li>
+    <li><b>Replay, not live.</b> The page replays a pre-built bundle. It makes no network calls of its own; clicking Ask PitchSide&rsquo;s Live (local) tab is the one exception, and that reaches only a server on your own machine.</li>
     <li><b>Ask PitchSide's suggested answers were built at build time</b> by a third agent, the Analyst, and checked by code: every number, name, time window and cited event. An answer that fails is replaced by a refusal. The page never calls a model; typed questions go only to a server you run on your own machine (<code>scripts/ask_server.py</code>), and only after you click Live (local).</li>
     <li><b>Drafts come from an agent on Microsoft Foundry, run at build time.</b> A deterministic verifier checks every claim before it can air. The replay never calls a model. Six drafts with planted errors come from a rule-based drafter, as test cases for the verifier.</li>
     <li><b>Spanish</b> comes from templates and a glossary and has not been reviewed by a native speaker.</li>

@@ -41,17 +41,23 @@ def site() -> Iterator[str]:
     server.shutdown()
 
 
-@pytest.fixture()
-def page(site: str) -> Iterator[Any]:
+BG = {"dark": "#0B0D10", "light": "#F5F6F8"}  # --bg in each theme (docs/styles.css)
+
+
+@pytest.fixture(params=["dark", "light"])
+def page(site: str, request: pytest.FixtureRequest) -> Iterator[Any]:
+    """The control room, once with the system in dark mode and once in light (R7)."""
+    scheme = request.param
     with sync_api.sync_playwright() as pw:
         browser = pw.chromium.launch()
-        context = browser.new_context(reduced_motion="reduce")
+        context = browser.new_context(reduced_motion="reduce", color_scheme=scheme)
         pg = context.new_page()
         pg.problems = []
         pg.on("console", lambda m: m.type == "error" and pg.problems.append(m.text))
         pg.on("pageerror", lambda e: pg.problems.append(str(e)))
         pg.goto(site)
         pg.wait_for_selector("#qhead b")
+        assert _token(pg, "--bg") == BG[scheme]
         yield pg
         browser.close()
 
@@ -230,14 +236,17 @@ def test_shell_views_keys_and_kpis(page: Any) -> None:
     assert page.problems == []
 
 
+@pytest.mark.parametrize("scheme", ["dark", "light"])
 @pytest.mark.parametrize(("width", "side"), [(1000, "icons"), (390, "bottom")])
 def test_narrow_layouts_keep_the_nav_and_never_scroll_sideways(
-    site: str, width: int, side: str
+    site: str, width: int, side: str, scheme: str
 ) -> None:
     with sync_api.sync_playwright() as pw:
         browser = pw.chromium.launch()
         context = browser.new_context(
-            reduced_motion="reduce", viewport={"width": width, "height": 860}
+            reduced_motion="reduce",
+            viewport={"width": width, "height": 860},
+            color_scheme=scheme,
         )
         pg = _watch(context.new_page())
         pg.goto(site)
@@ -249,8 +258,17 @@ def test_narrow_layouts_keep_the_nav_and_never_scroll_sideways(
         box = pg.locator(".side").bounding_box()
         if side == "bottom":
             assert box is not None and box["y"] > 700  # pinned to the bottom of the viewport
+        for part in (
+            "#ask",
+            ".kpis",
+            "#ask-form",
+            "#ask-hint",
+        ):  # R7: nothing wider than the screen
+            b = pg.locator(part).bounding_box()
+            assert b is not None and b["x"] >= 0 and b["x"] + b["width"] <= width, part
         pg.click("#v-an")
         assert pg.is_visible("#view-an")
+        assert pg.evaluate("document.documentElement.scrollWidth") <= width
         browser.close()
         assert pg.problems == []
 
