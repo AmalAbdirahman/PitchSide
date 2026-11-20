@@ -1,6 +1,6 @@
 /* Ask PitchSide (R5): suggested questions whose answers were built at build time and checked by
    code (app/ask.py, app/ask_checks.py). This module only reads data/ask.json: it never calls a
-   model, and the free-text box stays disabled (live questions run locally, R6).
+   model. Typed questions go to a server on the user's own machine (ask_live.js, R6).
    A question becomes available once the replay clock reaches the time it was asked at, so an
    answer never shows a later state of the match. */
 
@@ -28,7 +28,7 @@ function withTicks(a) {
     ? `<b>${tok}</b><span class="tick" aria-hidden="true">✓</span>` : tok);
 }
 
-function answerHtml(a) {
+export function answerHtml(a) {
   if (a.status === 'verified') {
     const n = a.numbers.length, ok = a.numbers.filter(x => x.verified).length;
     const chips = a.evidence_ids.map(id => `<button type="button" class="chip" data-ev="${id}" aria-label="Open event ${id} in the evidence drawer">ev ${id}</button>`).join('');
@@ -96,13 +96,16 @@ export function wireAsk() {
     renderAsk();
     $('#ask-thread').lastElementChild?.scrollIntoView({ block: 'nearest' });
   });
-  $('#ask-thread').addEventListener('click', e => {
-    const b = e.target.closest('button[data-ev]');
-    if (!b) return;
-    const id = Number(b.dataset.ev), a = b.closest('.a');
-    const ids = [...a.querySelectorAll('button[data-ev]')].map(x => Number(x.dataset.ev));
-    openEvents(ids.includes(id) ? [id, ...ids.filter(x => x !== id)] : [id], 'event ' + id);
-  });
+  $('#ask-thread').addEventListener('click', onEvidenceClick);
+}
+
+/* An event-id chip in an answer opens the drawer with that answer's events, the clicked one first. */
+export function onEvidenceClick(e) {
+  const b = e.target.closest('button[data-ev]');
+  if (!b) return;
+  const id = Number(b.dataset.ev), a = b.closest('.a');
+  const ids = [...a.querySelectorAll('button[data-ev]')].map(x => Number(x.dataset.ev));
+  openEvents(ids.includes(id) ? [id, ...ids.filter(x => x !== id)] : [id], 'event ' + id);
 }
 
 /* Audit view: each build-time Ask run with its checks. */

@@ -9,10 +9,11 @@ A producer-first control room for a replayed, synthetic football match. Python b
 - **Synthetic data on the site.** The published replay's clubs (Northbridge, Harlow), players and events come from a seeded simulator. No real match data, names or logos are on the site.
 - **Real open data, locally only.** The pipeline also runs on a real match from StatsBomb Open Data (rule-based drafter, no agent). Raw files and the built bundle stay in git-ignored folders and are not published, because StatsBomb's user agreement does not allow redistributing the data. See `data_sources.md` for the licence, every mapping decision and the dropped event types.
 - **The site is a replay.** The published page replays a pre-built bundle. It has no server and makes no network calls. A live mode exists only as a local `docker compose` stack (below); it is not deployed.
-- **The model runs at build time only.** Drafts for each moment come from the Scout, a prompt agent on Microsoft Foundry, called by `python -m app.build_bundle --foundry`. Its answers are cached in `data/agent_cache.json`, so the normal build and the site never call a model.
+- **The model runs at build time, or on your own machine.** Drafts for each moment come from the Scout, a prompt agent on Microsoft Foundry, called by `python -m app.build_bundle --foundry`. Its answers are cached in `data/agent_cache.json`, so the normal build and the site never call a model. The one exception is Ask PitchSide's live mode, a server you start yourself on 127.0.0.1 (below).
 - **The Scout uses structured output, and tools in explore mode.** Its reply must follow a JSON Schema generated from Pydantic models. In explore mode it gets no numbers, only the match state and a flagged moment, and finds numbers and evidence with three read-only tools backed by the metric registry (`list_metrics`, `compute_metric`, `list_events`), which cannot see past the moment. Measured in a live run on 2026-11-13: handed mode 36/38 claims passed first time and none was rejected; explore mode 24/38 first time and 7/38 still rejected after a retry, all for wrongly written numbers that the verifier caught (`docs/methods/scout.md`). The site uses handed mode.
 - **A two-agent pipeline, with code as the judge.** A second agent, the Reader, sees only each Scout sentence and the roster and writes down the claim it understood; code compares that with the Scout's claim, and a mismatch fails the verifier's `meaning_matches` check and sends the Scout back once. On 75 hand-labelled sentences (34 with the right numbers but the wrong meaning) the check flagged 27 of the 34 (recall 0.79) and 4 of the 41 correct ones (precision 0.87), in one live run on 2026-11-13 (`docs/methods/meaning.md`). It misses qualifiers such as "on target" or "conceded". Neither agent decides what airs.
-- **Ask PitchSide: suggested answers built and checked at build time.** `data/ask_questions.json` holds seven questions about the replayed match, each asked at a set replay minute; one (distance run) needs data the event log does not hold. With `--foundry`, a third agent, the Analyst (a Foundry prompt agent), answers each with the Scout's three read-only tools, capped at that minute, and returns structured output: the answer text, every number with the tool call and field it came from, and evidence event ids. Code then checks the answer (`app/ask_checks.py`): every number in the text is listed and equals its tool call's output at the precision written, the players and teams named appear in the calls (misspelt names fail), no call looks past the question's minute, and every evidence id came back from a call. A failed answer goes back once with the reasons; a second failure, or a question the tools cannot answer, is stored as "I can't verify that from the event log" plus the latest related verified fact, if there is one. Requests, responses and tool calls are cached in `data/ask_cache.json`; the normal build replays them (re-running each tool call) and writes `docs/data/ask.json`, which the page only reads. **The Analyst has not been run yet**, so the cache is empty and every suggested answer on the site currently says it was not built; this changes only after a `--foundry` build. Each question opens in the panel when the replay clock reaches its minute, and the Audit view lists each build-time attempt with its checks. The free-text box is disabled: live questions are roadmap (R6).
+- **Ask PitchSide live mode: typed questions, on your machine only (R6).** `scripts/ask_server.py` is a small standard-library server bound to 127.0.0.1. It takes one question at a time (at most 200 characters, 30 s limit) together with the page's replay time, runs the same Analyst and the same checks, retry and refusal as the suggested answers, and returns the same answer shape. Live answers are not cached. The page makes no request to it until you click **Live (local)**; then it asks `/health`, enables the box if the server answers, and otherwise says how to start it. The server answers only the origins listed in `config.yaml` (`ask.live.allowed_origins`) and the page never holds a key. Tested with a mocked Analyst (`tests/test_ask_live.py`) and in Chromium (`pytest -m e2e`). **It has not yet been run against Foundry**, so no live answer from the real model has been seen.
+- **Ask PitchSide: suggested answers built and checked at build time.** `data/ask_questions.json` holds seven questions about the replayed match, each asked at a set replay minute; one (distance run) needs data the event log does not hold. With `--foundry`, a third agent, the Analyst (a Foundry prompt agent), answers each with the Scout's three read-only tools, capped at that minute, and returns structured output: the answer text, every number with the tool call and field it came from, and evidence event ids. Code then checks the answer (`app/ask_checks.py`): every number in the text is listed and equals its tool call's output at the precision written, the players and teams named appear in the calls (misspelt names fail), no call looks past the question's minute, and every evidence id came back from a call. A failed answer goes back once with the reasons; a second failure, or a question the tools cannot answer, is stored as "I can't verify that from the event log" plus the latest related verified fact, if there is one. Requests, responses and tool calls are cached in `data/ask_cache.json`; the normal build replays them (re-running each tool call) and writes `docs/data/ask.json`, which the page only reads. **The Analyst has not been run yet**, so the cache is empty and every suggested answer on the site currently says it was not built; this changes only after a `--foundry` build. Each question opens in the panel when the replay clock reaches its minute, and the Audit view lists each build-time attempt with its checks. On the public site the free-text box stays disabled; typed questions run only on your own machine (next item).
 - **Template wording for T0.** Goals, substitutions and cards air at once, so they use fixed templates; agent wording is used only for facts that pass through a veto window or a producer (T1/T2).
 - **Code decides truth.** A deterministic verifier recomputes every claim from the event log before it can air. The Scout's words are not trusted.
 - **Injected errors are test cases.** Six drafts with planted errors (wrong number, player, window, a future event, an intent word, a small-sample overclaim) come from a rule-based drafter, not from the model. They exist so the verifier has something to catch; they say nothing about how any model behaves.
@@ -97,6 +98,16 @@ Running the pipeline on a real match (StatsBomb Open Data; downloads into `data/
 python scripts/fetch_statsbomb.py                  # 2018 World Cup final plus 10 matches for the league xG rate
 python -m app.build_bundle --source statsbomb      # writes data/external/bundles/8658/, never docs/
 ```
+
+Ask PitchSide live mode (typed questions answered on this machine; same `.env`):
+
+```
+python -m pip install -e ".[agents]"
+python scripts/ask_server.py                       # 127.0.0.1:8765, Ctrl+C to stop
+python -m http.server 8000 --directory docs        # open http://localhost:8000, then Live (local) in the Ask panel
+```
+
+The published site can also reach the server from your own browser (its origin is in the allow list). Chromium may ask permission to reach a local device; Safari blocks an https page from calling http://127.0.0.1, so use `localhost:8000` there.
 
 Limits: 45 s per call, at most 40 calls per build (`config.yaml`). A `--foundry` run reuses cached successful answers to identical requests and only calls for the rest.
 
@@ -198,10 +209,12 @@ app/      agents_foundry.py (Scout loop) and scout_*.py, reader.py (Reader), mea
           check), drafter.py (fallback + injected errors), cards.py (overlay cards), verifier.py
           (orchestrates checks.py and corrections.py), router.py,
           renditions.py, templates_es.py, build_bundle.py, ask.py and ask_*.py (Ask PitchSide:
-          Analyst loop, output models, checks), foundry_loop.py (tool-call loop shared by agents)
+          Analyst loop, output models, checks), ask_live.py (R6 local server: limits, one at a
+          time), foundry_loop.py (tool-call loop shared by agents)
 docs/     static control room (index.html, styles.css, js/ ES modules), overlay.html (program output),
           data/, methods/, architecture/ (Azure design) and img/ — published by GitHub Pages
-          js/: data, routing (pure; reads meta.routing), state, pitch, queue, analysis, audit, ask, main,
+          js/: data, routing (pure; reads meta.routing), state, pitch, queue, analysis, audit, ask, ask_live
+          (the one localhost call, after a click), main,
           cards (pure; overlay drawing), program (sends state to the overlay), overlay
 live/     live mode: replayer, worker (pipeline.py), api, ports (interfaces + in-memory), adapters
           (Redpanda, Redis, Postgres), dev (one process), static/ (live control room)
@@ -210,7 +223,7 @@ design/   prototype.html, the original design mockup (not published)
 data/     events.json, league_stats.json, agent_cache.json, reader_cache.json, ask_questions.json, ask_cache.json, xg_fit.json, xt_fit.json; external/ (git-ignored) for StatsBomb files
 tests/    seeded_claims.json, meaning_cases.json and pytest suites
 scripts/  eval.py, build_seeded_claims.py, write_schema.py, foundry_smoke.py, fetch_statsbomb.py, fit_xg.py,
-          fit_xt.py, plot_xt.py, eval_scout.py, eval_meaning.py
+          fit_xt.py, plot_xt.py, eval_scout.py, eval_meaning.py, ask_server.py (R6 live questions)
 ```
 
 Facts and events are Pydantic models (`core/facts.py`, `core/events.py`). `fact.schema.json` is generated from the fact models by `python scripts/write_schema.py`, and a test fails if the committed file and the models disagree.
@@ -223,7 +236,7 @@ See `SPEC.md` for the full contract, `data_card.md` for the simulator's realism 
 - **Scout on real data.** The agent's instructions and cache describe the synthetic match; real matches use the rule-based drafter.
 - **Switch win probability to poisson_v2.** Fitted and validated (`docs/methods/winprob.md`), not used: it would change every impact value and possibly which facts need a producer.
 - **Run the Analyst.** Ask PitchSide's pipeline, checks and panel are built and tested with a mocked client, but no `--foundry` run has filled `data/ask_cache.json` yet, so the site shows no answers.
-- **Live questions (R6).** A local server on 127.0.0.1 that runs the same Analyst and checks for a typed question. Not built; the text box is disabled.
+- **Run live questions against Foundry and record the demo.** The local server and the Live tab are built and tested with a mocked Analyst; no real live answer has been produced yet, and there is no demo video yet.
 - **Deploy the Azure slice.** Bicep written and built (`infra/`), never deployed. The rest of the Azure design (API, Web PubSub, Postgres, Key Vault, tracing, live model calls with deadlines) is not built (`docs/architecture/azure.md`).
 - The rest of the planned work, in order, is in `ROADMAP_PROMPTS.md`.
 

@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Literal
 
 import yaml
-from pydantic import BaseModel, ConfigDict, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 ROOT = Path(__file__).resolve().parent.parent
 CONFIG_PATH = ROOT / "config.yaml"
@@ -188,10 +188,18 @@ class Agents(_Section):
         return self.explore_max_calls if mode == "explore" else self.max_calls
 
 
+class AskLive(_Section):
+    port: int = Field(ge=1024, le=65535)
+    timeout_s: float = Field(gt=0)
+    max_chars: int = Field(gt=0)
+    allowed_origins: tuple[str, ...]
+
+
 class Ask(_Section):
     analyst_name: str
     max_calls: int
     retries: int
+    live: AskLive
 
 
 class StatsBomb(_Section):

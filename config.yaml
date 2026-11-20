@@ -217,6 +217,18 @@ ask:
   max_calls: 80
   # From REDESIGN_PROMPTS.md R5: one retry with the failure reasons.
   retries: 1
+  # R6 live mode: scripts/ask_server.py, on this machine only (always bound to 127.0.0.1).
+  live:
+    # Chosen by hand: a free port; docs/js/ask_live.js holds the same number (a test checks).
+    port: 8765
+    # From REDESIGN_PROMPTS.md R6: 30 s per question, at most 200 characters.
+    timeout_s: 30
+    max_chars: 200
+    # Chosen by hand: the pages allowed to call the local server (CORS); any other Origin is refused.
+    allowed_origins:
+      - "http://localhost:8000"
+      - "http://127.0.0.1:8000"
+      - "https://amalabdirahman.github.io"
 
 # StatsBomb Open Data (P6). Raw files are downloaded into data/external/ (git-ignored) by
 # scripts/fetch_statsbomb.py and never committed. Licence: StatsBomb Public Data User Agreement.

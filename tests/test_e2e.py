@@ -325,3 +325,54 @@ def test_ask_panel_opens_questions_with_the_clock_and_shows_checked_answers(page
     else:
         assert "No answer has been built" in answer.inner_text()
     assert page.problems == []
+
+
+def test_live_tab_is_the_only_request_to_the_local_server(site: str) -> None:
+    """R6: loading and playing makes no request to 127.0.0.1:<live port>; clicking Live (local)
+    does. With no server it shows how to start one; with one (mocked Analyst, this page's origin
+    allowed) it enables the box and shows a checked answer."""
+    import socket
+
+    from app.ask_live import Gate, LiveService, make_server
+    from core.config import load
+    from tests.test_ask import FACTS, MATCH, Mock, refuse
+
+    s = load()
+    live_origin = f"http://127.0.0.1:{s.ask.live.port}"
+    with socket.socket() as probe:
+        if probe.connect_ex(("127.0.0.1", s.ask.live.port)) == 0:
+            pytest.skip("something already listens on the live port")
+    with sync_api.sync_playwright() as pw:
+        browser = pw.chromium.launch()
+        pg = browser.new_page()
+        seen: list[str] = []
+        pg.on("request", lambda r: r.url.startswith(live_origin) and seen.append(r.url))
+        pg.goto(site)
+        pg.wait_for_selector("#qhead b")
+        pg.click("#play")
+        pg.wait_for_timeout(1500)
+        assert seen == [] and pg.is_disabled("#ask-text")
+        pg.click("#ask-live")
+        pg.wait_for_function(
+            "document.querySelector('#ask-hint').textContent.includes('ask_server')"
+        )
+        assert seen == [live_origin + "/health"] and pg.is_disabled("#ask-text")
+
+        live = s.ask.live.model_copy(update={"allowed_origins": (site.rstrip("/"),)})
+        svc = LiveService(MATCH, FACTS, s, Mock(refuse), Gate(live.timeout_s))
+        srv = make_server(svc, live, "127.0.0.1", live.port)
+        threading.Thread(target=srv.serve_forever, daemon=True).start()
+        try:
+            pg.click("#ask-live")
+            pg.wait_for_selector("#ask-status:not([hidden])")
+            assert pg.text_content("#ask-status") == "Live · running on this machine"
+            pg.fill("#ask-text", "How far did the right back run?")
+            pg.press("#ask-text", "Enter")
+            pg.wait_for_selector('#ask-live-thread .a[data-status="refused"]')
+            assert pg.is_hidden("#ask-qs-part") and pg.is_enabled("#ask-text")
+            pg.click("#ask-built")
+            assert pg.is_visible("#ask-qs-part") and pg.is_disabled("#ask-text")
+        finally:
+            srv.shutdown()
+            srv.server_close()
+        browser.close()

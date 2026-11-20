@@ -9,7 +9,7 @@ from typing import Any
 
 import pytest
 
-from core.config import ROOT
+from core.config import ROOT, load
 
 DOCS = ROOT / "docs"
 PUBLISHED = sorted(p for p in DOCS.rglob("*") if p.is_file())  # everything GitHub Pages serves
@@ -64,11 +64,57 @@ def test_front_end_reads_routing_rules_from_the_bundle() -> None:
     assert not re.search(r"(?<![-\w])(ttl|left)\s*[:=]\s*\d", js)  # not CSS padding-left:0
 
 
+LIVE_JS = DOCS / "js" / "ask_live.js"
+LIVE_URL = f"http://127.0.0.1:{load().ask.live.port}"  # R6: the one allowed address
+
+
 @pytest.mark.parametrize("path", PUBLISHED, ids=lambda p: p.relative_to(DOCS).as_posix())
 def test_no_network_urls(path: Path) -> None:
-    """No file under docs/ may reference http(s):// at all, not even an XML namespace."""
-    bad = URL.findall(path.read_text(encoding="utf-8", errors="replace"))
-    assert not bad, f"{path.relative_to(DOCS)} references the network: {bad}"
+    """No file under docs/ may reference http(s):// at all, not even an XML namespace. The one
+    exception (R6) is the local Ask server, on 127.0.0.1 at config.yaml's port, in ask_live.js."""
+    allowed = [LIVE_URL] if path == LIVE_JS else []
+    bad = [u for u in URL.findall(path.read_text(encoding="utf-8", errors="replace"))]
+    assert [u for u in bad if u not in allowed] == [], f"{path.relative_to(DOCS)}: {bad}"
+
+
+def test_the_live_url_is_used_once_and_matches_config() -> None:
+    js = LIVE_JS.read_text(encoding="utf-8")
+    assert URL.findall(js) == [LIVE_URL]
+    assert f"export const LIVE_URL = '{LIVE_URL}';" in js
+
+
+def _body_of(js: str, name: str) -> str:
+    """The text of `function name(...) {...}` (top-level, closing brace at column 0)."""
+    m = re.search(rf"^(?:export )?(?:async )?function {name}\(.*?^\}}", js, re.S | re.M)
+    assert m, f"no function {name}"
+    return m.group(0)
+
+
+def test_the_page_calls_the_local_server_only_after_a_click() -> None:
+    """fetch() appears only for the bundle's own files (getJson; overlay.js's hero.json) and in
+    ask_live.js's callLocal;
+    callLocal runs only from connect and ask, which run only from the Live tab's click and the
+    question form's submit, both wired in wireLive (which itself makes no request)."""
+    for module in MODULES:
+        js = module.read_text(encoding="utf-8")
+        n = len(re.findall(r"\bfetch\(", js))
+        expected = {"data.js": 1, "overlay.js": 1, "ask_live.js": 1}.get(module.name, 0)
+        assert n == expected, f"{module.name} calls fetch {n} times"
+    overlay = (DOCS / "js" / "overlay.js").read_text(encoding="utf-8")
+    assert "fetch('data/hero.json')" in overlay
+    js = LIVE_JS.read_text(encoding="utf-8")
+    funcs = re.findall(r"^(?:export )?(?:async )?function (\w+)", js, re.M)
+    assert "fetch(" in _body_of(js, "callLocal")
+    callers = {f for f in funcs if f != "callLocal" and "callLocal(" in _body_of(js, f)}
+    assert callers == {"connect", "ask"}
+    assert js.count("callLocal(") == 3  # its definition and one call in each caller
+    assert len(re.findall(r"\bconnect\(", js)) == 2  # definition, click handler
+    wire = _body_of(js, "wireLive")
+    assert "$('#ask-live').addEventListener('click', () => {" in wire and "connect()" in wire
+    assert "$('#ask-form').addEventListener('submit', ask)" in wire
+    assert len(re.findall(r"[(, ]ask\)", js)) == 1  # ask is passed only to the submit listener
+    main = (DOCS / "js" / "main.js").read_text(encoding="utf-8")
+    assert "wireLive()" in main and "callLocal" not in main
 
 
 def test_routable_facts_have_what_the_ui_reads(hero: dict[str, Any]) -> None:
@@ -113,7 +159,9 @@ def test_shell_has_the_sidebar_header_and_kpi_row() -> None:
     assert tabs == ["bc", "an", "au"]
     assert "Suggested answers were generated at build time and checked by the verifier" in html
     assert "Live questions run locally" in html and "chatbot" not in html.lower()
-    assert re.search(r'id="ask-text"[^>]*disabled', html)
+    assert re.search(r'id="ask-text"[^>]*disabled', html)  # until the local server answers
+    assert re.search(r'id="ask-send"[^>]*disabled', html)
+    assert not re.search(r'id="ask-live"[^>]*disabled', html)
     for id_ in [
         "go-ask",
         "ask",

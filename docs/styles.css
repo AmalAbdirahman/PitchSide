@@ -348,6 +348,14 @@ dialog .ck{margin:4px 0;font-size:12.5px}
 .ask-in{margin-top:auto;display:grid;gap:4px}
 .ask-in input{width:100%;background:var(--inset);border:1px solid var(--line-2);border-radius:var(--r-sm);padding:9px 12px;color:var(--text);font:inherit}
 .ask-in input:disabled{cursor:not-allowed}
+.ask-row{display:flex;gap:6px}
+.ask-row input{flex:1;min-width:0}
+.ask-row button{background:var(--accent);color:var(--accent-ink);border:0;border-radius:var(--r-sm);padding:0 14px;font-weight:600;cursor:pointer}
+.ask-row button:disabled{background:var(--card-2);color:var(--muted);cursor:not-allowed}
+.sqs-wrap{display:flex;flex-direction:column;gap:6px}
+.ask [hidden]{display:none}
+.live-on{color:var(--text);font-weight:600}
+.thread .a[data-status="error"]{border-color:var(--line-2);color:var(--muted)}
 @media (max-width:1400px){
   .app{grid-template-columns:220px minmax(0,1fr)}
   .ask{grid-column:2;position:static;height:auto;margin:0 22px 40px;border:1px solid var(--line);border-radius:var(--r)}

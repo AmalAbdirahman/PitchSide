@@ -184,17 +184,26 @@
   <div class="ask-top"><h2 id="ask-h">Ask PitchSide</h2><span class="lbl">Verified answers</span></div>
   <div class="seg" role="group" aria-label="Answer source">
     <button type="button" aria-pressed="true" id="ask-built">Suggested (built)</button>
-    <button type="button" aria-pressed="false" id="ask-live" disabled aria-describedby="ask-hint">Live (local)</button>
+    <button type="button" aria-pressed="false" id="ask-live" aria-describedby="ask-hint">Live (local)</button>
   </div>
-  <p class="note">Suggested answers were generated at build time and checked by the verifier.</p>
+  <p class="note live-on" id="ask-status" hidden></p>
+  <div id="ask-built-part">
+    <p class="note">Suggested answers were generated at build time and checked by the verifier.</p>
+  </div>
   <div class="thread" id="ask-thread" aria-live="polite"></div>
-  <h3 class="lbl">Suggested</h3>
-  <div class="sqs" id="ask-qs"></div>
-  <div class="ask-in">
-    <label class="sr-only" for="ask-text">Ask about this match</label>
-    <input type="text" id="ask-text" placeholder="Ask about this match…" disabled aria-describedby="ask-hint">
-    <p class="note" id="ask-hint">Live questions run locally. Not built yet.</p>
+  <div class="thread" id="ask-live-thread" aria-live="polite" hidden></div>
+  <div class="sqs-wrap" id="ask-qs-part">
+    <h3 class="lbl">Suggested</h3>
+    <div class="sqs" id="ask-qs"></div>
   </div>
+  <form class="ask-in" id="ask-form">
+    <label class="sr-only" for="ask-text">Ask about this match</label>
+    <div class="ask-row">
+      <input type="text" id="ask-text" placeholder="Ask about this match…" autocomplete="off" disabled aria-describedby="ask-hint">
+      <button type="submit" id="ask-send" disabled>Ask</button>
+    </div>
+    <p class="note" id="ask-hint" aria-live="polite">Live questions run locally. Click Live (local) to connect to a server on this machine.</p>
+  </form>
 </aside>
 </div>
 
@@ -213,7 +222,7 @@
   <div class="body"><ul class="facts">
     <li><b>Synthetic data.</b> Clubs, players and events come from a seeded simulator. No real match data.</li>
     <li><b>Replay, not live.</b> The page replays a pre-built bundle. No server and no network calls.</li>
-    <li><b>Ask PitchSide's suggested answers were built at build time</b> by a third agent, the Analyst, and checked by code: every number, name, time window and cited event. An answer that fails is replaced by a refusal. The page never calls a model.</li>
+    <li><b>Ask PitchSide's suggested answers were built at build time</b> by a third agent, the Analyst, and checked by code: every number, name, time window and cited event. An answer that fails is replaced by a refusal. The page never calls a model; typed questions go only to a server you run on your own machine (<code>scripts/ask_server.py</code>), and only after you click Live (local).</li>
     <li><b>Drafts come from an agent on Microsoft Foundry, run at build time.</b> A deterministic verifier checks every claim before it can air. The replay never calls a model. Six drafts with planted errors come from a rule-based drafter, as test cases for the verifier.</li>
     <li><b>Spanish</b> comes from templates and a glossary and has not been reviewed by a native speaker.</li>
     <li><b>Win probability</b> is a simple Poisson model with stated assumptions, not a prediction about real football.</li>

@@ -10,6 +10,7 @@ import { publishProgram, startProgram } from './program.js';
 import { renderKpis, setupKpis } from './kpi.js';
 import { renderStats } from './matchstats.js';
 import { loadAsk, renderAsk, renderAskAudit, wireAsk } from './ask.js';
+import { wireLive } from './ask_live.js';
 
 async function load() {
   try {
@@ -229,6 +230,7 @@ function wire() {
     $('#ask').focus({ preventScroll: true });
   });
   wireAsk();
+  wireLive();
   $('#go-ev').addEventListener('click', showLatestEvidence);
   $('#go-set').addEventListener('click', () => openDialog('#setdlg', '#set-x'));
   $('#set-x').addEventListener('click', () => $('#setdlg').close());
